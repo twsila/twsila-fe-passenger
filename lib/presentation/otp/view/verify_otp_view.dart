@@ -60,7 +60,15 @@ class _VerifyOtpViewState extends State<VerifyOtpView> {
         // navigate to main screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
           _appPreferences.setUserLoggedIn();
-          Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+          Fluttertoast.showToast(
+              msg: "Success Logged In!!!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          // Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
         });
       }
     });
