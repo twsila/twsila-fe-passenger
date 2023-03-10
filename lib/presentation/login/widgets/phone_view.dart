@@ -82,6 +82,7 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
                       FocusScope.of(context).unfocus();
                       if (_formKey.currentState != null &&
                           _formKey.currentState!.validate()) {
+                        initVerifyOtpModule();
                         _viewModel.goNext();
                       }
                     },

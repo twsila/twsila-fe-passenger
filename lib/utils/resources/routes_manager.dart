@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/utils/resources/strings_manager.dart';
+import 'package:taxi_for_you/presentation/otp/view/verify_otp_view.dart';
 import '../../app/di.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -15,6 +16,8 @@ class Routes {
   static const String registerRoute = "/register";
   static const String onBoardingRoute = "/onBoarding";
   static const String mainRoute = "/main";
+  static const String storeDetailsRoute = "/storeDetails";
+  static const String verifyOtpRoute = "/verifyOtp";
 }
 
 class RouteGenerator {
@@ -33,6 +36,9 @@ class RouteGenerator {
       case Routes.mainRoute:
         initHomeModule();
         return MaterialPageRoute(builder: (_) => const MainView());
+      case Routes.verifyOtpRoute:
+        initVerifyOtpModule();
+        return MaterialPageRoute(builder: (_) => VerifyOtpView());
       default:
         return unDefinedRoute();
     }

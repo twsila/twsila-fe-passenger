@@ -103,5 +103,12 @@
   "request_details_screen_driver_offer_price": "سعر عرض الطلب:",
   "authentication_screen_valid_number_msg": "يرجى التأكد من إدخال رقم صحيح",
   "you_device_is_not_supporting_gps": "جهازك لا يدعم GPS",
-  "enable_location": "الرجاء تمكين خدمة الموقع في جهازك"
+  "enable_location": "الرجاء تمكين خدمة الموقع في جهازك",
+  "english_label": "الانجليزية",
+  "arabic_label": "العربية",
+  "phone_verification": "تحقق من رقم الجوال",
+  "enter_otp_hint": "ادخل كود التحقق بالاسفل",
+  "send_otp_again_hint": "ارسل كود التحقق مرة اخرة",
+  "wrong_otp": "خطا فى الكود"
+
 }

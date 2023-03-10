@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taxi_for_you/data/mapper/mapper.dart';
 
 import '../../domain/model/models.dart';
 import '../../domain/repository/repository.dart';
+import '../../presentation/otp/viewmodel/verify_otp_viewmodel.dart';
 import '../data_source/local_data_source.dart';
 import '../data_source/remote_data_source.dart';
 import '../network/error_handler.dart';
@@ -14,6 +16,7 @@ class RepositoryImpl implements Repository {
   final RemoteDataSource _remoteDataSource;
   final LocalDataSource _localDataSource;
   final NetworkInfo _networkInfo;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   RepositoryImpl(
       this._remoteDataSource, this._networkInfo, this._localDataSource);
@@ -169,6 +172,61 @@ class RepositoryImpl implements Repository {
       } else {
         return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
       }
+    }
+  }
+
+  @override
+  Future<Either<Failure, FirebaseCodeSent>> generateFirebaseOtp(
+      GenerateFirebaseOTPRequest firebaseOTPRequest) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        String verificationIdG = "";
+        int resendTokenG = 0;
+        FirebaseAuthException exception = FirebaseAuthException(code: "101");
+        await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: firebaseOTPRequest.phoneNumberWithCountryCode,
+          verificationCompleted: (PhoneAuthCredential credential) {},
+          verificationFailed: (FirebaseAuthException e) {
+            exception = e;
+          },
+          codeSent: (String verificationId, int? resendToken) {
+            //here SMS With code is sent Successfully
+            verificationIdG = verificationId;
+            resendTokenG = resendToken ?? 0;
+            VerifyOTPViewModel.firebaseCodeSent.verificationId = verificationId;
+
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {},
+        );
+
+        return Right(FirebaseCodeSent(verificationIdG, resendTokenG));
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, FirebaseCodeSent>> verifyFirebaseOtp(
+      VerifyFirebaseOTPRequest firebaseOTPRequest) async {
+    // Create a PhoneAuthCredential with the code
+
+    if (await _networkInfo.isConnected) {
+      try {
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+            verificationId: VerifyOTPViewModel.firebaseCodeSent.verificationId,
+            smsCode: firebaseOTPRequest.code);
+        // Sign the user in (or link) with the credential
+        await auth.signInWithCredential(credential);
+
+        return Right(FirebaseCodeSent("", 0));
+      } catch (error) {
+        return Left(DataSource.WRON_OTP.getFailure());
+      }
+    } else {
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
 }

@@ -7,13 +7,14 @@ import '../../domain/usecase/login_usecase.dart';
 import '../common/freezed_data_classes.dart';
 import '../common/state_renderer/state_renderer.dart';
 import '../common/state_renderer/state_renderer_impl.dart';
+import '../otp/view/verify_otp_view.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
   final PageController pageController = PageController(initialPage: 0);
   final List<Widget> widgets = [
     const PhoneLoginView(),
-    Container(),
+    VerifyOtpView(),
   ];
   //Stream Input Controllers
   final StreamController _countryCodeStreamController =

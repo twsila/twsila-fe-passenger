@@ -8,6 +8,9 @@ class AppStrings {
   static const continueBtn = "continue_button";
   static const whatsYourNumber = "whats_your_number";
   static const letsGetStarted = "lets_get_started";
+  static const login = "login_button";
+  static const englishLabel = "english_label";
+  static const arabicLabel = "arabic_label";
   static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
   static const loading = "loading";
@@ -39,6 +42,9 @@ class AppStrings {
   static const String contactUs = "contact_us";
   static const String inviteYourFriends = "invite_your_friends";
   static const String logout = "logout";
+  static const String phoneVerification = "phone_verification";
+  static const String enterOtpHint = "enter_otp_hint";
+  static const String sendOtpAgainHint = "send_otp_again_hint";
 
   // error handler
   static const String badRequestError = "bad_request_error";
@@ -64,4 +70,5 @@ class AppStrings {
   static const onBoardingSubTitle2 = "on_boarding_desc2";
   static const onBoardingSubTitle3 = "on_boarding_desc3";
   static const onBoardingSubTitle4 = "on_boarding_desc4";
+  static const String wrongOtp = "wrong_otp";
 }

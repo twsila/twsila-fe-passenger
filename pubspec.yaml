@@ -56,6 +56,9 @@ dependencies:
   geolocator: ^9.0.0
   fluttertoast: ^8.0.8
   intl_phone_field: ^3.1.0
+  pinput: ^2.2.12
+  firebase_core: ^2.7.1
+  firebase_auth: ^4.2.10
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +85,7 @@ flutter:
     - assets/fonts/english/
     - assets/animation/
     - assets/images/
+    - assets/json/
 
   fonts:
     - family: almarai

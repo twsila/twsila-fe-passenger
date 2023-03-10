@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "766267696454",
+    "project_id": "tawsela-a5287",
+    "storage_bucket": "tawsela-a5287.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766267696454:android:701584afc5ac554e2ef147",
+        "android_client_info": {
+          "package_name": "com.example.taxi_for_you"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766267696454-mcnk52p1gjc47u7sv2pojf3qs46ttojs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAemSFn6fVufROQDewj0BjzuOKVw_Bxi8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766267696454-mcnk52p1gjc47u7sv2pojf3qs46ttojs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

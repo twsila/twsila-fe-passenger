@@ -56,6 +56,7 @@ enum DataSource {
   SEND_TIMEOUT,
   CACHE_ERROR,
   NO_INTERNET_CONNECTION,
+  WRON_OTP,
   DEFAULT
 }
 
@@ -97,6 +98,9 @@ extension DataSourceExtension on DataSource {
       case DataSource.NO_INTERNET_CONNECTION:
         return Failure(ResponseCode.NO_INTERNET_CONNECTION,
             ResponseMessage.NO_INTERNET_CONNECTION.tr());
+        case DataSource.WRON_OTP:
+        return Failure(ResponseCode.WRONG_OTP,
+            ResponseMessage.WRONG_OTP.tr());
       case DataSource.DEFAULT:
         return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT.tr());
     }
@@ -111,6 +115,7 @@ class ResponseCode {
   static const int FORBIDDEN = 403; //  failure, API rejected request
   static const int INTERNAL_SERVER_ERROR = 500; // failure, crash in server side
   static const int NOT_FOUND = 404; // failure, not found
+  static const int WRONG_OTP = 101; // failure, not found
 
   // local status code
   static const int CONNECT_TIMEOUT = -1;
@@ -144,6 +149,7 @@ class ResponseMessage {
   static const String SEND_TIMEOUT = AppStrings.timeoutError;
   static const String CACHE_ERROR = AppStrings.cacheError;
   static const String NO_INTERNET_CONNECTION = AppStrings.noInternetError;
+  static const String WRONG_OTP = AppStrings.wrongOtp;
   static const String DEFAULT = AppStrings.defaultError;
 }
 

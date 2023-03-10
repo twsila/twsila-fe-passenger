@@ -46,7 +46,7 @@ class StateRenderer extends StatelessWidget {
             context, [_getAnimatedImage(JsonAssets.loading)]);
       case StateRendererType.popupErrorState:
         return _getPopUpDialog(context, [
-          _getAnimatedImage(JsonAssets.error),
+          // _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
           _getRetryButton(AppStrings.ok.tr(), context)
         ]);
