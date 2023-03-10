@@ -18,6 +18,11 @@ class ImageAssets {
   static const String logoutIc = "$imagePath/logout_ic.svg";
   static const String rightArrowSettingsIc =
       "$imagePath/right_arrow_settings_ic.svg";
+  static const String line = "$imagePath/line.png";
+  static const String lineGrey = "$imagePath/line_grey.png";
+  static const String backArrow = "$imagePath/back_arrow.png";
+  static const String languageIc = "$imagePath/language_ic.png";
+  static const String verifyOtpGraphic = "$imagePath/verify_otp_grp.png";
 }
 
 class JsonAssets {

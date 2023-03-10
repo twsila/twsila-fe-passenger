@@ -33,7 +33,8 @@ class _SplashViewState extends State<SplashView> {
           else
             {
               // Navigate to Login Screen
-              Navigator.pushReplacementNamed(context, Routes.loginRoute)
+              // Navigator.pushReplacementNamed(context, Routes.loginRoute)
+              Navigator.pushReplacementNamed(context, Routes.verifyOtpRoute)
             }
         });
   }

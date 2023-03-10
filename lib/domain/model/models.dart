@@ -41,6 +41,14 @@ class Authentication {
   Authentication(this.customer, this.contacts);
 }
 
+class FirebaseCodeSent{
+  String verificationId;
+  int? resendToken;
+
+  FirebaseCodeSent(this.verificationId, this.resendToken);
+}
+
+
 class Service {
   int id;
   String title;

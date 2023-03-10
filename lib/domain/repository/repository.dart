@@ -15,4 +15,11 @@ abstract class Repository {
   Future<Either<Failure, HomeObject>> getHomeData();
 
   Future<Either<Failure, StoreDetails>> getStoreDetails();
+
+
+  Future<Either<Failure, FirebaseCodeSent>> generateFirebaseOtp(GenerateFirebaseOTPRequest firebaseOTPRequest);
+
+  Future<Either<Failure, FirebaseCodeSent>> verifyFirebaseOtp(VerifyFirebaseOTPRequest verifyFirebaseOTPRequest);
+
+
 }

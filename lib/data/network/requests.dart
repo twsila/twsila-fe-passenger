@@ -16,3 +16,17 @@ class RegisterRequest {
   RegisterRequest(this.userName, this.countryMobileCode, this.mobileNumber,
       this.email, this.password, this.profilePicture);
 }
+
+class GenerateFirebaseOTPRequest {
+  String phoneNumberWithCountryCode;
+
+  GenerateFirebaseOTPRequest(this.phoneNumberWithCountryCode);
+}
+
+
+class VerifyFirebaseOTPRequest {
+  String verificationId;
+  String code;
+
+  VerifyFirebaseOTPRequest(this.verificationId,this.code);
+}

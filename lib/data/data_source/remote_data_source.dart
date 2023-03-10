@@ -12,6 +12,8 @@ abstract class RemoteDataSource {
   Future<HomeResponse> getHomeData();
 
   Future<StoreDetailsResponse> getStoreDetails();
+
+
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
