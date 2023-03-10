@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:taxi_for_you/utils/ext/screen_size_ext.dart';
+import 'package:taxi_for_you/utils/resources/styles_manager.dart';
 
 import '../../../app/di.dart';
 import '../../../utils/resources/assets_manager.dart';
@@ -61,7 +62,15 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
                   IntlPhoneField(
                     decoration: InputDecoration(
                       labelText: AppStrings.phoneNumberHint.tr(),
+                      labelStyle: getRegularStyle(
+                          color: ColorManager.lightGrey, fontSize: AppSize.s14),
                       border: OutlineInputBorder(
+                        borderSide: BorderSide(color: ColorManager.lightGrey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: ColorManager.lightGrey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: ColorManager.lightGrey),
                       ),
                     ),

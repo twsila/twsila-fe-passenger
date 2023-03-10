@@ -133,8 +133,7 @@ class _VerifyOtpViewState extends State<VerifyOtpView> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       AppStrings.phoneVerification.tr(),
-                      style: getRegularStyle(
-                          color: ColorManager.primary, fontSize: FontSize.s30),
+                      style: Theme.of(context).textTheme.titleLarge,
                     )),
                 const Align(
                   alignment: Alignment.centerRight,
