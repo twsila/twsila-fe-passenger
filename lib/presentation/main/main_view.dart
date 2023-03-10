@@ -5,9 +5,9 @@ import 'package:taxi_for_you/presentation/main/pages/notifications/notifications
 import 'package:taxi_for_you/presentation/main/pages/search/search_page.dart';
 import 'package:taxi_for_you/presentation/main/pages/settings/settings_page.dart';
 
-import '../resources/color_manager.dart';
-import '../resources/strings_manager.dart';
-import '../resources/values_manager.dart';
+import '../../utils/resources/color_manager.dart';
+import '../../utils/resources/strings_manager.dart';
+import '../../utils/resources/values_manager.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);

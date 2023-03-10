@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:taxi_for_you/presentation/common/state_renderer/state_renderer.dart';
 
 import '../../../app/constants.dart';
-import '../../resources/strings_manager.dart';
+import '../../../utils/resources/strings_manager.dart';
 
 abstract class FlowState {
   StateRendererType getStateRendererType();
@@ -158,7 +158,7 @@ extension FlowStateExtension on FlowState {
   showPopup(
       BuildContext context, StateRendererType stateRendererType, String message,
       {String title = Constants.empty}) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) => showDialog(
+    WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
         context: context,
         builder: (BuildContext context) => StateRenderer(
             stateRendererType: stateRendererType,

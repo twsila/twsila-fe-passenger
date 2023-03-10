@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:country_picker/country_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -11,11 +10,11 @@ import '../../app/app_prefs.dart';
 import '../../app/constants.dart';
 import '../../app/di.dart';
 import '../common/state_renderer/state_renderer_impl.dart';
-import '../resources/assets_manager.dart';
-import '../resources/color_manager.dart';
-import '../resources/routes_manager.dart';
-import '../resources/strings_manager.dart';
-import '../resources/values_manager.dart';
+import '../../utils/resources/assets_manager.dart';
+import '../../utils/resources/color_manager.dart';
+import '../../utils/resources/routes_manager.dart';
+import '../../utils/resources/strings_manager.dart';
+import '../../utils/resources/values_manager.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -58,7 +57,7 @@ class _RegisterViewState extends State<RegisterView> {
         .listen((isLoggedIn) {
       if (isLoggedIn) {
         // navigate to main screen
-        SchedulerBinding.instance?.addPostFrameCallback((_) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
           _appPreferences.setUserLoggedIn();
           Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
         });
@@ -103,7 +102,7 @@ class _RegisterViewState extends State<RegisterView> {
             child: Column(
               children: [
                 const Center(
-                    child: Image(image: AssetImage(ImageAssets.splashLogo))),
+                    child: Image(image: AssetImage(ImageAssets.logoImg))),
                 const SizedBox(
                   height: AppSize.s28,
                 ),
@@ -136,43 +135,43 @@ class _RegisterViewState extends State<RegisterView> {
                           flex: 1,
                           child: ElevatedButton(
                             onPressed: () {
-                              showCountryPicker(
-                                context: context,
-                                //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
-                                exclude: <String>['KN', 'MF'],
-                                favorite: <String>['SE'],
-                                //Optional. Shows phone code before the country name.
-                                showPhoneCode: true,
-                                onSelect: (Country country) {
-                                  _viewModel
-                                      .setCountryCode(country.countryCode);
-                                },
-                                // Optional. Sets the theme for the country list picker.
-                                countryListTheme: CountryListThemeData(
-                                  // Optional. Sets the border radius for the bottomsheet.
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(40.0),
-                                    topRight: Radius.circular(40.0),
-                                  ),
-                                  // Optional. Styles the search field.
-                                  inputDecoration: InputDecoration(
-                                    labelText: 'Search',
-                                    hintText: 'Start typing to search',
-                                    prefixIcon: const Icon(Icons.search),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: const Color(0xFF8C98A8)
-                                            .withOpacity(0.2),
-                                      ),
-                                    ),
-                                  ),
-                                  // Optional. Styles the text in the search field
-                                  searchTextStyle: const TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              );
+                              // showCountryPicker(
+                              //   context: context,
+                              //   //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
+                              //   exclude: <String>['KN', 'MF'],
+                              //   favorite: <String>['SE'],
+                              //   //Optional. Shows phone code before the country name.
+                              //   showPhoneCode: true,
+                              //   onSelect: (Country country) {
+                              //     _viewModel
+                              //         .setCountryCode(country.countryCode);
+                              //   },
+                              //   // Optional. Sets the theme for the country list picker.
+                              //   countryListTheme: CountryListThemeData(
+                              //     // Optional. Sets the border radius for the bottomsheet.
+                              //     borderRadius: const BorderRadius.only(
+                              //       topLeft: Radius.circular(40.0),
+                              //       topRight: Radius.circular(40.0),
+                              //     ),
+                              //     // Optional. Styles the search field.
+                              //     inputDecoration: InputDecoration(
+                              //       labelText: 'Search',
+                              //       hintText: 'Start typing to search',
+                              //       prefixIcon: const Icon(Icons.search),
+                              //       border: OutlineInputBorder(
+                              //         borderSide: BorderSide(
+                              //           color: const Color(0xFF8C98A8)
+                              //               .withOpacity(0.2),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     // Optional. Styles the text in the search field
+                              //     searchTextStyle: const TextStyle(
+                              //       color: Colors.blue,
+                              //       fontSize: 18,
+                              //     ),
+                              //   ),
+                              // );
                             },
                             child: const Text('Show country picker'),
                           ),
@@ -200,8 +199,10 @@ class _RegisterViewState extends State<RegisterView> {
                                     keyboardType: TextInputType.phone,
                                     controller: _mobileNumberEditingController,
                                     decoration: InputDecoration(
-                                        hintText: AppStrings.mobileNumber.tr(),
-                                        labelText: AppStrings.mobileNumber.tr(),
+                                        hintText:
+                                            AppStrings.phoneNumberHint.tr(),
+                                        labelText:
+                                            AppStrings.phoneNumberHint.tr(),
                                         errorText: snapshot.data),
                                   );
                                 }))

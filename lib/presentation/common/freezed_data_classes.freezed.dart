@@ -18,10 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$LoginObjectTearOff {
   const _$LoginObjectTearOff();
 
-  _LoginObject call(String userName, String password) {
+  _LoginObject call(String countryCode, String phoneNumber) {
     return _LoginObject(
-      userName,
-      password,
+      countryCode,
+      phoneNumber,
     );
   }
 }
@@ -31,8 +31,8 @@ const $LoginObject = _$LoginObjectTearOff();
 
 /// @nodoc
 mixin _$LoginObject {
-  String get userName => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
+  String get countryCode => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginObjectCopyWith<LoginObject> get copyWith =>
@@ -44,7 +44,7 @@ abstract class $LoginObjectCopyWith<$Res> {
   factory $LoginObjectCopyWith(
           LoginObject value, $Res Function(LoginObject) then) =
       _$LoginObjectCopyWithImpl<$Res>;
-  $Res call({String userName, String password});
+  $Res call({String countryCode, String phoneNumber});
 }
 
 /// @nodoc
@@ -57,17 +57,17 @@ class _$LoginObjectCopyWithImpl<$Res> implements $LoginObjectCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? userName = freezed,
-    Object? password = freezed,
+    Object? countryCode = freezed,
+    Object? phoneNumber = freezed,
   }) {
     return _then(_value.copyWith(
-      userName: userName == freezed
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
+      countryCode: countryCode == freezed
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
               as String,
-      password: password == freezed
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
+      phoneNumber: phoneNumber == freezed
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -80,7 +80,7 @@ abstract class _$LoginObjectCopyWith<$Res>
           _LoginObject value, $Res Function(_LoginObject) then) =
       __$LoginObjectCopyWithImpl<$Res>;
   @override
-  $Res call({String userName, String password});
+  $Res call({String countryCode, String phoneNumber});
 }
 
 /// @nodoc
@@ -95,17 +95,17 @@ class __$LoginObjectCopyWithImpl<$Res> extends _$LoginObjectCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? userName = freezed,
-    Object? password = freezed,
+    Object? countryCode = freezed,
+    Object? phoneNumber = freezed,
   }) {
     return _then(_LoginObject(
-      userName == freezed
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
+      countryCode == freezed
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
               as String,
-      password == freezed
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
+      phoneNumber == freezed
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -114,16 +114,16 @@ class __$LoginObjectCopyWithImpl<$Res> extends _$LoginObjectCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoginObject implements _LoginObject {
-  _$_LoginObject(this.userName, this.password);
+  _$_LoginObject(this.countryCode, this.phoneNumber);
 
   @override
-  final String userName;
+  final String countryCode;
   @override
-  final String password;
+  final String phoneNumber;
 
   @override
   String toString() {
-    return 'LoginObject(userName: $userName, password: $password)';
+    return 'LoginObject(countryCode: $countryCode, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -131,15 +131,17 @@ class _$_LoginObject implements _LoginObject {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LoginObject &&
-            const DeepCollectionEquality().equals(other.userName, userName) &&
-            const DeepCollectionEquality().equals(other.password, password));
+            const DeepCollectionEquality()
+                .equals(other.countryCode, countryCode) &&
+            const DeepCollectionEquality()
+                .equals(other.phoneNumber, phoneNumber));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(userName),
-      const DeepCollectionEquality().hash(password));
+      const DeepCollectionEquality().hash(countryCode),
+      const DeepCollectionEquality().hash(phoneNumber));
 
   @JsonKey(ignore: true)
   @override
@@ -148,12 +150,12 @@ class _$_LoginObject implements _LoginObject {
 }
 
 abstract class _LoginObject implements LoginObject {
-  factory _LoginObject(String userName, String password) = _$_LoginObject;
+  factory _LoginObject(String countryCode, String phoneNumber) = _$_LoginObject;
 
   @override
-  String get userName;
+  String get countryCode;
   @override
-  String get password;
+  String get phoneNumber;
   @override
   @JsonKey(ignore: true)
   _$LoginObjectCopyWith<_LoginObject> get copyWith =>

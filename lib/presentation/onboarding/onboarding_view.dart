@@ -7,12 +7,12 @@ import 'package:flutter_svg/svg.dart';
 import '../../app/app_prefs.dart';
 import '../../app/di.dart';
 import '../../domain/model/models.dart';
-import '../resources/assets_manager.dart';
-import '../resources/color_manager.dart';
-import '../resources/constants_manager.dart';
-import '../resources/routes_manager.dart';
-import '../resources/strings_manager.dart';
-import '../resources/values_manager.dart';
+import '../../utils/resources/assets_manager.dart';
+import '../../utils/resources/color_manager.dart';
+import '../../utils/resources/constants_manager.dart';
+import '../../utils/resources/routes_manager.dart';
+import '../../utils/resources/strings_manager.dart';
+import '../../utils/resources/values_manager.dart';
 import 'onboarding_viewmodel.dart';
 
 class OnBoardingView extends StatefulWidget {

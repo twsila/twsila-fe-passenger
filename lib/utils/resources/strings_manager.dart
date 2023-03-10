@@ -1,36 +1,28 @@
 class AppStrings {
   static const noRouteFound = "noRouteFound";
-  static const onBoardingTitle1 = "on_boarding_title1";
-  static const onBoardingTitle2 = "on_boarding_title2";
-  static const onBoardingTitle3 = "on_boarding_title3";
-  static const onBoardingTitle4 = "on_boarding_title4";
-
-  static const onBoardingSubTitle1 = "on_boarding_desc1";
-  static const onBoardingSubTitle2 = "on_boarding_desc2";
-  static const onBoardingSubTitle3 = "on_boarding_desc3";
-  static const onBoardingSubTitle4 = "on_boarding_desc4";
   static const skip = "skip";
   static const username = "username_hint";
   static const password = "password_hint";
   static const usernameError = "username_error";
   static const passwordError = "password_error";
-  static const login = "login_button";
+  static const continueBtn = "continue_button";
+  static const whatsYourNumber = "whats_your_number";
+  static const letsGetStarted = "lets_get_started";
   static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
   static const loading = "loading";
   static const retryAgain = "retry_again";
   static const ok = "ok";
-  static const String emailHint = 'email_hint';
-  static const String invalidEmail = "email_error";
-  static const String resetPassword = "reset_password";
-  static const String success = "success";
-  static const String userNameInvalid = "username_hint_message";
-  static const String mobileNumberInvalid =
-      "mobile_number_hint_message";
-  static const String passwordInvalid = "password_hint_message";
-  static const String alreadyHaveAccount = "already_have_account";
+  static const emailHint = 'email_hint';
+  static const invalidEmail = "email_error";
+  static const resetPassword = "reset_password";
+  static const success = "success";
+  static const userNameInvalid = "username_hint_message";
+  static const mobileNumberInvalid = "mobile_number_hint_message";
+  static const passwordInvalid = "password_hint_message";
+  static const alreadyHaveAccount = "already_have_account";
   static const register = "register";
-  static const mobileNumber = "mobile_number_hint";
+  static const phoneNumberHint = "phone_number_hint";
   static const profilePicture = "upload_profile_picture";
   static const photoGallery = "photo_from_galley";
   static const photoCamera = "photo_from_camera";
@@ -61,4 +53,15 @@ class AppStrings {
   static const String defaultError = "default_error";
   static const String cacheError = "cache_error";
   static const String noInternetError = "no_internet_error";
+
+  //onboarding strings
+  static const onBoardingTitle1 = "on_boarding_title1";
+  static const onBoardingTitle2 = "on_boarding_title2";
+  static const onBoardingTitle3 = "on_boarding_title3";
+  static const onBoardingTitle4 = "on_boarding_title4";
+
+  static const onBoardingSubTitle1 = "on_boarding_desc1";
+  static const onBoardingSubTitle2 = "on_boarding_desc2";
+  static const onBoardingSubTitle3 = "on_boarding_desc3";
+  static const onBoardingSubTitle4 = "on_boarding_desc4";
 }

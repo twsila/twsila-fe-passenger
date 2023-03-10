@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import '../../../../../app/di.dart';
 import '../../../../../domain/model/models.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
-import '../../../../resources/color_manager.dart';
-import '../../../../resources/routes_manager.dart';
-import '../../../../resources/strings_manager.dart';
-import '../../../../resources/values_manager.dart';
+import '../../../../../utils/resources/color_manager.dart';
+import '../../../../../utils/resources/routes_manager.dart';
+import '../../../../../utils/resources/strings_manager.dart';
+import '../../../../../utils/resources/values_manager.dart';
 import '../viewmodel/home_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
@@ -169,7 +169,7 @@ class _HomePageState extends State<HomePage> {
           direction: Axis.vertical,
           children: [
             GridView.count(
-              crossAxisCount: AppSize.s2,
+              crossAxisCount: int.parse(AppSize.s2.toString()),
               crossAxisSpacing: AppSize.s8,
               mainAxisSpacing: AppSize.s8,
               physics: const ScrollPhysics(),
@@ -178,7 +178,6 @@ class _HomePageState extends State<HomePage> {
                 return InkWell(
                   onTap: () {
                     // navigate to store details screen
-                    Navigator.of(context).pushNamed(Routes.storeDetailsRoute);
                   },
                   child: Card(
                     elevation: AppSize.s4,

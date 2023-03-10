@@ -6,11 +6,11 @@ import 'dart:math' as math;
 import '../../../../app/app_prefs.dart';
 import '../../../../app/di.dart';
 import '../../../../data/data_source/local_data_source.dart';
-import '../../../resources/assets_manager.dart';
-import '../../../resources/langauge_manager.dart';
-import '../../../resources/routes_manager.dart';
-import '../../../resources/strings_manager.dart';
-import '../../../resources/values_manager.dart';
+import '../../../../utils/resources/assets_manager.dart';
+import '../../../../utils/resources/langauge_manager.dart';
+import '../../../../utils/resources/routes_manager.dart';
+import '../../../../utils/resources/strings_manager.dart';
+import '../../../../utils/resources/values_manager.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);

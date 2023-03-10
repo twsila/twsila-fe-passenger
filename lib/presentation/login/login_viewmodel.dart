@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
+import 'package:taxi_for_you/presentation/login/widgets/phone_view.dart';
+
 import '../base/baseviewmodel.dart';
 import '../../domain/usecase/login_usecase.dart';
 import '../common/freezed_data_classes.dart';
@@ -7,14 +10,19 @@ import '../common/state_renderer/state_renderer_impl.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
-  final StreamController _userNameStreamController =
+  final PageController pageController = PageController(initialPage: 0);
+  final List<Widget> widgets = [
+    const PhoneLoginView(),
+    Container(),
+  ];
+  //Stream Input Controllers
+  final StreamController _countryCodeStreamController =
       StreamController<String>.broadcast();
-  final StreamController _passwordStreamController =
+  final StreamController _phoneNumberStreamController =
       StreamController<String>.broadcast();
+  final StreamController _pageStreamController = StreamController.broadcast();
 
-  final StreamController _areAllInputsValidStreamController =
-      StreamController<void>.broadcast();
-
+  //Stream Success Controller
   StreamController isUserLoggedInSuccessfullyStreamController =
       StreamController<bool>();
 
@@ -27,9 +35,10 @@ class LoginViewModel extends BaseViewModel
   @override
   void dispose() {
     super.dispose();
-    _userNameStreamController.close();
-    _passwordStreamController.close();
-    _areAllInputsValidStreamController.close();
+    pageController.dispose();
+    _pageStreamController.close();
+    _countryCodeStreamController.close();
+    _phoneNumberStreamController.close();
     isUserLoggedInSuccessfullyStreamController.close();
   }
 
@@ -40,34 +49,29 @@ class LoginViewModel extends BaseViewModel
   }
 
   @override
-  Sink get inputPassword => _passwordStreamController.sink;
+  Sink get inputPhoneNumber => _phoneNumberStreamController.sink;
 
   @override
-  Sink get inputUserName => _userNameStreamController.sink;
+  Sink get inputCountryCode => _countryCodeStreamController.sink;
 
   @override
-  Sink get inputAreAllInputsValid => _areAllInputsValidStreamController.sink;
-
-  @override
-  setPassword(String password) {
-    inputPassword.add(password);
-    loginObject = loginObject.copyWith(password: password);
-    inputAreAllInputsValid.add(null);
+  setPhoneNumber(String phoneNumber) {
+    inputPhoneNumber.add(phoneNumber);
+    loginObject = loginObject.copyWith(phoneNumber: phoneNumber);
   }
 
   @override
-  setUserName(String userName) {
-    inputUserName.add(userName);
-    loginObject = loginObject.copyWith(userName: userName);
-    inputAreAllInputsValid.add(null);
+  setCountryCode(String countryCode) {
+    inputCountryCode.add(countryCode);
+    loginObject = loginObject.copyWith(countryCode: countryCode);
   }
 
   @override
   login() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.popupLoadingState));
-    (await _loginUseCase.execute(
-            LoginUseCaseInput(loginObject.userName, loginObject.password)))
+    (await _loginUseCase.execute(LoginUseCaseInput(
+            loginObject.countryCode, loginObject.phoneNumber)))
         .fold(
             (failure) => {
                   // left -> failure
@@ -82,52 +86,45 @@ class LoginViewModel extends BaseViewModel
     });
   }
 
-  // outputs
-  @override
-  Stream<bool> get outIsPasswordValid => _passwordStreamController.stream
-      .map((password) => _isPasswordValid(password));
-
-  @override
-  Stream<bool> get outIsUserNameValid => _userNameStreamController.stream
-      .map((userName) => _isUserNameValid(userName));
-
-  @override
-  Stream<bool> get outAreAllInputsValid =>
-      _areAllInputsValidStreamController.stream
-          .map((_) => _areAllInputsValid());
-
-  bool _isPasswordValid(String password) {
-    return password.isNotEmpty;
+  void goNext() {
+    pageController.animateToPage(
+      1,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.bounceInOut,
+    );
+    inputPageController.add(1);
   }
 
-  bool _isUserNameValid(String userName) {
-    return userName.isNotEmpty;
+  void goPrevious() {
+    pageController.animateToPage(
+      0,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.bounceInOut,
+    );
+    inputPageController.add(0);
   }
 
-  bool _areAllInputsValid() {
-    return _isPasswordValid(loginObject.password) &&
-        _isUserNameValid(loginObject.userName);
-  }
+  @override
+  Sink get inputPageController => _pageStreamController.sink;
+
+  @override
+  Stream<int> get outputPageController =>
+      _pageStreamController.stream.map((sliderViewObject) => sliderViewObject);
 }
 
 abstract class LoginViewModelInputs {
-  setUserName(String userName);
-
-  setPassword(String password);
-
+  //Login Methods
+  setCountryCode(String countryCode);
+  setPhoneNumber(String phoneNumber);
   login();
 
-  Sink get inputUserName;
-
-  Sink get inputPassword;
-
-  Sink get inputAreAllInputsValid;
+  //Login Inputs
+  Sink get inputCountryCode;
+  Sink get inputPhoneNumber;
+  Sink get inputPageController;
 }
 
 abstract class LoginViewModelOutputs {
-  Stream<bool> get outIsUserNameValid;
-
-  Stream<bool> get outIsPasswordValid;
-
-  Stream<bool> get outAreAllInputsValid;
+  // stream controller output
+  Stream<int> get outputPageController;
 }

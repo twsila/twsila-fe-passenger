@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/presentation/resources/styles_manager.dart';
-import 'package:taxi_for_you/presentation/resources/values_manager.dart';
+import 'package:taxi_for_you/utils/resources/styles_manager.dart';
+import 'package:taxi_for_you/utils/resources/values_manager.dart';
 
 import 'color_manager.dart';
 import 'font_manager.dart';
@@ -50,14 +50,17 @@ ThemeData getApplicationTheme() {
             color: ColorManager.darkGrey, fontSize: FontSize.s18),
         headlineMedium: getRegularStyle(
             color: ColorManager.darkGrey, fontSize: FontSize.s14),
+        titleLarge:
+            getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s30),
         titleMedium:
             getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s16),
         titleSmall:
             getRegularStyle(color: ColorManager.white, fontSize: FontSize.s16),
         bodyLarge: getRegularStyle(color: ColorManager.grey1),
-        bodySmall: getRegularStyle(color: ColorManager.grey),
+        bodySmall:
+            getRegularStyle(color: ColorManager.grey, fontSize: FontSize.s18),
         bodyMedium:
-            getRegularStyle(color: ColorManager.grey2, fontSize: FontSize.s12),
+            getBoldStyle(color: ColorManager.lightGrey, fontSize: FontSize.s12),
         labelSmall:
             getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s12)),
 
