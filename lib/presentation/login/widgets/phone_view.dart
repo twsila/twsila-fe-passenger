@@ -74,9 +74,12 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
                         borderSide: BorderSide(color: ColorManager.lightGrey),
                       ),
                     ),
-                    initialCountryCode: 'SA',
+                    initialCountryCode: _viewModel.initialCountry,
                     countries: const ['SA', 'EG'],
                     initialValue: _viewModel.loginObject.phoneNumber,
+                    onCountryChanged: (country) {
+                      _viewModel.initialCountry = country.flag;
+                    },
                     onChanged: (value) {
                       _viewModel.setCountryCode(value.countryCode);
                       _viewModel.setPhoneNumber(value.number);

@@ -11,6 +11,7 @@ import '../otp/view/verify_otp_view.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
+  String initialCountry = 'SA';
   final PageController pageController = PageController(initialPage: 0);
   final List<Widget> widgets = [
     const PhoneLoginView(),
