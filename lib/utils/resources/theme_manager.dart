@@ -44,8 +44,10 @@ ThemeData getApplicationTheme() {
                 borderRadius: BorderRadius.circular(AppSize.s12)))),
 
     textTheme: TextTheme(
-        displayLarge: getSemiBoldStyle(
-            color: ColorManager.darkGrey, fontSize: FontSize.s22),
+        displayLarge:
+            getBoldStyle(color: ColorManager.black, fontSize: FontSize.s22),
+        displaySmall: getMediumStyle(
+            color: ColorManager.lightGrey, fontSize: FontSize.s14),
         headlineLarge: getSemiBoldStyle(
             color: ColorManager.darkGrey, fontSize: FontSize.s18),
         headlineMedium: getRegularStyle(

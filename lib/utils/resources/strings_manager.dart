@@ -8,6 +8,10 @@ class AppStrings {
   static const continueBtn = "continue_button";
   static const whatsYourNumber = "whats_your_number";
   static const letsGetStarted = "lets_get_started";
+  static const goodAfternoon = "good_afternoon";
+  static const goodmorning = "good_morning";
+  static const goodevening = "good_evening";
+  static const thinkingOfTravel = "thinking_of_travel";
   static const login = "login_button";
   static const englishLabel = "english_label";
   static const arabicLabel = "arabic_label";
@@ -16,6 +20,8 @@ class AppStrings {
   static const loading = "loading";
   static const retryAgain = "retry_again";
   static const ok = "ok";
+  static const people = "people";
+  static const furniture = "furniture";
   static const emailHint = 'email_hint';
   static const invalidEmail = "email_error";
   static const resetPassword = "reset_password";

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/presentation/categories/categories_view.dart';
 import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/presentation/otp/view/verify_otp_view.dart';
 import '../../app/di.dart';
@@ -18,6 +19,7 @@ class Routes {
   static const String mainRoute = "/main";
   static const String storeDetailsRoute = "/storeDetails";
   static const String verifyOtpRoute = "/verifyOtp";
+  static const String categoriesRoute = "/categories";
 }
 
 class RouteGenerator {
@@ -25,6 +27,8 @@ class RouteGenerator {
     switch (settings.name) {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashView());
+      case Routes.categoriesRoute:
+        return MaterialPageRoute(builder: (_) => const CategoriesView());
       case Routes.loginRoute:
         initLoginModule();
         return MaterialPageRoute(builder: (_) => const LoginView());
