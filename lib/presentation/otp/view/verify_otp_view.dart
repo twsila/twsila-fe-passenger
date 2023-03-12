@@ -15,6 +15,7 @@ import '../../../utils/resources/strings_manager.dart';
 import '../../../utils/resources/styles_manager.dart';
 import '../../../utils/resources/values_manager.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
+import '../../common/widgets/custom_back_button.dart';
 import '../../common/widgets/custom_verification_code_widget.dart';
 
 class VerifyOtpView extends StatefulWidget {
@@ -103,23 +104,13 @@ class _VerifyOtpViewState extends State<VerifyOtpView> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Align(
-                    alignment: Alignment.centerLeft,
-                    child: InkWell(
-                      onTap: () {
-                        _loginViewModel.goPrevious();
-                      },
-                      child: Container(
-                          width: 30,
-                          height: 30,
-                          decoration: const BoxDecoration(
-                              color: Colors.black,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
-                          child: Icon(
-                            Icons.keyboard_arrow_left,
-                            color: ColorManager.white,
-                          )),
-                    )),
+                  alignment: Alignment.centerLeft,
+                  child: CustomBackButton(
+                    onPressed: () {
+                      _loginViewModel.goPrevious();
+                    },
+                  ),
+                ),
                 const SizedBox(height: AppSize.s8),
                 Align(
                     alignment: Alignment.centerLeft,

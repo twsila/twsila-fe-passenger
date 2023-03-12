@@ -12,6 +12,11 @@ class AppStrings {
   static const goodmorning = "good_morning";
   static const goodevening = "good_evening";
   static const thinkingOfTravel = "thinking_of_travel";
+  static const whichGoods = "which_goods";
+  static const goods = "goods";
+  static const freezers = "freezers";
+  static const surfaces = "surfaces";
+  static const cisterns = "cisterns";
   static const login = "login_button";
   static const englishLabel = "english_label";
   static const arabicLabel = "arabic_label";

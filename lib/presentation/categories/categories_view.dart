@@ -6,6 +6,7 @@ import 'package:taxi_for_you/presentation/common/widgets/custom_text_button.dart
 import 'package:taxi_for_you/utils/ext/screen_size_ext.dart';
 import 'package:taxi_for_you/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/utils/resources/font_manager.dart';
+import 'package:taxi_for_you/utils/resources/routes_manager.dart';
 import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/utils/resources/values_manager.dart';
 
@@ -72,8 +73,10 @@ class CategoriesView extends StatelessWidget {
                       ),
                       Flexible(
                         child: CustomSquareButton(
-                            onPressed: () {},
-                            text: AppStrings.furniture.tr(),
+                            onPressed: () {
+                              Navigator.pushNamed(context, Routes.goodsRoute);
+                            },
+                            text: AppStrings.goods.tr(),
                             iconData: Icons.chair),
                       )
                     ],
