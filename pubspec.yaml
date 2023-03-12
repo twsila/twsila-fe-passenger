@@ -50,6 +50,7 @@ dependencies:
   carousel_slider: ^4.0.0
   easy_localization: ^3.0.1
   flutter_phoenix: ^1.0.0
+  flutter_geocoder: ^0.2.2-nullsafety
   google_maps_flutter: ^2.2.3
   google_places_flutter: ^2.0.5
   flutter_polyline_points: ^1.0.0
@@ -59,6 +60,9 @@ dependencies:
   pinput: ^2.2.12
   firebase_core: ^2.7.1
   firebase_auth: ^4.2.10
+  flutter_bloc: ^8.1.2
+  provider: ^6.0.5
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

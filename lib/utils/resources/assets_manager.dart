@@ -23,6 +23,7 @@ class ImageAssets {
   static const String line = "$imagePath/line.png";
   static const String lineGrey = "$imagePath/line_grey.png";
   static const String backArrow = "$imagePath/back_arrow.png";
+  static const String checkIcon = "$imagePath/check.png";
   static const String languageIc = "$imagePath/language_ic.png";
   static const String verifyOtpGraphic = "$imagePath/verify_otp_grp.png";
 }

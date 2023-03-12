@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
+import '../presentation/google_maps/bloc/maps_bloc.dart';
+import '../presentation/google_maps/helpers/map_provider.dart';
+import '../presentation/google_maps/model/maps_repo.dart';
 import '../utils/resources/routes_manager.dart';
 import '../utils/resources/theme_manager.dart';
 import 'app_prefs.dart';
@@ -32,14 +37,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: RouteGenerator.getRoute,
-      initialRoute: Routes.splashRoute,
-      theme: getApplicationTheme(),
+    return MultiProvider(
+      providers: [
+        BlocProvider.value(value: MapsBloc(MapsRepo())),
+        ChangeNotifierProvider(create: (_) => MapProvider()),
+      ],
+      child: MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.splashRoute,
+        theme: getApplicationTheme(),
+      ),
     );
   }
 }
