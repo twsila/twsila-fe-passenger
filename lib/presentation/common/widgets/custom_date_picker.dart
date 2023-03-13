@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taxi_for_you/utils/resources/color_manager.dart';
 
-import '../../google_maps/helpers/set_result.dart';
-
 class CustomDatePickerWidget extends StatefulWidget {
-  const CustomDatePickerWidget({Key? key}) : super(key: key);
+  final Function(String date) onSelectDate;
+  const CustomDatePickerWidget({Key? key, required this.onSelectDate})
+      : super(key: key);
 
   @override
   State<CustomDatePickerWidget> createState() => _CustomDatePickerWidgetState();
@@ -13,7 +13,6 @@ class CustomDatePickerWidget extends StatefulWidget {
 
 class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
   final ValueNotifier<DateTime?> dateSub = ValueNotifier(null);
-  final results = Results();
 
   Widget buildDateTimePicker(String data) {
     return Row(
@@ -44,7 +43,8 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
   }
 
   String convertDate(DateTime dateTime) {
-    results.date = DateFormat.yMMMd().format(dateTime);
+    String dateFormatted = DateFormat.yMMMd().format(dateTime);
+    widget.onSelectDate(dateFormatted);
     return DateFormat.yMMMd().format(dateTime);
   }
 

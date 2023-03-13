@@ -1,7 +1,6 @@
 {
   "app_name": "Twsila",
-  "app_title_ar": "توصيلة",
-  "app_title_en": "Twsila",
+  "app_title": "Twsila",
   "welcome_message": "Welcome to Twsila",
   "phone_number_label": "Phone",
   "phone_number_hint": "Enter your number",

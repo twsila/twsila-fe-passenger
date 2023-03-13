@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import '../../google_maps/helpers/set_result.dart';
-import '../../google_maps/view/google_maps_widget.dart';
+import '../../../../domain/model/models.dart';
 
 class ResultsWidget extends StatelessWidget {
-  final results = Results();
-  ResultsWidget({Key? key}) : super(key: key);
+  final FurnitureModel furnitureModel;
+
+  ResultsWidget({Key? key, required this.furnitureModel}) : super(key: key);
 
   Widget infoLargeWidget(BuildContext context, String info, String text) {
     return Container(
@@ -84,13 +84,14 @@ class ResultsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (results.date != null)
-          infoLargeWidget(context, 'جدولة المواعيد', results.date!),
-        if (results.sourceLocation != null)
-          infoLargeWidget(context, 'نقطة الالتقاط', results.sourceLocation!),
-        if (results.destinationLocation != null)
+        if (furnitureModel.date != null)
+          infoLargeWidget(context, 'جدولة المواعيد', furnitureModel.date!),
+        if (furnitureModel.sourceLocation != null)
           infoLargeWidget(
-              context, 'نقطة التوصيل', results.destinationLocation!),
+              context, 'نقطة الالتقاط', furnitureModel.sourceLocation!),
+        if (furnitureModel.destinationLocation != null)
+          infoLargeWidget(
+              context, 'نقطة التوصيل', furnitureModel.destinationLocation!),
         // SizedBox(height: 200, child: GoogleMapsWidget()),
         Column(
           children: [
@@ -104,25 +105,26 @@ class ResultsWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       infoBooleanWidget(
-                          context, 'فك و تركيب', results.assembleBool),
-                      infoBooleanWidget(context, 'رافعة', results.craneBool),
+                          context, 'فك و تركيب', furnitureModel.assembleBool),
+                      infoBooleanWidget(
+                          context, 'رافعة', furnitureModel.craneBool),
                       infoWidget(
                           context,
                           'عدد الثلاجات',
-                          results.fridgeNumber != null
-                              ? results.fridgeNumber.toString()
+                          furnitureModel.fridgeNumber != null
+                              ? furnitureModel.fridgeNumber.toString()
                               : 'لا يوجد'),
                       infoWidget(
                           context,
                           'عدد السجاد',
-                          results.carpetsNumber != null
-                              ? results.carpetsNumber.toString()
+                          furnitureModel.carpetsNumber != null
+                              ? furnitureModel.carpetsNumber.toString()
                               : 'لا يوجد'),
                       infoWidget(
                           context,
                           'عدد مطبخ',
-                          results.kitchenNumber != null
-                              ? results.kitchenNumber.toString()
+                          furnitureModel.kitchenNumber != null
+                              ? furnitureModel.kitchenNumber.toString()
                               : 'لا يوجد'),
                     ],
                   ),
@@ -130,38 +132,39 @@ class ResultsWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       infoBooleanWidget(
-                          context, 'تفريغ و تحميل', results.loadingBool),
-                      infoBooleanWidget(context, 'تغليف', results.wrappingBool),
+                          context, 'تفريغ و تحميل', furnitureModel.loadingBool),
+                      infoBooleanWidget(
+                          context, 'تغليف', furnitureModel.wrappingBool),
                       infoWidget(
                           context,
                           'عدد غرف النوم',
-                          results.roomsNumber != null
-                              ? results.roomsNumber.toString()
+                          furnitureModel.roomsNumber != null
+                              ? furnitureModel.roomsNumber.toString()
                               : 'لا يوجد'),
                       infoWidget(
                           context,
                           'طقم الكنب',
-                          results.chairsNumber != null
-                              ? results.chairsNumber.toString()
+                          furnitureModel.chairsNumber != null
+                              ? furnitureModel.chairsNumber.toString()
                               : 'لا يوجد'),
                       infoWidget(
                           context,
                           'عدد المكيفات',
-                          results.airconditionerNumber != null
-                              ? results.airconditionerNumber.toString()
+                          furnitureModel.airconditionerNumber != null
+                              ? furnitureModel.airconditionerNumber.toString()
                               : 'لا يوجد'),
                       infoWidget(
                           context,
                           'غرفة سفرة',
-                          results.diningRoomNumber != null
-                              ? results.diningRoomNumber.toString()
+                          furnitureModel.diningRoomNumber != null
+                              ? furnitureModel.diningRoomNumber.toString()
                               : 'لا يوجد'),
                     ],
                   )
                 ],
               ),
             ),
-            results.images != null
+            furnitureModel.images != null
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -174,7 +177,7 @@ class ResultsWidget extends StatelessWidget {
                             .copyWith(fontSize: 18),
                       ),
                       Wrap(
-                        children: results.images!.map((imageone) {
+                        children: furnitureModel.images!.map((imageone) {
                           return Card(
                             child: SizedBox(
                               height: 100,
@@ -194,7 +197,7 @@ class ResultsWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      results.notes ?? 'لا يوجد',
+                      furnitureModel.notes ?? 'لا يوجد',
                       textAlign: TextAlign.end,
                       style: Theme.of(context)
                           .textTheme

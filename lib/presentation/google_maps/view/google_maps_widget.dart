@@ -6,7 +6,8 @@ import '../helpers/map_provider.dart';
 import '../model/location_model.dart';
 
 class GoogleMapsWidget extends StatefulWidget {
-  GoogleMapsWidget({Key? key}) : super(key: key);
+  LocationModel? sourceLocation;
+  GoogleMapsWidget({Key? key, required this.sourceLocation}) : super(key: key);
 
   @override
   State<GoogleMapsWidget> createState() => _GoogleMapsWidgetState();
@@ -35,14 +36,12 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
         await _controller.future;
     LocationModel? currentLocation =
         Provider.of<MapProvider>(context, listen: false).currentLocation;
-    var sourceController =
-        Provider.of<MapProvider>(context, listen: false).sourceLocation;
-    if (sourceController == null) {
+    if (widget.sourceLocation == null) {
       Provider.of<MapProvider>(context, listen: false)
-          .setSourceLocation(currentLocation);
+          .setLocation(sourceLocation: currentLocation);
     } else {
       Provider.of<MapProvider>(context, listen: false)
-          .setSourceLocation(sourceController);
+          .setLocation(sourceLocation: widget.sourceLocation);
     }
   }
 

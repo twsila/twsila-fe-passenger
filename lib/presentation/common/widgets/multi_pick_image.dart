@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../google_maps/helpers/set_result.dart';
 import '../state_renderer/dialogs.dart';
 
 class MutliPickImageWidget extends StatefulWidget {
-  const MutliPickImageWidget({Key? key}) : super(key: key);
+  final Function(List<XFile>? images) onPickedImages;
+  const MutliPickImageWidget({Key? key, required this.onPickedImages})
+      : super(key: key);
 
   @override
   State<MutliPickImageWidget> createState() => _MutliPickImageWidgetState();
@@ -22,9 +22,8 @@ class _MutliPickImageWidgetState extends State<MutliPickImageWidget> {
       var pickedfiles = await imgpicker.pickMultiImage();
       //you can use ImageCourse.camera for Camera capture
       if (pickedfiles != null) {
-        final results = Results();
         imagefiles = pickedfiles;
-        results.images = pickedfiles;
+        widget.onPickedImages(imagefiles);
         setState(() {});
       }
     } catch (e) {

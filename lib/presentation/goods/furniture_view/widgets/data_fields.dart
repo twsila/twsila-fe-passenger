@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-import '../../common/widgets/custom_checkbox.dart';
-import '../../common/widgets/custom_text_input_field.dart';
-import '../../common/widgets/multi_pick_image.dart';
-import '../../google_maps/helpers/set_result.dart';
+import '../../../../domain/model/models.dart';
+import '../../../common/widgets/custom_checkbox.dart';
+import '../../../common/widgets/custom_text_input_field.dart';
+import '../../../common/widgets/multi_pick_image.dart';
 
 class DataFieldsWidget extends StatefulWidget {
-  const DataFieldsWidget({Key? key}) : super(key: key);
+  final FurnitureModel furnitureModel;
+  const DataFieldsWidget({Key? key, required this.furnitureModel})
+      : super(key: key);
 
   @override
   State<DataFieldsWidget> createState() => _DataFieldsWidgetState();
 }
 
 class _DataFieldsWidgetState extends State<DataFieldsWidget> {
-  final results = Results();
-
   Widget numberField(String text, Widget widget) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,16 +43,16 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomCheckBox(
-                    checked: results.assembleBool,
+                    checked: widget.furnitureModel.assembleBool,
                     fieldName: 'فك و تركيب',
                     onChange: (checked) {
-                      results.assembleBool = checked;
+                      widget.furnitureModel.assembleBool = checked;
                     }),
                 CustomCheckBox(
-                    checked: results.craneBool,
+                    checked: widget.furnitureModel.craneBool,
                     fieldName: 'رافعة',
                     onChange: (checked) {
-                      results.craneBool = checked;
+                      widget.furnitureModel.craneBool = checked;
                     }),
                 numberField(
                     'عدد الثلاجات',
@@ -60,10 +60,10 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         if (value == '') {
-                          results.fridgeNumber = null;
+                          widget.furnitureModel.fridgeNumber = null;
                           return;
                         }
-                        results.fridgeNumber = int.parse(value);
+                        widget.furnitureModel.fridgeNumber = int.parse(value);
                       },
                     )),
                 numberField(
@@ -72,10 +72,10 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         if (value == '') {
-                          results.carpetsNumber = null;
+                          widget.furnitureModel.carpetsNumber = null;
                           return;
                         }
-                        results.carpetsNumber = int.parse(value);
+                        widget.furnitureModel.carpetsNumber = int.parse(value);
                       },
                     )),
                 numberField(
@@ -84,10 +84,10 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         if (value == '') {
-                          results.kitchenNumber = null;
+                          widget.furnitureModel.kitchenNumber = null;
                           return;
                         }
-                        results.kitchenNumber = int.parse(value);
+                        widget.furnitureModel.kitchenNumber = int.parse(value);
                       },
                     )),
                 const SizedBox(height: 70)
@@ -97,16 +97,16 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomCheckBox(
-                    checked: results.loadingBool,
+                    checked: widget.furnitureModel.loadingBool,
                     fieldName: 'تفريغ و تحميل',
                     onChange: (checked) {
-                      results.loadingBool = checked;
+                      widget.furnitureModel.loadingBool = checked;
                     }),
                 CustomCheckBox(
-                    checked: results.wrappingBool,
+                    checked: widget.furnitureModel.wrappingBool,
                     fieldName: 'تغليف',
                     onChange: (checked) {
-                      results.wrappingBool = checked;
+                      widget.furnitureModel.wrappingBool = checked;
                     }),
                 numberField(
                     'عدد غرف النوم',
@@ -114,10 +114,10 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         if (value == '') {
-                          results.roomsNumber = null;
+                          widget.furnitureModel.roomsNumber = null;
                           return;
                         }
-                        results.roomsNumber = int.parse(value);
+                        widget.furnitureModel.roomsNumber = int.parse(value);
                       },
                     )),
                 numberField(
@@ -126,10 +126,10 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         if (value == '') {
-                          results.carpetsNumber = null;
+                          widget.furnitureModel.carpetsNumber = null;
                           return;
                         }
-                        results.carpetsNumber = int.parse(value);
+                        widget.furnitureModel.carpetsNumber = int.parse(value);
                       },
                     )),
                 numberField(
@@ -138,10 +138,11 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         if (value == '') {
-                          results.airconditionerNumber = null;
+                          widget.furnitureModel.airconditionerNumber = null;
                           return;
                         }
-                        results.airconditionerNumber = int.parse(value);
+                        widget.furnitureModel.airconditionerNumber =
+                            int.parse(value);
                       },
                     )),
                 numberField(
@@ -150,17 +151,20 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         if (value == '') {
-                          results.diningRoomNumber = null;
+                          widget.furnitureModel.diningRoomNumber = null;
                           return;
                         }
-                        results.diningRoomNumber = int.parse(value);
+                        widget.furnitureModel.diningRoomNumber =
+                            int.parse(value);
                       },
                     )),
               ],
             )
           ],
         ),
-        const MutliPickImageWidget(),
+        MutliPickImageWidget(
+          onPickedImages: (images) => widget.furnitureModel.images = images,
+        ),
         Container(
           margin: const EdgeInsets.all(8),
           child: Row(
@@ -172,7 +176,7 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
                   maxLines: null,
                   padding: const EdgeInsets.all(8),
                   onChanged: (text) {
-                    results.notes = text;
+                    widget.furnitureModel.notes = text;
                   },
                 ),
               ),

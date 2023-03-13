@@ -4,11 +4,19 @@ import 'package:taxi_for_you/presentation/common/widgets/custom_date_picker.dart
 
 import '../helpers/map_provider.dart';
 import '../model/location_model.dart';
+import 'google_maps_widget.dart';
 import 'google_places_field.dart';
 
 class GoogleSearchScreen extends StatefulWidget {
+  final TextEditingController sourceController;
+  final TextEditingController destinationController;
+  final Function(String date)? onSelectDate;
+
   GoogleSearchScreen({
     Key? key,
+    required this.sourceController,
+    required this.destinationController,
+    this.onSelectDate,
   }) : super(key: key);
 
   @override
@@ -17,8 +25,8 @@ class GoogleSearchScreen extends StatefulWidget {
 
 class GoogleSearchScreenState extends State<GoogleSearchScreen> {
   bool _isInit = true;
-  TextEditingController sourceController = TextEditingController();
-  TextEditingController destinationController = TextEditingController();
+  LocationModel? sourceLocation;
+  LocationModel? destinationLocation;
 
   @override
   void didChangeDependencies() {
@@ -26,8 +34,9 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
       _isInit = false;
       LocationModel? currentLocation =
           Provider.of<MapProvider>(context, listen: false).currentLocation;
-      if (currentLocation != null) {
-        sourceController.text = currentLocation.locationName;
+      if (currentLocation != null && sourceLocation == null) {
+        widget.sourceController.text = currentLocation.locationName;
+        sourceLocation = currentLocation;
       }
     }
     super.didChangeDependencies();
@@ -37,27 +46,30 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomDatePickerWidget(),
+        widget.onSelectDate != null
+            ? CustomDatePickerWidget(onSelectDate: widget.onSelectDate!)
+            : const SizedBox(),
         Row(
           children: [
             Expanded(
               child: GoogleMapsPlacesField(
-                controller: sourceController,
+                controller: widget.sourceController,
                 focusNode: FocusNode(debugLabel: 'source_node'),
                 hintText: 'Enter Source Location...',
                 predictionCallback: (prediction) {
                   if (prediction != null) {
-                    LocationModel sourceLocation = LocationModel(
+                    sourceLocation = LocationModel(
                       locationName: prediction.description!,
                       latitude: double.parse(prediction.lat!),
                       longitude: double.parse(prediction.lng!),
                     );
-                    Provider.of<MapProvider>(context, listen: false)
-                        .setSourceLocation(sourceLocation);
                   } else {
-                    Provider.of<MapProvider>(context, listen: false)
-                        .setSourceLocation(null);
+                    sourceLocation = null;
                   }
+                  Provider.of<MapProvider>(context, listen: false).setLocation(
+                    sourceLocation: sourceLocation,
+                    destinationLocation: destinationLocation,
+                  );
                 },
               ),
             ),
@@ -73,22 +85,22 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
           children: [
             Expanded(
               child: GoogleMapsPlacesField(
-                controller: destinationController,
+                controller: widget.destinationController,
                 focusNode: FocusNode(debugLabel: 'destination_node'),
                 hintText: 'Enter Destination Location...',
                 predictionCallback: (prediction) {
                   if (prediction != null) {
-                    LocationModel destinationLocation = LocationModel(
+                    destinationLocation = LocationModel(
                       locationName: prediction.description!,
                       latitude: double.parse(prediction.lat!),
                       longitude: double.parse(prediction.lng!),
                     );
-                    Provider.of<MapProvider>(context, listen: false)
-                        .setDestinationLocation(destinationLocation);
                   } else {
-                    Provider.of<MapProvider>(context, listen: false)
-                        .setDestinationLocation(null);
+                    destinationLocation = null;
                   }
+                  Provider.of<MapProvider>(context, listen: false).setLocation(
+                      sourceLocation: sourceLocation,
+                      destinationLocation: destinationLocation);
                 },
               ),
             ),
@@ -99,6 +111,11 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
             ),
           ],
         ),
+        const SizedBox(height: 16),
+        Expanded(
+            child: GoogleMapsWidget(
+          sourceLocation: sourceLocation,
+        )),
       ],
     );
   }

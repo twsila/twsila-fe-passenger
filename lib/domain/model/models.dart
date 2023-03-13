@@ -1,3 +1,4 @@
+import 'package:image_picker/image_picker.dart';
 // onboarding models
 
 class SliderObject {
@@ -41,13 +42,12 @@ class Authentication {
   Authentication(this.customer, this.contacts);
 }
 
-class FirebaseCodeSent{
+class FirebaseCodeSent {
   String verificationId;
   int? resendToken;
 
   FirebaseCodeSent(this.verificationId, this.resendToken);
 }
-
 
 class Service {
   int id;
@@ -98,4 +98,23 @@ class StoreDetails {
 
   StoreDetails(
       this.id, this.title, this.image, this.details, this.services, this.about);
+}
+
+class FurnitureModel {
+  String? date;
+  String? sourceLocation;
+  String? destinationLocation;
+  String? notes;
+  int? roomsNumber;
+  int? fridgeNumber;
+  int? chairsNumber;
+  int? carpetsNumber;
+  int? airconditionerNumber;
+  int? kitchenNumber;
+  int? diningRoomNumber;
+  bool loadingBool = false;
+  bool assembleBool = false;
+  bool wrappingBool = false;
+  bool craneBool = false;
+  List<XFile>? images;
 }

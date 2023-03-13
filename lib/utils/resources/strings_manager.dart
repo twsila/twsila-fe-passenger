@@ -1,4 +1,5 @@
 class AppStrings {
+  static const appTitle = 'app_title';
   static const noRouteFound = "noRouteFound";
   static const skip = "skip";
   static const username = "username_hint";
