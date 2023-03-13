@@ -2,12 +2,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import '../helpers/map_provider.dart';
+import '../../../utils/location/map_provider.dart';
 import '../model/location_model.dart';
 
 class GoogleMapsWidget extends StatefulWidget {
   LocationModel? sourceLocation;
-  GoogleMapsWidget({Key? key, required this.sourceLocation}) : super(key: key);
+  LocationModel? destinationLocation;
+  GoogleMapsWidget(
+      {Key? key,
+      required this.sourceLocation,
+      required this.destinationLocation})
+      : super(key: key);
 
   @override
   State<GoogleMapsWidget> createState() => _GoogleMapsWidgetState();
@@ -15,7 +20,8 @@ class GoogleMapsWidget extends StatefulWidget {
 
 class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
   bool _isInit = true;
-  Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   CameraPosition position = const CameraPosition(
     target: LatLng(30.033333, 31.233334),
     zoom: 16.5,
@@ -40,8 +46,10 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
       Provider.of<MapProvider>(context, listen: false)
           .setLocation(sourceLocation: currentLocation);
     } else {
-      Provider.of<MapProvider>(context, listen: false)
-          .setLocation(sourceLocation: widget.sourceLocation);
+      Provider.of<MapProvider>(context, listen: false).setLocation(
+        sourceLocation: widget.sourceLocation,
+        destinationLocation: widget.destinationLocation,
+      );
     }
   }
 
@@ -54,11 +62,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
           Expanded(
             child: GoogleMap(
               onMapCreated: (GoogleMapController controller) async {
-                if (!_controller.isCompleted) {
-                  _controller.complete(controller);
-                } else {
-                  _controller = Completer<GoogleMapController>();
-                }
+                _controller.complete(controller);
               },
               myLocationEnabled: false,
               myLocationButtonEnabled: false,

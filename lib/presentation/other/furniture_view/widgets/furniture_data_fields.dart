@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-import '../../../../domain/model/models.dart';
+import '../../../../domain/model/furniture-model.dart';
 import '../../../common/widgets/custom_checkbox.dart';
 import '../../../common/widgets/custom_text_input_field.dart';
 import '../../../common/widgets/multi_pick_image.dart';
 
-class DataFieldsWidget extends StatefulWidget {
+class FurnitureDataFields extends StatefulWidget {
   final FurnitureModel furnitureModel;
-  const DataFieldsWidget({Key? key, required this.furnitureModel})
+  const FurnitureDataFields({Key? key, required this.furnitureModel})
       : super(key: key);
 
   @override
-  State<DataFieldsWidget> createState() => _DataFieldsWidgetState();
+  State<FurnitureDataFields> createState() => _FurnitureDataFieldsState();
 }
 
-class _DataFieldsWidgetState extends State<DataFieldsWidget> {
+class _FurnitureDataFieldsState extends State<FurnitureDataFields> {
   Widget numberField(String text, Widget widget) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,7 +26,7 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
         const SizedBox(width: 8),
         Text(
           text,
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.displaySmall,
         ),
       ],
     );
@@ -185,7 +185,7 @@ class _DataFieldsWidgetState extends State<DataFieldsWidget> {
                 'ملاحظات خاصة',
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displaySmall!
                     .copyWith(fontSize: 16),
               )
             ],

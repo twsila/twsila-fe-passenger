@@ -36,7 +36,7 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
         const SizedBox(width: 6),
         Text(
           'جدولة المواعيد',
-          // style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.displaySmall,
         ),
       ],
     );

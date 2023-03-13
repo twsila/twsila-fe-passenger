@@ -5,6 +5,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/domain/usecase/verify_otp_usecase.dart';
 import 'package:taxi_for_you/presentation/otp/viewmodel/verify_otp_viewmodel.dart';
+import 'package:taxi_for_you/utils/location/map_provider.dart';
 
 import '../data/data_source/local_data_source.dart';
 import '../data/data_source/remote_data_source.dart';

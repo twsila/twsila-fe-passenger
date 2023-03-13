@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taxi_for_you/utils/location/map_provider.dart';
 
 import '../utils/resources/langauge_manager.dart';
 
@@ -7,6 +8,7 @@ const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
 const String PREFS_KEY_ONBOARDING_SCREEN_VIEWED =
     "PREFS_KEY_ONBOARDING_SCREEN_VIEWED";
 const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
+const String USER_SELECTED_COUNTRY = "USER_SELECTED_COUNTRY";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -45,6 +47,15 @@ class AppPreferences {
     } else {
       return ENGLISH_LOCAL;
     }
+  }
+
+  //Selected country
+  setUserSelectedCountry(String country) {
+    _sharedPreferences.setString(USER_SELECTED_COUNTRY, country);
+  }
+
+  String? getUserSelectedCountry() {
+    return _sharedPreferences.getString(USER_SELECTED_COUNTRY);
   }
 
   // on boarding

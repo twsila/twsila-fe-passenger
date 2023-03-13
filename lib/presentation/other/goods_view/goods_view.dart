@@ -1,35 +1,36 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:taxi_for_you/presentation/common/widgets/custom_back_button.dart';
-import 'package:taxi_for_you/presentation/goods/furniture_view/furniture_viewmodel.dart';
-import 'package:taxi_for_you/presentation/goods/furniture_view/widgets/result_widget.dart';
+import 'package:taxi_for_you/presentation/other/goods_view/goods_viewmodel.dart';
+import 'package:taxi_for_you/presentation/other/goods_view/widgets/goods_data_fields.dart';
+import 'package:taxi_for_you/presentation/other/goods_view/widgets/goods_result_widget.dart';
 import 'package:taxi_for_you/utils/ext/screen_size_ext.dart';
-import 'package:taxi_for_you/utils/resources/assets_manager.dart';
 
+import '../../../utils/resources/assets_manager.dart';
+import '../../../utils/resources/strings_manager.dart';
 import '../../common/state_renderer/dialogs.dart';
+import '../../common/widgets/custom_back_button.dart';
 import '../../common/widgets/custom_text_button.dart';
 import '../../google_maps/view/google_search.dart';
-import 'widgets/data_fields.dart';
 
-class FurnitureView extends StatefulWidget {
-  const FurnitureView({Key? key}) : super(key: key);
+class GoodsView extends StatefulWidget {
+  const GoodsView({Key? key}) : super(key: key);
 
   @override
-  State<FurnitureView> createState() => _FurnitureViewState();
+  State<GoodsView> createState() => _GoodsViewState();
 }
 
-class _FurnitureViewState extends State<FurnitureView> {
-  final FurnitureViewModel furnitureViewModel = FurnitureViewModel();
+class _GoodsViewState extends State<GoodsView> {
+  final GoodsViewModel goodsViewModel = GoodsViewModel();
   final TextEditingController sourceController = TextEditingController();
   final TextEditingController destinationController = TextEditingController();
 
   @override
   void initState() {
     sourceController.addListener(() {
-      furnitureViewModel.furnitureModel.sourceLocation = sourceController.text;
+      goodsViewModel.goodsModel.sourceLocationString = sourceController.text;
     });
     destinationController.addListener(() {
-      furnitureViewModel.furnitureModel.destinationLocation =
+      goodsViewModel.goodsModel.destinationLocationString =
           destinationController.text;
     });
     super.initState();
@@ -54,11 +55,10 @@ class _FurnitureViewState extends State<FurnitureView> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: CustomBackButton(onPressed: () {
-                        Navigator.pop(context);
-                      })),
+                  CustomBackButton(
+                    onPressed: () => Navigator.pop(context),
+                    text: AppStrings.goods.tr(),
+                  ),
                   Container(
                     height: context.getHeight() / 6,
                     margin: const EdgeInsets.all(16),
@@ -69,13 +69,15 @@ class _FurnitureViewState extends State<FurnitureView> {
                     child: GoogleSearchScreen(
                       sourceController: sourceController,
                       destinationController: destinationController,
+                      onSelectSource: (source) =>
+                          goodsViewModel.goodsModel.sourceLocation = source,
+                      onSelectDestination: (destination) => goodsViewModel
+                          .goodsModel.destinationLocation = destination,
                       onSelectDate: (date) =>
-                          furnitureViewModel.furnitureModel.date,
+                          goodsViewModel.goodsModel.date = date,
                     ),
                   ),
-                  DataFieldsWidget(
-                    furnitureModel: furnitureViewModel.furnitureModel,
-                  ),
+                  GoodsDataField(goodsModel: goodsViewModel.goodsModel),
                   CustomTextButton(
                     text: 'تأكيد بيانات الرحلة',
                     onPressed: () {
@@ -89,8 +91,8 @@ class _FurnitureViewState extends State<FurnitureView> {
                             'تم تأكيد الرحلة بنجاح', context);
                         Navigator.pop(context);
                       },
-                          messageWidget: ResultsWidget(
-                            furnitureModel: furnitureViewModel.furnitureModel,
+                          messageWidget: GoodsResultsWidget(
+                            goodsModel: goodsViewModel.goodsModel,
                           ));
                     },
                   ),

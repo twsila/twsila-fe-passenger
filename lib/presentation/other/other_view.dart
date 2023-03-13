@@ -7,14 +7,14 @@ import 'package:taxi_for_you/utils/resources/routes_manager.dart';
 import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/utils/resources/values_manager.dart';
 
-class GoodsView extends StatefulWidget {
-  const GoodsView({Key? key}) : super(key: key);
+class OtherView extends StatefulWidget {
+  const OtherView({Key? key}) : super(key: key);
 
   @override
-  State<GoodsView> createState() => _GoodsViewState();
+  State<OtherView> createState() => _OtherViewState();
 }
 
-class _GoodsViewState extends State<GoodsView> {
+class _OtherViewState extends State<OtherView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,23 +23,11 @@ class _GoodsViewState extends State<GoodsView> {
         padding: const EdgeInsets.only(top: AppSize.s40),
         child: Column(
           children: [
-            Row(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: CustomBackButton(
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Text(
-                  AppStrings.goods.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineLarge!
-                      .copyWith(fontSize: 24, color: ColorManager.black),
-                )
-              ],
+            Align(
+              alignment: Alignment.centerLeft,
+              child: CustomBackButton(
+                onPressed: () => Navigator.pop(context),
+              ),
             ),
             const SizedBox(height: AppSize.s40),
             Text(
@@ -48,18 +36,32 @@ class _GoodsViewState extends State<GoodsView> {
                   color: ColorManager.black, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: AppSize.s40),
+            //Furniture View
             CustomTextOutlinedButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, Routes.furnitureRoute),
-                text: AppStrings.furniture.tr()),
+              onPressed: () =>
+                  Navigator.pushNamed(context, Routes.furnitureRoute),
+              text: AppStrings.furniture.tr(),
+            ),
+            //Goods View
             CustomTextOutlinedButton(
-                onPressed: () {}, text: AppStrings.goods.tr()),
+              onPressed: () => Navigator.pushNamed(context, Routes.goodsRoute),
+              text: AppStrings.goods.tr(),
+            ),
+            //Freezers View
             CustomTextOutlinedButton(
-                onPressed: () {}, text: AppStrings.freezers.tr()),
+              onPressed: () {},
+              text: AppStrings.freezers.tr(),
+            ),
+            //Surfaces View
             CustomTextOutlinedButton(
-                onPressed: () {}, text: AppStrings.surfaces.tr()),
+              onPressed: () {},
+              text: AppStrings.surfaces.tr(),
+            ),
+            //Cisterns View
             CustomTextOutlinedButton(
-                onPressed: () {}, text: AppStrings.cisterns.tr()),
+              onPressed: () {},
+              text: AppStrings.cisterns.tr(),
+            ),
           ],
         ),
       ),

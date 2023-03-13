@@ -1,7 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/utils/ext/screen_size_ext.dart';
+import 'package:taxi_for_you/utils/location/map_provider.dart';
 import 'package:taxi_for_you/utils/resources/styles_manager.dart';
 
 import '../../../app/di.dart';
@@ -20,6 +23,7 @@ class PhoneLoginView extends StatefulWidget {
 }
 
 class _PhoneLoginViewState extends State<PhoneLoginView> {
+  final AppPreferences appPreferences = instance<AppPreferences>();
   final LoginViewModel _viewModel = instance<LoginViewModel>();
 
   final _formKey = GlobalKey<FormState>();
@@ -78,7 +82,10 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
                     countries: const ['SA', 'EG'],
                     initialValue: _viewModel.loginObject.phoneNumber,
                     onCountryChanged: (country) {
-                      _viewModel.initialCountry = country.flag;
+                      _viewModel.initialCountry = country.code;
+                      appPreferences.setUserSelectedCountry(country.code);
+                      Provider.of<MapProvider>(context, listen: false)
+                          .setCountry(country.code);
                     },
                     onChanged: (value) {
                       _viewModel.setCountryCode(value.countryCode);

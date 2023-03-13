@@ -1,8 +1,12 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taxi_for_you/utils/resources/assets_manager.dart';
+import 'package:taxi_for_you/utils/resources/color_manager.dart';
+import 'package:taxi_for_you/utils/resources/strings_manager.dart';
+import 'package:taxi_for_you/utils/resources/styles_manager.dart';
 
 class ShowDialogHelper {
   static void showErrorMessage(String message, BuildContext context) {
@@ -118,7 +122,7 @@ class ShowDialogHelper {
             title,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
               fontFamily: 'Avenir',
               color: Colors.black,
@@ -128,18 +132,14 @@ class ShowDialogHelper {
               child: messageWidget ??
                   Text(
                     message,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: 'Avenir',
-                      color: Colors.white.withOpacity(0.8),
-                    ),
+                    style:
+                        getMediumStyle(color: ColorManager.black, fontSize: 16),
                   )),
           actions: <Widget>[
             TextButton(
               child: Text(
-                'إلغاء',
-                style: TextStyle(color: Theme.of(context).primaryColor),
+                AppStrings.cancel.tr(),
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               onPressed: () {
                 cancelFunc();
@@ -147,8 +147,8 @@ class ShowDialogHelper {
             ),
             TextButton(
               child: Text(
-                okText ?? 'تأكيد',
-                style: TextStyle(color: Theme.of(context).primaryColor),
+                okText ?? AppStrings.ok.tr(),
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               onPressed: () {
                 okFunc();

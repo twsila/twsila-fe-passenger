@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/presentation/common/widgets/custom_date_picker.dart';
 
-import '../helpers/map_provider.dart';
+import '../../../utils/location/map_provider.dart';
 import '../model/location_model.dart';
 import 'google_maps_widget.dart';
 import 'google_places_field.dart';
@@ -11,11 +11,15 @@ class GoogleSearchScreen extends StatefulWidget {
   final TextEditingController sourceController;
   final TextEditingController destinationController;
   final Function(String date)? onSelectDate;
+  final Function(LocationModel? source) onSelectSource;
+  final Function(LocationModel? destination) onSelectDestination;
 
   GoogleSearchScreen({
     Key? key,
     required this.sourceController,
     required this.destinationController,
+    required this.onSelectSource,
+    required this.onSelectDestination,
     this.onSelectDate,
   }) : super(key: key);
 
@@ -24,9 +28,9 @@ class GoogleSearchScreen extends StatefulWidget {
 }
 
 class GoogleSearchScreenState extends State<GoogleSearchScreen> {
-  bool _isInit = true;
   LocationModel? sourceLocation;
   LocationModel? destinationLocation;
+  bool _isInit = true;
 
   @override
   void didChangeDependencies() {
@@ -37,6 +41,7 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
       if (currentLocation != null && sourceLocation == null) {
         widget.sourceController.text = currentLocation.locationName;
         sourceLocation = currentLocation;
+        widget.onSelectSource(sourceLocation);
       }
     }
     super.didChangeDependencies();
@@ -66,6 +71,7 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
                   } else {
                     sourceLocation = null;
                   }
+                  widget.onSelectSource(sourceLocation);
                   Provider.of<MapProvider>(context, listen: false).setLocation(
                     sourceLocation: sourceLocation,
                     destinationLocation: destinationLocation,
@@ -76,7 +82,7 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
             const SizedBox(width: 8),
             Text(
               'نقطة الالتقاط',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.displaySmall,
             ),
           ],
         ),
@@ -98,6 +104,7 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
                   } else {
                     destinationLocation = null;
                   }
+                  widget.onSelectDestination(destinationLocation);
                   Provider.of<MapProvider>(context, listen: false).setLocation(
                       sourceLocation: sourceLocation,
                       destinationLocation: destinationLocation);
@@ -107,7 +114,7 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
             const SizedBox(width: 8),
             Text(
               'نقطة التوصيل',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.displaySmall,
             ),
           ],
         ),
@@ -115,6 +122,7 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
         Expanded(
             child: GoogleMapsWidget(
           sourceLocation: sourceLocation,
+          destinationLocation: destinationLocation,
         )),
       ],
     );

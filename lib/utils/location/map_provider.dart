@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxi_for_you/app/constants.dart';
-import 'package:taxi_for_you/presentation/google_maps/helpers/show_all_markers.dart';
+import 'package:taxi_for_you/utils/location/show_all_markers.dart';
 
-import '../model/location_model.dart';
+import '../../presentation/google_maps/model/location_model.dart';
 
 class MapProvider with ChangeNotifier {
   GoogleMapController? controller;
@@ -16,7 +16,7 @@ class MapProvider with ChangeNotifier {
 
   //Locations
   LocationModel? currentLocation;
-  List<String> countries = ['eg'];
+  List<String> countries = ['SA'];
   String? distance;
 
   //Marker
@@ -38,8 +38,9 @@ class MapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  setCountry(String country) {
+  setCountry(String country, {bool needsRebuild = true}) {
     countries = [country];
+    if (!needsRebuild) return;
     notifyListeners();
   }
 

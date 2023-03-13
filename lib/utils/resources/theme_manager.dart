@@ -46,6 +46,8 @@ ThemeData getApplicationTheme() {
     textTheme: TextTheme(
         displayLarge:
             getBoldStyle(color: ColorManager.black, fontSize: FontSize.s22),
+        displayMedium:
+            getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s14),
         displaySmall: getMediumStyle(
             color: ColorManager.lightGrey, fontSize: FontSize.s14),
         headlineLarge: getSemiBoldStyle(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/presentation/categories/categories_view.dart';
-import 'package:taxi_for_you/presentation/goods/furniture_view/furniture_view.dart';
-import 'package:taxi_for_you/presentation/goods/goods_view.dart';
+import 'package:taxi_for_you/presentation/other/furniture_view/furniture_view.dart';
+import 'package:taxi_for_you/presentation/other/other_view.dart';
 import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/presentation/otp/view/verify_otp_view.dart';
 import '../../app/di.dart';
@@ -10,6 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../presentation/login/login_view.dart';
 import '../../presentation/main/main_view.dart';
 import '../../presentation/onboarding/onboarding_view.dart';
+import '../../presentation/other/goods_view/goods_view.dart';
 import '../../presentation/register/register_view.dart';
 import '../../presentation/splash/splash_view.dart';
 
@@ -22,6 +23,7 @@ class Routes {
   static const String storeDetailsRoute = "/storeDetails";
   static const String verifyOtpRoute = "/verifyOtp";
   static const String categoriesRoute = "/categories";
+  static const String otherRoute = "/other";
   static const String goodsRoute = "/goods";
   static const String furnitureRoute = "/furniture";
 }
@@ -32,7 +34,9 @@ class RouteGenerator {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashView());
       case Routes.categoriesRoute:
-        return MaterialPageRoute(builder: (_) => const CategoriesView());
+        return MaterialPageRoute(builder: (_) => CategoriesView());
+      case Routes.otherRoute:
+        return MaterialPageRoute(builder: (_) => const OtherView());
       case Routes.goodsRoute:
         return MaterialPageRoute(builder: (_) => const GoodsView());
       case Routes.furnitureRoute:

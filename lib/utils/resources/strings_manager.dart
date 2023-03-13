@@ -15,6 +15,7 @@ class AppStrings {
   static const thinkingOfTravel = "thinking_of_travel";
   static const whichGoods = "which_goods";
   static const goods = "goods";
+  static const other = "other";
   static const freezers = "freezers";
   static const surfaces = "surfaces";
   static const cisterns = "cisterns";
@@ -26,6 +27,10 @@ class AppStrings {
   static const loading = "loading";
   static const retryAgain = "retry_again";
   static const ok = "ok";
+  static const cancel = "cancel";
+  static const yes = "yes";
+  static const no = "no";
+  static const confirmation = "confirmation";
   static const people = "people";
   static const furniture = "furniture";
   static const emailHint = 'email_hint';
@@ -47,30 +52,35 @@ class AppStrings {
   static const settings = "settings";
   static const services = "services";
   static const stores = "stores";
-  static const String details = "details";
-  static const String about = "about";
-  static const String storeDetails = "store_details";
-  static const String changeLanguage = "change_language";
-  static const String contactUs = "contact_us";
-  static const String inviteYourFriends = "invite_your_friends";
-  static const String logout = "logout";
-  static const String phoneVerification = "phone_verification";
-  static const String enterOtpHint = "enter_otp_hint";
-  static const String sendOtpAgainHint = "send_otp_again_hint";
+  static const details = "details";
+  static const about = "about";
+  static const storeDetails = "store_details";
+  static const changeLanguage = "change_language";
+  static const contactUs = "contact_us";
+  static const inviteYourFriends = "invite_your_friends";
+  static const logout = "logout";
+  static const logoutConfirmation = "logout_confirmation";
+  static const phoneVerification = "phone_verification";
+  static const enterOtpHint = "enter_otp_hint";
+  static const sendOtpAgainHint = "send_otp_again_hint";
+  static const tripConfirmation = "trip_confirmation";
+  static const selectDate = "select_date";
+  static const sourcePoint = "source_point";
+  static const destinationPoint = "destination_point";
 
   // error handler
-  static const String badRequestError = "bad_request_error";
-  static const String noContent = "no_content";
-  static const String forbiddenError = "forbidden_error";
-  static const String unauthorizedError = "unauthorized_error";
-  static const String notFoundError = "not_found_error";
-  static const String conflictError = "conflict_error";
-  static const String internalServerError = "internal_server_error";
-  static const String unknownError = "unknown_error";
-  static const String timeoutError = "timeout_error";
-  static const String defaultError = "default_error";
-  static const String cacheError = "cache_error";
-  static const String noInternetError = "no_internet_error";
+  static const badRequestError = "bad_request_error";
+  static const noContent = "no_content";
+  static const forbiddenError = "forbidden_error";
+  static const unauthorizedError = "unauthorized_error";
+  static const notFoundError = "not_found_error";
+  static const conflictError = "conflict_error";
+  static const internalServerError = "internal_server_error";
+  static const unknownError = "unknown_error";
+  static const timeoutError = "timeout_error";
+  static const defaultError = "default_error";
+  static const cacheError = "cache_error";
+  static const noInternetError = "no_internet_error";
 
   //onboarding strings
   static const onBoardingTitle1 = "on_boarding_title1";

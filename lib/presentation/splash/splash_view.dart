@@ -1,14 +1,13 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:taxi_for_you/presentation/google_maps/helpers/map_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/app_prefs.dart';
 import '../../app/di.dart';
+import '../../utils/location/map_provider.dart';
 import '../../utils/resources/assets_manager.dart';
 import '../../utils/resources/color_manager.dart';
-import '../../utils/resources/constants_manager.dart';
 import '../../utils/resources/routes_manager.dart';
 import '../../utils/resources/strings_manager.dart';
 import '../common/state_renderer/dialogs.dart';
@@ -24,6 +23,7 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  bool _isInit = true;
   final AppPreferences _appPreferences = instance<AppPreferences>();
 
   @override
@@ -32,8 +32,23 @@ class _SplashViewState extends State<SplashView> {
     getCurrentLocation();
   }
 
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      _isInit = false;
+      setCountry();
+    }
+    super.didChangeDependencies();
+  }
+
   getCurrentLocation() async {
     BlocProvider.of<MapsBloc>(context, listen: false).add(GetCurrentLocation());
+  }
+
+  setCountry() {
+    var country = _appPreferences.getUserSelectedCountry();
+    Provider.of<MapProvider>(context, listen: false)
+        .setCountry(country ?? "SA", needsRebuild: false);
   }
 
   _goNext() async {
@@ -41,13 +56,13 @@ class _SplashViewState extends State<SplashView> {
           if (isUserLoggedIn)
             {
               // navigate to main screen
-              Navigator.pushReplacementNamed(context, Routes.mainRoute)
+              // Navigator.pushReplacementNamed(context, Routes.mainRoute)
+              Navigator.pushReplacementNamed(context, Routes.categoriesRoute)
             }
           else
             {
               // Navigate to Login Screen
               Navigator.pushReplacementNamed(context, Routes.loginRoute)
-              // Navigator.pushReplacementNamed(context, Routes.categoriesRoute)
             }
         });
   }
@@ -63,39 +78,21 @@ class _SplashViewState extends State<SplashView> {
           children: [
             Image.asset(ImageAssets.logoImg),
             const SizedBox(height: 16),
-            Column(
-              children: [
-                Text(
-                  AppStrings.appTitle.tr(),
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-                BlocConsumer<MapsBloc, MapsState>(
-                  listener: ((context, state) {
-                    if (state is CurrentLocationFailed) {
-                      ShowDialogHelper.showErrorMessage(
-                          state.errorMessage, context);
-                      _goNext();
-                    } else if (state is CurrentLocationLoadedSuccessfully) {
-                      Provider.of<MapProvider>(context, listen: false)
-                          .currentLocation = state.currentLocation;
-                      _goNext();
-                    }
-                  }),
-                  builder: ((context, state) {
-                    if (state is CurrentLocationIsLoading) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: ColorManager.primary,
-                          color: Colors.blue,
-                        ),
-                      );
-                    } else {
-                      return const SizedBox();
-                    }
-                  }),
-                )
-              ],
+            BlocConsumer<MapsBloc, MapsState>(
+              listener: ((context, state) {
+                if (state is CurrentLocationFailed) {
+                  ShowDialogHelper.showErrorMessage(
+                      state.errorMessage, context);
+                  _goNext();
+                } else if (state is CurrentLocationLoadedSuccessfully) {
+                  Provider.of<MapProvider>(context, listen: false)
+                      .currentLocation = state.currentLocation;
+                  _goNext();
+                }
+              }),
+              builder: ((context, state) {
+                return const SizedBox();
+              }),
             )
           ],
         ),

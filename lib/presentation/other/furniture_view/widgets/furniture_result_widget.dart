@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import '../../../../domain/model/models.dart';
+import '../../../../domain/model/furniture-model.dart';
+import '../../../google_maps/view/google_maps_widget.dart';
 
-class ResultsWidget extends StatelessWidget {
+class FurnitureResultsWidget extends StatelessWidget {
   final FurnitureModel furnitureModel;
 
-  ResultsWidget({Key? key, required this.furnitureModel}) : super(key: key);
+  const FurnitureResultsWidget({Key? key, required this.furnitureModel})
+      : super(key: key);
 
   Widget infoLargeWidget(BuildContext context, String info, String text) {
     return Container(
@@ -86,13 +88,18 @@ class ResultsWidget extends StatelessWidget {
       children: [
         if (furnitureModel.date != null)
           infoLargeWidget(context, 'جدولة المواعيد', furnitureModel.date!),
-        if (furnitureModel.sourceLocation != null)
+        if (furnitureModel.sourceLocationString != null)
           infoLargeWidget(
-              context, 'نقطة الالتقاط', furnitureModel.sourceLocation!),
-        if (furnitureModel.destinationLocation != null)
-          infoLargeWidget(
-              context, 'نقطة التوصيل', furnitureModel.destinationLocation!),
-        // SizedBox(height: 200, child: GoogleMapsWidget()),
+              context, 'نقطة الالتقاط', furnitureModel.sourceLocationString!),
+        if (furnitureModel.destinationLocationString != null)
+          infoLargeWidget(context, 'نقطة التوصيل',
+              furnitureModel.destinationLocationString!),
+        // SizedBox(
+        //     height: 200,
+        //     child: GoogleMapsWidget(
+        //       sourceLocation: furnitureModel.sourceLocation,
+        //       destinationLocation: furnitureModel.destinationLocation,
+        //     )),
         Column(
           children: [
             Container(
@@ -129,7 +136,7 @@ class ResultsWidget extends StatelessWidget {
                     ],
                   ),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       infoBooleanWidget(
                           context, 'تفريغ و تحميل', furnitureModel.loadingBool),
@@ -191,9 +198,8 @@ class ResultsWidget extends StatelessWidget {
                   )
                 : Container(),
             Container(
-              margin: const EdgeInsets.all(16),
+              margin: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Text(
