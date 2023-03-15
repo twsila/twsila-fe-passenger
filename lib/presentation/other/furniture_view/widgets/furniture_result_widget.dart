@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 
 import '../../../../domain/model/furniture-model.dart';
 import '../../../google_maps/view/google_maps_widget.dart';
@@ -16,6 +18,14 @@ class FurnitureResultsWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
+          Text(
+            info,
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall!
+                .copyWith(fontSize: 14),
+          ),
+          const SizedBox(width: 8),
           Expanded(
             child: Text(
               text,
@@ -25,12 +35,6 @@ class FurnitureResultsWidget extends StatelessWidget {
                   .bodyMedium!
                   .copyWith(fontSize: 12),
             ),
-          ),
-          const SizedBox(width: 8),
-          Text(
-            info,
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14),
           ),
         ],
       ),
@@ -42,17 +46,21 @@ class FurnitureResultsWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
+          Expanded(
+            child: Text(
+              info,
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall!
+                  .copyWith(fontSize: 14),
+            ),
+          ),
+          const SizedBox(width: 8),
           Text(
             text,
             textAlign: TextAlign.end,
             style:
                 Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-          ),
-          const SizedBox(width: 8),
-          Text(
-            info,
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14),
           ),
         ],
       ),
@@ -64,18 +72,23 @@ class FurnitureResultsWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            booleanValue ? 'نعم' : 'لا',
-            textAlign: TextAlign.end,
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
+          Expanded(
+            child: Text(
+              info,
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall!
+                  .copyWith(fontSize: 14),
+            ),
           ),
           const SizedBox(width: 8),
           Text(
-            info,
+            booleanValue ? AppStrings.yes.tr() : AppStrings.no.tr(),
+            textAlign: TextAlign.end,
             style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14),
+                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
           ),
         ],
       ),
@@ -87,12 +100,13 @@ class FurnitureResultsWidget extends StatelessWidget {
     return Column(
       children: [
         if (furnitureModel.date != null)
-          infoLargeWidget(context, 'جدولة المواعيد', furnitureModel.date!),
+          infoLargeWidget(context, AppStrings.scheduleAppoinment.tr(),
+              furnitureModel.date!),
         if (furnitureModel.sourceLocationString != null)
-          infoLargeWidget(
-              context, 'نقطة الالتقاط', furnitureModel.sourceLocationString!),
+          infoLargeWidget(context, AppStrings.sourcePoint.tr(),
+              furnitureModel.sourceLocationString!),
         if (furnitureModel.destinationLocationString != null)
-          infoLargeWidget(context, 'نقطة التوصيل',
+          infoLargeWidget(context, AppStrings.destinationPoint.tr(),
               furnitureModel.destinationLocationString!),
         // SizedBox(
         //     height: 200,
@@ -108,79 +122,85 @@ class FurnitureResultsWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      infoBooleanWidget(
-                          context, 'فك و تركيب', furnitureModel.assembleBool),
-                      infoBooleanWidget(
-                          context, 'رافعة', furnitureModel.craneBool),
-                      infoWidget(
-                          context,
-                          'عدد الثلاجات',
-                          furnitureModel.fridgeNumber != null
-                              ? furnitureModel.fridgeNumber.toString()
-                              : 'لا يوجد'),
-                      infoWidget(
-                          context,
-                          'عدد السجاد',
-                          furnitureModel.carpetsNumber != null
-                              ? furnitureModel.carpetsNumber.toString()
-                              : 'لا يوجد'),
-                      infoWidget(
-                          context,
-                          'عدد مطبخ',
-                          furnitureModel.kitchenNumber != null
-                              ? furnitureModel.kitchenNumber.toString()
-                              : 'لا يوجد'),
-                    ],
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        infoBooleanWidget(context, AppStrings.assemble.tr(),
+                            furnitureModel.assembleBool),
+                        infoBooleanWidget(context, AppStrings.crane.tr(),
+                            furnitureModel.craneBool),
+                        infoWidget(
+                            context,
+                            AppStrings.fridgeNumber.tr(),
+                            furnitureModel.fridgeNumber != null
+                                ? furnitureModel.fridgeNumber.toString()
+                                : AppStrings.nothing.tr()),
+                        infoWidget(
+                            context,
+                            AppStrings.carpetsNumber.tr(),
+                            furnitureModel.carpetsNumber != null
+                                ? furnitureModel.carpetsNumber.toString()
+                                : AppStrings.nothing.tr()),
+                        infoWidget(
+                            context,
+                            AppStrings.kitchenNumber.tr(),
+                            furnitureModel.kitchenNumber != null
+                                ? furnitureModel.kitchenNumber.toString()
+                                : AppStrings.nothing.tr()),
+                      ],
+                    ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      infoBooleanWidget(
-                          context, 'تفريغ و تحميل', furnitureModel.loadingBool),
-                      infoBooleanWidget(
-                          context, 'تغليف', furnitureModel.wrappingBool),
-                      infoWidget(
-                          context,
-                          'عدد غرف النوم',
-                          furnitureModel.roomsNumber != null
-                              ? furnitureModel.roomsNumber.toString()
-                              : 'لا يوجد'),
-                      infoWidget(
-                          context,
-                          'طقم الكنب',
-                          furnitureModel.chairsNumber != null
-                              ? furnitureModel.chairsNumber.toString()
-                              : 'لا يوجد'),
-                      infoWidget(
-                          context,
-                          'عدد المكيفات',
-                          furnitureModel.airconditionerNumber != null
-                              ? furnitureModel.airconditionerNumber.toString()
-                              : 'لا يوجد'),
-                      infoWidget(
-                          context,
-                          'غرفة سفرة',
-                          furnitureModel.diningRoomNumber != null
-                              ? furnitureModel.diningRoomNumber.toString()
-                              : 'لا يوجد'),
-                    ],
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        infoBooleanWidget(
+                            context,
+                            AppStrings.unloadAndLoad.tr(),
+                            furnitureModel.loadingBool),
+                        infoBooleanWidget(context, AppStrings.wrapping.tr(),
+                            furnitureModel.wrappingBool),
+                        infoWidget(
+                            context,
+                            AppStrings.bedNumber.tr(),
+                            furnitureModel.roomsNumber != null
+                                ? furnitureModel.roomsNumber.toString()
+                                : AppStrings.nothing.tr()),
+                        infoWidget(
+                            context,
+                            AppStrings.sofaSet.tr(),
+                            furnitureModel.chairsNumber != null
+                                ? furnitureModel.chairsNumber.toString()
+                                : AppStrings.nothing.tr()),
+                        infoWidget(
+                            context,
+                            AppStrings.airconditionarNumber.tr(),
+                            furnitureModel.airconditionerNumber != null
+                                ? furnitureModel.airconditionerNumber.toString()
+                                : AppStrings.nothing.tr()),
+                        infoWidget(
+                            context,
+                            AppStrings.dinningRoomNumber.tr(),
+                            furnitureModel.diningRoomNumber != null
+                                ? furnitureModel.diningRoomNumber.toString()
+                                : AppStrings.nothing.tr()),
+                      ],
+                    ),
                   )
                 ],
               ),
             ),
             furnitureModel.images != null
                 ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'الصور المرفقة',
-                        textAlign: TextAlign.end,
+                        AppStrings.pickedImages.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .bodyMedium!
+                            .displaySmall!
                             .copyWith(fontSize: 18),
                       ),
                       Wrap(
@@ -201,24 +221,27 @@ class FurnitureResultsWidget extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
                 children: [
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      AppStrings.privateNotes.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!
+                          .copyWith(fontSize: 16),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      furnitureModel.notes ?? 'لا يوجد',
-                      textAlign: TextAlign.end,
+                      furnitureModel.notes ?? AppStrings.nothing.tr(),
+                      textAlign: TextAlign.start,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
                           .copyWith(fontSize: 12),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'ملاحظات خاصة',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(fontSize: 16),
-                  )
                 ],
               ),
             )

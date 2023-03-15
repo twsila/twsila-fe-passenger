@@ -127,7 +127,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
             children: [
               Text(widget.labelText!,
                   style: widget.istitleBold!
-                      ? Theme.of(context).textTheme.headline6
+                      ? Theme.of(context).textTheme.bodyMedium
                       : const TextStyle(
                           fontWeight: FontWeight.normal, fontSize: 16)),
               _textFormField(),
@@ -144,10 +144,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
         child: Column(
           children: [
             TextFormField(
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5!
-                  .copyWith(color: widget.textColor ?? ColorManager.primary),
+              style: Theme.of(context).textTheme.bodyMedium,
               obscureText: widget.obscureText,
               textAlign: widget.textAlign ?? TextAlign.start,
               maxLength: widget.maxLength,
@@ -258,7 +255,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
                   ),
                 ),
                 hintText: widget.hintText,
-                hintStyle: Theme.of(context).textTheme.headline5!.copyWith(
+                hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: widget.hintTextColor ?? ColorManager.lightGrey,
                     fontSize: 13),
                 alignLabelWithHint: true,

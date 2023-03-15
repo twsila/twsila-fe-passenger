@@ -15,7 +15,7 @@ class AppPreferences {
 
   AppPreferences(this._sharedPreferences);
 
-  Future<String> getAppLanguage() async {
+  String getAppLanguage() {
     String? language = _sharedPreferences.getString(PREFS_KEY_LANG);
     if (language != null && language.isNotEmpty) {
       return language;
@@ -26,7 +26,7 @@ class AppPreferences {
   }
 
   Future<void> changeAppLanguage() async {
-    String currentLang = await getAppLanguage();
+    String currentLang = getAppLanguage();
 
     if (currentLang == LanguageType.ARABIC.getValue()) {
       // set english
@@ -40,7 +40,7 @@ class AppPreferences {
   }
 
   Future<Locale> getLocal() async {
-    String currentLang = await getAppLanguage();
+    String currentLang = getAppLanguage();
 
     if (currentLang == LanguageType.ARABIC.getValue()) {
       return ARABIC_LOCAL;

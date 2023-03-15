@@ -36,9 +36,11 @@ class CustomCheckBoxState extends State<CustomCheckBox> {
                 widget._onChange(newValue ?? false);
               });
             }),
-        Text(
-          widget._fieldName,
-          style: Theme.of(context).textTheme.headline3,
+        Expanded(
+          child: Text(
+            widget._fieldName,
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
         ),
       ],
     );

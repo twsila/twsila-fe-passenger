@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:taxi_for_you/presentation/common/widgets/custom_checkbox_datetime_now.dart';
 import 'package:taxi_for_you/presentation/common/widgets/custom_date_picker.dart';
+import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 
 import '../../../utils/location/map_provider.dart';
 import '../model/location_model.dart';
@@ -10,11 +13,11 @@ import 'google_places_field.dart';
 class GoogleSearchScreen extends StatefulWidget {
   final TextEditingController sourceController;
   final TextEditingController destinationController;
-  final Function(String date)? onSelectDate;
+  final Function(String? date)? onSelectDate;
   final Function(LocationModel? source) onSelectSource;
   final Function(LocationModel? destination) onSelectDestination;
 
-  GoogleSearchScreen({
+  const GoogleSearchScreen({
     Key? key,
     required this.sourceController,
     required this.destinationController,
@@ -31,6 +34,7 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
   LocationModel? sourceLocation;
   LocationModel? destinationLocation;
   bool _isInit = true;
+  bool _isChecked = false;
 
   @override
   void didChangeDependencies() {
@@ -52,15 +56,38 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
     return Column(
       children: [
         widget.onSelectDate != null
-            ? CustomDatePickerWidget(onSelectDate: widget.onSelectDate!)
+            ? Column(
+                children: [
+                  CustomCheckboxDateTimeNow(
+                    isChecked: _isChecked,
+                    onSelectDate: widget.onSelectDate!,
+                    onCheckedChanged: (checked) {
+                      setState(() {
+                        _isChecked = checked;
+                      });
+                    },
+                  ),
+                  if (!_isChecked)
+                    CustomDatePickerWidget(onSelectDate: widget.onSelectDate!)
+                ],
+              )
             : const SizedBox(),
         Row(
           children: [
-            Expanded(
+            Flexible(
+              flex: 1,
+              child: Text(
+                AppStrings.sourcePoint.tr(),
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Flexible(
+              flex: 3,
               child: GoogleMapsPlacesField(
                 controller: widget.sourceController,
                 focusNode: FocusNode(debugLabel: 'source_node'),
-                hintText: 'Enter Source Location...',
+                hintText: AppStrings.sourceHint.tr(),
                 predictionCallback: (prediction) {
                   if (prediction != null) {
                     sourceLocation = LocationModel(
@@ -79,21 +106,25 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
                 },
               ),
             ),
-            const SizedBox(width: 8),
-            Text(
-              'نقطة الالتقاط',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
           ],
         ),
         const SizedBox(height: 16),
         Row(
           children: [
-            Expanded(
+            Flexible(
+              flex: 1,
+              child: Text(
+                AppStrings.destinationPoint.tr(),
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Flexible(
+              flex: 3,
               child: GoogleMapsPlacesField(
                 controller: widget.destinationController,
                 focusNode: FocusNode(debugLabel: 'destination_node'),
-                hintText: 'Enter Destination Location...',
+                hintText: AppStrings.destinationHint.tr(),
                 predictionCallback: (prediction) {
                   if (prediction != null) {
                     destinationLocation = LocationModel(
@@ -110,11 +141,6 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
                       destinationLocation: destinationLocation);
                 },
               ),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              'نقطة التوصيل',
-              style: Theme.of(context).textTheme.displaySmall,
             ),
           ],
         ),

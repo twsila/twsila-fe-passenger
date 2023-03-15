@@ -51,7 +51,7 @@ class _GoodsViewState extends State<GoodsView> {
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Container(
-            margin: const EdgeInsets.all(32),
+            margin: const EdgeInsets.all(16),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -79,16 +79,16 @@ class _GoodsViewState extends State<GoodsView> {
                   ),
                   GoodsDataField(goodsModel: goodsViewModel.goodsModel),
                   CustomTextButton(
-                    text: 'تأكيد بيانات الرحلة',
+                    text: AppStrings.tripConfirmation.tr(),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
                       ShowDialogHelper.showDialogPopupWithCancel(
-                          'تأكيد بيانات الرحلة',
+                          AppStrings.tripConfirmation.tr(),
                           '',
                           context,
                           () => Navigator.pop(context), () {
                         ShowDialogHelper.showSuccessMessage(
-                            'تم تأكيد الرحلة بنجاح', context);
+                            AppStrings.tripConfirmationSucceeded.tr(), context);
                         Navigator.pop(context);
                       },
                           messageWidget: GoodsResultsWidget(

@@ -1,7 +1,10 @@
 class AppStrings {
+  static const en = 'en';
+  static const ar = 'ar';
   static const appTitle = 'app_title';
   static const noRouteFound = "noRouteFound";
   static const skip = "skip";
+  static const now = "now";
   static const username = "username_hint";
   static const password = "password_hint";
   static const usernameError = "username_error";
@@ -34,6 +37,8 @@ class AppStrings {
   static const people = "people";
   static const furniture = "furniture";
   static const emailHint = 'email_hint';
+  static const sourceHint = 'source_hint';
+  static const destinationHint = 'destination_hint';
   static const invalidEmail = "email_error";
   static const resetPassword = "reset_password";
   static const success = "success";
@@ -64,9 +69,31 @@ class AppStrings {
   static const enterOtpHint = "enter_otp_hint";
   static const sendOtpAgainHint = "send_otp_again_hint";
   static const tripConfirmation = "trip_confirmation";
+  static const tripConfirmationSucceeded = "trip_confirmation_succeeded";
   static const selectDate = "select_date";
+  static const scheduleAppoinment = "scheduling_appointments";
   static const sourcePoint = "source_point";
   static const destinationPoint = "destination_point";
+  static const privateNotes = "private_notes";
+  static const pickedImages = "picked_images";
+  static const nothing = "nothing";
+  static const gallery = "gallery";
+  static const camera = "camera";
+
+  //Furniture strings
+  static const attachFurnitureImages = "attach_furniture_images";
+  static const assemble = "assemble";
+  static const crane = "crane";
+  static const airconditionarNumber = "airconditioner_number";
+  static const fridgeNumber = "fridge_number";
+  static const carpetsNumber = "carpets_number";
+  static const kitchenNumber = "kitchen_number";
+  static const bedNumber = "bed_number";
+  static const unloadAndLoad = "unload_and_load";
+  static const wrapping = "wrapping";
+  static const sofaSet = "sofa_set";
+  static const dinningRoomNumber = "dinning_room_number";
+  static const goodsWeight = "goods_weight";
 
   // error handler
   static const badRequestError = "bad_request_error";

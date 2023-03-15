@@ -6,7 +6,6 @@ import 'package:taxi_for_you/presentation/other/furniture_view/widgets/furniture
 import 'package:taxi_for_you/utils/ext/screen_size_ext.dart';
 import 'package:taxi_for_you/utils/resources/assets_manager.dart';
 
-import '../../../utils/resources/color_manager.dart';
 import '../../../utils/resources/strings_manager.dart';
 import '../../common/state_renderer/dialogs.dart';
 import '../../common/widgets/custom_text_button.dart';
@@ -53,7 +52,7 @@ class _FurnitureViewState extends State<FurnitureView> {
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Container(
-            margin: const EdgeInsets.all(32),
+            margin: const EdgeInsets.all(16),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -83,16 +82,16 @@ class _FurnitureViewState extends State<FurnitureView> {
                     furnitureModel: furnitureViewModel.furnitureModel,
                   ),
                   CustomTextButton(
-                    text: 'تأكيد بيانات الرحلة',
+                    text: AppStrings.tripConfirmation.tr(),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
                       ShowDialogHelper.showDialogPopupWithCancel(
-                          'تأكيد بيانات الرحلة',
+                          AppStrings.tripConfirmation.tr(),
                           '',
                           context,
                           () => Navigator.pop(context), () {
                         ShowDialogHelper.showSuccessMessage(
-                            'تم تأكيد الرحلة بنجاح', context);
+                            AppStrings.tripConfirmationSucceeded.tr(), context);
                         Navigator.pop(context);
                       },
                           messageWidget: FurnitureResultsWidget(

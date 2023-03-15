@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/domain/model/goods-model.dart';
+import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 
 import '../../../google_maps/view/google_maps_widget.dart';
 
@@ -29,8 +31,10 @@ class GoodsResultsWidget extends StatelessWidget {
           const SizedBox(width: 8),
           Text(
             info,
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14),
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall!
+                .copyWith(fontSize: 14),
           ),
         ],
       ),
@@ -51,8 +55,10 @@ class GoodsResultsWidget extends StatelessWidget {
           const SizedBox(width: 8),
           Text(
             info,
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14),
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall!
+                .copyWith(fontSize: 14),
           ),
         ],
       ),
@@ -66,7 +72,7 @@ class GoodsResultsWidget extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            booleanValue ? 'نعم' : 'لا',
+            booleanValue ? AppStrings.ok.tr() : AppStrings.no.tr(),
             textAlign: TextAlign.end,
             style:
                 Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
@@ -74,8 +80,10 @@ class GoodsResultsWidget extends StatelessWidget {
           const SizedBox(width: 8),
           Text(
             info,
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14),
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall!
+                .copyWith(fontSize: 14),
           ),
         ],
       ),
@@ -87,13 +95,14 @@ class GoodsResultsWidget extends StatelessWidget {
     return Column(
       children: [
         if (goodsModel.date != null)
-          infoLargeWidget(context, 'جدولة المواعيد', goodsModel.date!),
+          infoLargeWidget(
+              context, AppStrings.scheduleAppoinment.tr(), goodsModel.date!),
         if (goodsModel.sourceLocationString != null)
-          infoLargeWidget(
-              context, 'نقطة الالتقاط', goodsModel.sourceLocationString!),
+          infoLargeWidget(context, AppStrings.sourcePoint.tr(),
+              goodsModel.sourceLocationString!),
         if (goodsModel.destinationLocationString != null)
-          infoLargeWidget(
-              context, 'نقطة التوصيل', goodsModel.destinationLocationString!),
+          infoLargeWidget(context, AppStrings.destinationPoint.tr(),
+              goodsModel.destinationLocationString!),
         // SizedBox(
         //     height: 200,
         //     child: GoogleMapsWidget(
@@ -108,20 +117,21 @@ class GoodsResultsWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  infoBooleanWidget(context, 'رافعة', goodsModel.craneBool),
+                  infoBooleanWidget(
+                      context, AppStrings.crane.tr(), goodsModel.craneBool),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      infoBooleanWidget(
-                          context, 'تفريغ و تحميل', goodsModel.loadingBool),
-                      infoBooleanWidget(
-                          context, 'تغليف', goodsModel.wrappingBool),
+                      infoBooleanWidget(context, AppStrings.unloadAndLoad.tr(),
+                          goodsModel.loadingBool),
+                      infoBooleanWidget(context, AppStrings.wrapping.tr(),
+                          goodsModel.wrappingBool),
                       infoWidget(
                           context,
-                          'وزن البضاعة / طن',
+                          AppStrings.goodsWeight.tr(),
                           goodsModel.goodsWeight != null
                               ? goodsModel.goodsWeight.toString()
-                              : 'لا يوجد'),
+                              : AppStrings.nothing.tr()),
                     ],
                   )
                 ],
@@ -132,11 +142,11 @@ class GoodsResultsWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        'الصور المرفقة',
+                        AppStrings.pickedImages.tr(),
                         textAlign: TextAlign.end,
                         style: Theme.of(context)
                             .textTheme
-                            .bodyMedium!
+                            .displaySmall!
                             .copyWith(fontSize: 18),
                       ),
                       Wrap(
@@ -159,7 +169,7 @@ class GoodsResultsWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      goodsModel.notes ?? 'لا يوجد',
+                      goodsModel.notes ?? AppStrings.nothing.tr(),
                       textAlign: TextAlign.end,
                       style: Theme.of(context)
                           .textTheme
@@ -169,10 +179,10 @@ class GoodsResultsWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'ملاحظات خاصة',
+                    AppStrings.privateNotes.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .bodyMedium!
+                        .displaySmall!
                         .copyWith(fontSize: 16),
                   )
                 ],

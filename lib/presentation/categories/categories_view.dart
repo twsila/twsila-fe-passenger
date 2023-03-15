@@ -10,6 +10,7 @@ import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/utils/resources/values_manager.dart';
 
 import '../../utils/resources/assets_manager.dart';
+import '../common/widgets/custom_language_widget.dart';
 
 class CategoriesView extends StatelessWidget {
   CategoriesViewModel categoriesViewModel = CategoriesViewModel();
@@ -43,6 +44,11 @@ class CategoriesView extends StatelessWidget {
                 height: context.getHeight() / 3,
                 child: Image.asset(ImageAssets.car),
               ),
+            ),
+            Positioned(
+              top: context.getHeight() / 16,
+              right: 32,
+              child: const LanguageWidget(),
             ),
             Positioned(
               bottom: 16,

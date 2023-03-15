@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/di.dart';
 
 import '../../../utils/resources/color_manager.dart';
+import '../../../utils/resources/langauge_manager.dart';
 
 class CustomBackButton extends StatelessWidget {
+  final _appPrefs = instance<AppPreferences>();
   final Function() onPressed;
   final String? text;
-  const CustomBackButton({Key? key, required this.onPressed, this.text})
+  CustomBackButton({Key? key, required this.onPressed, this.text})
       : super(key: key);
 
   @override
@@ -23,7 +27,9 @@ class CustomBackButton extends StatelessWidget {
                     color: Colors.black,
                     borderRadius: BorderRadius.all(Radius.circular(15))),
                 child: Icon(
-                  Icons.keyboard_arrow_left,
+                  _appPrefs.getAppLanguage() == LanguageType.ENGLISH.getValue()
+                      ? Icons.keyboard_arrow_left
+                      : Icons.keyboard_arrow_right,
                   color: ColorManager.white,
                 )),
           ),
