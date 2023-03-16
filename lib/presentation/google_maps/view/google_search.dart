@@ -74,13 +74,17 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
                 hintText: AppStrings.sourceHint.tr(),
                 predictionCallback: (prediction) {
                   if (prediction != null) {
-                    sourceLocation = LocationModel(
-                      locationName: prediction.description!,
-                      latitude: double.parse(prediction.lat!),
-                      longitude: double.parse(prediction.lng!),
-                    );
+                    setState(() {
+                      sourceLocation = LocationModel(
+                        locationName: prediction.description!,
+                        latitude: double.parse(prediction.lat!),
+                        longitude: double.parse(prediction.lng!),
+                      );
+                    });
                   } else {
-                    sourceLocation = null;
+                    setState(() {
+                      sourceLocation = null;
+                    });
                   }
                   widget.onSelectSource(sourceLocation);
                   Provider.of<MapProvider>(context, listen: false).setLocation(
@@ -111,13 +115,17 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
                 hintText: AppStrings.destinationHint.tr(),
                 predictionCallback: (prediction) {
                   if (prediction != null) {
-                    destinationLocation = LocationModel(
-                      locationName: prediction.description!,
-                      latitude: double.parse(prediction.lat!),
-                      longitude: double.parse(prediction.lng!),
-                    );
+                    setState(() {
+                      destinationLocation = LocationModel(
+                        locationName: prediction.description!,
+                        latitude: double.parse(prediction.lat!),
+                        longitude: double.parse(prediction.lng!),
+                      );
+                    });
                   } else {
-                    destinationLocation = null;
+                    setState(() {
+                      destinationLocation = null;
+                    });
                   }
                   widget.onSelectDestination(destinationLocation);
                   Provider.of<MapProvider>(context, listen: false).setLocation(

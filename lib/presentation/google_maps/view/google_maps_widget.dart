@@ -58,7 +58,8 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
         currentLocation != null) {
       Provider.of<MapProvider>(context, listen: false).setLocation(
           sourceLocation: currentLocation,
-          destinationLocation: widget.destinationLocation);
+          destinationLocation: widget.destinationLocation,
+          removeOldPlace: widget.sourceLocation != null);
       widget.sourceController.text = currentLocation!.locationName;
       widget.onSelectSource(currentLocation);
     } else {

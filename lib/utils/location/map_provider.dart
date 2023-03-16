@@ -53,8 +53,11 @@ class MapProvider with ChangeNotifier {
     )));
   }
 
-  setLocation(
-      {LocationModel? sourceLocation, LocationModel? destinationLocation}) {
+  setLocation({
+    LocationModel? sourceLocation,
+    LocationModel? destinationLocation,
+    bool removeOldPlace = false,
+  }) {
     if (sourceLocation == null && destinationLocation == null) {
       removeMarker(sourceMarkerId);
       removeMarker(destinationMarkerId);
@@ -80,6 +83,7 @@ class MapProvider with ChangeNotifier {
         LatLng(sourceLocation!.latitude, sourceLocation.longitude);
     LatLng destinationPosition =
         LatLng(destinationLocation!.latitude, destinationLocation.longitude);
+    if (removeOldPlace) removeMarker(sourceMarkerId);
     addMarker(
       Marker(markerId: sourceMarkerId, position: sourcePosition),
     );
