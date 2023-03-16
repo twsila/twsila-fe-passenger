@@ -99,7 +99,10 @@ class _MutliPickImageWidgetState extends State<MutliPickImageWidget> {
                 const SizedBox(width: 8),
                 Text(
                   AppStrings.attachFurnitureImages.tr(),
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(fontSize: 18),
                 ),
               ],
             ),

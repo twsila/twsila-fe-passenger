@@ -11,6 +11,7 @@ class GoodsModel {
   String? notes;
   String? transportationNature;
   String? kindOfWrapping;
+  int? paymentValue;
   int? goodsWeight;
   bool loadingBool = false;
   bool wrappingBool = false;

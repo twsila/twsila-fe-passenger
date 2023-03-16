@@ -149,6 +149,10 @@
   "nothing":"لا يوجد",
   "attach_furniture_images":"إرفاق صور الاثاث",
   "gallery":"المعرض",
-  "camera":"الكاميرا"
+  "camera":"الكاميرا",
+  "saudi_currency":"ريال سعودي",
+  "egyptian_currency":"جنيه مصري",
+  "i_want_to_pay":"أرغب في دفع",
+  "payment_note":"ملاحظة: السعر لا يشمل ضريبة القيمة المضافة 15%"
 
 }

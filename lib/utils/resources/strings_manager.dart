@@ -79,6 +79,10 @@ class AppStrings {
   static const nothing = "nothing";
   static const gallery = "gallery";
   static const camera = "camera";
+  static const saudiCurrency = "saudi_currency";
+  static const egpCurrency = "egyptian_currency";
+  static const iWantToPay = "i_want_to_pay";
+  static const paymentNote = "payment_note";
 
   //Furniture strings
   static const attachFurnitureImages = "attach_furniture_images";

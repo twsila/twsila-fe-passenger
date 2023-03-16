@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/domain/model/goods-model.dart';
+import 'package:taxi_for_you/presentation/common/widgets/custom_payment_field.dart';
 import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 
 import '../../../common/widgets/custom_checkbox.dart';
+import '../../../common/widgets/custom_number_field.dart';
+import '../../../common/widgets/custom_private_notes.dart';
 import '../../../common/widgets/custom_text_input_field.dart';
 import '../../../common/widgets/multi_pick_image.dart';
 
@@ -16,25 +19,6 @@ class GoodsDataField extends StatefulWidget {
 }
 
 class _GoodsDataFieldState extends State<GoodsDataField> {
-  Widget numberField(String text, Widget widget) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-          width: 45,
-          child: widget,
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.displaySmall,
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,18 +36,9 @@ class _GoodsDataFieldState extends State<GoodsDataField> {
                       onChange: (checked) {
                         widget.goodsModel.craneBool = checked;
                       }),
-                  numberField(
-                      AppStrings.goodsWeight.tr(),
-                      CustomTextInputField(
-                        keyboardType: TextInputType.number,
-                        onChanged: (value) {
-                          if (value == '') {
-                            widget.goodsModel.goodsWeight = null;
-                            return;
-                          }
-                          widget.goodsModel.goodsWeight = int.parse(value);
-                        },
-                      )),
+                  CustomNumberField(
+                      customValue: widget.goodsModel.goodsWeight,
+                      text: AppStrings.goodsWeight.tr()),
                 ],
               ),
             ),
@@ -91,32 +66,8 @@ class _GoodsDataFieldState extends State<GoodsDataField> {
         MutliPickImageWidget(
           onPickedImages: (images) => widget.goodsModel.images = images,
         ),
-        Container(
-          margin: const EdgeInsets.all(8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: CustomTextInputField(
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  padding: const EdgeInsets.all(8),
-                  onChanged: (text) {
-                    widget.goodsModel.notes = text;
-                  },
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                AppStrings.privateNotes.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall!
-                    .copyWith(fontSize: 16),
-              )
-            ],
-          ),
-        )
+        CustomPrivateNotes(notes: widget.goodsModel.notes),
+        CustomPaymentField(customValue: widget.goodsModel.paymentValue)
       ],
     );
   }

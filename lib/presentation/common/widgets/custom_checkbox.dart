@@ -39,7 +39,7 @@ class CustomCheckBoxState extends State<CustomCheckBox> {
         Expanded(
           child: Text(
             widget._fieldName,
-            style: Theme.of(context).textTheme.displaySmall,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
       ],

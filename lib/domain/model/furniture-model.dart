@@ -15,6 +15,7 @@ class FurnitureModel {
   int? airconditionerNumber;
   int? kitchenNumber;
   int? diningRoomNumber;
+  int? paymentValue;
   bool loadingBool = false;
   bool assembleBool = false;
   bool wrappingBool = false;

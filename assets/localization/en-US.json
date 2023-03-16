@@ -151,5 +151,9 @@
   "nothing":"Nothing",
   "attach_furniture_images":"Attach Furniture Images",
   "gallery":"Gallery",
-  "camera":"Camera"
+  "camera":"Camera",
+  "saudi_currency":"SAR",
+  "egyptian_currency":"EGP",
+  "i_want_to_pay":"I want to pay",
+  "payment_note":"Note: Price doesn't include VAT 15%"
 }
