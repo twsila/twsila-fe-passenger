@@ -7,10 +7,10 @@ import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 import 'custom_text_input_field.dart';
 
 class CustomPaymentField extends StatefulWidget {
-  int? customValue;
+  Function(String?) onChanged;
   CustomPaymentField({
     Key? key,
-    required this.customValue,
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -37,11 +37,7 @@ class _CustomPaymentFieldState extends State<CustomPaymentField> {
               child: CustomTextInputField(
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  if (value == '') {
-                    widget.customValue = null;
-                    return;
-                  }
-                  widget.customValue = int.parse(value);
+                  widget.onChanged(value);
                 },
               ),
             ),

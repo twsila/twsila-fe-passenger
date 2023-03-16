@@ -44,14 +44,32 @@ class _FurnitureDataFieldsState extends State<FurnitureDataFields> {
                         widget.furnitureModel.craneBool = checked;
                       }),
                   CustomNumberField(
-                      customValue: widget.furnitureModel.fridgeNumber,
+                      onChanged: (value) {
+                        if (value == '' && value != null) {
+                          widget.furnitureModel.fridgeNumber = null;
+                          return;
+                        }
+                        widget.furnitureModel.fridgeNumber = int.parse(value!);
+                      },
                       text: AppStrings.fridgeNumber.tr()),
                   CustomNumberField(
-                    customValue: widget.furnitureModel.carpetsNumber,
+                    onChanged: (value) {
+                      if (value == '' && value != null) {
+                        widget.furnitureModel.carpetsNumber = null;
+                        return;
+                      }
+                      widget.furnitureModel.carpetsNumber = int.parse(value!);
+                    },
                     text: AppStrings.carpetsNumber.tr(),
                   ),
                   CustomNumberField(
-                      customValue: widget.furnitureModel.kitchenNumber,
+                      onChanged: (value) {
+                        if (value == '' && value != null) {
+                          widget.furnitureModel.kitchenNumber = null;
+                          return;
+                        }
+                        widget.furnitureModel.kitchenNumber = int.parse(value!);
+                      },
                       text: AppStrings.kitchenNumber.tr()),
                   const SizedBox(height: 70)
                 ],
@@ -74,18 +92,43 @@ class _FurnitureDataFieldsState extends State<FurnitureDataFields> {
                         widget.furnitureModel.wrappingBool = checked;
                       }),
                   CustomNumberField(
-                    customValue: widget.furnitureModel.roomsNumber,
+                    onChanged: (value) {
+                      if (value == '' && value != null) {
+                        widget.furnitureModel.roomsNumber = null;
+                        return;
+                      }
+                      widget.furnitureModel.roomsNumber = int.parse(value!);
+                    },
                     text: AppStrings.bedNumber.tr(),
                   ),
                   CustomNumberField(
-                    customValue: widget.furnitureModel.chairsNumber,
+                    onChanged: (value) {
+                      if (value == '' && value != null) {
+                        widget.furnitureModel.chairsNumber = null;
+                        return;
+                      }
+                      widget.furnitureModel.chairsNumber = int.parse(value!);
+                    },
                     text: AppStrings.sofaSet.tr(),
                   ),
                   CustomNumberField(
-                      customValue: widget.furnitureModel.roomsNumber,
+                      onChanged: (value) {
+                        if (value == '' && value != null) {
+                          widget.furnitureModel.roomsNumber = null;
+                          return;
+                        }
+                        widget.furnitureModel.roomsNumber = int.parse(value!);
+                      },
                       text: AppStrings.airconditionarNumber.tr()),
                   CustomNumberField(
-                    customValue: widget.furnitureModel.diningRoomNumber,
+                    onChanged: (value) {
+                      if (value == '' && value != null) {
+                        widget.furnitureModel.diningRoomNumber = null;
+                        return;
+                      }
+                      widget.furnitureModel.diningRoomNumber =
+                          int.parse(value!);
+                    },
                     text: AppStrings.dinningRoomNumber.tr(),
                   ),
                 ],
@@ -97,7 +140,15 @@ class _FurnitureDataFieldsState extends State<FurnitureDataFields> {
           onPickedImages: (images) => widget.furnitureModel.images = images,
         ),
         CustomPrivateNotes(notes: widget.furnitureModel.notes),
-        CustomPaymentField(customValue: widget.furnitureModel.paymentValue)
+        CustomPaymentField(
+          onChanged: (value) {
+            if (value == '' && value != null) {
+              widget.furnitureModel.paymentValue = null;
+              return;
+            }
+            widget.furnitureModel.paymentValue = int.parse(value!);
+          },
+        )
       ],
     );
   }

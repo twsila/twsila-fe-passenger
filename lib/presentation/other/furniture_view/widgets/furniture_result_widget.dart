@@ -2,15 +2,18 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 
 import '../../../../domain/model/furniture-model.dart';
 import '../../../google_maps/view/google_maps_widget.dart';
 
 class FurnitureResultsWidget extends StatelessWidget {
+  final _appPrefs = instance<AppPreferences>();
   final FurnitureModel furnitureModel;
 
-  const FurnitureResultsWidget({Key? key, required this.furnitureModel})
+  FurnitureResultsWidget({Key? key, required this.furnitureModel})
       : super(key: key);
 
   Widget infoLargeWidget(BuildContext context, String info, String text) {
@@ -244,7 +247,48 @@ class FurnitureResultsWidget extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            furnitureModel.paymentValue != null
+                ? Container(
+                    margin: const EdgeInsets.symmetric(vertical: 16),
+                    child: Row(
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            AppStrings.paymentValue.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(fontSize: 16),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Text(
+                                furnitureModel.paymentValue.toString(),
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontSize: 12),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                _appPrefs.getUserSelectedCountry() == "SA"
+                                    ? AppStrings.saudiCurrency.tr()
+                                    : AppStrings.egpCurrency.tr(),
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox()
           ],
         )
       ],

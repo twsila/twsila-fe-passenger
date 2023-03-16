@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'custom_text_input_field.dart';
 
 class CustomNumberField extends StatefulWidget {
-  int? customValue;
+  Function(String?) onChanged;
   String text;
   CustomNumberField({
     Key? key,
-    required this.customValue,
+    required this.onChanged,
     required this.text,
   }) : super(key: key);
 
@@ -26,11 +26,7 @@ class _CustomNumberFieldState extends State<CustomNumberField> {
           child: CustomTextInputField(
             keyboardType: TextInputType.number,
             onChanged: (value) {
-              if (value == '') {
-                widget.customValue = null;
-                return;
-              }
-              widget.customValue = int.parse(value);
+              widget.onChanged(value);
             },
           ),
         ),

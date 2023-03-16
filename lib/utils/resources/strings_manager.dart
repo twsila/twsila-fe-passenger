@@ -83,6 +83,7 @@ class AppStrings {
   static const egpCurrency = "egyptian_currency";
   static const iWantToPay = "i_want_to_pay";
   static const paymentNote = "payment_note";
+  static const paymentValue = "payment_value";
 
   //Furniture strings
   static const attachFurnitureImages = "attach_furniture_images";

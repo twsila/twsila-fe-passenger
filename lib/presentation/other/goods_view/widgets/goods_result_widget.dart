@@ -5,36 +5,38 @@ import 'package:flutter/material.dart';
 import 'package:taxi_for_you/domain/model/goods-model.dart';
 import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 
+import '../../../../app/app_prefs.dart';
+import '../../../../app/di.dart';
 import '../../../google_maps/view/google_maps_widget.dart';
 
 class GoodsResultsWidget extends StatelessWidget {
   final GoodsModel goodsModel;
+  final _appPrefs = instance<AppPreferences>();
 
-  const GoodsResultsWidget({Key? key, required this.goodsModel})
-      : super(key: key);
+  GoodsResultsWidget({Key? key, required this.goodsModel}) : super(key: key);
 
   Widget infoLargeWidget(BuildContext context, String info, String text) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
-          Expanded(
-            child: Text(
-              text,
-              textAlign: TextAlign.end,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontSize: 12),
-            ),
-          ),
-          const SizedBox(width: 8),
           Text(
             info,
             style: Theme.of(context)
                 .textTheme
                 .displaySmall!
                 .copyWith(fontSize: 14),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              textAlign: TextAlign.start,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -47,18 +49,18 @@ class GoodsResultsWidget extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            text,
-            textAlign: TextAlign.end,
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-          ),
-          const SizedBox(width: 8),
-          Text(
             info,
             style: Theme.of(context)
                 .textTheme
                 .displaySmall!
                 .copyWith(fontSize: 14),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            text,
+            textAlign: TextAlign.start,
+            style:
+                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
           ),
         ],
       ),
@@ -72,18 +74,18 @@ class GoodsResultsWidget extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            booleanValue ? AppStrings.ok.tr() : AppStrings.no.tr(),
-            textAlign: TextAlign.end,
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-          ),
-          const SizedBox(width: 8),
-          Text(
             info,
             style: Theme.of(context)
                 .textTheme
                 .displaySmall!
                 .copyWith(fontSize: 14),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            booleanValue ? AppStrings.ok.tr() : AppStrings.no.tr(),
+            textAlign: TextAlign.start,
+            style:
+                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
           ),
         ],
       ),
@@ -117,15 +119,11 @@ class GoodsResultsWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  infoBooleanWidget(
-                      context, AppStrings.crane.tr(), goodsModel.craneBool),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      infoBooleanWidget(context, AppStrings.unloadAndLoad.tr(),
-                          goodsModel.loadingBool),
-                      infoBooleanWidget(context, AppStrings.wrapping.tr(),
-                          goodsModel.wrappingBool),
+                      infoBooleanWidget(
+                          context, AppStrings.crane.tr(), goodsModel.craneBool),
                       infoWidget(
                           context,
                           AppStrings.goodsWeight.tr(),
@@ -133,17 +131,26 @@ class GoodsResultsWidget extends StatelessWidget {
                               ? goodsModel.goodsWeight.toString()
                               : AppStrings.nothing.tr()),
                     ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      infoBooleanWidget(context, AppStrings.unloadAndLoad.tr(),
+                          goodsModel.loadingBool),
+                      infoBooleanWidget(context, AppStrings.wrapping.tr(),
+                          goodsModel.wrappingBool),
+                    ],
                   )
                 ],
               ),
             ),
             goodsModel.images != null
                 ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         AppStrings.pickedImages.tr(),
-                        textAlign: TextAlign.end,
+                        textAlign: TextAlign.start,
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall!
@@ -167,27 +174,68 @@ class GoodsResultsWidget extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
                 children: [
-                  Expanded(
-                    child: Text(
-                      goodsModel.notes ?? AppStrings.nothing.tr(),
-                      textAlign: TextAlign.end,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(fontSize: 12),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
                   Text(
                     AppStrings.privateNotes.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall!
                         .copyWith(fontSize: 16),
-                  )
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      goodsModel.notes ?? AppStrings.nothing.tr(),
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontSize: 12),
+                    ),
+                  ),
                 ],
               ),
-            )
+            ),
+            goodsModel.paymentValue != null
+                ? Container(
+                    margin: const EdgeInsets.symmetric(vertical: 16),
+                    child: Row(
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            AppStrings.paymentValue.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(fontSize: 16),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Text(
+                                goodsModel.paymentValue.toString(),
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontSize: 12),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                _appPrefs.getUserSelectedCountry() == "SA"
+                                    ? AppStrings.saudiCurrency.tr()
+                                    : AppStrings.egpCurrency.tr(),
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox()
           ],
         )
       ],

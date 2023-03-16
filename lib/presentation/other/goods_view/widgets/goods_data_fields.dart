@@ -37,7 +37,13 @@ class _GoodsDataFieldState extends State<GoodsDataField> {
                         widget.goodsModel.craneBool = checked;
                       }),
                   CustomNumberField(
-                      customValue: widget.goodsModel.goodsWeight,
+                      onChanged: (value) {
+                        if (value == '' && value != null) {
+                          widget.goodsModel.goodsWeight = null;
+                          return;
+                        }
+                        widget.goodsModel.goodsWeight = int.parse(value!);
+                      },
                       text: AppStrings.goodsWeight.tr()),
                 ],
               ),
@@ -67,7 +73,15 @@ class _GoodsDataFieldState extends State<GoodsDataField> {
           onPickedImages: (images) => widget.goodsModel.images = images,
         ),
         CustomPrivateNotes(notes: widget.goodsModel.notes),
-        CustomPaymentField(customValue: widget.goodsModel.paymentValue)
+        CustomPaymentField(
+          onChanged: (value) {
+            if (value == '' && value != null) {
+              widget.goodsModel.paymentValue = null;
+              return;
+            }
+            widget.goodsModel.paymentValue = int.parse(value!);
+          },
+        )
       ],
     );
   }
