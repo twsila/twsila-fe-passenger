@@ -64,18 +64,15 @@ class _GoodsViewState extends State<GoodsView> {
                     margin: const EdgeInsets.all(16),
                     child: Center(child: Image.asset(ImageAssets.logoImg)),
                   ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 2,
-                    child: GoogleSearchScreen(
-                      sourceController: sourceController,
-                      destinationController: destinationController,
-                      onSelectSource: (source) =>
-                          goodsViewModel.goodsModel.sourceLocation = source,
-                      onSelectDestination: (destination) => goodsViewModel
-                          .goodsModel.destinationLocation = destination,
-                      onSelectDate: (date) =>
-                          goodsViewModel.goodsModel.date = date,
-                    ),
+                  GoogleSearchScreen(
+                    sourceController: sourceController,
+                    destinationController: destinationController,
+                    onSelectSource: (source) =>
+                        goodsViewModel.goodsModel.sourceLocation = source,
+                    onSelectDestination: (destination) => goodsViewModel
+                        .goodsModel.destinationLocation = destination,
+                    onSelectDate: (date) =>
+                        goodsViewModel.goodsModel.date = date,
                   ),
                   GoodsDataField(goodsModel: goodsViewModel.goodsModel),
                   CustomTextButton(

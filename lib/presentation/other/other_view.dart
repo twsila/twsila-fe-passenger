@@ -49,7 +49,8 @@ class _OtherViewState extends State<OtherView> {
             ),
             //Freezers View
             CustomTextOutlinedButton(
-              onPressed: () {},
+              onPressed: () =>
+                  Navigator.pushNamed(context, Routes.freezereRoute),
               text: AppStrings.freezers.tr(),
             ),
             //Surfaces View

@@ -156,5 +156,20 @@
   "egyptian_currency":"EGP",
   "i_want_to_pay":"I want to pay",
   "payment_note":"Note: Price doesn't include VAT 15%",
-  "payment_value":"Payment Value :"
+  "payment_value":"Payment Value :",
+  "cartons":"Cartons",
+  "shipped_types":"Shipped Types",
+  "materials_tobe_shipped": "Materials to be Shipped",
+  "chiller": "Chiller",
+  "frozen": "Frozen",
+  "dry": "Dry",
+  "meat_poultry_fish": "Meat/Poultry/Fish",
+  "vegetables":"Vegetables",
+  "food_stuffs":"Food stuffs",
+  "flowers_plants":"Flowers/Plants",
+  "dropdown_error":"Please select a value",
+  "location_disabled":"Location services are disabled.",
+  "location_denied" :"Location permissions are denied",
+  "location_denied_long": "Location permissions are permanently denied, we cannot request permissions.",
+  "code_sent":"Code sent"
 }

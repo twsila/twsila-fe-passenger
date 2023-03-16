@@ -154,6 +154,21 @@
   "egyptian_currency":"جنيه مصري",
   "i_want_to_pay":"أرغب في دفع",
   "payment_note":"ملاحظة: السعر لا يشمل ضريبة القيمة المضافة 15%",
-  "payment_value":"القيمة المدفوعة:"
+  "payment_value":"القيمة المدفوعة:",
+  "cartons":"كراتين",
+  "shipped_types":"نوع الشحن",
+  "materials_tobe_shipped": "المواد المراد شحنها",
+  "chiller":"مبرد",
+  "frozen":"مجمد",
+  "dry":"جاف",
+  "meat_poultry_fish":"لحوم/ دواجن/اسماك",
+  "vegetables":"خضراوات",
+  "food_stuffs":"مواد غذائية",
+  "flowers_plants":"زهور/نباتات",
+  "dropdown_error":"من فضلك اختر قيمة",
+  "location_disabled":"خدمات الموقع معطلة.",
+  "location_denied" :"خدمات الموقع مرفوضة.",
+  "location_denied_long": "أذونات الموقع مرفوضة بشكل دائم ، ولا يمكننا طلب أذونات.",
+  "code_sent":"تم ارسال الكود"
 
 }

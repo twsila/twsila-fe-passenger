@@ -56,12 +56,9 @@ class MapProvider with ChangeNotifier {
   setLocation(
       {LocationModel? sourceLocation, LocationModel? destinationLocation}) {
     if (sourceLocation == null && destinationLocation == null) {
-      LatLng latLng =
-          LatLng(currentLocation!.latitude, currentLocation!.longitude);
       removeMarker(sourceMarkerId);
+      removeMarker(destinationMarkerId);
       resetPolyPoints();
-      addMarker(Marker(markerId: sourceMarkerId, position: latLng));
-      animateCamera(latLng);
       return;
     } else if (sourceLocation != null && destinationLocation == null) {
       LatLng latLng = LatLng(sourceLocation.latitude, sourceLocation.longitude);

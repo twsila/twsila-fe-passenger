@@ -7,7 +7,6 @@ import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 import '../../../common/widgets/custom_checkbox.dart';
 import '../../../common/widgets/custom_number_field.dart';
 import '../../../common/widgets/custom_private_notes.dart';
-import '../../../common/widgets/custom_text_input_field.dart';
 import '../../../common/widgets/multi_pick_image.dart';
 
 class GoodsDataField extends StatefulWidget {

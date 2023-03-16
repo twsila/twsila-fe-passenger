@@ -170,10 +170,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
                 errorMaxLines: 8,
                 helperMaxLines: 8,
                 helperText: widget.helperText,
-                contentPadding: widget.padding ??
-                    const EdgeInsets.only(
-                      left: 10,
-                    ),
+                contentPadding: widget.padding ?? const EdgeInsets.all(8),
                 counterStyle: const TextStyle(
                   height: double.minPositive,
                 ),

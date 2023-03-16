@@ -1,37 +1,39 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/presentation/common/widgets/custom_back_button.dart';
-import 'package:taxi_for_you/presentation/other/furniture_view/furniture_viewmodel.dart';
-import 'package:taxi_for_you/presentation/other/furniture_view/widgets/furniture_result_widget.dart';
+import 'package:taxi_for_you/presentation/other/freezers_view/freezers_viewmodel.dart';
+import 'package:taxi_for_you/presentation/other/freezers_view/widgets/freezers_data_fields.dart';
+import 'package:taxi_for_you/presentation/other/freezers_view/widgets/freezers_result_widget.dart';
 import 'package:taxi_for_you/utils/ext/screen_size_ext.dart';
-import 'package:taxi_for_you/utils/resources/assets_manager.dart';
 
+import '../../../utils/resources/assets_manager.dart';
 import '../../../utils/resources/strings_manager.dart';
 import '../../common/state_renderer/dialogs.dart';
+import '../../common/widgets/custom_back_button.dart';
 import '../../common/widgets/custom_text_button.dart';
 import '../../google_maps/view/google_search.dart';
-import 'widgets/furniture_data_fields.dart';
 
-class FurnitureView extends StatefulWidget {
-  const FurnitureView({Key? key}) : super(key: key);
+class FreezersView extends StatefulWidget {
+  const FreezersView({Key? key}) : super(key: key);
 
   @override
-  State<FurnitureView> createState() => _FurnitureViewState();
+  State<FreezersView> createState() => _FreezersViewState();
 }
 
-class _FurnitureViewState extends State<FurnitureView> {
-  final FurnitureViewModel furnitureViewModel = FurnitureViewModel();
+class _FreezersViewState extends State<FreezersView> {
+  final FreezersViewModel freezersViewModel = FreezersViewModel();
   final TextEditingController sourceController = TextEditingController();
   final TextEditingController destinationController = TextEditingController();
+  bool isValidType = true;
+  bool isValidMaterial = true;
 
   @override
   void initState() {
     sourceController.addListener(() {
-      furnitureViewModel.furnitureModel.sourceLocationString =
+      freezersViewModel.freezersModel.sourceLocationString =
           sourceController.text;
     });
     destinationController.addListener(() {
-      furnitureViewModel.furnitureModel.destinationLocationString =
+      freezersViewModel.freezersModel.destinationLocationString =
           destinationController.text;
     });
     super.initState();
@@ -58,7 +60,7 @@ class _FurnitureViewState extends State<FurnitureView> {
                 children: [
                   CustomBackButton(
                     onPressed: () => Navigator.pop(context),
-                    text: AppStrings.furniture.tr(),
+                    text: AppStrings.freezers.tr(),
                   ),
                   Container(
                     height: context.getHeight() / 6,
@@ -68,20 +70,38 @@ class _FurnitureViewState extends State<FurnitureView> {
                   GoogleSearchScreen(
                     sourceController: sourceController,
                     destinationController: destinationController,
-                    onSelectSource: (source) => furnitureViewModel
-                        .furnitureModel.sourceLocation = source,
-                    onSelectDestination: (destination) => furnitureViewModel
-                        .furnitureModel.destinationLocation = destination,
+                    onSelectSource: (source) =>
+                        freezersViewModel.freezersModel.sourceLocation = source,
+                    onSelectDestination: (destination) => freezersViewModel
+                        .freezersModel.destinationLocation = destination,
                     onSelectDate: (date) =>
-                        furnitureViewModel.furnitureModel.date = date,
+                        freezersViewModel.freezersModel.date = date,
                   ),
-                  FurnitureDataFields(
-                    furnitureModel: furnitureViewModel.furnitureModel,
+                  FreezersDataFields(
+                    isValidType: isValidType,
+                    isValidMaterial: isValidMaterial,
+                    freezersViewModel: freezersViewModel,
                   ),
                   CustomTextButton(
                     text: AppStrings.tripConfirmation.tr(),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
+                      freezersViewModel.freezersModel.shippedType == null
+                          ? setState(() {
+                              isValidType = false;
+                            })
+                          : setState(() {
+                              isValidType = true;
+                            });
+                      freezersViewModel.freezersModel.shippedMaterial == null
+                          ? setState(() {
+                              isValidMaterial = false;
+                            })
+                          : setState(() {
+                              isValidMaterial = true;
+                            });
+
+                      if (!isValidType || !isValidMaterial) return;
                       ShowDialogHelper.showDialogPopupWithCancel(
                           AppStrings.tripConfirmation.tr(),
                           '',
@@ -91,8 +111,8 @@ class _FurnitureViewState extends State<FurnitureView> {
                             AppStrings.tripConfirmationSucceeded.tr(), context);
                         Navigator.pop(context);
                       },
-                          messageWidget: FurnitureResultsWidget(
-                            furnitureModel: furnitureViewModel.furnitureModel,
+                          messageWidget: FreezersResultsWidget(
+                            freezersModel: freezersViewModel.freezersModel,
                           ));
                     },
                   ),

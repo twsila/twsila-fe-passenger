@@ -1,5 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 
 import '../../presentation/google_maps/model/location_model.dart';
 
@@ -10,20 +13,22 @@ class UserCurrentLocation {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      throw Future.error('Location services are disabled.');
+      throw PlatformException(
+          code: "", message: AppStrings.locationDisabled.tr());
     }
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        throw Future.error('Location permissions are denied');
+        throw PlatformException(
+            code: "", message: AppStrings.locationDenied.tr());
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      throw Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      throw PlatformException(
+          code: "", message: AppStrings.locationDeniedLong.tr());
     }
 
     Position currentLocation = await Geolocator.getCurrentPosition();

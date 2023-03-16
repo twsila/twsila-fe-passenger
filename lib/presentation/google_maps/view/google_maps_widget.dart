@@ -1,18 +1,29 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:taxi_for_you/utils/resources/color_manager.dart';
 import '../../../utils/location/map_provider.dart';
+import '../../common/state_renderer/dialogs.dart';
+import '../bloc/maps_bloc.dart';
+import '../bloc/maps_events.dart';
+import '../bloc/maps_state.dart';
 import '../model/location_model.dart';
 
 class GoogleMapsWidget extends StatefulWidget {
   LocationModel? sourceLocation;
   LocationModel? destinationLocation;
-  GoogleMapsWidget(
-      {Key? key,
-      required this.sourceLocation,
-      required this.destinationLocation})
-      : super(key: key);
+  final TextEditingController sourceController;
+  final Function(LocationModel? source) onSelectSource;
+
+  GoogleMapsWidget({
+    Key? key,
+    required this.sourceLocation,
+    required this.destinationLocation,
+    required this.sourceController,
+    required this.onSelectSource,
+  }) : super(key: key);
 
   @override
   State<GoogleMapsWidget> createState() => _GoogleMapsWidgetState();
@@ -20,6 +31,7 @@ class GoogleMapsWidget extends StatefulWidget {
 
 class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
   bool _isInit = true;
+  LocationModel? currentLocation;
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   CameraPosition position = const CameraPosition(
@@ -32,19 +44,23 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
     if (_isInit) {
       _isInit = false;
 
-      setMapController();
+      setMapController(false);
     }
     super.didChangeDependencies();
   }
 
-  setMapController() async {
+  setMapController(bool setFromCurrent) async {
     Provider.of<MapProvider>(context, listen: false).controller =
         await _controller.future;
-    LocationModel? currentLocation =
+    currentLocation =
         Provider.of<MapProvider>(context, listen: false).currentLocation;
-    if (widget.sourceLocation == null) {
-      Provider.of<MapProvider>(context, listen: false)
-          .setLocation(sourceLocation: currentLocation);
+    if ((widget.sourceLocation == null || setFromCurrent) &&
+        currentLocation != null) {
+      Provider.of<MapProvider>(context, listen: false).setLocation(
+          sourceLocation: currentLocation,
+          destinationLocation: widget.destinationLocation);
+      widget.sourceController.text = currentLocation!.locationName;
+      widget.onSelectSource(currentLocation);
     } else {
       Provider.of<MapProvider>(context, listen: false).setLocation(
         sourceLocation: widget.sourceLocation,
@@ -60,15 +76,67 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: GoogleMap(
-              onMapCreated: (GoogleMapController controller) async {
-                _controller.complete(controller);
-              },
-              myLocationEnabled: false,
-              myLocationButtonEnabled: false,
-              initialCameraPosition: position,
-              markers: Set.from(mapProvider.markers),
-              polylines: Set<Polyline>.of(mapProvider.polylines.values),
+            child: Stack(
+              children: [
+                GoogleMap(
+                  onMapCreated: (GoogleMapController controller) async {
+                    _controller.complete(controller);
+                  },
+                  myLocationEnabled: false,
+                  myLocationButtonEnabled: false,
+                  initialCameraPosition: position,
+                  zoomControlsEnabled: false,
+                  markers: Set.from(mapProvider.markers),
+                  polylines: Set<Polyline>.of(mapProvider.polylines.values),
+                ),
+                Positioned(
+                  bottom: 16,
+                  right: 16,
+                  child: InkWell(
+                      onTap: () {
+                        BlocProvider.of<MapsBloc>(context, listen: false)
+                            .add(GetCurrentLocation());
+                      },
+                      child: BlocConsumer<MapsBloc, MapsState>(
+                        listener: ((context, state) {
+                          if (state is CurrentLocationFailed) {
+                            ShowDialogHelper.showErrorMessage(
+                                state.errorMessage, context);
+                          } else if (state
+                              is CurrentLocationLoadedSuccessfully) {
+                            Provider.of<MapProvider>(context, listen: false)
+                                .currentLocation = state.currentLocation;
+                            setMapController(true);
+                          }
+                        }),
+                        builder: ((context, state) {
+                          if (state is CurrentLocationIsLoading) {
+                            return SizedBox(
+                              height: 32,
+                              width: 32,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                backgroundColor: ColorManager.primary,
+                              ),
+                            );
+                          }
+                          return Container(
+                            width: 32,
+                            height: 32,
+                            decoration: BoxDecoration(
+                                color: ColorManager.darkPrimary,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(16))),
+                            child: Icon(
+                              Icons.location_searching,
+                              size: 16,
+                              color: ColorManager.white,
+                            ),
+                          );
+                        }),
+                      )),
+                )
+              ],
             ),
           ),
           const SizedBox(height: 8),

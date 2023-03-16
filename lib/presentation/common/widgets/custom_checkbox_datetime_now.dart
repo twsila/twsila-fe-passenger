@@ -23,7 +23,7 @@ class CustomCheckboxDateTimeNow extends StatefulWidget {
 }
 
 class _CustomCheckboxDateTimeNowState extends State<CustomCheckboxDateTimeNow> {
-  String dateFormatterString = 'dd MMM, yyyy hh:mm a';
+  String dateFormatterString = 'dd MMM yyyy/ hh:mm a';
   final _appPrefs = instance<AppPreferences>();
   final dateNow = DateTime.now();
   final timeNow = TimeOfDay.now();

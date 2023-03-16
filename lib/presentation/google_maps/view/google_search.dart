@@ -33,23 +33,7 @@ class GoogleSearchScreen extends StatefulWidget {
 class GoogleSearchScreenState extends State<GoogleSearchScreen> {
   LocationModel? sourceLocation;
   LocationModel? destinationLocation;
-  bool _isInit = true;
   bool _isChecked = false;
-
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      _isInit = false;
-      LocationModel? currentLocation =
-          Provider.of<MapProvider>(context, listen: false).currentLocation;
-      if (currentLocation != null && sourceLocation == null) {
-        widget.sourceController.text = currentLocation.locationName;
-        sourceLocation = currentLocation;
-        widget.onSelectSource(sourceLocation);
-      }
-    }
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,11 +129,17 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
           ],
         ),
         const SizedBox(height: 16),
-        Expanded(
+        SizedBox(
+            height: 200,
             child: GoogleMapsWidget(
-          sourceLocation: sourceLocation,
-          destinationLocation: destinationLocation,
-        )),
+              sourceLocation: sourceLocation,
+              sourceController: widget.sourceController,
+              destinationLocation: destinationLocation,
+              onSelectSource: (source) {
+                sourceLocation = source;
+                widget.onSelectSource(source);
+              },
+            )),
       ],
     );
   }

@@ -33,6 +33,7 @@ class _LoginViewState extends State<LoginView> {
         SchedulerBinding.instance.addPostFrameCallback((_) {
           _appPreferences.setUserLoggedIn();
           Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+          _viewModel.dispose();
         });
       }
     });
@@ -134,11 +135,5 @@ class _LoginViewState extends State<LoginView> {
             ],
           ),
         ));
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
   }
 }

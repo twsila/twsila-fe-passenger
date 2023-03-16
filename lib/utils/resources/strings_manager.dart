@@ -2,6 +2,7 @@ class AppStrings {
   static const en = 'en';
   static const ar = 'ar';
   static const appTitle = 'app_title';
+  static const codesent = "code_sent";
   static const noRouteFound = "noRouteFound";
   static const skip = "skip";
   static const now = "now";
@@ -84,6 +85,7 @@ class AppStrings {
   static const iWantToPay = "i_want_to_pay";
   static const paymentNote = "payment_note";
   static const paymentValue = "payment_value";
+  static const dropdownError = "dropdown_error";
 
   //Furniture strings
   static const attachFurnitureImages = "attach_furniture_images";
@@ -99,6 +101,23 @@ class AppStrings {
   static const sofaSet = "sofa_set";
   static const dinningRoomNumber = "dinning_room_number";
   static const goodsWeight = "goods_weight";
+
+  //Freezers strings
+  static const cartons = "cartons";
+  static const shippedTypes = "shipped_types";
+  static const materialsTobeShipped = "materials_tobe_shipped";
+  static const chiller = "chiller";
+  static const frozen = "frozen";
+  static const dry = "dry";
+  static const meat_poultry_fish = "meat_poultry_fish";
+  static const vegetables = "vegetables";
+  static const foodStuffs = "food_stuffs";
+  static const flowers_plants = "flowers_plants";
+
+  //Location Errors
+  static const locationDisabled = "location_disabled";
+  static const locationDenied = "location_denied";
+  static const locationDeniedLong = "location_denied_long";
 
   // error handler
   static const badRequestError = "bad_request_error";

@@ -45,7 +45,7 @@ class _VerifyOtpViewState extends State<VerifyOtpView> {
     _viewModel.isCodeIsSentStreamController.stream.listen((isOTPSent) {
       if (isOTPSent) {
         Fluttertoast.showToast(
-            msg: "Code sent",
+            msg: AppStrings.codesent.tr(),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
