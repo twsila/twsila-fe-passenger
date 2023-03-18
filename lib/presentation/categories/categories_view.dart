@@ -13,7 +13,7 @@ import '../../utils/resources/assets_manager.dart';
 import '../common/widgets/custom_language_widget.dart';
 
 class CategoriesView extends StatelessWidget {
-  CategoriesViewModel categoriesViewModel = CategoriesViewModel();
+  final CategoriesViewModel categoriesViewModel = CategoriesViewModel();
   CategoriesView({Key? key}) : super(key: key);
 
   @override

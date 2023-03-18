@@ -5,34 +5,35 @@ import '../../../utils/resources/strings_manager.dart';
 import 'custom_text_input_field.dart';
 
 class CustomPrivateNotes extends StatelessWidget {
-  String? notes;
-  CustomPrivateNotes({Key? key, required this.notes}) : super(key: key);
+  final Function(String?) onChanged;
+  const CustomPrivateNotes({Key? key, required this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(top: 10),
+          child: Text(
             AppStrings.privateNotes.tr(),
             style:
                 Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16),
           ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: CustomTextInputField(
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              padding: const EdgeInsets.all(8),
-              onChanged: (text) {
-                notes = text;
-              },
-            ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: CustomTextInputField(
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            padding: const EdgeInsets.all(8),
+            onChanged: (text) {
+              onChanged(text);
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

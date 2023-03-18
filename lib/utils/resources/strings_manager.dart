@@ -21,7 +21,7 @@ class AppStrings {
   static const goods = "goods";
   static const other = "other";
   static const freezers = "freezers";
-  static const surfaces = "surfaces";
+  static const carAid = "car_aid";
   static const cisterns = "cisterns";
   static const login = "login_button";
   static const englishLabel = "english_label";

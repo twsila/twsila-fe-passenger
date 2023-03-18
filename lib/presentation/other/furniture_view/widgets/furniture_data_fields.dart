@@ -139,7 +139,15 @@ class _FurnitureDataFieldsState extends State<FurnitureDataFields> {
         MutliPickImageWidget(
           onPickedImages: (images) => widget.furnitureModel.images = images,
         ),
-        CustomPrivateNotes(notes: widget.furnitureModel.notes),
+        CustomPrivateNotes(
+          onChanged: (text) {
+            if (text != '' && text != null) {
+              widget.furnitureModel.notes = text;
+            } else {
+              widget.furnitureModel.notes = null;
+            }
+          },
+        ),
         CustomPaymentField(
           onChanged: (value) {
             if (value == '' && value != null) {

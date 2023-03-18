@@ -88,7 +88,15 @@ class _FreezersDataFieldsState extends State<FreezersDataFields> {
             )
           ],
         ),
-        CustomPrivateNotes(notes: widget.freezersViewModel.freezersModel.notes),
+        CustomPrivateNotes(
+          onChanged: (text) {
+            if (text != '' && text != null) {
+              widget.freezersViewModel.freezersModel.notes = text;
+            } else {
+              widget.freezersViewModel.freezersModel.notes = null;
+            }
+          },
+        ),
         CustomPaymentField(
           onChanged: (value) {
             if (value == '' && value != null) {

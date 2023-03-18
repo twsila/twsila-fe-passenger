@@ -71,7 +71,15 @@ class _GoodsDataFieldState extends State<GoodsDataField> {
         MutliPickImageWidget(
           onPickedImages: (images) => widget.goodsModel.images = images,
         ),
-        CustomPrivateNotes(notes: widget.goodsModel.notes),
+        CustomPrivateNotes(
+          onChanged: (text) {
+            if (text != '' && text != null) {
+              widget.goodsModel.notes = text;
+            } else {
+              widget.goodsModel.notes = null;
+            }
+          },
+        ),
         CustomPaymentField(
           onChanged: (value) {
             if (value == '' && value != null) {
