@@ -66,9 +66,8 @@ class _GoogleMapsPlacesFieldState extends State<GoogleMapsPlacesField> {
             debounceTime: 400,
             textStyle: Theme.of(context)
                 .textTheme
-                .titleMedium!
+                .displayMedium!
                 .copyWith(color: ColorManager.black),
-            // countries: const ["eg", "sa"],
             countries: mapProvider.countries,
             isLatLngRequired: true,
             getPlaceDetailWithLatLng: (Prediction prediction) {

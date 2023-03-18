@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -83,15 +85,18 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                   onMapCreated: (GoogleMapController controller) async {
                     _controller.complete(controller);
                   },
+                  gestureRecognizers: {
+                    Factory<OneSequenceGestureRecognizer>(
+                        () => EagerGestureRecognizer())
+                  },
                   myLocationEnabled: false,
                   myLocationButtonEnabled: false,
                   initialCameraPosition: position,
-                  zoomControlsEnabled: false,
                   markers: Set.from(mapProvider.markers),
                   polylines: Set<Polyline>.of(mapProvider.polylines.values),
                 ),
                 Positioned(
-                  bottom: 16,
+                  top: 16,
                   right: 16,
                   child: InkWell(
                       onTap: () {
