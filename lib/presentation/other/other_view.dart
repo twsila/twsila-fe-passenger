@@ -58,6 +58,12 @@ class _OtherViewState extends State<OtherView> {
               onPressed: () => Navigator.pushNamed(context, Routes.carAidRoute),
               text: AppStrings.carAid.tr(),
             ),
+            //Water Tank View
+            CustomTextOutlinedButton(
+              onPressed: () =>
+                  Navigator.pushNamed(context, Routes.waterTankRoute),
+              text: AppStrings.waterTank.tr(),
+            ),
             //Cisterns View
             CustomTextOutlinedButton(
               onPressed: () {},

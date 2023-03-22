@@ -32,20 +32,26 @@ class _FreezersDataFieldsState extends State<FreezersDataFields> {
         const SizedBox(height: 16),
         CustomDropDown(
           stringsArr: widget.freezersViewModel.shippingTypes,
+          intialValue: widget.freezersViewModel.freezersModel.shippedType,
           title: AppStrings.shippedTypes.tr(),
           isValid: widget.isValidType,
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
-            widget.freezersViewModel.freezersModel.shippedType = value;
+            setState(() {
+              widget.freezersViewModel.freezersModel.shippedType = value;
+            });
           },
         ),
         CustomDropDown(
           stringsArr: widget.freezersViewModel.materialsTobeShipped,
+          intialValue: widget.freezersViewModel.freezersModel.shippedMaterial,
           title: AppStrings.materialsTobeShipped.tr(),
           isValid: widget.isValidMaterial,
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
-            widget.freezersViewModel.freezersModel.shippedMaterial = value;
+            setState(() {
+              widget.freezersViewModel.freezersModel.shippedMaterial = value;
+            });
           },
         ),
         Row(

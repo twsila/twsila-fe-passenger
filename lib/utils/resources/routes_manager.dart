@@ -4,6 +4,7 @@ import 'package:taxi_for_you/presentation/other/car_aid_view/car_aid_view.dart';
 import 'package:taxi_for_you/presentation/other/freezers_view/freezers_view.dart';
 import 'package:taxi_for_you/presentation/other/furniture_view/furniture_view.dart';
 import 'package:taxi_for_you/presentation/other/other_view.dart';
+import 'package:taxi_for_you/presentation/other/water_tank_view/water_view.dart';
 import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/presentation/otp/view/verify_otp_view.dart';
 import '../../app/di.dart';
@@ -30,6 +31,7 @@ class Routes {
   static const String goodsRoute = "/goods";
   static const String freezerRoute = "/freezers";
   static const String carAidRoute = "/carAid";
+  static const String waterTankRoute = "/waterTank";
 }
 
 class RouteGenerator {
@@ -47,6 +49,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const FurnitureView());
       case Routes.carAidRoute:
         return MaterialPageRoute(builder: (_) => const CarAidView());
+      case Routes.waterTankRoute:
+        return MaterialPageRoute(builder: (_) => const WaterTankView());
       case Routes.freezerRoute:
         return MaterialPageRoute(builder: (_) => const FreezersView());
       case Routes.loginRoute:

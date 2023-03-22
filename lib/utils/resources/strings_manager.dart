@@ -25,6 +25,7 @@ class AppStrings {
   static const freezers = "freezers";
   static const carAid = "car_aid";
   static const cisterns = "cisterns";
+  static const waterTank = "water_tank";
   static const login = "login";
   static const englishLabel = "english_label";
   static const arabicLabel = "arabic_label";
@@ -107,6 +108,7 @@ class AppStrings {
   static const sofaSet = "sofa_set";
   static const dinningRoomNumber = "dinning_room_number";
   static const goodsWeight = "goods_weight";
+  static const tankWeight = "tank_weight";
 
   //Freezers strings
   static const cartons = "cartons";
