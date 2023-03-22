@@ -106,7 +106,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   _logout() {
     // app prefs make that user logged out
-    _appPreferences.logout();
+    _appPreferences.logout(context);
 
     // clear cache of logged out user
     _localDataSource.clearCache();

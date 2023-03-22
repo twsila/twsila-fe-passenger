@@ -60,8 +60,13 @@ class _VerifyOtpViewState extends State<VerifyOtpView> {
       if (isCodeIsVerified) {
         // navigate to main screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          _appPreferences.setUserLoggedIn();
-          Navigator.of(context).pushReplacementNamed(Routes.registerRoute);
+          if (_appPreferences
+              .getUserDevice(_loginViewModel.loginObject.phoneNumber)) {
+            _appPreferences.setUserLoggedIn();
+            Navigator.of(context).pushReplacementNamed(Routes.categoriesRoute);
+          } else {
+            Navigator.of(context).pushReplacementNamed(Routes.registerRoute);
+          }
         });
       }
     });

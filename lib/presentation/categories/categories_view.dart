@@ -25,9 +25,10 @@ class CategoriesView extends StatelessWidget {
           AppStrings.logoutConfirmation.tr(),
           context,
           () => Navigator.pop(context),
-          () {
+          () async {
             Navigator.pop(context);
             categoriesViewModel.logout(context);
+            Navigator.pop(context);
           },
         );
 

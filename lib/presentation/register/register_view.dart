@@ -66,8 +66,9 @@ class _RegisterViewState extends State<RegisterView> {
         // navigate to main screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
           _appPreferences.setUserLoggedIn();
+          _appPreferences
+              .setUserDevices(_loginViewModel.loginObject.phoneNumber);
           Navigator.of(context).pushReplacementNamed(Routes.categoriesRoute);
-          _loginViewModel.dispose();
         });
       }
     });
@@ -110,7 +111,7 @@ class _RegisterViewState extends State<RegisterView> {
                     height: 40,
                     child: CustomBackButton(
                       onPressed: () {
-                        _appPreferences.logout();
+                        _appPreferences.logout(context);
                       },
                     ),
                   ),
@@ -186,7 +187,9 @@ class _RegisterViewState extends State<RegisterView> {
                                 errorMessage: AppStrings.invalidGender.tr(),
                                 onChanged: (value) {
                                   _registerViewModel.setGender(value!);
-                                  _intialValue = value;
+                                  setState(() {
+                                    _intialValue = value;
+                                  });
                                 },
                               );
                             }),

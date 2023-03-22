@@ -1,15 +1,20 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:taxi_for_you/utils/location/map_provider.dart';
 
+import '../data/data_source/local_data_source.dart';
 import '../utils/resources/langauge_manager.dart';
+import 'di.dart';
 
 const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
 const String PREFS_KEY_ONBOARDING_SCREEN_VIEWED =
     "PREFS_KEY_ONBOARDING_SCREEN_VIEWED";
 const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
 const String USER_SELECTED_COUNTRY = "USER_SELECTED_COUNTRY";
+const String USER_MOBILE_NUMBER = "USER_MOBILE_NUMBER";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -59,6 +64,29 @@ class AppPreferences {
     return _sharedPreferences.getString(USER_SELECTED_COUNTRY);
   }
 
+  //Set User Devices
+  setUserDevices(String mobileNumber) {
+    List<String>? mobileNumbers =
+        _sharedPreferences.getStringList(USER_MOBILE_NUMBER);
+    if (mobileNumbers == null) {
+      mobileNumbers = [mobileNumber];
+    } else {
+      mobileNumbers.add(mobileNumber);
+    }
+    _sharedPreferences.setStringList(USER_MOBILE_NUMBER, mobileNumbers);
+  }
+
+  bool getUserDevice(String mobileNumber) {
+    List<String>? mobileNumbers =
+        _sharedPreferences.getStringList(USER_MOBILE_NUMBER);
+    if (mobileNumbers == null) {
+      return false;
+    } else {
+      int index = mobileNumbers.indexOf(mobileNumber);
+      return index == -1 ? false : true;
+    }
+  }
+
   // on boarding
 
   Future<void> setOnBoardingScreenViewed() async {
@@ -80,8 +108,15 @@ class AppPreferences {
     return _sharedPreferences.getBool(PREFS_KEY_IS_USER_LOGGED_IN) ?? false;
   }
 
-  Future<void> logout() async {
+  Future<void> logout(BuildContext context) async {
+    final LocalDataSource _localDataSource = instance<LocalDataSource>();
     await FirebaseAuth.instance.signOut();
+
+    // clear cache of logged out user
+    _localDataSource.clearCache();
+
     _sharedPreferences.remove(PREFS_KEY_IS_USER_LOGGED_IN);
+
+    Phoenix.rebirth(context);
   }
 }

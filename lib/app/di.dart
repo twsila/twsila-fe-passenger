@@ -75,7 +75,6 @@ initRegisterModule() {
         .registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
     instance.registerFactory<RegisterViewModel>(
         () => RegisterViewModel(instance()));
-    instance.registerFactory<ImagePicker>(() => ImagePicker());
   }
 }
 
