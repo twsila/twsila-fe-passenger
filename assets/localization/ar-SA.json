@@ -5,6 +5,18 @@
   "app_title": "توصيلة",
   "welcome_message": "مرحباً بك فى توصيلة",
   "now":"الآن",
+  "birthdate":"تاريخ الميلاد",
+  "register":"تسجيل",
+  "login":"تسجيل الدخول",
+  "create_new_account":"إنشاء حساب جديد",
+  "already_have_account":"لديك حساب ؟",
+  "username_hint":"اسم المستخدم",
+  "email_hint":"البريد الإلكتروني",
+  "email_error":"من فضلك ادخل بريد إلكتروني صحيح",
+  "username_hint_message":"من فضلك ادخل اسم مستخدم صحيح",
+  "invalid_gender":"من فضلك اختر نوع",
+  "password_hint":"كلمة السر",
+  "confirm_password_hint":"تأكيد كلمة السر",
   "phone_number_label": "رقم الهاتف",
   "phone_number_hint": "أدخل رقم الهاتف",
   "sign_in": "تسجيل",
@@ -169,6 +181,9 @@
   "location_disabled":"خدمات الموقع معطلة.",
   "location_denied" :"خدمات الموقع مرفوضة.",
   "location_denied_long": "أذونات الموقع مرفوضة بشكل دائم ، ولا يمكننا طلب أذونات.",
-  "code_sent":"تم ارسال الكود"
+  "code_sent":"تم ارسال الكود",
+  "gender":"الجنس",
+  "male":"ذكر",
+  "female":"انثي"
 
 }

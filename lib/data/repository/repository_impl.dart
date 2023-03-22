@@ -185,7 +185,10 @@ class RepositoryImpl implements Repository {
         FirebaseAuthException exception = FirebaseAuthException(code: "101");
         await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: firebaseOTPRequest.phoneNumberWithCountryCode,
-          verificationCompleted: (PhoneAuthCredential credential) {},
+          verificationCompleted: (PhoneAuthCredential credential) async {
+            verifyFirebaseOtp(VerifyFirebaseOTPRequest(
+                credential.verificationId!, credential.smsCode!));
+          },
           verificationFailed: (FirebaseAuthException e) {
             exception = e;
           },
@@ -194,7 +197,6 @@ class RepositoryImpl implements Repository {
             verificationIdG = verificationId;
             resendTokenG = resendToken ?? 0;
             VerifyOTPViewModel.firebaseCodeSent.verificationId = verificationId;
-
           },
           codeAutoRetrievalTimeout: (String verificationId) {},
         );

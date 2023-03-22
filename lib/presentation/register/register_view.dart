@@ -2,19 +2,33 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:taxi_for_you/presentation/common/widgets/custom_back_button.dart';
+import 'package:taxi_for_you/presentation/common/widgets/custom_date_picker.dart';
+import 'package:taxi_for_you/presentation/common/widgets/custom_text_button.dart';
+import 'package:taxi_for_you/presentation/common/widgets/custom_text_input_field.dart';
+import 'package:taxi_for_you/presentation/login/login_viewmodel.dart';
 import 'package:taxi_for_you/presentation/register/register_viewmodel.dart';
+import 'package:taxi_for_you/utils/ext/screen_size_ext.dart';
+import 'package:taxi_for_you/utils/resources/font_manager.dart';
+import 'package:taxi_for_you/utils/resources/styles_manager.dart';
 
 import '../../app/app_prefs.dart';
 import '../../app/constants.dart';
 import '../../app/di.dart';
+import '../../utils/location/map_provider.dart';
 import '../common/state_renderer/state_renderer_impl.dart';
 import '../../utils/resources/assets_manager.dart';
 import '../../utils/resources/color_manager.dart';
 import '../../utils/resources/routes_manager.dart';
 import '../../utils/resources/strings_manager.dart';
 import '../../utils/resources/values_manager.dart';
+import '../common/widgets/custom_dropdown.dart';
+import '../common/widgets/custom_language_widget.dart';
+import '../common/widgets/custom_phone_input_field.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -24,42 +38,36 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final RegisterViewModel _viewModel = instance<RegisterViewModel>();
-  final ImagePicker _imagePicker = instance<ImagePicker>();
+  final RegisterViewModel _registerViewModel = instance<RegisterViewModel>();
+  final LoginViewModel _loginViewModel = instance<LoginViewModel>();
   final AppPreferences _appPreferences = instance<AppPreferences>();
   final _formKey = GlobalKey<FormState>();
+  String? _intialValue;
 
   final TextEditingController _userNameEditingController =
       TextEditingController();
   final TextEditingController _emailEditingController = TextEditingController();
-  final TextEditingController _passwordEditingController =
-      TextEditingController();
-  final TextEditingController _mobileNumberEditingController =
-      TextEditingController();
 
   _bind() {
-    _viewModel.start();
+    _intialValue = _registerViewModel.genderTypes[0];
+    _registerViewModel.setGender(_intialValue!);
+    _registerViewModel.start();
+    _registerViewModel.setCountryCode(_loginViewModel.loginObject.countryCode);
+    _registerViewModel.setMobileNumber(_loginViewModel.loginObject.phoneNumber);
     _userNameEditingController.addListener(() {
-      _viewModel.setUserName(_userNameEditingController.text);
+      _registerViewModel.setUserName(_userNameEditingController.text);
     });
     _emailEditingController.addListener(() {
-      _viewModel.setEmail(_emailEditingController.text);
+      _registerViewModel.setEmail(_emailEditingController.text);
     });
-
-    _passwordEditingController.addListener(() {
-      _viewModel.setPassword(_passwordEditingController.text);
-    });
-
-    _mobileNumberEditingController.addListener(() {
-      _viewModel.setMobileNumber(_mobileNumberEditingController.text);
-    });
-    _viewModel.isUserRegisteredInSuccessfullyStreamController.stream
+    _registerViewModel.isUserRegisteredInSuccessfullyStreamController.stream
         .listen((isLoggedIn) {
       if (isLoggedIn) {
         // navigate to main screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
           _appPreferences.setUserLoggedIn();
-          Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+          Navigator.of(context).pushReplacementNamed(Routes.categoriesRoute);
+          _loginViewModel.dispose();
         });
       }
     });
@@ -75,17 +83,12 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.white,
-      appBar: AppBar(
-        elevation: AppSize.s0,
-        backgroundColor: ColorManager.white,
-        iconTheme: IconThemeData(color: ColorManager.primary),
-      ),
       body: StreamBuilder<FlowState>(
-        stream: _viewModel.outputState,
+        stream: _registerViewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data?.getScreenWidget(context, _getContentWidget(),
                   () {
-                _viewModel.register();
+                _registerViewModel.register();
               }) ??
               _getContentWidget();
         },
@@ -94,293 +97,160 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   Widget _getContentWidget() {
-    return Container(
-        padding: const EdgeInsets.only(top: AppPadding.p28),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                const Center(
-                    child: Image(image: AssetImage(ImageAssets.logoImg))),
-                const SizedBox(
-                  height: AppSize.s28,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: AppPadding.p28, right: AppPadding.p28),
-                  child: StreamBuilder<String?>(
-                      stream: _viewModel.outputErrorUserName,
-                      builder: (context, snapshot) {
-                        return TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _userNameEditingController,
-                          decoration: InputDecoration(
-                              hintText: AppStrings.username.tr(),
-                              labelText: AppStrings.username.tr(),
-                              errorText: snapshot.data),
-                        );
-                      }),
-                ),
-                const SizedBox(
-                  height: AppSize.s18,
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: AppPadding.p28, right: AppPadding.p28),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // showCountryPicker(
-                              //   context: context,
-                              //   //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
-                              //   exclude: <String>['KN', 'MF'],
-                              //   favorite: <String>['SE'],
-                              //   //Optional. Shows phone code before the country name.
-                              //   showPhoneCode: true,
-                              //   onSelect: (Country country) {
-                              //     _viewModel
-                              //         .setCountryCode(country.countryCode);
-                              //   },
-                              //   // Optional. Sets the theme for the country list picker.
-                              //   countryListTheme: CountryListThemeData(
-                              //     // Optional. Sets the border radius for the bottomsheet.
-                              //     borderRadius: const BorderRadius.only(
-                              //       topLeft: Radius.circular(40.0),
-                              //       topRight: Radius.circular(40.0),
-                              //     ),
-                              //     // Optional. Styles the search field.
-                              //     inputDecoration: InputDecoration(
-                              //       labelText: 'Search',
-                              //       hintText: 'Start typing to search',
-                              //       prefixIcon: const Icon(Icons.search),
-                              //       border: OutlineInputBorder(
-                              //         borderSide: BorderSide(
-                              //           color: const Color(0xFF8C98A8)
-                              //               .withOpacity(0.2),
-                              //         ),
-                              //       ),
-                              //     ),
-                              //     // Optional. Styles the text in the search field
-                              //     searchTextStyle: const TextStyle(
-                              //       color: Colors.blue,
-                              //       fontSize: 18,
-                              //     ),
-                              //   ),
-                              // );
-                            },
-                            child: const Text('Show country picker'),
-                          ),
-                          //  showCountryPicker(
-                          //                       onChanged: (country) {
-                          //                         // update view model with code
-                          //                         _viewModel.setCountryCode(
-                          //                             country.dialCode ?? Constants.token);
-                          //                       },
-                          //                       initialSelection: '+20',
-                          //                       favorite: const ['+39', 'FR', "+966"],
-                          //                       // optional. Shows only country name and flag
-                          //                       showCountryOnly: true,
-                          //                       hideMainText: true,
-                          //                       // optional. Shows only country name and flag when popup is closed.
-                          //                       showOnlyCountryWhenClosed: true,
-                          //                     ),
-                        ),
-                        Expanded(
-                            flex: 4,
-                            child: StreamBuilder<String?>(
-                                stream: _viewModel.outputErrorMobileNumber,
-                                builder: (context, snapshot) {
-                                  return TextFormField(
-                                    keyboardType: TextInputType.phone,
-                                    controller: _mobileNumberEditingController,
-                                    decoration: InputDecoration(
-                                        hintText:
-                                            AppStrings.phoneNumberHint.tr(),
-                                        labelText:
-                                            AppStrings.phoneNumberHint.tr(),
-                                        errorText: snapshot.data),
-                                  );
-                                }))
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: AppSize.s18,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: AppPadding.p28, right: AppPadding.p28),
-                  child: StreamBuilder<String?>(
-                      stream: _viewModel.outputErrorEmail,
-                      builder: (context, snapshot) {
-                        return TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _emailEditingController,
-                          decoration: InputDecoration(
-                              hintText: AppStrings.emailHint.tr(),
-                              labelText: AppStrings.emailHint.tr(),
-                              errorText: snapshot.data),
-                        );
-                      }),
-                ),
-                const SizedBox(
-                  height: AppSize.s18,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: AppPadding.p28, right: AppPadding.p28),
-                  child: StreamBuilder<String?>(
-                      stream: _viewModel.outputErrorPassword,
-                      builder: (context, snapshot) {
-                        return TextFormField(
-                          keyboardType: TextInputType.visiblePassword,
-                          controller: _passwordEditingController,
-                          decoration: InputDecoration(
-                              hintText: AppStrings.password.tr(),
-                              labelText: AppStrings.password.tr(),
-                              errorText: snapshot.data),
-                        );
-                      }),
-                ),
-                const SizedBox(
-                  height: AppSize.s18,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: AppPadding.p28, right: AppPadding.p28),
-                  child: Container(
-                    height: AppSize.s40,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(AppSize.s8)),
-                        border: Border.all(color: ColorManager.grey)),
-                    child: GestureDetector(
-                      child: _getMediaWidget(),
-                      onTap: () {
-                        _showPicker(context);
+    return SafeArea(
+      child: Container(
+          margin: const EdgeInsets.all(AppMargin.m28),
+          padding: const EdgeInsets.only(top: AppPadding.p16),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 40,
+                    child: CustomBackButton(
+                      onPressed: () {
+                        _appPreferences.logout();
                       },
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: AppSize.s40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: AppPadding.p28, right: AppPadding.p28),
-                  child: StreamBuilder<bool>(
-                      stream: _viewModel.outputAreAllInputsValid,
-                      builder: (context, snapshot) {
-                        return SizedBox(
-                          width: double.infinity,
-                          height: AppSize.s40,
-                          child: ElevatedButton(
-                              onPressed: (snapshot.data ?? false)
-                                  ? () {
-                                      _viewModel.register();
-                                    }
-                                  : null,
-                              child: Text(AppStrings.register.tr())),
-                        );
-                      }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: AppPadding.p18,
-                      left: AppPadding.p28,
-                      right: AppPadding.p28),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(AppStrings.alreadyHaveAccount.tr(),
-                        style: Theme.of(context).textTheme.titleMedium),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ));
-  }
-
-  _showPicker(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return SafeArea(
-              child: Wrap(
-            children: [
-              ListTile(
-                trailing: const Icon(Icons.arrow_forward),
-                leading: const Icon(Icons.camera),
-                title: Text(AppStrings.photoGallery.tr()),
-                onTap: () {
-                  _imageFromGallery();
-                  Navigator.of(context).pop();
-                },
+                  const SizedBox(height: AppSize.s28),
+                  Container(
+                    margin: const EdgeInsets.all(AppMargin.m16),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppStrings.createNewAccount.tr(),
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              const SizedBox(height: AppSize.s4),
+                              Text(
+                                AppStrings.letsGetStarted.tr(),
+                                style: getMediumStyle(
+                                    color: ColorManager.black,
+                                    fontSize: FontSize.s16),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: AppSize.s28,
+                        ),
+                        StreamBuilder<String?>(
+                            stream: _registerViewModel.outputErrorUserName,
+                            builder: (context, snapshot) {
+                              return CustomTextInputField(
+                                controller: _userNameEditingController,
+                                prefixIcon: const Icon(Icons.person_outline),
+                                hintText: AppStrings.username.tr(),
+                                labelText: AppStrings.username.tr(),
+                                errorLabel: snapshot.data,
+                              );
+                            }),
+                        const SizedBox(
+                          height: AppSize.s8,
+                        ),
+                        CustomPhoneInputField(
+                          enabled: false,
+                          loginViewModel: _loginViewModel,
+                        ),
+                        const SizedBox(
+                          height: AppSize.s8,
+                        ),
+                        StreamBuilder<String?>(
+                            stream: _registerViewModel.outputErrorEmail,
+                            builder: (context, snapshot) {
+                              return CustomTextInputField(
+                                controller: _emailEditingController,
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                hintText: AppStrings.emailHint.tr(),
+                                labelText: AppStrings.emailHint.tr(),
+                                errorLabel: snapshot.data,
+                              );
+                            }),
+                        StreamBuilder<bool?>(
+                            stream: _registerViewModel.outputIsGenderValid,
+                            builder: (context, snapshot) {
+                              return CustomDropDown(
+                                stringsArr: _registerViewModel.genderTypes,
+                                intialValue: _intialValue,
+                                isValid: snapshot.data ?? true,
+                                hintText: AppStrings.gender.tr(),
+                                iconData: Icons.male,
+                                borderColor: ColorManager.lightGrey,
+                                errorMessage: AppStrings.invalidGender.tr(),
+                                onChanged: (value) {
+                                  _registerViewModel.setGender(value!);
+                                  _intialValue = value;
+                                },
+                              );
+                            }),
+                        CustomDatePickerWidget(
+                          mainColor: ColorManager.lightGrey,
+                          hintText: AppStrings.birthdate.tr(),
+                          isDateOnly: true,
+                          onSelectDate: (date) {
+                            _registerViewModel.setDate(date);
+                          },
+                        ),
+                        const SizedBox(height: AppSize.s40),
+                        StreamBuilder<bool>(
+                            stream: _registerViewModel.outputAreAllInputsValid,
+                            builder: (context, snapshot) {
+                              return SizedBox(
+                                width: double.infinity,
+                                height: AppSize.s40,
+                                child: CustomTextButton(
+                                  onPressed: (snapshot.data ?? false)
+                                      ? () {
+                                          _registerViewModel.register();
+                                        }
+                                      : null,
+                                  text: AppStrings.register.tr(),
+                                ),
+                              );
+                            }),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                AppStrings.alreadyHaveAccount.tr(),
+                                style: getBoldStyle(
+                                    color: ColorManager.black,
+                                    fontSize: FontSize.s16),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                AppStrings.login.tr(),
+                                style: getBoldStyle(
+                                    color: ColorManager.primary,
+                                    fontSize: FontSize.s16),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-              ListTile(
-                trailing: const Icon(Icons.arrow_forward),
-                leading: const Icon(Icons.camera_alt_outlined),
-                title: Text(AppStrings.photoCamera.tr()),
-                onTap: () {
-                  _imageFromCamera();
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          ));
-        });
-  }
-
-  _imageFromGallery() async {
-    var image = await _imagePicker.pickImage(source: ImageSource.gallery);
-    _viewModel.setProfilePicture(File(image?.path ?? ""));
-  }
-
-  _imageFromCamera() async {
-    var image = await _imagePicker.pickImage(source: ImageSource.camera);
-    _viewModel.setProfilePicture(File(image?.path ?? ""));
-  }
-
-  Widget _getMediaWidget() {
-    return Padding(
-      padding: const EdgeInsets.only(left: AppPadding.p8, right: AppPadding.p8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(child: Text(AppStrings.profilePicture.tr())),
-          Flexible(
-              child: StreamBuilder<File>(
-            stream: _viewModel.outputProfilePicture,
-            builder: (context, snapshot) {
-              return _imagePicketByUser(snapshot.data);
-            },
+            ),
           )),
-          Flexible(child: SvgPicture.asset(ImageAssets.photoCameraIc))
-        ],
-      ),
     );
-  }
-
-  Widget _imagePicketByUser(File? image) {
-    if (image != null && image.path.isNotEmpty) {
-      // return image
-      return Image.file(image);
-    } else {
-      return Container();
-    }
   }
 
   @override
   void dispose() {
-    _viewModel.dispose();
+    _registerViewModel.dispose();
     super.dispose();
   }
 }

@@ -112,6 +112,7 @@ class _SettingsPageState extends State<SettingsPage> {
     _localDataSource.clearCache();
 
     // navigate to login screen
+    initLoginModule();
     Navigator.pushReplacementNamed(context, Routes.loginRoute);
   }
 }

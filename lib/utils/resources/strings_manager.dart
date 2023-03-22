@@ -6,6 +6,8 @@ class AppStrings {
   static const noRouteFound = "noRouteFound";
   static const skip = "skip";
   static const now = "now";
+  static const birthdate = "birthdate";
+  static const createNewAccount = "create_new_account";
   static const username = "username_hint";
   static const password = "password_hint";
   static const usernameError = "username_error";
@@ -23,7 +25,7 @@ class AppStrings {
   static const freezers = "freezers";
   static const carAid = "car_aid";
   static const cisterns = "cisterns";
-  static const login = "login_button";
+  static const login = "login";
   static const englishLabel = "english_label";
   static const arabicLabel = "arabic_label";
   static const forgetPassword = "forgot_password_text";
@@ -41,6 +43,7 @@ class AppStrings {
   static const sourceHint = 'source_hint';
   static const destinationHint = 'destination_hint';
   static const invalidEmail = "email_error";
+  static const invalidGender = "invalid_gender";
   static const resetPassword = "reset_password";
   static const success = "success";
   static const userNameInvalid = "username_hint_message";
@@ -86,6 +89,9 @@ class AppStrings {
   static const paymentNote = "payment_note";
   static const paymentValue = "payment_value";
   static const dropdownError = "dropdown_error";
+  static const male = "male";
+  static const female = "female";
+  static const gender = "gender";
 
   //Furniture strings
   static const attachFurnitureImages = "attach_furniture_images";

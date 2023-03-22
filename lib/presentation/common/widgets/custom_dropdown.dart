@@ -4,10 +4,12 @@ import 'package:taxi_for_you/utils/resources/color_manager.dart';
 class CustomDropDown extends StatefulWidget {
   final String? title;
   final List<String>? stringsArr;
-  final Function(String?)? onChanged;
+  final Function(String?) onChanged;
   final String? hintText;
-  final isValid;
-  final errorMessage;
+  final IconData? iconData;
+  final String? intialValue;
+  final bool isValid;
+  final String? errorMessage;
   final Color? backgroundColor;
   final Color? borderColor;
   final Color? textColor;
@@ -18,8 +20,10 @@ class CustomDropDown extends StatefulWidget {
       {this.title,
       required this.stringsArr,
       required this.isValid,
-      this.onChanged,
+      required this.onChanged,
+      this.intialValue,
       this.hintText,
+      this.iconData,
       this.backgroundColor,
       this.errorMessage,
       this.textColor,
@@ -32,7 +36,6 @@ class CustomDropDown extends StatefulWidget {
 }
 
 class _CustomDropDownState extends State<CustomDropDown> {
-  String? _intialValue;
   bool _isInit = true;
 
   @override
@@ -71,46 +74,58 @@ class _CustomDropDownState extends State<CustomDropDown> {
                     color: widget.borderColor ?? ColorManager.lightPrimary)
                 : Border.all(color: Colors.red),
           ),
-          child: Theme(
-            data: ThemeData(canvasColor: Colors.white),
-            child: DropdownButtonHideUnderline(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DropdownButton<String>(
-                  value: _intialValue,
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  style: Theme.of(context).textTheme.displayMedium,
-                  hint: widget.hintText != null
-                      ? Text(
-                          widget.hintText!,
-                          style: Theme.of(context).textTheme.displaySmall,
-                        )
-                      : null,
-                  onChanged: (String? selectedValue) {
-                    setState(() {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      widget.onChanged!(selectedValue);
-                      _intialValue = selectedValue;
-                    });
-                  },
-                  items: widget.stringsArr!.map((String date) {
-                    return DropdownMenuItem<String>(
-                      value: date,
-                      child: Text(
-                        date,
-                        style: TextStyle(
-                          color: widget.textColor ??
-                              Theme.of(context).primaryColor,
+          child: Row(
+            children: [
+              if (widget.iconData != null)
+                Container(
+                    margin: const EdgeInsets.only(left: 16),
+                    child: Icon(
+                      Icons.male,
+                      color: ColorManager.lightGrey,
+                    )),
+              Expanded(
+                child: Theme(
+                  data: ThemeData(canvasColor: Colors.white),
+                  child: DropdownButtonHideUnderline(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButton<String>(
+                        value: widget.intialValue,
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: widget.borderColor ?? ColorManager.primary,
                         ),
+                        style: Theme.of(context).textTheme.displayMedium,
+                        hint: widget.hintText != null
+                            ? Text(
+                                widget.hintText!,
+                                style: Theme.of(context).textTheme.displaySmall,
+                              )
+                            : null,
+                        onChanged: (String? selectedValue) {
+                          setState(() {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            widget.onChanged(selectedValue);
+                          });
+                        },
+                        items: widget.stringsArr!.map((String date) {
+                          return DropdownMenuItem<String>(
+                            value: date,
+                            child: Text(
+                              date,
+                              style: TextStyle(
+                                color: widget.textColor ??
+                                    Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          );
+                        }).toList(),
                       ),
-                    );
-                  }).toList(),
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ),
         !widget.isValid

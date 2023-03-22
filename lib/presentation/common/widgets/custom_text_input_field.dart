@@ -214,9 +214,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
                             children: [widget.suffixIcon!],
                           )
                         : null,
-                errorStyle: TextStyle(
-                  color: ColorManager.error,
-                ),
+                errorStyle: TextStyle(color: ColorManager.error, fontSize: 14),
                 // helperStyle: Theme.of(context)
                 //     .textTheme
                 //     .headline5!
@@ -260,6 +258,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
               onChanged: (val) {
                 if (widget.onChanged != null) widget.onChanged!(val);
               },
+              validator: (value) => widget.errorLabel,
               onSaved: widget.onSaved,
             ),
           ],

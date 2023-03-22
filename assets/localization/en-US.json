@@ -5,6 +5,18 @@
   "app_title": "Twsila",
   "welcome_message": "Welcome to Twsila",
   "now":"Now",
+  "birthdate":"Birthdate",
+  "register":"Register",
+  "login":"Login",
+  "create_new_account":"Create New Account",
+  "already_have_account":"Already have an account?",
+  "username_hint":"username",
+  "email_hint":"Email",
+  "email_error":"Please enter valid email",
+  "username_hint_message":"Please enter valid username",
+  "invalid_gender":"Please select gender",
+  "password_hint":"Password",
+  "confirm_password_hint":"Confirm Password",
   "phone_number_label": "Phone",
   "phone_number_hint": "Enter your number",
   "sign_in": "Sign in",
@@ -171,5 +183,8 @@
   "location_disabled":"Location services are disabled.",
   "location_denied" :"Location permissions are denied",
   "location_denied_long": "Location permissions are permanently denied, we cannot request permissions.",
-  "code_sent":"Code sent"
+  "code_sent":"Code sent",
+  "gender":"gender",
+  "male":"Male",
+  "female":"Female"
 }

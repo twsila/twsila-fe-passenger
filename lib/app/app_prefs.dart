@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/utils/location/map_provider.dart';
@@ -80,6 +81,7 @@ class AppPreferences {
   }
 
   Future<void> logout() async {
+    await FirebaseAuth.instance.signOut();
     _sharedPreferences.remove(PREFS_KEY_IS_USER_LOGGED_IN);
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/presentation/common/widgets/custom_phone_input_field.dart';
 import 'package:taxi_for_you/utils/ext/screen_size_ext.dart';
 import 'package:taxi_for_you/utils/location/map_provider.dart';
 import 'package:taxi_for_you/utils/resources/styles_manager.dart';
@@ -63,24 +64,8 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  IntlPhoneField(
-                    decoration: InputDecoration(
-                      labelText: AppStrings.phoneNumberHint.tr(),
-                      labelStyle: getRegularStyle(
-                          color: ColorManager.lightGrey, fontSize: AppSize.s14),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: ColorManager.lightGrey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: ColorManager.lightGrey),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: ColorManager.lightGrey),
-                      ),
-                    ),
-                    initialCountryCode: _viewModel.initialCountry,
-                    countries: const ['SA', 'EG'],
-                    initialValue: _viewModel.loginObject.phoneNumber,
+                  CustomPhoneInputField(
+                    loginViewModel: _viewModel,
                     onCountryChanged: (country) {
                       _viewModel.initialCountry = country.code;
                       appPreferences.setUserSelectedCountry(country.code);

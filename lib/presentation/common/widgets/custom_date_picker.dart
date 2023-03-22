@@ -4,14 +4,25 @@ import 'package:intl/intl.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/utils/resources/color_manager.dart';
+import 'package:taxi_for_you/utils/resources/font_manager.dart';
 import 'package:taxi_for_you/utils/resources/langauge_manager.dart';
 import 'package:taxi_for_you/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/utils/resources/styles_manager.dart';
 
 class CustomDatePickerWidget extends StatefulWidget {
   final Function(String date) onSelectDate;
-  const CustomDatePickerWidget({Key? key, required this.onSelectDate})
-      : super(key: key);
+  final bool isDateOnly;
+  final String? title;
+  final String? hintText;
+  final Color? mainColor;
+  const CustomDatePickerWidget({
+    Key? key,
+    required this.onSelectDate,
+    this.title,
+    this.hintText,
+    this.isDateOnly = false,
+    this.mainColor,
+  }) : super(key: key);
 
   @override
   State<CustomDatePickerWidget> createState() => _CustomDatePickerWidgetState();
@@ -21,33 +32,45 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
   final _appPrefs = instance<AppPreferences>();
   final ValueNotifier<DateTime?> dateSub = ValueNotifier(null);
 
-  String dateFormatterString = 'dd MMM yyyy/ hh:mm a';
-
   Widget buildDateTimePicker(String data) {
     return Row(
       children: [
-        Flexible(
-          flex: 1,
-          child: Text(
-            AppStrings.scheduleAppoinment.tr(),
-            style: getMediumStyle(color: ColorManager.lightGrey, fontSize: 12),
+        if (widget.title != null)
+          Flexible(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    widget.title!,
+                    style: getMediumStyle(
+                        color: ColorManager.lightGrey, fontSize: 12),
+                  ),
+                ),
+                const SizedBox(width: 8),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(width: 6),
         Flexible(
           flex: 3,
           child: ListTile(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
-              side: BorderSide(color: ColorManager.lightPrimary, width: 1.5),
+              side: BorderSide(
+                color: widget.mainColor ?? ColorManager.lightPrimary,
+                width: 1.5,
+              ),
             ),
             title: Text(
-              data != '' ? data : AppStrings.selectDate.tr(),
+              data != '' ? data : widget.hintText ?? AppStrings.selectDate.tr(),
               textAlign: TextAlign.start,
+              style: getMediumStyle(
+                color: widget.mainColor ?? ColorManager.primary,
+                fontSize: FontSize.s14,
+              ),
             ),
             leading: Icon(
               Icons.calendar_today,
-              color: ColorManager.primary,
+              color: widget.mainColor ?? ColorManager.primary,
             ),
           ),
         ),
@@ -56,6 +79,9 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
   }
 
   String convertDate(DateTime dateTime) {
+    String dateFormatterString =
+        widget.isDateOnly ? 'dd MMM yyyy' : 'dd MMM yyyy/ hh:mm a';
+
     String dateFormatted =
         DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
             .format(dateTime);
@@ -98,6 +124,10 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                             child: child!,
                           );
                         });
+                    if (widget.isDateOnly) {
+                      dateSub.value = date;
+                      return;
+                    }
                     final timeValue = await showTimePicker(
                         context: context,
                         initialTime: TimeOfDay.now(),

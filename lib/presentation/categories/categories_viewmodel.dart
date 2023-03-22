@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 import '../../app/app_prefs.dart';
 import '../../app/di.dart';
@@ -17,6 +18,6 @@ class CategoriesViewModel {
     _localDataSource.clearCache();
 
     // navigate to login screen
-    Navigator.pushReplacementNamed(context, Routes.loginRoute);
+    Phoenix.rebirth(context);
   }
 }

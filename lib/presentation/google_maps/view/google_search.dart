@@ -52,7 +52,10 @@ class GoogleSearchScreenState extends State<GoogleSearchScreen> {
                     },
                   ),
                   if (!_isChecked)
-                    CustomDatePickerWidget(onSelectDate: widget.onSelectDate!)
+                    CustomDatePickerWidget(
+                      title: AppStrings.scheduleAppoinment.tr(),
+                      onSelectDate: widget.onSelectDate!,
+                    )
                 ],
               )
             : const SizedBox(),

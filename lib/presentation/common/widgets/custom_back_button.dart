@@ -7,15 +7,14 @@ import '../../../utils/resources/langauge_manager.dart';
 
 class CustomBackButton extends StatelessWidget {
   final _appPrefs = instance<AppPreferences>();
-  final Function() onPressed;
+  final Function()? onPressed;
   final String? text;
-  CustomBackButton({Key? key, required this.onPressed, this.text})
-      : super(key: key);
+  CustomBackButton({Key? key, this.onPressed, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      onTap: onPressed ?? () => Navigator.pop(context),
       child: Row(
         children: [
           Align(
