@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../presentation/google_maps/bloc/maps_bloc.dart';
-import '../presentation/google_maps/model/maps_repo.dart';
-import '../utils/location/map_provider.dart';
-import '../utils/resources/routes_manager.dart';
-import '../utils/resources/theme_manager.dart';
+import '../Features/google_maps/bloc/maps_bloc.dart';
+import '../Features/google_maps/model/maps_repo.dart';
+import '../core/utils/location/map_provider.dart';
+import '../core/utils/resources/routes_manager.dart';
+import '../core/utils/resources/theme_manager.dart';
 import 'app_prefs.dart';
 import 'di.dart';
 import 'package:easy_localization/easy_localization.dart';

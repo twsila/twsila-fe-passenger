@@ -4,9 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../data/data_source/local_data_source.dart';
-import '../utils/resources/langauge_manager.dart';
+import '../core/utils/resources/langauge_manager.dart';
 import 'di.dart';
 
 const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
@@ -109,11 +107,11 @@ class AppPreferences {
   }
 
   Future<void> logout(BuildContext context) async {
-    final LocalDataSource _localDataSource = instance<LocalDataSource>();
+    // final LocalDataSource _localDataSource = instance<LocalDataSource>();
     await FirebaseAuth.instance.signOut();
 
     // clear cache of logged out user
-    _localDataSource.clearCache();
+    // _localDataSource.clearCache();
 
     _sharedPreferences.remove(PREFS_KEY_IS_USER_LOGGED_IN);
 
