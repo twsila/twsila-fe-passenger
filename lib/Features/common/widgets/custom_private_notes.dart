@@ -26,8 +26,6 @@ class CustomPrivateNotes extends StatelessWidget {
         Expanded(
           child: CustomTextInputField(
             keyboardType: TextInputType.multiline,
-            maxLines: null,
-            padding: const EdgeInsets.all(8),
             onChanged: (text) {
               onChanged(text);
             },

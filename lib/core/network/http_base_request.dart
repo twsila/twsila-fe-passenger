@@ -5,52 +5,44 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
+import 'package:taxi_for_you/core/network/base_request_interface.dart';
+import 'package:taxi_for_you/data/model/request-model.dart';
 
+import '../../app/di.dart';
 import 'app_exceptions.dart';
 import 'base_response.dart';
 
 // ignore: camel_case_types, constant_identifier_names
 enum NETWORK_REQUEST_TYPE { GET, POST, PUT, DELETE }
 
-class BaseRequest {
-  NETWORK_REQUEST_TYPE requestType;
-  String endPoint;
-  Map<String, String>? headers;
-
-  BaseRequest({
-    required this.endPoint,
-    required this.requestType,
-    this.headers = Constants.headers,
-  });
-
-  @override
-  String toString() {
-    return 'URL: ${Constants.baseUrl + endPoint}\n'
-        'Headers: $headers\n'
-        'Request Type: ${requestType == NETWORK_REQUEST_TYPE.GET ? "GET" : "POST"}\n';
-  }
+class HttpBaseRequest extends BaseRequestInterface {
+  final AppPreferences appPreferences = instance<AppPreferences>();
 
   final JsonDecoder _decoder = const JsonDecoder();
 
-  Future<dynamic> sendRequest(Map<String, dynamic> reqBody,
+  @override
+  Future<dynamic> sendRequest(RequestModel requestModel,
       [String param = '']) async {
-    var response;
+    http.Response response;
 
-    Uri uri = Uri.parse(Constants.baseUrl + endPoint);
+    Uri uri = Uri.parse(Constants.baseUrl + requestModel.endPoint);
 
-    var requestEncoded = json.encode(reqBody);
+    requestModel.reqBody['language'] = appPreferences.getAppLanguage();
+
+    var requestEncoded = json.encode(requestModel.reqBody);
 
     try {
-      if (requestType == NETWORK_REQUEST_TYPE.POST) {
+      if (requestModel.requestType == NETWORK_REQUEST_TYPE.POST) {
         response = await http
-            .post(uri, body: requestEncoded, headers: headers)
+            .post(uri, body: requestEncoded, headers: requestModel.headers)
             .timeout(
               const Duration(seconds: Constants.apiTimeOut),
             );
       } else {
         response = await http
-            .get(uri, headers: headers)
+            .get(uri, headers: requestModel.headers)
             .timeout(const Duration(seconds: Constants.apiTimeOut));
       }
       return _returnResponse(response);
@@ -61,15 +53,24 @@ class BaseRequest {
     } on FormatException catch (e) {
       throw InvalidInputException();
     } catch (e) {
+      if (e is PlatformException) {
+        throw PlatformException(
+          message: e.message,
+          code: e.code,
+          details: e.details,
+        );
+      }
       throw FetchDataException();
     }
   }
 
+  @override
   Future<dynamic> sendMultiPartRequest(
+    RequestModel requestModel,
     String filePath,
     Map<String, String> fields,
   ) async {
-    Uri uri = Uri.http(Constants.baseUrl, endPoint);
+    Uri uri = Uri.http(Constants.baseUrl, requestModel.endPoint);
     var request =
         http.MultipartRequest(NETWORK_REQUEST_TYPE.POST.toString(), uri);
     var headers = Constants.multiPartHeaders;
@@ -103,10 +104,19 @@ class BaseRequest {
   }
 
   dynamic _returnResponse(http.Response response) {
-    BaseResponse baseResponse = BaseResponse.fromJson(
-      _decoder.convert(utf8.decode(response.bodyBytes)),
-      status: response.statusCode,
-    );
+    late BaseResponse baseResponse;
+    if (response.bodyBytes.isNotEmpty) {
+      baseResponse = BaseResponse.fromJson(
+        _decoder.convert(utf8.decode(response.bodyBytes)),
+        statusCode: response.statusCode,
+      );
+    } else {
+      baseResponse = BaseResponse(
+        errorMessage: response.reasonPhrase,
+        status: response.statusCode,
+      );
+    }
+
     switch (response.statusCode) {
       case 200:
         return baseResponse;

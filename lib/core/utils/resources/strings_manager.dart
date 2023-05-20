@@ -1,6 +1,8 @@
 class AppStrings {
   static const en = 'en';
   static const ar = 'ar';
+  static const egypt = 'egypt';
+  static const saudi = 'saudi';
   static const appTitle = 'app_title';
   static const codesent = "code_sent";
   static const noRouteFound = "noRouteFound";
@@ -12,9 +14,13 @@ class AppStrings {
   static const password = "password_hint";
   static const usernameError = "username_error";
   static const passwordError = "password_error";
+  static const phoneError = "invalid_phone_number_msg";
+  static const noZero = "must_not_be_zero";
   static const continueBtn = "continue_button";
   static const whatsYourNumber = "whats_your_number";
   static const letsGetStarted = "lets_get_started";
+  static const welcomeTo = "welcome_to";
+  static const enterPhoneNumber = "enter_phone_number";
   static const goodAfternoon = "good_afternoon";
   static const goodmorning = "good_morning";
   static const goodevening = "good_evening";
@@ -44,6 +50,8 @@ class AppStrings {
   static const sourceHint = 'source_hint';
   static const destinationHint = 'destination_hint';
   static const invalidEmail = "email_error";
+  static const errorField = "error_field";
+  static const validField = "valid_field";
   static const invalidGender = "invalid_gender";
   static const resetPassword = "reset_password";
   static const success = "success";

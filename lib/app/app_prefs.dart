@@ -1,9 +1,15 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:convert';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
+import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
+import 'package:taxi_for_you/data/model/country.dart';
 import '../core/utils/resources/langauge_manager.dart';
 import 'di.dart';
 
@@ -27,6 +33,24 @@ class AppPreferences {
       // return default lang
       return LanguageType.ENGLISH.getValue();
     }
+  }
+
+  List<CountryModel> getCountries() {
+    List<CountryModel> countries = [
+      CountryModel(
+        countryID: '1',
+        countryName: AppStrings.saudi.tr(),
+        countryCode: "+966",
+        imageURL: ImageAssets.saudiFlag,
+      ),
+      CountryModel(
+        countryID: '2',
+        countryName: AppStrings.egypt.tr(),
+        countryCode: "+20",
+        imageURL: ImageAssets.egyptFlag,
+      ),
+    ];
+    return countries;
   }
 
   Future<void> changeAppLanguage() async {
@@ -54,12 +78,22 @@ class AppPreferences {
   }
 
   //Selected country
-  setUserSelectedCountry(String country) {
-    _sharedPreferences.setString(USER_SELECTED_COUNTRY, country);
+  setUserSelectedCountry(CountryModel country) {
+    _sharedPreferences.setString(USER_SELECTED_COUNTRY, json.encode(country));
   }
 
-  String? getUserSelectedCountry() {
-    return _sharedPreferences.getString(USER_SELECTED_COUNTRY);
+  CountryModel? getUserSelectedCountry() {
+    try {
+      var country = _sharedPreferences.getString(USER_SELECTED_COUNTRY);
+      if (country != null) {
+        var countryModel = CountryModel.fromJson(const JsonDecoder().convert(
+            _sharedPreferences.getString(USER_SELECTED_COUNTRY) ?? ''));
+        return countryModel;
+      }
+      return null;
+    } catch (error) {
+      return null;
+    }
   }
 
   //Set User Devices

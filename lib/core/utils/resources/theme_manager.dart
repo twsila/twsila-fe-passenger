@@ -45,14 +45,13 @@ ThemeData getApplicationTheme() {
         displayLarge: getBoldStyle(color: ColorManager.black, fontSize: 22),
         displayMedium:
             getMediumStyle(color: ColorManager.primary, fontSize: 14),
-        displaySmall:
-            getMediumStyle(color: ColorManager.lightGrey, fontSize: 14),
+        displaySmall: getMediumStyle(color: ColorManager.grey, fontSize: 14),
         headlineLarge:
             getSemiBoldStyle(color: ColorManager.darkGrey, fontSize: 18),
         headlineMedium:
             getRegularStyle(color: ColorManager.darkGrey, fontSize: 14),
         titleLarge: getBoldStyle(color: ColorManager.primary, fontSize: 30),
-        titleMedium: getMediumStyle(color: ColorManager.primary, fontSize: 16),
+        titleMedium: getMediumStyle(color: ColorManager.primary, fontSize: 24),
         titleSmall: getRegularStyle(color: ColorManager.white, fontSize: 16),
         bodyLarge: getRegularStyle(color: ColorManager.grey1),
         bodySmall: getRegularStyle(color: ColorManager.grey, fontSize: 18),

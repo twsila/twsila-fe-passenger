@@ -1,8 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taxi_for_you/Features/login/model/login_repo.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
-import '../Features/login/login_viewmodel.dart';
+import '../Features/login/views/login_viewmodel.dart';
 import '../Features/register/views/register_viewmodel.dart';
+import '../core/network/http_base_request.dart';
 import 'app_prefs.dart';
 
 final instance = GetIt.instance;
@@ -18,10 +20,15 @@ Future<void> initAppModule() async {
   // app prefs instance
   instance
       .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
+  instance.registerFactory<HttpBaseRequest>(() => HttpBaseRequest());
+  instance
+      .registerFactory<LoginRepo>(() => LoginRepo(instance<HttpBaseRequest>()));
 }
 
 initLoginModule() {
-  instance.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
+  if (!instance.isRegistered<LoginViewModel>()) {
+    instance.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
+  }
 }
 
 initRegisterModule() {

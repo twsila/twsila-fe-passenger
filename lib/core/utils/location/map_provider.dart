@@ -4,12 +4,16 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
+import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/location/show_all_markers.dart';
+import 'package:taxi_for_you/data/model/country.dart';
 
 import '../../../Features/google_maps/model/location_model.dart';
 
 class MapProvider with ChangeNotifier {
+  final AppPreferences appPreferences = instance<AppPreferences>();
   GoogleMapController? controller;
   MarkerId sourceMarkerId = const MarkerId('source_location');
   MarkerId destinationMarkerId = const MarkerId('destination_location');
@@ -38,8 +42,8 @@ class MapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  setCountry(String country, {bool needsRebuild = true}) {
-    countries = [country];
+  setCountry(CountryModel country, {bool needsRebuild = true}) {
+    countries = [country.countryName.substring(0, 2)];
     if (!needsRebuild) return;
     notifyListeners();
   }

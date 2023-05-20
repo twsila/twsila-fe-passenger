@@ -11,7 +11,7 @@ import '../../../Features/other/water_tank_view/views/water_view.dart';
 import '../../../app/di.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../../../Features/login/login_view.dart';
+import '../../../Features/login/views/login_screen.dart';
 import '../../../Features/register/views/register_view.dart';
 import '../../../Features/splash/splash_view.dart';
 
@@ -50,7 +50,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const FreezersView());
       case Routes.loginRoute:
         initLoginModule();
-        return MaterialPageRoute(builder: (_) => const LoginView());
+        return MaterialPageRoute(
+          builder: (_) => LoginScreen(),
+          settings: const RouteSettings(name: Routes.loginRoute),
+        );
       case Routes.registerRoute:
         initRegisterModule();
         return MaterialPageRoute(builder: (_) => const RegisterView());

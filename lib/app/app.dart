@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:taxi_for_you/app/bloc_providers.dart';
 
 import '../Features/google_maps/bloc/maps_bloc.dart';
 import '../Features/google_maps/model/maps_repo.dart';
@@ -38,10 +39,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        BlocProvider.value(value: MapsBloc(MapsRepo())),
-        ChangeNotifierProvider(create: (_) => MapProvider()),
-      ],
+      providers: blocProviders(context),
       child: MaterialApp(
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

@@ -3,7 +3,7 @@ class BaseResponse {
   String? errorMessage;
   String? errorCode;
   String? dateTime;
-  String? status;
+  int? status;
   dynamic result;
 
   BaseResponse({
@@ -14,12 +14,12 @@ class BaseResponse {
     this.status,
   });
 
-  BaseResponse.fromJson(Map<String, dynamic> json, {int? status}) {
+  BaseResponse.fromJson(Map<String, dynamic> json, {int? statusCode}) {
     errorMessage = json['message'];
     errorCode = json['errorCode'];
     success = json['success'];
     dateTime = json['dateTime'];
     result = json['result'];
-    status = status;
+    status = statusCode;
   }
 }
