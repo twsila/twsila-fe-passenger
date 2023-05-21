@@ -16,6 +16,7 @@ import '../../../app/di.dart';
 import '../../../core/utils/location/map_provider.dart';
 import '../../../core/utils/resources/assets_manager.dart';
 import '../../../core/utils/resources/color_manager.dart';
+import '../../../core/utils/resources/routes_manager.dart';
 import '../../../core/utils/resources/strings_manager.dart';
 import '../../common/widgets/custom_language_widget.dart';
 import '../../common/widgets/custom_phone_input_field.dart';
@@ -37,18 +38,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   _bind() {
     _viewModel.start();
-
-    // _viewModel.isUserLoggedInSuccessfullyStreamController.stream
-    //     .listen((isLoggedIn) {
-    //   if (isLoggedIn) {
-    //     // navigate to main screen
-    //     SchedulerBinding.instance.addPostFrameCallback((_) {
-    //       _appPreferences.setUserLoggedIn();
-    //       // Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
-    //       _viewModel.dispose();
-    //     });
-    //   }
-    // });
   }
 
   @override
@@ -65,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
         allowBackButtonInAppBar: false,
         context: context,
         body: Container(
-          margin: const EdgeInsets.symmetric(vertical: 28, horizontal: 16),
+          margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -142,38 +131,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(
                               height: 28,
                             ),
-                            BlocConsumer<LoginBloc, LoginStates>(
-                              listener: (context, state) {
-                                if (state is LoginSuccessfully) {
-                                  ShowDialogHelper.showSuccessMessage(
-                                      '${state.userModel}', context);
-                                } else if (state is LoginFailed) {
-                                  ShowDialogHelper.showErrorMessage(
-                                      '${state.baseResponse.errorMessage}\nstatusCode:${state.baseResponse.status}',
-                                      context);
-                                }
-                              },
-                              builder: (context, state) {
-                                if (state is LoginIsLoading) {
-                                  return CircularProgressIndicator(
-                                    color: ColorManager.primary,
-                                  );
-                                } else {
-                                  return CustomTextButton(
-                                    text: AppStrings.continueBtn.tr(),
-                                    onPressed: () {
-                                      FocusScope.of(context).unfocus();
-                                      if (_formKey.currentState != null &&
-                                          _formKey.currentState!.validate()) {
-                                        BlocProvider.of<LoginBloc>(context).add(
-                                          LoginUser(
-                                              mobileNumber:
-                                                  _viewModel.countryCode +
-                                                      _viewModel.phoneController
-                                                          .text),
-                                        );
-                                      }
-                                    },
+                            CustomTextButton(
+                              text: AppStrings.continueBtn.tr(),
+                              onPressed: () {
+                                FocusScope.of(context).unfocus();
+                                if (_formKey.currentState != null &&
+                                    _formKey.currentState!.validate()) {
+                                  String mobileNumber = _viewModel.countryCode +
+                                      _viewModel.phoneController.text;
+                                  Navigator.pushNamed(
+                                    context,
+                                    Routes.verifyOtpRoute,
+                                    arguments: mobileNumber,
                                   );
                                 }
                               },

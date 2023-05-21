@@ -4,6 +4,7 @@ class Constants {
   static const String token = "SEND TOKEN HERE";
   static const String empty = "";
   static const int apiTimeOut = 60;
+  static const int otpCountTime = 60;
   static const String GOOGLE_API_KEY =
       "AIzaSyCuu1VQ3jSSyDLG0m7qBxLGR1xqv6wVm1w";
   static const headers = {

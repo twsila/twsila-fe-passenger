@@ -3,9 +3,12 @@ class AppStrings {
   static const ar = 'ar';
   static const egypt = 'egypt';
   static const saudi = 'saudi';
+  static const showCode = 'show_code';
+  static const hideCode = 'hide_code';
   static const appTitle = 'app_title';
   static const codesent = "code_sent";
   static const noRouteFound = "noRouteFound";
+  static const seconds = "seconds";
   static const skip = "skip";
   static const now = "now";
   static const birthdate = "birthdate";
@@ -21,6 +24,10 @@ class AppStrings {
   static const letsGetStarted = "lets_get_started";
   static const welcomeTo = "welcome_to";
   static const enterPhoneNumber = "enter_phone_number";
+  static const enterVerificationCode = "enter_verification_code";
+  static const enterCodeHere = "enter_code_here";
+  static const codeArrive = "code_arrive";
+  static const codeDidntArrive = "code_didn't_arrive";
   static const goodAfternoon = "good_afternoon";
   static const goodmorning = "good_morning";
   static const goodevening = "good_evening";

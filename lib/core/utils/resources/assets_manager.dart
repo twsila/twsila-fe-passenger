@@ -6,6 +6,8 @@ class ImageAssets {
   static const String logoApp = "$imagePath/logo-furniture.png";
   static const String photoCameraIc = "$imagePath/photo-camera.svg";
   static const String car = "$imagePath/car.png";
+  static const String eye = "$imagePath/eye.png";
+  static const String eye_closed = "$imagePath/eye-closed.png";
   static const String egyptFlag = "$imagePath/egypt-flag.png";
   static const String saudiFlag = "$imagePath/saudi-flag.png";
   static const String checkIcon = "$imagePath/check.png";

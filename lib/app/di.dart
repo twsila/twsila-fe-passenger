@@ -36,10 +36,7 @@ initRegisterModule() {
 }
 
 initVerifyOtpModule() {
-  // if (!GetIt.I.isRegistered<GenerateOtpUseCase>()) {
-  //   instance.registerFactory<GenerateOtpUseCase>(
-  //       () => GenerateOtpUseCase(instance()));
-  //   instance
-  //       .registerFactory<VerifyOtpUseCase>(() => VerifyOtpUseCase(instance()));
-  instance.registerFactory<VerifyOTPViewModel>(() => VerifyOTPViewModel());
+  if (!instance.isRegistered<VerifyOTPViewModel>()) {
+    instance.registerFactory<VerifyOTPViewModel>(() => VerifyOTPViewModel());
+  }
 }

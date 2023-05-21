@@ -1,5 +1,10 @@
-import 'dart:async';
-import '../../common/state_renderer/state_renderer.dart';
-import '../../common/state_renderer/state_renderer_impl.dart';
+import 'package:flutter/material.dart';
 
-class VerifyOTPViewModel {}
+class VerifyOTPViewModel {
+  late String mobileNumber;
+  TextEditingController mobileController = TextEditingController();
+
+  disponse() {
+    mobileController.dispose();
+  }
+}
