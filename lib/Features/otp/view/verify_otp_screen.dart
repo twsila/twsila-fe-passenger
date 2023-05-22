@@ -1,16 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
+import 'package:taxi_for_you/Features/login/bloc/login_bloc.dart';
+import 'package:taxi_for_you/Features/login/bloc/login_event.dart';
+import 'package:taxi_for_you/Features/login/bloc/login_state.dart';
+import 'package:taxi_for_you/Features/otp/bloc/otp_bloc.dart';
+import 'package:taxi_for_you/Features/otp/bloc/otp_event.dart';
+import 'package:taxi_for_you/Features/otp/bloc/otp_state.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
-import 'package:taxi_for_you/core/utils/resources/langauge_manager.dart';
-
-import '../../../app/app_prefs.dart';
-import '../../../app/di.dart';
-import '../../../core/utils/helpers/number_helper.dart';
-import '../../../core/utils/resources/color_manager.dart';
-import '../../../core/utils/resources/strings_manager.dart';
-import '../../common/widgets/custom_countdown_timer.dart';
+import 'package:taxi_for_you/Features/otp/view/widgets/custom_text_widget.dart';
+import 'package:taxi_for_you/Features/otp/view/widgets/custom_timer_widget.dart';
+import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import '../../common/widgets/custom_verification_code_widget.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
@@ -22,13 +25,10 @@ class VerifyOtpScreen extends StatefulWidget {
 }
 
 class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
-  final _formKey = GlobalKey<FormState>();
   bool _isInit = true;
-  bool timeFinished = false;
-  VerifyOTPViewModel _viewModel = VerifyOTPViewModel();
-  GlobalKey globalKey = GlobalKey();
-
-  final AppPreferences _appPreferences = instance<AppPreferences>();
+  bool displayLoadingIndicator = false;
+  String? userOtp;
+  final VerifyOTPViewModel _viewModel = VerifyOTPViewModel();
 
   @override
   void dispose() {
@@ -41,6 +41,8 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
     if (_isInit) {
       _viewModel.mobileNumber =
           ModalRoute.of(context)!.settings.arguments as String;
+      BlocProvider.of<OtpBloc>(context)
+          .add(GenerateOtpEvent(mobileNumber: _viewModel.mobileNumber));
       _isInit = false;
     }
     super.didChangeDependencies();
@@ -48,95 +50,98 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      pageBuilder: PageBuilder(
-        scaffoldKey: widget.scaffoldKey,
-        context: context,
-        body: Container(
-          margin: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppStrings.enterVerificationCode.tr(),
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: ColorManager.black, fontWeight: FontWeight.w800),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  AppStrings.enterCodeHere.tr(),
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: ColorManager.grey,
-                      ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _appPreferences.getAppLanguage() ==
-                          LanguageType.ARABIC.getValue()
-                      ? LanguageNumbersHelper()
-                          .replaceArabicNumber(_viewModel.mobileNumber)
-                      : _viewModel.mobileNumber,
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: ColorManager.black, fontWeight: FontWeight.w500),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 32),
-                  child: CustomVerificationCodeWidget(
-                    controller: _viewModel.mobileController,
-                    onCodeSubmitted: (code) {},
-                    onCodeChanged: (code) {},
-                  ),
-                ),
-                !timeFinished
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppStrings.codeArrive.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(
-                                    color: ColorManager.black,
-                                    fontWeight: FontWeight.w600),
-                          ),
-                          CustomCountDownTimer(
-                            onTimerFinished: () {
-                              setState(() {
-                                timeFinished = true;
-                              });
-                            },
-                          ),
-                        ],
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            onTap: () {},
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.replay_outlined,
-                                  color: ColorManager.primary,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  AppStrings.codeDidntArrive.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall!
-                                      .copyWith(
-                                          color: ColorManager.primary,
-                                          fontWeight: FontWeight.w600),
-                                ),
-                              ],
+    return BlocListener<OtpBloc, OtpStates>(
+      listener: (context, state) {
+        if (state is GenerateOtpIsLoading || state is ValidateOtpIsLoading) {
+          setState(() {
+            displayLoadingIndicator = true;
+          });
+        } else {
+          setState(() {
+            displayLoadingIndicator = false;
+          });
+        }
+        if (state is GenerateOtpSuccessfully) {
+          print(AppStrings.codeIs.tr() + state.otp);
+          userOtp = state.otp;
+          ShowDialogHelper.showSuccessMessage(
+            AppStrings.codesent.tr() +
+                ', ${AppStrings.codeIs.tr()} ${state.otp}',
+            context,
+            seconds: 5,
+          );
+        }
+
+        if (state is GenerateOtpFailed) {
+          ShowDialogHelper.showErrorMessage(
+              AppStrings.codeSenderror.tr(), context);
+        }
+        if (state is ValidateOtpSuccessfully) {
+          ShowDialogHelper.showSuccessMessage(
+              AppStrings.validateSuccessfully.tr(), context);
+          Future.delayed(
+              const Duration(seconds: 3),
+              () => BlocProvider.of<LoginBloc>(context)
+                  .add(LoginUser(mobileNumber: _viewModel.mobileNumber)));
+        }
+        if (state is ValidateOtpFailed) {
+          ShowDialogHelper.showErrorMessage(
+              AppStrings.validateFailed.tr(), context);
+        }
+      },
+      child: CustomScaffold(
+        pageBuilder: PageBuilder(
+          displayLoadingIndicator: displayLoadingIndicator,
+          scaffoldKey: widget.scaffoldKey,
+          context: context,
+          body: Container(
+            margin: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomOtpTextWidget(mobileNumber: _viewModel.mobileNumber),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 32),
+                    child: CustomVerificationCodeWidget(
+                      autoFocus: false,
+                      controller: _viewModel.mobileController,
+                      onCodeSubmitted: (code) {
+                        if (userOtp != null) {
+                          BlocProvider.of<OtpBloc>(context).add(
+                            ValidateOtpEvent(
+                              otp: userOtp!,
+                              generatedOtp: code,
+                              mobileNumber: _viewModel.mobileNumber,
                             ),
-                          ),
-                        ],
-                      )
-              ],
+                          );
+                        } else {
+                          ShowDialogHelper.showErrorMessage(
+                              AppStrings.codeSenderror.tr(), context);
+                        }
+                      },
+                      onCodeChanged: (code) {},
+                    ),
+                  ),
+                  CustomTimerWidget(
+                    mobileNumber: _viewModel.mobileNumber,
+                  ),
+                  BlocListener<LoginBloc, LoginStates>(
+                    listener: (context, state) {
+                      if (state is LoginSuccessfully) {
+                        ShowDialogHelper.showSuccessMessage(
+                            AppStrings.loginSuccessfully.tr(), context);
+                      } else if (state is LoginFailed) {
+                        if (state.baseResponse.status == 401) {
+                          ShowDialogHelper.showSuccessMessage(
+                              AppStrings.loginFailed.tr(), context);
+                        }
+                      }
+                    },
+                    child: const SizedBox(),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

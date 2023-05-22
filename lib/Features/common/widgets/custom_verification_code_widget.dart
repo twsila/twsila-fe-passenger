@@ -6,6 +6,7 @@ import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 class CustomVerificationCodeWidget extends StatefulWidget {
   final TextEditingController controller;
   final int otpLength;
+  final bool autoFocus;
   final Function(String) onCodeChanged;
   final Function(String) onCodeSubmitted;
 
@@ -14,6 +15,7 @@ class CustomVerificationCodeWidget extends StatefulWidget {
     required this.controller,
     required this.onCodeSubmitted,
     required this.onCodeChanged,
+    this.autoFocus = true,
     this.otpLength = 6,
   }) : super(key: key);
 
@@ -29,10 +31,7 @@ class _CustomVerificationCodeWidgetState
 
   @override
   void codeUpdated() {
-    print("Update code $code");
-    setState(() {
-      print("codeUpdated");
-    });
+    setState(() {});
   }
 
   @override
@@ -51,7 +50,6 @@ class _CustomVerificationCodeWidgetState
     await SmsAutoFill().unregisterListener();
     listenForCode();
     SmsAutoFill().listenForCode;
-    print("OTP listen Called");
   }
 
   @override
@@ -73,16 +71,15 @@ class _CustomVerificationCodeWidgetState
               strokeWidth: 2,
               gapSpace: 5,
             ),
-            autoFocus: true,
+            autoFocus: widget.autoFocus,
             currentCode: codeValue,
             enableInteractiveSelection: false,
             controller: widget.controller,
             codeLength: widget.otpLength,
             onCodeSubmitted: (code) {
-              print("onCodeSubmitted $code");
+              widget.onCodeSubmitted(code);
             },
             onCodeChanged: (code) {
-              print("onCodeChanged $code");
               setState(() {
                 codeValue = code.toString();
                 widget.onCodeChanged(codeValue);

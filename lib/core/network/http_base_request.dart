@@ -32,6 +32,7 @@ class HttpBaseRequest extends BaseRequestInterface {
     requestModel.reqBody['language'] = appPreferences.getAppLanguage();
 
     var requestEncoded = json.encode(requestModel.reqBody);
+    printFunction(requestModel);
 
     try {
       if (requestModel.requestType == NETWORK_REQUEST_TYPE.POST) {
@@ -127,5 +128,14 @@ class HttpBaseRequest extends BaseRequestInterface {
           details: baseResponse,
         );
     }
+  }
+
+  printFunction(RequestModel requestModel) {
+    var requestEncoded = json.encode(requestModel.reqBody);
+    print("""
+    uri: ${Constants.baseUrl + requestModel.endPoint}
+    body: $requestEncoded
+    headers: ${requestModel.headers}
+    method: ${requestModel.requestType}""");
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 
 import '../../../core/utils/resources/color_manager.dart';
+import '../state_renderer/easy_loader.dart';
 import 'custom_back_button.dart';
 
 class CustomScaffold extends StatefulWidget {
@@ -114,6 +115,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 ),
               ),
             ),
+            if (widget.pageBuilder.displayLoadingIndicator) const EasyLoader(),
           ],
         ),
       ),

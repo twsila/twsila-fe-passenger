@@ -57,7 +57,8 @@ class ShowDialogHelper {
     );
   }
 
-  static void showSuccessMessage(String message, BuildContext context) {
+  static void showSuccessMessage(String message, BuildContext context,
+      {int? seconds}) {
     FToast fToast;
     fToast = FToast();
     fToast.init(context);

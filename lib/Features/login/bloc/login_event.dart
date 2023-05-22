@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:taxi_for_you/data/model/user-model.dart';
 
 class LoginEvent extends Equatable {
   @override

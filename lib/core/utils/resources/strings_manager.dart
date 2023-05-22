@@ -7,6 +7,10 @@ class AppStrings {
   static const hideCode = 'hide_code';
   static const appTitle = 'app_title';
   static const codesent = "code_sent";
+  static const codeIs = "code_is";
+  static const validateSuccessfully = "validate_successfully";
+  static const validateFailed = "validate_failed";
+  static const codeSenderror = "code_error";
   static const noRouteFound = "noRouteFound";
   static const seconds = "seconds";
   static const skip = "skip";
@@ -40,6 +44,8 @@ class AppStrings {
   static const cisterns = "cisterns";
   static const waterTank = "water_tank";
   static const login = "login";
+  static const loginSuccessfully = "login_successfully";
+  static const loginFailed = "login_failed";
   static const englishLabel = "english_label";
   static const arabicLabel = "arabic_label";
   static const forgetPassword = "forgot_password_text";

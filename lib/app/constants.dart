@@ -1,6 +1,6 @@
 class Constants {
   static const String baseUrl =
-      "https://twsila-dev-service-f33wiujt7a-lm.a.run.app/passenger/";
+      "https://twsila-dev-service-f33wiujt7a-lm.a.run.app/";
   static const String token = "SEND TOKEN HERE";
   static const String empty = "";
   static const int apiTimeOut = 60;
@@ -22,5 +22,7 @@ class Constants {
 }
 
 class EndPointsConstants {
-  static const String login = "login";
+  static const String login = "passenger/login";
+  static const String generateOtp = "otp/generate";
+  static const String validateOtp = "otp/validate";
 }
