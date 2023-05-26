@@ -22,7 +22,7 @@ class ColorManager {
   static Color formHintTextColor = const Color(0xffA4A4AD);
   static Color formLabelTextColor = const Color(0xff676876);
   static Color hintTextColor = const Color(0xff9393BB);
-  static Color titlesTextColor = const Color(0xff363778);
+  static Color titlesTextColor = const Color(0xff676876);
   static Color accentTextColor = const Color(0xffFF862E);
   static Color warningTextColor = const Color(0xffFF0B1B);
   static Color purpleMainTextColor = const Color(0xff7577CD);

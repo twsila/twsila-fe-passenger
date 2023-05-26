@@ -11,11 +11,13 @@ class CustomTextButton extends StatefulWidget {
   final String text;
   final Color? color;
   final double? height;
+  final bool showIcon;
   const CustomTextButton({
     Key? key,
     this.color,
     this.height,
     this.onPressed,
+    this.showIcon = true,
     required this.text,
   }) : super(key: key);
 
@@ -32,40 +34,51 @@ class _CustomTextButtonState extends State<CustomTextButton> {
       height: widget.height ?? 50,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(4)),
-        boxShadow: [
-          BoxShadow(
-            color: ColorManager.primary.withOpacity(0.5),
-            spreadRadius: 3,
-            blurRadius: 5,
-            offset: const Offset(0, 2),
-          )
-        ],
+        boxShadow: widget.onPressed == null
+            ? []
+            : [
+                BoxShadow(
+                  color: ColorManager.primary.withOpacity(0.5),
+                  spreadRadius: 3,
+                  blurRadius: 5,
+                  offset: const Offset(0, 2),
+                )
+              ],
       ),
       child: ElevatedButton(
         onPressed: widget.onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              widget.text,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge!
-                  .copyWith(color: Colors.white),
-            ),
-            const SizedBox(width: 4),
-            Transform.rotate(
-              angle: appPreferences.getAppLanguage() ==
-                      LanguageType.ENGLISH.getValue()
-                  ? 0
-                  : math.pi,
-              child: const Icon(
-                Icons.arrow_right_alt,
-                color: Colors.white,
+        child: widget.showIcon
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.text,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(color: Colors.white),
+                  ),
+                  const SizedBox(width: 4),
+                  Transform.rotate(
+                    angle: appPreferences.getAppLanguage() ==
+                            LanguageType.ENGLISH.getValue()
+                        ? 0
+                        : math.pi,
+                    child: const Icon(
+                      Icons.arrow_right_alt,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              )
+            : Text(
+                widget.text,
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(color: Colors.white),
               ),
-            )
-          ],
-        ),
       ),
     );
   }

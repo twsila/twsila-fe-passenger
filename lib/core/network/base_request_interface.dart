@@ -1,5 +1,4 @@
 import '../../data/model/request-model.dart';
-import 'http_base_request.dart';
 
 abstract class BaseRequestInterface {
   Future<dynamic> sendRequest(RequestModel requestModel, [String param = '']);

@@ -56,21 +56,17 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
               side: BorderSide(
-                color: widget.mainColor ?? ColorManager.lightPrimary,
+                color: widget.mainColor ?? ColorManager.titlesTextColor,
                 width: 1.5,
               ),
             ),
             title: Text(
               data != '' ? data : widget.hintText ?? AppStrings.selectDate.tr(),
               textAlign: TextAlign.start,
-              style: getMediumStyle(
-                color: widget.mainColor ?? ColorManager.primary,
-                fontSize: 14,
-              ),
-            ),
-            leading: Icon(
-              Icons.calendar_today,
-              color: widget.mainColor ?? ColorManager.primary,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(color: ColorManager.grey, fontSize: 13),
             ),
           ),
         ),

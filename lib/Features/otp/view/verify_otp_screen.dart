@@ -14,6 +14,7 @@ import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
 import 'package:taxi_for_you/Features/otp/view/widgets/custom_text_widget.dart';
 import 'package:taxi_for_you/Features/otp/view/widgets/custom_timer_widget.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
+import '../../../core/utils/resources/routes_manager.dart';
 import '../../common/widgets/custom_verification_code_widget.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
@@ -80,7 +81,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
           ShowDialogHelper.showSuccessMessage(
               AppStrings.validateSuccessfully.tr(), context);
           Future.delayed(
-              const Duration(seconds: 3),
+              const Duration(seconds: 1),
               () => BlocProvider.of<LoginBloc>(context)
                   .add(LoginUser(mobileNumber: _viewModel.mobileNumber)));
         }
@@ -133,8 +134,11 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                             AppStrings.loginSuccessfully.tr(), context);
                       } else if (state is LoginFailed) {
                         if (state.baseResponse.status == 401) {
-                          ShowDialogHelper.showSuccessMessage(
-                              AppStrings.loginFailed.tr(), context);
+                          Navigator.pushNamed(
+                            context,
+                            Routes.registerRoute,
+                            arguments: _viewModel.mobileNumber,
+                          );
                         }
                       }
                     },

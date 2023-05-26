@@ -8,11 +8,11 @@ import 'package:taxi_for_you/Features/otp/view/verify_otp_screen.dart';
 import '../../../Features/other/car_aid_view/views/car_aid_view.dart';
 import '../../../Features/other/goods_view/views/goods_view.dart';
 import '../../../Features/other/water_tank_view/views/water_view.dart';
+import '../../../Features/registeration/views/registeration_screen.dart';
 import '../../../app/di.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../../Features/login/views/login_screen.dart';
-import '../../../Features/register/views/register_view.dart';
 import '../../../Features/splash/splash_view.dart';
 
 class Routes {
@@ -56,7 +56,10 @@ class RouteGenerator {
         );
       case Routes.registerRoute:
         initRegisterModule();
-        return MaterialPageRoute(builder: (_) => const RegisterView());
+        return MaterialPageRoute(
+          builder: (_) => RegistrationScreen(),
+          settings: settings,
+        );
       case Routes.verifyOtpRoute:
         initVerifyOtpModule();
         return MaterialPageRoute(

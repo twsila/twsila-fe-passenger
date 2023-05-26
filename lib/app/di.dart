@@ -4,7 +4,7 @@ import 'package:taxi_for_you/Features/login/model/login_repo.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
 import '../Features/login/views/login_viewmodel.dart';
-import '../Features/register/views/register_viewmodel.dart';
+import '../Features/registeration/views/registeration_viewmodel.dart';
 import '../core/network/http_base_request.dart';
 import 'app_prefs.dart';
 
@@ -34,7 +34,8 @@ initLoginModule() {
 }
 
 initRegisterModule() {
-  instance.registerFactory<RegisterViewModel>(() => RegisterViewModel());
+  instance
+      .registerFactory<RegisterationViewModel>(() => RegisterationViewModel());
 }
 
 initVerifyOtpModule() {

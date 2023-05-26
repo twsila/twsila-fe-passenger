@@ -52,7 +52,6 @@ class CustomTextInputField extends StatefulWidget {
   final int minimumNumberOfCharacters;
   final bool validateEmail;
   final bool isDimmed;
-  final Function? shouldRequestFocus;
   final Function(String?)? onSaved;
   final Color? backgroundColor;
   final bool? isTitleBold;
@@ -106,7 +105,6 @@ class CustomTextInputField extends StatefulWidget {
     this.customSpecialCharachterMessage,
     this.checkMinimumCharacter = false,
     this.validateEmail = false,
-    this.shouldRequestFocus,
     this.minimumNumberOfCharacters = 0,
     this.onSaved,
     this.isTitleBold = true,
@@ -144,10 +142,11 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
               Row(
                 children: [
                   Text(widget.labelText!,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             fontWeight: widget.isTitleBold!
                                 ? FontWeight.bold
                                 : FontWeight.normal,
+                            color: ColorManager.titlesTextColor,
                           )),
                   if (widget.isRequired!)
                     Text(
@@ -159,7 +158,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
                     )
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 4),
               _textFormField(),
             ],
           )
@@ -191,21 +190,15 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
         validator: (val) {
           if (widget.validateEmail) {
             if (!AppValidations.isEmailValid(val!)) {
-              if (widget.shouldRequestFocus!()) _myFocusNode!.requestFocus();
               return AppStrings.invalidEmail.tr();
             }
           }
           if (val == null || (widget.validateEmptyString && val.isEmpty)) {
-            if (widget.shouldRequestFocus != null &&
-                widget.shouldRequestFocus!()) _myFocusNode!.requestFocus();
             return AppStrings.errorField.tr() +
                 (widget.errorLabel ?? AppStrings.validField.tr());
           }
 
           if (widget.checkMinimumCharacter) {
-            if (widget.shouldRequestFocus != null &&
-                widget.shouldRequestFocus!()) _myFocusNode!.requestFocus();
-
             return val.length < widget.minimumNumberOfCharacters
                 ? AppStrings.errorField.tr() +
                     (widget.errorLabel ?? AppStrings.validField.tr())
@@ -213,21 +206,11 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
           }
           if (widget.validateEmptyString &&
               (val.isEmpty || val.trim().isEmpty)) {
-            widget.shouldRequestFocus != null
-                ? widget.shouldRequestFocus!()
-                    ? _myFocusNode!.requestFocus()
-                    : 0
-                : 0;
             return AppStrings.errorField.tr() +
                 (widget.errorLabel ?? AppStrings.validField.tr());
           } else if (widget.validateZeroNumber &&
               widget.keyboardType.index == 2 &&
               AppValidations.checkIFAllZero(val)) {
-            widget.shouldRequestFocus != null
-                ? widget.shouldRequestFocus!()
-                    ? _myFocusNode!.requestFocus()
-                    : 0
-                : 0;
             return AppStrings.noZero.tr();
           }
           //will check for validation method lastly
@@ -235,11 +218,6 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
             return widget.validationMethod!(val);
           }
           if (widget.isCharacterOnly == true) {
-            widget.shouldRequestFocus != null
-                ? widget.shouldRequestFocus!()
-                    ? _myFocusNode!.requestFocus()
-                    : 0
-                : 0;
             return RegExp(
               r"^[a-zA-Z]+$",
             ).hasMatch(val)
@@ -249,11 +227,6 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
                         (widget.errorLabel ?? AppStrings.validField.tr());
           }
           if (widget.validateSpecialCharacter == true) {
-            widget.shouldRequestFocus != null
-                ? widget.shouldRequestFocus!()
-                    ? _myFocusNode!.requestFocus()
-                    : 0
-                : 0;
             return RegExp(r"^[a-zA-Z0-9]+$").hasMatch(val)
                 ? null
                 : widget.customSpecialCharachterMessage ??
@@ -318,6 +291,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
                   : null,
           errorStyle: const TextStyle(
             color: Colors.red,
+            fontSize: 12,
           ),
           helperStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 color: ColorManager.grey,
@@ -338,7 +312,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
               child: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
                 borderSide: BorderSide(
-                  color: widget.borderColor ?? ColorManager.grey,
+                  color: widget.borderColor ?? ColorManager.lightGrey,
                 ),
               ),
               shadow: BoxShadow(
@@ -351,7 +325,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
               child: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
                 borderSide: BorderSide(
-                  color: widget.borderColor ?? ColorManager.hintTextColor,
+                  color: widget.borderColor ?? ColorManager.lightGrey,
                 ),
               ),
               shadow: BoxShadow(
@@ -375,7 +349,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
               child: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
                 borderSide: BorderSide(
-                  color: widget.borderColor ?? ColorManager.grey,
+                  color: widget.borderColor ?? ColorManager.lightGrey,
                 ),
               ),
               shadow: BoxShadow(

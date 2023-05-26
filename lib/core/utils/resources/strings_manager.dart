@@ -7,6 +7,7 @@ class AppStrings {
   static const hideCode = 'hide_code';
   static const appTitle = 'app_title';
   static const codesent = "code_sent";
+  static const save = "save";
   static const codeIs = "code_is";
   static const validateSuccessfully = "validate_successfully";
   static const validateFailed = "validate_failed";
@@ -27,6 +28,7 @@ class AppStrings {
   static const whatsYourNumber = "whats_your_number";
   static const letsGetStarted = "lets_get_started";
   static const welcomeTo = "welcome_to";
+  static const continueRegistration = "continue_registration";
   static const enterPhoneNumber = "enter_phone_number";
   static const enterVerificationCode = "enter_verification_code";
   static const enterCodeHere = "enter_code_here";
@@ -92,6 +94,8 @@ class AppStrings {
   static const logout = "logout";
   static const logoutConfirmation = "logout_confirmation";
   static const phoneVerification = "phone_verification";
+  static const phoneTitle = "phone_title";
+  static const emailTitle = "email_title";
   static const enterOtpHint = "enter_otp_hint";
   static const sendOtpAgainHint = "send_otp_again_hint";
   static const tripConfirmation = "trip_confirmation";
