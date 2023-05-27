@@ -28,6 +28,7 @@ class VerifyOtpScreen extends StatefulWidget {
 class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   bool _isInit = true;
   bool displayLoadingIndicator = false;
+  bool? doneSending;
   String? userOtp;
   final VerifyOTPViewModel _viewModel = VerifyOTPViewModel();
 
@@ -64,6 +65,9 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
         }
         if (state is GenerateOtpSuccessfully) {
           print(AppStrings.codeIs.tr() + state.otp);
+          setState(() {
+            doneSending = true;
+          });
           userOtp = state.otp;
           ShowDialogHelper.showSuccessMessage(
             AppStrings.codesent.tr() +
@@ -74,6 +78,9 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
         }
 
         if (state is GenerateOtpFailed) {
+          setState(() {
+            doneSending = false;
+          });
           ShowDialogHelper.showErrorMessage(
               AppStrings.codeSenderror.tr(), context);
         }
@@ -117,8 +124,13 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                             ),
                           );
                         } else {
-                          ShowDialogHelper.showErrorMessage(
-                              AppStrings.codeSenderror.tr(), context);
+                          Navigator.pushNamed(
+                            context,
+                            Routes.registerRoute,
+                            arguments: _viewModel.mobileNumber,
+                          );
+                          // ShowDialogHelper.showErrorMessage(
+                          //     AppStrings.codeSenderror.tr(), context);
                         }
                       },
                       onCodeChanged: (code) {},
@@ -126,6 +138,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                   ),
                   CustomTimerWidget(
                     mobileNumber: _viewModel.mobileNumber,
+                    doneSending: doneSending,
                   ),
                   BlocListener<LoginBloc, LoginStates>(
                     listener: (context, state) {

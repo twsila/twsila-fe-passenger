@@ -71,7 +71,7 @@ class _CarAidViewState extends State<CarAidView> {
                         carAidViewModel.carAidModel.sourceLocation = source,
                     onSelectDestination: (destination) => carAidViewModel
                         .carAidModel.destinationLocation = destination,
-                    onSelectDate: (date) =>
+                    onSelectDate: (date, dateTime) =>
                         carAidViewModel.carAidModel.date = date,
                   ),
                   CarAidDataField(carAidModel: carAidViewModel.carAidModel),

@@ -74,7 +74,7 @@ class _FreezersViewState extends State<FreezersView> {
                         freezersViewModel.freezersModel.sourceLocation = source,
                     onSelectDestination: (destination) => freezersViewModel
                         .freezersModel.destinationLocation = destination,
-                    onSelectDate: (date) =>
+                    onSelectDate: (date, dateTime) =>
                         freezersViewModel.freezersModel.date = date,
                   ),
                   FreezersDataFields(

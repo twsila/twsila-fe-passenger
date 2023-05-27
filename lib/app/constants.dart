@@ -23,6 +23,7 @@ class Constants {
 
 class EndPointsConstants {
   static const String login = "passenger/login";
+  static const String register = "passenger/register-passenger";
   static const String generateOtp = "otp/generate";
   static const String validateOtp = "otp/validate";
 }

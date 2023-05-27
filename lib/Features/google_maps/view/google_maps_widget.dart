@@ -14,8 +14,8 @@ import '../bloc/maps_state.dart';
 import '../model/location_model.dart';
 
 class GoogleMapsWidget extends StatefulWidget {
-  LocationModel? sourceLocation;
-  LocationModel? destinationLocation;
+  final LocationModel? sourceLocation;
+  final LocationModel? destinationLocation;
   final TextEditingController sourceController;
   final Function(LocationModel? source) onSelectSource;
 

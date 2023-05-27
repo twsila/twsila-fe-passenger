@@ -6,14 +6,13 @@ import 'package:taxi_for_you/app/constants.dart';
 
 import '../../../core/utils/location/map_provider.dart';
 import '../../../core/utils/resources/color_manager.dart';
-import '../../../core/utils/resources/font_manager.dart';
 import '../../../core/utils/resources/styles_manager.dart';
 
 class GoogleMapsPlacesField extends StatefulWidget {
-  TextEditingController controller;
-  FocusNode focusNode;
-  String? hintText;
-  Function(Prediction?) predictionCallback;
+  final TextEditingController controller;
+  final FocusNode focusNode;
+  final String? hintText;
+  final Function(Prediction?) predictionCallback;
   GoogleMapsPlacesField({
     Key? key,
     required this.controller,

@@ -12,10 +12,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginStates> {
   LoginRepo loginRepo = instance<LoginRepo>();
 
   LoginBloc(this.loginRepo) : super(LoginIsNotLoading()) {
-    on<LoginUser>(_getLogin);
+    on<LoginUser>(_loginUser);
   }
 
-  void _getLogin(LoginUser event, Emitter<LoginStates> emit) async {
+  void _loginUser(LoginUser event, Emitter<LoginStates> emit) async {
     emit(LoginIsLoading());
 
     try {

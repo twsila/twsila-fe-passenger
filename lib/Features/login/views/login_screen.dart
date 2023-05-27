@@ -1,14 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
-import 'package:taxi_for_you/Features/common/state_renderer/state_renderer_impl.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
-import 'package:taxi_for_you/Features/login/bloc/login_bloc.dart';
-import 'package:taxi_for_you/Features/login/bloc/login_event.dart';
-import 'package:taxi_for_you/Features/login/bloc/login_state.dart';
 import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
 
 import '../../../app/app_prefs.dart';

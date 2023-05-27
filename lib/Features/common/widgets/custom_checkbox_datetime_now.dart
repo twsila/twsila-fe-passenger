@@ -8,7 +8,7 @@ import '../../../core/utils/resources/strings_manager.dart';
 
 class CustomCheckboxDateTimeNow extends StatefulWidget {
   final bool isChecked;
-  final Function(String? date) onSelectDate;
+  final Function(String? date, DateTime? dateTime) onSelectDate;
   final Function(bool checked) onCheckedChanged;
   const CustomCheckboxDateTimeNow({
     Key? key,
@@ -45,7 +45,7 @@ class _CustomCheckboxDateTimeNowState extends State<CustomCheckboxDateTimeNow> {
     String dateFormatted =
         DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
             .format(dateTime);
-    widget.onSelectDate(dateFormatted);
+    widget.onSelectDate(dateFormatted, null);
     return DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
         .format(dateTime);
   }
@@ -57,9 +57,9 @@ class _CustomCheckboxDateTimeNowState extends State<CustomCheckboxDateTimeNow> {
       fieldName: AppStrings.now.tr(),
       onChange: (checked) {
         if (checked) {
-          widget.onSelectDate(convertDate());
+          widget.onSelectDate(convertDate(), null);
         } else {
-          widget.onSelectDate(null);
+          widget.onSelectDate(null, null);
         }
         widget.onCheckedChanged(checked);
       },

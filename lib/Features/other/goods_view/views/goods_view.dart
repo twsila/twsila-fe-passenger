@@ -71,7 +71,7 @@ class _GoodsViewState extends State<GoodsView> {
                         goodsViewModel.goodsModel.sourceLocation = source,
                     onSelectDestination: (destination) => goodsViewModel
                         .goodsModel.destinationLocation = destination,
-                    onSelectDate: (date) =>
+                    onSelectDate: (date, dateTime) =>
                         goodsViewModel.goodsModel.date = date,
                   ),
                   GoodsDataField(goodsModel: goodsViewModel.goodsModel),

@@ -4,13 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
-import 'package:taxi_for_you/core/utils/resources/font_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/langauge_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 
 class CustomDatePickerWidget extends StatefulWidget {
-  final Function(String date) onSelectDate;
+  final Function(String date, DateTime dateTime) onSelectDate;
   final bool isDateOnly;
   final String? title;
   final String? hintText;
@@ -81,7 +80,7 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
     String dateFormatted =
         DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
             .format(dateTime);
-    widget.onSelectDate(dateFormatted);
+    widget.onSelectDate(dateFormatted, dateTime);
     return DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
         .format(dateTime);
   }

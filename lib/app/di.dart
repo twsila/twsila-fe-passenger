@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
+import 'package:taxi_for_you/Features/registeration/models/registeration_repo.dart';
 import '../Features/login/views/login_viewmodel.dart';
 import '../Features/registeration/views/registeration_viewmodel.dart';
 import '../core/network/http_base_request.dart';
@@ -24,6 +25,8 @@ Future<void> initAppModule() async {
   instance.registerFactory<HttpBaseRequest>(() => HttpBaseRequest());
   instance
       .registerFactory<LoginRepo>(() => LoginRepo(instance<HttpBaseRequest>()));
+  instance.registerFactory<RegistrationRepo>(
+      () => RegistrationRepo(instance<HttpBaseRequest>()));
   instance.registerFactory<OtpRepo>(() => OtpRepo(instance<HttpBaseRequest>()));
 }
 
@@ -34,8 +37,10 @@ initLoginModule() {
 }
 
 initRegisterModule() {
-  instance
-      .registerFactory<RegisterationViewModel>(() => RegisterationViewModel());
+  if (!instance.isRegistered<RegisterationViewModel>()) {
+    instance.registerFactory<RegisterationViewModel>(
+        () => RegisterationViewModel());
+  }
 }
 
 initVerifyOtpModule() {

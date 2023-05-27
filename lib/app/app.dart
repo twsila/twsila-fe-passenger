@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/app/bloc_providers.dart';
-
-import '../Features/google_maps/bloc/maps_bloc.dart';
-import '../Features/google_maps/model/maps_repo.dart';
-import '../core/utils/location/map_provider.dart';
 import '../core/utils/resources/routes_manager.dart';
 import '../core/utils/resources/theme_manager.dart';
 import 'app_prefs.dart';

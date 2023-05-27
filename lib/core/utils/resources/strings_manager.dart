@@ -11,6 +11,7 @@ class AppStrings {
   static const codeIs = "code_is";
   static const validateSuccessfully = "validate_successfully";
   static const validateFailed = "validate_failed";
+  static const verify = "verify";
   static const codeSenderror = "code_error";
   static const noRouteFound = "noRouteFound";
   static const seconds = "seconds";
@@ -59,6 +60,12 @@ class AppStrings {
   static const yes = "yes";
   static const no = "no";
   static const confirmation = "confirmation";
+  static const firstName = "first_name";
+  static const firstNameError = "first_name_error";
+  static const firstNameHint = "first_name_hint";
+  static const lastName = "last_name";
+  static const lastNameError = "last_name_error";
+  static const lastNameHint = "last_name_hint";
   static const people = "people";
   static const furniture = "furniture";
   static const emailHint = 'email_hint';
@@ -75,6 +82,7 @@ class AppStrings {
   static const passwordInvalid = "password_hint_message";
   static const alreadyHaveAccount = "already_have_account";
   static const register = "register";
+  static const registerSuccess = "register_success";
   static const phoneNumberHint = "phone_number_hint";
   static const profilePicture = "upload_profile_picture";
   static const photoGallery = "photo_from_galley";

@@ -13,7 +13,7 @@ import 'google_places_field.dart';
 class GoogleSearchScreen extends StatefulWidget {
   final TextEditingController sourceController;
   final TextEditingController destinationController;
-  final Function(String? date)? onSelectDate;
+  final Function(String? date, DateTime? dateTime)? onSelectDate;
   final Function(LocationModel? source) onSelectSource;
   final Function(LocationModel? destination) onSelectDestination;
 

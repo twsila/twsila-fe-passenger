@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:taxi_for_you/Features/registeration/models/gender_model.dart';
-import 'package:taxi_for_you/core/utils/resources/validations_manager.dart';
 
 import '../../base/baseviewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -8,7 +7,8 @@ import '../../../core/utils/resources/strings_manager.dart';
 import '../../../data/model/user-model.dart';
 
 class RegisterationViewModel extends BaseViewModel {
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   final TextEditingController mobileNumberController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   //Constant List
@@ -24,7 +24,8 @@ class RegisterationViewModel extends BaseViewModel {
 
   @override
   void dispose() {
-    usernameController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
     mobileNumberController.dispose();
     emailController.dispose();
   }

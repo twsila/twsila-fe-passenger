@@ -73,7 +73,7 @@ class _WaterTankViewState extends State<WaterTankView> {
                         .waterTankModel.sourceLocation = source,
                     onSelectDestination: (destination) => waterTankViewModel
                         .waterTankModel.destinationLocation = destination,
-                    onSelectDate: (date) =>
+                    onSelectDate: (date, dateTime) =>
                         waterTankViewModel.waterTankModel.date = date,
                   ),
                   WaterTankDataField(

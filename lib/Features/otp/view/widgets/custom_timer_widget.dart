@@ -10,7 +10,12 @@ import '../../bloc/otp_event.dart';
 
 class CustomTimerWidget extends StatefulWidget {
   final String mobileNumber;
-  CustomTimerWidget({Key? key, required this.mobileNumber}) : super(key: key);
+  final bool? doneSending;
+  CustomTimerWidget({
+    Key? key,
+    required this.mobileNumber,
+    required this.doneSending,
+  }) : super(key: key);
 
   @override
   State<CustomTimerWidget> createState() => _CustomTimerWidgetState();
@@ -21,52 +26,57 @@ class _CustomTimerWidgetState extends State<CustomTimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return !timeFinished
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppStrings.codeArrive.tr(),
-                style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: ColorManager.black, fontWeight: FontWeight.w600),
-              ),
-              CustomCountDownTimer(
-                onTimerFinished: () {
-                  setState(() {
-                    timeFinished = true;
-                  });
-                },
-              ),
-            ],
-          )
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    timeFinished = false;
-                  });
-                  BlocProvider.of<OtpBloc>(context)
-                      .add(GenerateOtpEvent(mobileNumber: widget.mobileNumber));
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.replay_outlined,
-                      color: ColorManager.primary,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      AppStrings.codeDidntArrive.tr(),
-                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+    return widget.doneSending == null
+        ? const SizedBox()
+        : !timeFinished && widget.doneSending!
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppStrings.codeArrive.tr(),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: ColorManager.black, fontWeight: FontWeight.w600),
+                  ),
+                  CustomCountDownTimer(
+                    onTimerFinished: () {
+                      setState(() {
+                        timeFinished = true;
+                      });
+                    },
+                  ),
+                ],
+              )
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        timeFinished = false;
+                      });
+                      BlocProvider.of<OtpBloc>(context).add(
+                          GenerateOtpEvent(mobileNumber: widget.mobileNumber));
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.replay_outlined,
                           color: ColorManager.primary,
-                          fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          AppStrings.codeDidntArrive.tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: ColorManager.primary,
+                                  fontWeight: FontWeight.w600),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ],
-          );
+                  ),
+                ],
+              );
   }
 }

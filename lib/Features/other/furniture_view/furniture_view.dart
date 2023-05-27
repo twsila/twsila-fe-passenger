@@ -72,7 +72,7 @@ class _FurnitureViewState extends State<FurnitureView> {
                         .furnitureModel.sourceLocation = source,
                     onSelectDestination: (destination) => furnitureViewModel
                         .furnitureModel.destinationLocation = destination,
-                    onSelectDate: (date) =>
+                    onSelectDate: (date, dateTime) =>
                         furnitureViewModel.furnitureModel.date = date,
                   ),
                   FurnitureDataFields(
