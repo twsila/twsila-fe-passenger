@@ -1,13 +1,19 @@
 class UserDevice {
-  String registrationId;
-  String deviceOs;
-  String appVersion;
+  String? registrationId;
+  String? deviceOs;
+  String? appVersion;
 
   UserDevice({
-    required this.registrationId,
-    required this.appVersion,
-    required this.deviceOs,
+    this.registrationId,
+    this.appVersion,
+    this.deviceOs,
   });
+
+  UserDevice.fromJson(Map<String, dynamic> json) {
+    registrationId = json['registrationId'];
+    deviceOs = json['deviceOS'];
+    appVersion = json['appVersion'];
+  }
 
   Map<String, dynamic> toJson() => {
         "registrationId": registrationId,

@@ -95,6 +95,11 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
         if (state is ValidateOtpFailed) {
           ShowDialogHelper.showErrorMessage(
               AppStrings.validateFailed.tr(), context);
+          //TODO: REMOVE THIS CODE
+          Future.delayed(
+              const Duration(seconds: 1),
+              () => BlocProvider.of<LoginBloc>(context)
+                  .add(LoginUser(mobileNumber: _viewModel.mobileNumber)));
         }
       },
       child: CustomScaffold(
@@ -124,10 +129,13 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                             ),
                           );
                         } else {
-                          Navigator.pushNamed(
-                            context,
-                            Routes.registerRoute,
-                            arguments: _viewModel.mobileNumber,
+                          //TODO:REMOVE THIS CODE
+                          BlocProvider.of<OtpBloc>(context).add(
+                            ValidateOtpEvent(
+                              otp: "",
+                              generatedOtp: code,
+                              mobileNumber: _viewModel.mobileNumber,
+                            ),
                           );
                           // ShowDialogHelper.showErrorMessage(
                           //     AppStrings.codeSenderror.tr(), context);
@@ -143,8 +151,10 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                   BlocListener<LoginBloc, LoginStates>(
                     listener: (context, state) {
                       if (state is LoginSuccessfully) {
-                        ShowDialogHelper.showSuccessMessage(
-                            AppStrings.loginSuccessfully.tr(), context);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.homeRoute,
+                        );
                       } else if (state is LoginFailed) {
                         if (state.baseResponse.status == 401) {
                           Navigator.pushNamed(

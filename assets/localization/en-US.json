@@ -73,7 +73,8 @@
   "retry": "Retry",
   "network_request_failed": "Network error (such as timeout, interrupted connection or unreachable host) has occurred.",
   "home": "Home",
-  "profile": "Profile",
+  "profile": "My Profile",
+  "edit_profile": "Edit Profile",
   "requests": "Request",
   "settings": "Settings",
   "transport_stuff": "Transportation of goods, furniture, freezers, cars and water",
@@ -144,6 +145,7 @@
   "ok": "Ok",
   "cancel": "Cancel",
   "confirmation": "Confirmation",
+  "logout": "Logout",
   "logout_confirmation": "Are you sure you want to logout?",
   "trip_confirmation": "Trip Confirmation",
   "trip_confirmation_succeeded": "Trip has been confirmed successfully",
@@ -222,5 +224,7 @@
   "login_failed": "User doesn't exist in the system, navigate to registration...",
   "gender": "gender",
   "male": "Male",
-  "female": "Female"
+  "female": "Female",
+  "my_trips": "My trips",
+  "request_service": "Request service"
 }

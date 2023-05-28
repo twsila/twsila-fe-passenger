@@ -126,6 +126,10 @@ class AppStrings {
   static const male = "male";
   static const female = "female";
   static const gender = "gender";
+  static const myTrips = "my_trips";
+  static const requestService = "request_service";
+  static const profile = "profile";
+  static const editProfile = "edit_profile";
 
   //Furniture strings
   static const attachFurnitureImages = "attach_furniture_images";
@@ -173,16 +177,5 @@ class AppStrings {
   static const defaultError = "default_error";
   static const cacheError = "cache_error";
   static const noInternetError = "no_internet_error";
-
-  //onboarding strings
-  static const onBoardingTitle1 = "on_boarding_title1";
-  static const onBoardingTitle2 = "on_boarding_title2";
-  static const onBoardingTitle3 = "on_boarding_title3";
-  static const onBoardingTitle4 = "on_boarding_title4";
-
-  static const onBoardingSubTitle1 = "on_boarding_desc1";
-  static const onBoardingSubTitle2 = "on_boarding_desc2";
-  static const onBoardingSubTitle3 = "on_boarding_desc3";
-  static const onBoardingSubTitle4 = "on_boarding_desc4";
   static const String wrongOtp = "wrong_otp";
 }

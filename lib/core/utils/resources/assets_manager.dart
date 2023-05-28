@@ -11,6 +11,9 @@ class ImageAssets {
   static const String egyptFlag = "$imagePath/egypt-flag.png";
   static const String saudiFlag = "$imagePath/saudi-flag.png";
   static const String checkIcon = "$imagePath/check.png";
+  static const String logout = "$imagePath/logout.png";
+  static const String edit = "$imagePath/edit.png";
+  static const String userProfile = "$imagePath/user-pp.png";
   static const String verifyOtpGraphic = "$imagePath/verify_otp_grp.png";
 }
 

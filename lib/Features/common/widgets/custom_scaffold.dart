@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 
-import '../../../core/utils/resources/color_manager.dart';
 import '../state_renderer/easy_loader.dart';
 import 'custom_back_button.dart';
 
@@ -54,8 +52,6 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                           automaticallyImplyLeading:
                               widget.pageBuilder.allowBackButtonInAppBar,
                           primary: true,
-                          systemOverlayStyle: SystemUiOverlayStyle(
-                              statusBarColor: ColorManager.secondaryColor),
                           actions: widget.pageBuilder.appBarActions,
                           leading: (widget.pageBuilder.allowBackButtonInAppBar)
                               ? Semantics(

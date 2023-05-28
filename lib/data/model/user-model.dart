@@ -1,3 +1,5 @@
+import 'package:taxi_for_you/data/model/user-device.dart';
+
 class UserModel {
   String? firstName;
   String? lastName;
@@ -5,6 +7,9 @@ class UserModel {
   String? email;
   String? gender;
   String? dateOfBirth;
+  String? token;
+  String? tokenExpirationTime;
+  UserDevice? userDevice;
 
   UserModel({
     this.firstName,
@@ -13,6 +18,8 @@ class UserModel {
     this.email,
     this.gender,
     this.dateOfBirth,
+    this.token,
+    this.tokenExpirationTime,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +29,9 @@ class UserModel {
     email = json['email'];
     dateOfBirth = json['dateOfBirth'];
     gender = json['gender'];
+    token = json['token'];
+    tokenExpirationTime = json['tokenExpirationTime'];
+    if (json['userDevice'] != null) UserDevice.fromJson(json['userDevice']);
   }
 
   Map<String, dynamic> toJson() {
@@ -32,6 +42,7 @@ class UserModel {
     data['mobile'] = mobileNumber;
     data['dateOfBirth'] = dateOfBirth;
     data['gender'] = gender;
+    if (userDevice != null) data['userDevice'] = userDevice!.toJson();
     return data;
   }
 }

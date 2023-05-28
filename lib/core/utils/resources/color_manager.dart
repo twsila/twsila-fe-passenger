@@ -17,6 +17,7 @@ class ColorManager {
 
   //text
   static Color blackTextColor = const Color(0xff02031A);
+  static Color primaryTextColor = const Color(0xff080957);
   static Color buttonTextColor = const Color(0xffffffff);
   static Color headersTextColor = const Color(0xff080957);
   static Color formHintTextColor = const Color(0xffA4A4AD);
@@ -30,6 +31,7 @@ class ColorManager {
   // new colors
   static Color darkPrimary = const Color(0xff22252A);
   static Color lightPrimary = const Color(0xFFd4e3ea); // color with 80% opacity
+  static Color bottomNavUnselected = const Color(0xFF9393BB);
   static Color grey1 = const Color(0xff707070);
   static Color grey2 = const Color(0xff797979);
   static Color white = const Color(0xffFFFFFF);

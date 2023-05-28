@@ -1,17 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
-import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
 
+import '../../../app/app_prefs.dart';
 import '../../../core/network/base_response.dart';
 import '../model/login_repo.dart';
 import 'login_event.dart';
 import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginStates> {
-  LoginRepo loginRepo = instance<LoginRepo>();
+  final LoginRepo loginRepo;
+  final AppPreferences appPreferences;
 
-  LoginBloc(this.loginRepo) : super(LoginIsNotLoading()) {
+  LoginBloc(this.loginRepo, this.appPreferences) : super(LoginIsNotLoading()) {
     on<LoginUser>(_loginUser);
   }
 
@@ -25,7 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginStates> {
           response.success!) {
         dynamic results = response.result;
         UserModel userModel = UserModel.fromJson(results);
-
+        appPreferences.setUserLoggedIn(userModel);
         emit(LoginSuccessfully(userModel));
       } else {
         emit(LoginFailed(baseResponse: response));

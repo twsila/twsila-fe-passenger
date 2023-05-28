@@ -1,7 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
 import 'dart:convert';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +9,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/data/model/country.dart';
+import 'package:taxi_for_you/data/model/user-model.dart';
 import '../core/utils/resources/langauge_manager.dart';
-import 'di.dart';
 
 const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
-const String PREFS_KEY_ONBOARDING_SCREEN_VIEWED =
-    "PREFS_KEY_ONBOARDING_SCREEN_VIEWED";
-const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
+const String USER_MODEL = "USER_MODEL";
 const String USER_SELECTED_COUNTRY = "USER_SELECTED_COUNTRY";
 const String USER_MOBILE_NUMBER = "USER_MOBILE_NUMBER";
 
@@ -119,25 +116,24 @@ class AppPreferences {
     }
   }
 
-  // on boarding
-
-  Future<void> setOnBoardingScreenViewed() async {
-    _sharedPreferences.setBool(PREFS_KEY_ONBOARDING_SCREEN_VIEWED, true);
-  }
-
-  Future<bool> isOnBoardingScreenViewed() async {
-    return _sharedPreferences.getBool(PREFS_KEY_ONBOARDING_SCREEN_VIEWED) ??
-        false;
-  }
-
   //login
-
-  Future<void> setUserLoggedIn() async {
-    _sharedPreferences.setBool(PREFS_KEY_IS_USER_LOGGED_IN, true);
+  Future<void> setUserLoggedIn(UserModel userModel) async {
+    String encodedJson = json.encode(userModel.toJson());
+    _sharedPreferences.setString(USER_MODEL, encodedJson);
   }
 
   Future<bool> isUserLoggedIn() async {
-    return _sharedPreferences.getBool(PREFS_KEY_IS_USER_LOGGED_IN) ?? false;
+    return _sharedPreferences.getString(USER_MODEL) != null;
+  }
+
+  UserModel? getUserData() {
+    String? user = _sharedPreferences.getString(USER_MODEL);
+    if (user != null) {
+      Map<String, dynamic> decodedJson = json.decode(user);
+
+      return UserModel.fromJson(decodedJson);
+    }
+    return null;
   }
 
   Future<void> logout(BuildContext context) async {
@@ -147,7 +143,7 @@ class AppPreferences {
     // clear cache of logged out user
     // _localDataSource.clearCache();
 
-    _sharedPreferences.remove(PREFS_KEY_IS_USER_LOGGED_IN);
+    _sharedPreferences.remove(USER_MODEL);
 
     Phoenix.rebirth(context);
   }

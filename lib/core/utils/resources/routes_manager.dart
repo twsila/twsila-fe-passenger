@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/categories/categories_view.dart';
+import 'package:taxi_for_you/Features/home/views/home_screen.dart';
 import 'package:taxi_for_you/Features/other/freezers_view/freezers_view.dart';
 import 'package:taxi_for_you/Features/other/furniture_view/furniture_view.dart';
 import 'package:taxi_for_you/Features/other/other_view.dart';
@@ -20,7 +20,7 @@ class Routes {
   static const String loginRoute = "/login";
   static const String registerRoute = "/register";
   static const String verifyOtpRoute = "/verifyOtp";
-  static const String categoriesRoute = "/categories";
+  static const String homeRoute = "/home";
   static const String otherRoute = "/other";
   static const String furnitureRoute = "/furniture";
   static const String goodsRoute = "/goods";
@@ -34,8 +34,8 @@ class RouteGenerator {
     switch (settings.name) {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashView());
-      case Routes.categoriesRoute:
-        return MaterialPageRoute(builder: (_) => CategoriesView());
+      case Routes.homeRoute:
+        return MaterialPageRoute(builder: (_) => HomeScreen());
       case Routes.otherRoute:
         return MaterialPageRoute(builder: (_) => const OtherView());
       case Routes.goodsRoute:

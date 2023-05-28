@@ -7,6 +7,7 @@ import 'app_prefs.dart';
 import 'di.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+// ignore: must_be_immutable
 class MyApp extends StatefulWidget {
   // named constructor
   MyApp._internal();

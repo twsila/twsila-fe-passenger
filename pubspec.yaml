@@ -101,3 +101,6 @@ flutter:
         - asset: assets/fonts/english/Lato-Black.ttf
         - asset: assets/fonts/english/Lato-Light.ttf
         - asset: assets/fonts/english/Lato-Regular.ttf
+    - family: HomeIcons
+      fonts:
+        - asset: assets/fonts/home-icons/HomeIcons.ttf    

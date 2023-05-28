@@ -9,14 +9,17 @@ import 'package:taxi_for_you/Features/registeration/bloc/registeration_state.dar
 import 'package:taxi_for_you/Features/registeration/views/registeration_viewmodel.dart';
 import 'package:taxi_for_you/Features/registeration/views/widgets/gender_widget.dart';
 
-import '../../../app/app_prefs.dart';
 import '../../../app/di.dart';
 import '../../../core/utils/resources/color_manager.dart';
+import '../../../core/utils/resources/routes_manager.dart';
 import '../../../core/utils/resources/strings_manager.dart';
 import '../../common/state_renderer/dialogs.dart';
 import '../../common/widgets/custom_date_picker.dart';
 import '../../common/widgets/custom_text_button.dart';
 import '../../common/widgets/custom_text_input_field.dart';
+import '../../login/bloc/login_bloc.dart';
+import '../../login/bloc/login_event.dart';
+import '../../login/bloc/login_state.dart';
 
 class RegistrationScreen extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -31,7 +34,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool displayLoadingIndicator = false;
   bool _isValid = false;
   final RegisterationViewModel _viewModel = instance<RegisterationViewModel>();
-  final AppPreferences _appPreferences = instance<AppPreferences>();
   final _formKey = GlobalKey<FormState>();
 
   _bind() {
@@ -115,6 +117,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           } else if (state is RegistrationSuccessfully) {
             ShowDialogHelper.showSuccessMessage(
                 AppStrings.registerSuccess.tr(), context);
+            BlocProvider.of<LoginBloc>(context)
+                .add(LoginUser(mobileNumber: _viewModel.user.mobileNumber!));
           }
         }
       },
@@ -277,7 +281,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       : null,
                 ),
               ),
-            )
+            ),
+            BlocListener<LoginBloc, LoginStates>(
+              listener: (context, state) {
+                if (state is LoginSuccessfully) {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.homeRoute,
+                  );
+                } else if (state is LoginFailed) {
+                  ShowDialogHelper.showErrorMessage(
+                      AppStrings.defaultError.tr(), context);
+                }
+              },
+              child: const SizedBox(),
+            ),
           ],
         );
       },
