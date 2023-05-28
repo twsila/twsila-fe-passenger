@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
-import 'package:taxi_for_you/Features/profile/views/profile_screen.dart';
+import 'package:taxi_for_you/Features/menu/views/menu_screen.dart';
+import 'package:taxi_for_you/Features/my_trips/views/my_trips_screen.dart';
+import 'package:taxi_for_you/Features/request_service/views/request_service_screen.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/helpers/home_icons.dart';
@@ -18,9 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
   AppPreferences appPreferences = instance<AppPreferences>();
   List<Widget> screens = [
-    ProfileScreen(),
-    Container(color: Colors.green),
-    Container(color: Colors.blue),
+    const MenuScreen(),
+    const RequestServiceScreen(),
+    const MyTripsScreen(),
   ];
 
   @override

@@ -5,6 +5,7 @@ class ImageAssets {
   static const String logoImg = "$imagePath/logo.png";
   static const String logoApp = "$imagePath/logo-furniture.png";
   static const String photoCameraIc = "$imagePath/photo-camera.svg";
+  static const String how = "$imagePath/how.png";
   static const String car = "$imagePath/car.png";
   static const String eye = "$imagePath/eye.png";
   static const String eye_closed = "$imagePath/eye-closed.png";
@@ -13,8 +14,20 @@ class ImageAssets {
   static const String checkIcon = "$imagePath/check.png";
   static const String logout = "$imagePath/logout.png";
   static const String edit = "$imagePath/edit.png";
+  static const String cancelPurple = "$imagePath/cancel-purple.png";
+  static const String cancelBlue = "$imagePath/cancel-blue.png";
+  static const String payment = "$imagePath/payment.png";
+  static const String gift = "$imagePath/gift.png";
+  static const String getHelp = "$imagePath/get-help.png";
   static const String userProfile = "$imagePath/user-pp.png";
   static const String verifyOtpGraphic = "$imagePath/verify_otp_grp.png";
+  static const String carAid = "$imagePath/car-aid.png";
+  static const String carCisterns = "$imagePath/car-cisterns.png";
+  static const String carDrinkWater = "$imagePath/car-drink-water.png";
+  static const String carfrozen = "$imagePath/car-frozen.png";
+  static const String carFurniture = "$imagePath/car-furniture.png";
+  static const String carGoods = "$imagePath/car-goods.png";
+  static const String carPeople = "$imagePath/car-people.png";
 }
 
 class JsonAssets {

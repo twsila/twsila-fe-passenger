@@ -103,4 +103,14 @@ flutter:
         - asset: assets/fonts/english/Lato-Regular.ttf
     - family: HomeIcons
       fonts:
-        - asset: assets/fonts/home-icons/HomeIcons.ttf    
+        - asset: assets/fonts/home-icons/HomeIcons.ttf  
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/cairo-font/Cairo-Black.ttf
+        - asset: assets/fonts/cairo-font/Cairo-Bold.ttf
+        - asset: assets/fonts/cairo-font/Cairo-ExtraBold.ttf
+        - asset: assets/fonts/cairo-font/Cairo-ExtraLight.ttf
+        - asset: assets/fonts/cairo-font/Cairo-Light.ttf
+        - asset: assets/fonts/cairo-font/Cairo-Medium.ttf
+        - asset: assets/fonts/cairo-font/Cairo-Regular.ttf
+        - asset: assets/fonts/cairo-font/Cairo-SemiBold.ttf     

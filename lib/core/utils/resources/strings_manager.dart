@@ -28,7 +28,10 @@ class AppStrings {
   static const continueBtn = "continue_button";
   static const whatsYourNumber = "whats_your_number";
   static const letsGetStarted = "lets_get_started";
+  static const welcome = "welcome";
   static const welcomeTo = "welcome_to";
+  static const whatIsTawsela = "what_is_tawsela";
+  static const whatSearch = "what_search";
   static const continueRegistration = "continue_registration";
   static const enterPhoneNumber = "enter_phone_number";
   static const enterVerificationCode = "enter_verification_code";
@@ -40,6 +43,13 @@ class AppStrings {
   static const goodevening = "good_evening";
   static const thinkingOfTravel = "thinking_of_travel";
   static const whichGoods = "which_goods";
+  static const peopleVehicle = "people_vehicle";
+  static const freezerTransportation = "transport_freezers";
+  static const carAidTransportation = "transport_car_aid";
+  static const cisternsTransportation = "transport_cisterns";
+  static const waterTankTransportation = "transport_water_tank";
+  static const goodsTransportation = "transport_goods";
+  static const furnitureTransportation = "transport_furniture";
   static const goods = "goods";
   static const other = "other";
   static const freezers = "freezers";
@@ -130,6 +140,9 @@ class AppStrings {
   static const requestService = "request_service";
   static const profile = "profile";
   static const editProfile = "edit_profile";
+  static const walletAndPayments = "wallets_payments";
+  static const inviteAndWin = "invite_and_win";
+  static const getHelp = "get_help";
 
   //Furniture strings
   static const attachFurnitureImages = "attach_furniture_images";
