@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
 import '../../../../core/utils/resources/color_manager.dart';
+import '../../../../core/utils/resources/langauge_manager.dart';
 import '../../../../core/utils/resources/styles_manager.dart';
 
 class AboutTawsela extends StatefulWidget {
@@ -12,6 +15,7 @@ class AboutTawsela extends StatefulWidget {
 }
 
 class _AboutTawselaState extends State<AboutTawsela> {
+  final AppPreferences appPreferences = instance<AppPreferences>();
   bool dismiss = false;
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,10 @@ class _AboutTawselaState extends State<AboutTawsela> {
                     ),
                     Expanded(
                       child: Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: appPreferences.getAppLanguage() ==
+                                  LanguageType.ENGLISH.getValue()
+                              ? Alignment.centerRight
+                              : Alignment.centerLeft,
                           child: Image.asset(ImageAssets.how)),
                     )
                   ],

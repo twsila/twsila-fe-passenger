@@ -44,7 +44,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
         allowBackButtonInAppBar: false,
         body: SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.all(16),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -83,7 +83,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
                 const SizedBox(height: 16),
                 Wrap(
                   direction: Axis.horizontal,
-                  spacing: context.getWidth() / 12,
+                  spacing: context.getWidth() / 16,
                   runSpacing: 20,
                   children: List.generate(
                       _viewModel.servicesList.length,

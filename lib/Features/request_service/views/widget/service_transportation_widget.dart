@@ -13,7 +13,7 @@ class ServiceTransportationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: serviceItem.onPressed(),
+      onTap: () => serviceItem.onPressed(),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(

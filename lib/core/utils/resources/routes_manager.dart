@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/home/views/home_screen.dart';
 import 'package:taxi_for_you/Features/other/freezers_view/freezers_view.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/furniture_view.dart';
 import 'package:taxi_for_you/Features/other/other_view.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_screen.dart';
 import '../../../Features/other/car_aid_view/views/car_aid_view.dart';
+import '../../../Features/other/furniture_view/view/furniture_screen.dart';
 import '../../../Features/other/goods_view/views/goods_view.dart';
 import '../../../Features/other/water_tank_view/views/water_view.dart';
 import '../../../Features/registeration/views/registeration_screen.dart';
@@ -41,7 +41,7 @@ class RouteGenerator {
       case Routes.goodsRoute:
         return MaterialPageRoute(builder: (_) => const GoodsView());
       case Routes.furnitureRoute:
-        return MaterialPageRoute(builder: (_) => const FurnitureView());
+        return MaterialPageRoute(builder: (_) => const FurnitureScreen());
       case Routes.carAidRoute:
         return MaterialPageRoute(builder: (_) => const CarAidView());
       case Routes.waterTankRoute:

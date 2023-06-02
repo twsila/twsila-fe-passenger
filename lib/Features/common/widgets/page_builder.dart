@@ -25,6 +25,7 @@ class PageBuilder {
   Widget? appbarTitleWidget;
   bool? centerTitle;
   bool extendBodyBehindAppBar;
+  bool isCloseButton;
   double? elevation;
   String? screenTitle;
   bool? showAppLogoAtTheEnd;
@@ -32,6 +33,7 @@ class PageBuilder {
   PageBuilder({
     this.appBarActions,
     this.showAppLogoAtTheEnd = false,
+    this.isCloseButton = false,
     this.enableDrawer = false,
     this.hasBackgroundImage = true,
     required this.scaffoldKey,

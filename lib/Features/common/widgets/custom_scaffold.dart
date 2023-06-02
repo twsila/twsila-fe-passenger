@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_close_button.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 
 import '../state_renderer/easy_loader.dart';
@@ -56,21 +57,39 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                           leading: (widget.pageBuilder.allowBackButtonInAppBar)
                               ? Semantics(
                                   label: "Sanlam_back_button",
-                                  child: CustomBackButton(
-                                    onPressed: () {
-                                      FocusScope.of(widget.pageBuilder.context)
-                                          .unfocus();
-                                      if (widget
-                                              .pageBuilder.backButtonCallBack !=
-                                          null) {
-                                        widget
-                                            .pageBuilder.backButtonCallBack!();
-                                      } else {
-                                        Navigator.pop(
-                                            widget.pageBuilder.context);
-                                      }
-                                    },
-                                  ),
+                                  child: widget.pageBuilder.isCloseButton
+                                      ? CustomCloseButton(
+                                          onPressed: () {
+                                            FocusScope.of(
+                                                    widget.pageBuilder.context)
+                                                .unfocus();
+                                            if (widget.pageBuilder
+                                                    .backButtonCallBack !=
+                                                null) {
+                                              widget.pageBuilder
+                                                  .backButtonCallBack!();
+                                            } else {
+                                              Navigator.pop(
+                                                  widget.pageBuilder.context);
+                                            }
+                                          },
+                                        )
+                                      : CustomBackButton(
+                                          onPressed: () {
+                                            FocusScope.of(
+                                                    widget.pageBuilder.context)
+                                                .unfocus();
+                                            if (widget.pageBuilder
+                                                    .backButtonCallBack !=
+                                                null) {
+                                              widget.pageBuilder
+                                                  .backButtonCallBack!();
+                                            } else {
+                                              Navigator.pop(
+                                                  widget.pageBuilder.context);
+                                            }
+                                          },
+                                        ),
                                 )
                               : null,
                           title: _buildAppbarTitle(),

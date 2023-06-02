@@ -102,7 +102,7 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                             : ARABIC_LOCAL,
                         context: context,
                         initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
+                        firstDate: DateTime(1940),
                         lastDate: DateTime(2050),
                         currentDate: DateTime.now(),
                         initialEntryMode: DatePickerEntryMode.calendar,

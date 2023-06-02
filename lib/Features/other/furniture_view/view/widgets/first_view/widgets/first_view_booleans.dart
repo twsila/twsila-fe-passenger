@@ -1,0 +1,61 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/view/furniture_viewmodel.dart';
+
+import '../../../../../../../core/utils/resources/color_manager.dart';
+import '../../../../../../../core/utils/resources/strings_manager.dart';
+import '../../../../../../../core/utils/resources/styles_manager.dart';
+import '../../../../../../common/widgets/custom_checkbox.dart';
+
+class FirstViewBooleans extends StatefulWidget {
+  final FurnitureViewModel furnitureViewModel;
+
+  const FirstViewBooleans({Key? key, required this.furnitureViewModel})
+      : super(key: key);
+  @override
+  _FirstViewBooleansState createState() => _FirstViewBooleansState();
+}
+
+class _FirstViewBooleansState extends State<FirstViewBooleans> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          AppStrings.extraServices.tr(),
+          textAlign: TextAlign.start,
+          style: getMediumStyle(
+            color: ColorManager.titlesTextColor,
+            fontSize: 16,
+          ),
+        ),
+        CustomCheckBox(
+          checked: widget.furnitureViewModel.furnitureModel.assembleBool,
+          fieldName: AppStrings.assemble.tr(),
+          onChange: (checked) {
+            widget.furnitureViewModel.furnitureModel.assembleBool = checked;
+          },
+        ),
+        CustomCheckBox(
+            checked: widget.furnitureViewModel.furnitureModel.craneBool,
+            fieldName: AppStrings.crane.tr(),
+            onChange: (checked) {
+              widget.furnitureViewModel.furnitureModel.craneBool = checked;
+            }),
+        CustomCheckBox(
+            checked: widget.furnitureViewModel.furnitureModel.loadingBool,
+            fieldName: AppStrings.unloadAndLoad.tr(),
+            onChange: (checked) {
+              widget.furnitureViewModel.furnitureModel.loadingBool = checked;
+            }),
+        CustomCheckBox(
+            checked: widget.furnitureViewModel.furnitureModel.wrappingBool,
+            fieldName: AppStrings.wrapping.tr(),
+            onChange: (checked) {
+              widget.furnitureViewModel.furnitureModel.wrappingBool = checked;
+            }),
+      ],
+    );
+  }
+}

@@ -8,6 +8,8 @@ class AppStrings {
   static const appTitle = 'app_title';
   static const codesent = "code_sent";
   static const save = "save";
+  static const step = "step";
+  static const next = "next";
   static const codeIs = "code_is";
   static const validateSuccessfully = "validate_successfully";
   static const validateFailed = "validate_failed";
@@ -50,6 +52,8 @@ class AppStrings {
   static const waterTankTransportation = "transport_water_tank";
   static const goodsTransportation = "transport_goods";
   static const furnitureTransportation = "transport_furniture";
+  static const transporationItems = "transporation_items";
+  static const extraServices = "extra_services";
   static const goods = "goods";
   static const other = "other";
   static const freezers = "freezers";
@@ -153,6 +157,7 @@ class AppStrings {
   static const carpetsNumber = "carpets_number";
   static const kitchenNumber = "kitchen_number";
   static const bedNumber = "bed_number";
+  static const electricalAppliances = "electrical_appliances";
   static const unloadAndLoad = "unload_and_load";
   static const wrapping = "wrapping";
   static const sofaSet = "sofa_set";
