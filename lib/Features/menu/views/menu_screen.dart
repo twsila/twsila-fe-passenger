@@ -10,6 +10,7 @@ import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import '../../../core/utils/resources/color_manager.dart';
 import '../../../core/utils/resources/strings_manager.dart';
 import '../../common/state_renderer/dialogs.dart';
+import '../../common/widgets/custom_language_widget.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -39,10 +40,16 @@ class _MenuScreenState extends State<MenuScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                AppStrings.profile.tr(),
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: ColorManager.black, fontWeight: FontWeight.w900),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    AppStrings.profile.tr(),
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: ColorManager.black, fontWeight: FontWeight.w900),
+                  ),
+                  const LanguageWidget(),
+                ],
               ),
               const SizedBox(height: 16),
               CustomProfileWidget(userModel: _viewModel.userModel),

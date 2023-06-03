@@ -29,7 +29,7 @@ class _FirstViewNumbersWidgetState extends State<FirstViewNumbersWidget> {
               getMediumStyle(color: ColorManager.titlesTextColor, fontSize: 16),
         ),
         CustomCounterWidget(
-          text: AppStrings.bedNumber.tr(),
+          text: AppStrings.roomsNumber.tr(),
           value: widget
               .furnitureViewModel.furnitureModel.furnitureItems.roomsNumber,
           onPlusPressed: () {
@@ -48,22 +48,19 @@ class _FirstViewNumbersWidgetState extends State<FirstViewNumbersWidget> {
                       .furnitureItems.roomsNumber) -
                   1;
               widget.furnitureViewModel.firstScreenValid.value =
-                  widget.furnitureViewModel.checkObjectIsNull();
+                  widget.furnitureViewModel.validateFirstScreen();
             });
           },
         ),
         CustomCounterWidget(
-          text: AppStrings.electricalAppliances.tr(),
-          value: widget.furnitureViewModel.furnitureModel.furnitureItems
-              .electricalAppliancesNumber,
+          text: AppStrings.fridgeNumber.tr(),
+          value: widget
+              .furnitureViewModel.furnitureModel.furnitureItems.fridgeNumber,
           onPlusPressed: () {
             setState(() {
               widget.furnitureViewModel.furnitureModel.furnitureItems
-                  .electricalAppliancesNumber = widget
-                      .furnitureViewModel
-                      .furnitureModel
-                      .furnitureItems
-                      .electricalAppliancesNumber +
+                  .fridgeNumber = widget.furnitureViewModel.furnitureModel
+                      .furnitureItems.fridgeNumber +
                   1;
 
               widget.furnitureViewModel.firstScreenValid.value = true;
@@ -72,26 +69,48 @@ class _FirstViewNumbersWidgetState extends State<FirstViewNumbersWidget> {
           onMinusPressed: () {
             setState(() {
               widget.furnitureViewModel.furnitureModel.furnitureItems
-                  .electricalAppliancesNumber = widget
-                      .furnitureViewModel
-                      .furnitureModel
-                      .furnitureItems
-                      .electricalAppliancesNumber -
+                  .fridgeNumber = widget.furnitureViewModel.furnitureModel
+                      .furnitureItems.fridgeNumber -
                   1;
               widget.furnitureViewModel.firstScreenValid.value =
-                  widget.furnitureViewModel.checkObjectIsNull();
+                  widget.furnitureViewModel.validateFirstScreen();
+            });
+          },
+        ),
+        CustomCounterWidget(
+          text: AppStrings.sofaSetNumber.tr(),
+          value: widget
+              .furnitureViewModel.furnitureModel.furnitureItems.sofaSetNumber,
+          onPlusPressed: () {
+            setState(() {
+              widget.furnitureViewModel.furnitureModel.furnitureItems
+                  .sofaSetNumber = widget.furnitureViewModel.furnitureModel
+                      .furnitureItems.sofaSetNumber +
+                  1;
+
+              widget.furnitureViewModel.firstScreenValid.value = true;
+            });
+          },
+          onMinusPressed: () {
+            setState(() {
+              widget.furnitureViewModel.furnitureModel.furnitureItems
+                  .sofaSetNumber = widget.furnitureViewModel.furnitureModel
+                      .furnitureItems.sofaSetNumber -
+                  1;
+              widget.furnitureViewModel.firstScreenValid.value =
+                  widget.furnitureViewModel.validateFirstScreen();
             });
           },
         ),
         CustomCounterWidget(
           text: AppStrings.carpetsNumber.tr(),
           value: widget
-              .furnitureViewModel.furnitureModel.furnitureItems.carpetsNumber,
+              .furnitureViewModel.furnitureModel.furnitureItems.carpetNumber,
           onPlusPressed: () {
             setState(() {
               widget.furnitureViewModel.furnitureModel.furnitureItems
-                  .carpetsNumber = widget.furnitureViewModel.furnitureModel
-                      .furnitureItems.carpetsNumber +
+                  .carpetNumber = widget.furnitureViewModel.furnitureModel
+                      .furnitureItems.carpetNumber +
                   1;
 
               widget.furnitureViewModel.firstScreenValid.value = true;
@@ -100,11 +119,65 @@ class _FirstViewNumbersWidgetState extends State<FirstViewNumbersWidget> {
           onMinusPressed: () {
             setState(() {
               widget.furnitureViewModel.furnitureModel.furnitureItems
-                  .carpetsNumber = widget.furnitureViewModel.furnitureModel
-                      .furnitureItems.carpetsNumber -
+                  .carpetNumber = widget.furnitureViewModel.furnitureModel
+                      .furnitureItems.carpetNumber -
                   1;
               widget.furnitureViewModel.firstScreenValid.value =
-                  widget.furnitureViewModel.checkObjectIsNull();
+                  widget.furnitureViewModel.validateFirstScreen();
+            });
+          },
+        ),
+        CustomCounterWidget(
+          text: AppStrings.windowAirconditionerNumber.tr(),
+          value: widget.furnitureViewModel.furnitureModel.furnitureItems
+              .windowAirconditionerNumber,
+          onPlusPressed: () {
+            setState(() {
+              widget.furnitureViewModel.furnitureModel.furnitureItems
+                  .windowAirconditionerNumber = widget
+                      .furnitureViewModel
+                      .furnitureModel
+                      .furnitureItems
+                      .windowAirconditionerNumber +
+                  1;
+              widget.furnitureViewModel.firstScreenValid.value = true;
+            });
+          },
+          onMinusPressed: () {
+            setState(() {
+              widget.furnitureViewModel.furnitureModel.furnitureItems
+                  .windowAirconditionerNumber = widget
+                      .furnitureViewModel
+                      .furnitureModel
+                      .furnitureItems
+                      .windowAirconditionerNumber -
+                  1;
+              widget.furnitureViewModel.firstScreenValid.value =
+                  widget.furnitureViewModel.validateFirstScreen();
+            });
+          },
+        ),
+        CustomCounterWidget(
+          text: AppStrings.splitAirconditionerNumber.tr(),
+          value: widget.furnitureViewModel.furnitureModel.furnitureItems
+              .splitAirconditionerNumber,
+          onPlusPressed: () {
+            setState(() {
+              widget.furnitureViewModel.furnitureModel.furnitureItems
+                  .splitAirconditionerNumber = widget.furnitureViewModel
+                      .furnitureModel.furnitureItems.splitAirconditionerNumber +
+                  1;
+              widget.furnitureViewModel.firstScreenValid.value = true;
+            });
+          },
+          onMinusPressed: () {
+            setState(() {
+              widget.furnitureViewModel.furnitureModel.furnitureItems
+                  .splitAirconditionerNumber = widget.furnitureViewModel
+                      .furnitureModel.furnitureItems.splitAirconditionerNumber -
+                  1;
+              widget.furnitureViewModel.firstScreenValid.value =
+                  widget.furnitureViewModel.validateFirstScreen();
             });
           },
         ),
@@ -129,31 +202,81 @@ class _FirstViewNumbersWidgetState extends State<FirstViewNumbersWidget> {
                       .furnitureItems.kitchenNumber -
                   1;
               widget.furnitureViewModel.firstScreenValid.value =
-                  widget.furnitureViewModel.checkObjectIsNull();
+                  widget.furnitureViewModel.validateFirstScreen();
             });
           },
         ),
         CustomCounterWidget(
-          text: AppStrings.airconditionarNumber.tr(),
-          value: widget.furnitureViewModel.furnitureModel.furnitureItems
-              .airconditionerNumber,
+          text: AppStrings.tablesNumber.tr(),
+          value: widget
+              .furnitureViewModel.furnitureModel.furnitureItems.tablesNumber,
           onPlusPressed: () {
             setState(() {
               widget.furnitureViewModel.furnitureModel.furnitureItems
-                  .airconditionerNumber = widget.furnitureViewModel
-                      .furnitureModel.furnitureItems.airconditionerNumber +
+                  .tablesNumber = widget.furnitureViewModel.furnitureModel
+                      .furnitureItems.tablesNumber +
                   1;
+
               widget.furnitureViewModel.firstScreenValid.value = true;
             });
           },
           onMinusPressed: () {
             setState(() {
               widget.furnitureViewModel.furnitureModel.furnitureItems
-                  .airconditionerNumber = widget.furnitureViewModel
-                      .furnitureModel.furnitureItems.airconditionerNumber -
+                  .tablesNumber = widget.furnitureViewModel.furnitureModel
+                      .furnitureItems.tablesNumber -
                   1;
               widget.furnitureViewModel.firstScreenValid.value =
-                  widget.furnitureViewModel.checkObjectIsNull();
+                  widget.furnitureViewModel.validateFirstScreen();
+            });
+          },
+        ),
+        CustomCounterWidget(
+          text: AppStrings.dinningRoomsNumber.tr(),
+          value: widget.furnitureViewModel.furnitureModel.furnitureItems
+              .diningRoomNumber,
+          onPlusPressed: () {
+            setState(() {
+              widget.furnitureViewModel.furnitureModel.furnitureItems
+                  .diningRoomNumber = widget.furnitureViewModel.furnitureModel
+                      .furnitureItems.diningRoomNumber +
+                  1;
+
+              widget.furnitureViewModel.firstScreenValid.value = true;
+            });
+          },
+          onMinusPressed: () {
+            setState(() {
+              widget.furnitureViewModel.furnitureModel.furnitureItems
+                  .diningRoomNumber = widget.furnitureViewModel.furnitureModel
+                      .furnitureItems.diningRoomNumber -
+                  1;
+              widget.furnitureViewModel.firstScreenValid.value =
+                  widget.furnitureViewModel.validateFirstScreen();
+            });
+          },
+        ),
+        CustomCounterWidget(
+          text: AppStrings.other.tr(),
+          value: widget.furnitureViewModel.furnitureModel.furnitureItems.other,
+          onPlusPressed: () {
+            setState(() {
+              widget.furnitureViewModel.furnitureModel.furnitureItems.other =
+                  widget.furnitureViewModel.furnitureModel.furnitureItems
+                          .other +
+                      1;
+
+              widget.furnitureViewModel.firstScreenValid.value = true;
+            });
+          },
+          onMinusPressed: () {
+            setState(() {
+              widget.furnitureViewModel.furnitureModel.furnitureItems.other =
+                  widget.furnitureViewModel.furnitureModel.furnitureItems
+                          .other -
+                      1;
+              widget.furnitureViewModel.firstScreenValid.value =
+                  widget.furnitureViewModel.validateFirstScreen();
             });
           },
         ),

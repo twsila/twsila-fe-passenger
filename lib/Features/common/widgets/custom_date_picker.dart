@@ -14,6 +14,7 @@ class CustomDatePickerWidget extends StatefulWidget {
   final String? title;
   final String? hintText;
   final Color? mainColor;
+  final DateTime? firstDate;
   const CustomDatePickerWidget({
     Key? key,
     required this.onSelectDate,
@@ -21,6 +22,7 @@ class CustomDatePickerWidget extends StatefulWidget {
     this.hintText,
     this.isDateOnly = false,
     this.mainColor,
+    this.firstDate,
   }) : super(key: key);
 
   @override
@@ -102,7 +104,7 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                             : ARABIC_LOCAL,
                         context: context,
                         initialDate: DateTime.now(),
-                        firstDate: DateTime(1940),
+                        firstDate: widget.firstDate ?? DateTime(1940),
                         lastDate: DateTime(2050),
                         currentDate: DateTime.now(),
                         initialEntryMode: DatePickerEntryMode.calendar,
@@ -119,7 +121,7 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                             child: child!,
                           );
                         });
-                    if (widget.isDateOnly) {
+                    if (widget.isDateOnly || date == null) {
                       dateSub.value = date;
                       return;
                     }
@@ -139,7 +141,7 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                           );
                         });
                     var dateTime = DateTime(
-                      date!.year,
+                      date.year,
                       date.month,
                       date.day,
                       timeValue!.hour,

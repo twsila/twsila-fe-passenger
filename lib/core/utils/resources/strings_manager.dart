@@ -147,21 +147,29 @@ class AppStrings {
   static const walletAndPayments = "wallets_payments";
   static const inviteAndWin = "invite_and_win";
   static const getHelp = "get_help";
+  static const whenService = "when_service";
+  static const fastestTime = "fastest_time";
+  static const specifiedTime = "specified_time";
+  static const determinateLocation = "determinate_location";
+  static const selectStartPoint = "select_start_point";
+  static const selectDeliveryPoint = "select_delivery_point";
 
   //Furniture strings
   static const attachFurnitureImages = "attach_furniture_images";
   static const assemble = "assemble";
   static const crane = "crane";
-  static const airconditionarNumber = "airconditioner_number";
+  static const roomsNumber = "rooms_number";
   static const fridgeNumber = "fridge_number";
+  static const sofaSetNumber = "sofa_set_number";
   static const carpetsNumber = "carpets_number";
+  static const windowAirconditionerNumber = "window_airconditioner_number";
+  static const splitAirconditionerNumber = "split_airconditioner_number";
   static const kitchenNumber = "kitchen_number";
-  static const bedNumber = "bed_number";
-  static const electricalAppliances = "electrical_appliances";
+  static const tablesNumber = "tables_number";
+  static const dinningRoomsNumber = "dinning_rooms_number";
   static const unloadAndLoad = "unload_and_load";
   static const wrapping = "wrapping";
   static const sofaSet = "sofa_set";
-  static const dinningRoomNumber = "dinning_room_number";
   static const goodsWeight = "goods_weight";
   static const tankWeight = "tank_weight";
 

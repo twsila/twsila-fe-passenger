@@ -26,7 +26,7 @@ class _FurnitureFirstViewState extends State<FurnitureFirstView> {
       children: [
         SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.all(32),
+            margin: const EdgeInsets.fromLTRB(32, 16, 32, 32),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -54,7 +54,7 @@ class _FurnitureFirstViewState extends State<FurnitureFirstView> {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white.withOpacity(0.8),
               boxShadow: [
                 BoxShadow(
                   color: ColorManager.grey.withOpacity(0.1),

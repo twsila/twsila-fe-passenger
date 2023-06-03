@@ -15,6 +15,7 @@ class FurnitureViewModel extends BaseViewModel {
   final controller = PageController(initialPage: 0);
   ValueNotifier<int> selectedIndex = ValueNotifier(0);
   ValueNotifier<bool> firstScreenValid = ValueNotifier(false);
+  ValueNotifier<bool> secondScreenValid = ValueNotifier(false);
   late List<Widget> screens;
 
   @override
@@ -41,11 +42,20 @@ class FurnitureViewModel extends BaseViewModel {
     }
   }
 
-  bool checkObjectIsNull() {
+  bool validateFirstScreen() {
     return !(furnitureModel.furnitureItems.roomsNumber == 0 &&
-        furnitureModel.furnitureItems.electricalAppliancesNumber == 0 &&
-        furnitureModel.furnitureItems.carpetsNumber == 0 &&
+        furnitureModel.furnitureItems.fridgeNumber == 0 &&
+        furnitureModel.furnitureItems.sofaSetNumber == 0 &&
+        furnitureModel.furnitureItems.carpetNumber == 0 &&
+        furnitureModel.furnitureItems.windowAirconditionerNumber == 0 &&
+        furnitureModel.furnitureItems.splitAirconditionerNumber == 0 &&
         furnitureModel.furnitureItems.kitchenNumber == 0 &&
-        furnitureModel.furnitureItems.airconditionerNumber == 0);
+        furnitureModel.furnitureItems.tablesNumber == 0 &&
+        furnitureModel.furnitureItems.diningRoomNumber == 0 &&
+        furnitureModel.furnitureItems.other == 0);
+  }
+
+  bool validateSecondScreen() {
+    return furnitureModel.date != null;
   }
 }

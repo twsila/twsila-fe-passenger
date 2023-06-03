@@ -7,6 +7,9 @@ class ImageAssets {
   static const String photoCameraIc = "$imagePath/photo-camera.svg";
   static const String how = "$imagePath/how.png";
   static const String car = "$imagePath/car.png";
+  static const String thunder = "$imagePath/thunder.png";
+  static const String pin = "$imagePath/pin.png";
+  static const String clock = "$imagePath/clock.png";
   static const String eye = "$imagePath/eye.png";
   static const String plus = "$imagePath/plus.png";
   static const String minus = "$imagePath/minus.png";

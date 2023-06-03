@@ -20,10 +20,15 @@ class FurnitureModel {
 
 class FurnitureItems {
   int roomsNumber = 0;
-  int electricalAppliancesNumber = 0;
-  int carpetsNumber = 0;
+  int fridgeNumber = 0;
+  int sofaSetNumber = 0;
+  int carpetNumber = 0;
+  int windowAirconditionerNumber = 0;
+  int splitAirconditionerNumber = 0;
   int kitchenNumber = 0;
-  int airconditionerNumber = 0;
+  int tablesNumber = 0;
+  int diningRoomNumber = 0;
+  int other = 0;
 
   FurnitureItems();
 }

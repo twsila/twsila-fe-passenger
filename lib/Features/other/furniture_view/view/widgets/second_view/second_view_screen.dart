@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/second_view/widgets/second_view_location/second_view_location.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/second_view/widgets/second_view_time.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
@@ -23,6 +25,29 @@ class _FurnitureSecondViewState extends State<FurnitureSecondView> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(32, 16, 32, 32),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SecondViewTime(
+                  furnitureViewModel: widget.furnitureViewModel,
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 16),
+                  child: const Divider(),
+                ),
+                SecondViewLocation(
+                  furnitureViewModel: widget.furnitureViewModel,
+                ),
+                const SizedBox(
+                  height: 64,
+                )
+              ],
+            ),
+          ),
+        ),
         Positioned(
           bottom: 0,
           left: 0,
@@ -40,13 +65,19 @@ class _FurnitureSecondViewState extends State<FurnitureSecondView> {
                 )
               ],
             ),
-            child: CustomTextButton(
-                text: AppStrings.next.tr(),
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  setState(() {
-                    widget.furnitureViewModel.handleSteps();
-                  });
+            child: ValueListenableBuilder(
+                valueListenable: widget.furnitureViewModel.secondScreenValid,
+                builder: (BuildContext context, bool value, _) {
+                  return CustomTextButton(
+                      text: AppStrings.next.tr(),
+                      onPressed: value
+                          ? () {
+                              FocusScope.of(context).unfocus();
+                              setState(() {
+                                widget.furnitureViewModel.handleSteps();
+                              });
+                            }
+                          : null);
                 }),
           ),
         ),
