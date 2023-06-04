@@ -56,6 +56,7 @@ class CustomTextInputField extends StatefulWidget {
   final Color? backgroundColor;
   final bool? isTitleBold;
   final bool boxShadow;
+  final bool multiLines;
 
   // final String? key;
 
@@ -110,6 +111,7 @@ class CustomTextInputField extends StatefulWidget {
     this.isTitleBold = true,
     this.clearIconColor,
     this.boxShadow = false,
+    this.multiLines = false,
   }) : super(key: key);
 
   @override
@@ -146,6 +148,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
                             fontWeight: widget.isTitleBold!
                                 ? FontWeight.bold
                                 : FontWeight.normal,
+                            fontSize: 12,
                             color: ColorManager.titlesTextColor,
                           )),
                   if (widget.isRequired!)
@@ -158,7 +161,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
                     )
                 ],
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 8),
               _textFormField(),
             ],
           )
@@ -177,6 +180,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
         obscureText: widget.obscureText,
         textAlign: widget.textAlign ?? TextAlign.start,
         maxLength: widget.maxLength,
+        maxLines: widget.multiLines ? null : 1,
         cursorColor: widget.hintTextColor ?? ColorManager.hintTextColor,
         key: _basicInputKey,
         textInputAction: widget.textInputAction,

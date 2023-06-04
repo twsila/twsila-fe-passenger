@@ -75,6 +75,9 @@ class AppStrings {
   static const no = "no";
   static const confirmation = "confirmation";
   static const confirm = "confirm";
+  static const sendRequest = "send_request";
+  static const distance = "distance";
+  static const km = "km";
   static const firstName = "first_name";
   static const firstNameError = "first_name_error";
   static const firstNameHint = "first_name_hint";
@@ -128,6 +131,7 @@ class AppStrings {
   static const sourcePoint = "source_point";
   static const destinationPoint = "destination_point";
   static const privateNotes = "private_notes";
+  static const notesHint = "notes_hint";
   static const pickedImages = "picked_images";
   static const nothing = "nothing";
   static const gallery = "gallery";
@@ -137,6 +141,7 @@ class AppStrings {
   static const iWantToPay = "i_want_to_pay";
   static const paymentNote = "payment_note";
   static const paymentValue = "payment_value";
+  static const enterAmount = "enter_amount";
   static const dropdownError = "dropdown_error";
   static const male = "male";
   static const female = "female";

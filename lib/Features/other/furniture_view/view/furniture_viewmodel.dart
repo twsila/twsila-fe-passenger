@@ -6,7 +6,7 @@ import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/third_vi
 
 import '../../../../app/app_prefs.dart';
 import '../../../../app/di.dart';
-import '../models/furniture-model.dart';
+import '../models/furniture_model.dart';
 
 class FurnitureViewModel extends BaseViewModel {
   FurnitureModel furnitureModel = FurnitureModel();
@@ -16,6 +16,7 @@ class FurnitureViewModel extends BaseViewModel {
   ValueNotifier<int> selectedIndex = ValueNotifier(0);
   ValueNotifier<bool> firstScreenValid = ValueNotifier(false);
   ValueNotifier<bool> secondScreenValid = ValueNotifier(false);
+  ValueNotifier<bool> thirdScreenValid = ValueNotifier(false);
   late List<Widget> screens;
 
   @override

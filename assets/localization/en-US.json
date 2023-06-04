@@ -158,6 +158,7 @@
   "cancel": "Cancel",
   "confirmation": "Confirmation",
   "confirm": "confirm",
+  "send_request": "Send Request",
   "logout": "Logout",
   "logout_confirmation": "Are you sure you want to logout?",
   "trip_confirmation": "Trip Confirmation",
@@ -206,6 +207,7 @@
   "goods_weight": "Goods weight / tons",
   "tank_weight": "Tank weight / liter",
   "private_notes": "Private Notes",
+  "notes_hint": "Leave additional notes (Optional)",
   "source_hint": "Enter Source Location...",
   "destination_hint": "Enter Destination Location...",
   "picked_images": "Picked Images",
@@ -218,6 +220,7 @@
   "i_want_to_pay": "I want to pay",
   "payment_note": "Note: Price doesn't include VAT 15%",
   "payment_value": "Payment Value :",
+  "enter_amount": "Enter amount",
   "cartons": "Cartons",
   "shipped_types": "Shipped Types",
   "materials_tobe_shipped": "Materials to be Shipped",
@@ -254,5 +257,7 @@
   "determinate_location": "Determine the starting and delivery location",
   "select_start_point": "Select the start point",
   "select_delivery_point": "Select the delivery point",
-  "select_location_on_map": "Select location on map"
+  "select_location_on_map": "Select location on map",
+  "distance": "Distance: ",
+  "km": "KM"
 }

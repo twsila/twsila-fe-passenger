@@ -158,6 +158,7 @@
   "cancel": "إلغاء",
   "confirmation": "تأكيد",
   "confirm": "تأكيد",
+  "send_request": "إرسال الطلب",
   "logout": "تسجيل الخروج",
   "logout_confirmation": "هل انت متأكد من تسجيل الخروج؟",
   "trip_confirmation": "تأكيد بيانات الرحلة",
@@ -204,6 +205,7 @@
   "goods_weight": "وزن البضاعة / طن",
   "tank_weight": "حجم التانكي باللتر",
   "private_notes": "ملاحظات خاصة",
+  "notes_hint": "اترك ملاحظات إضافية (إختياري)",
   "source_hint": "ادخل نقطة الالتقاط...",
   "destination_hint": "ادخل نقطة التوصيل...",
   "picked_images": "الصور المرفقة",
@@ -213,9 +215,10 @@
   "camera": "الكاميرا",
   "saudi_currency": "ريال سعودي",
   "egyptian_currency": "جنيه مصري",
-  "i_want_to_pay": "أرغب في دفع",
+  "i_want_to_pay": "اود دفع",
   "payment_note": "ملاحظة: السعر لا يشمل ضريبة القيمة المضافة 15%",
   "payment_value": "القيمة المدفوعة:",
+  "enter_amount": "ادخل المبلغ",
   "cartons": "كراتين",
   "shipped_types": "نوع الشحن",
   "materials_tobe_shipped": "المواد المراد شحنها",
@@ -252,5 +255,7 @@
   "determinate_location": "حدد مكان البداية والتوصيل",
   "select_start_point": "حدد نقطة البداية",
   "select_delivery_point": "حدد نقطة التوصيل",
-  "select_location_on_map": "حدد الموقع علي الخريطة "
+  "select_location_on_map": "حدد الموقع علي الخريطة ",
+  "distance": "المسافة: ",
+  "km": "كم"
 }

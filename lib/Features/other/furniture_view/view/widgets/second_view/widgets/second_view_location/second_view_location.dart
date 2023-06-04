@@ -33,9 +33,13 @@ class _SecondViewLocationState extends State<SecondViewLocation> {
           ),
         ),
         const SizedBox(height: 16),
-        SourcePointWidget(furnitureViewModel: widget.furnitureViewModel),
+        SourcePointWidget(
+          furnitureViewModel: widget.furnitureViewModel,
+        ),
         const SizedBox(height: 16),
-        DestinationPointWidget(furnitureViewModel: widget.furnitureViewModel),
+        DestinationPointWidget(
+          furnitureViewModel: widget.furnitureViewModel,
+        ),
       ],
     );
   }
