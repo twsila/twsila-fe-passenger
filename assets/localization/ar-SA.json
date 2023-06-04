@@ -155,8 +155,9 @@
   "yes": "نعم",
   "no": "لا",
   "ok": "نعم",
-  "cancel": "لا",
+  "cancel": "إلغاء",
   "confirmation": "تأكيد",
+  "confirm": "تأكيد",
   "logout": "تسجيل الخروج",
   "logout_confirmation": "هل انت متأكد من تسجيل الخروج؟",
   "trip_confirmation": "تأكيد بيانات الرحلة",
@@ -250,5 +251,6 @@
   "specified_time": "في معاد محدد",
   "determinate_location": "حدد مكان البداية والتوصيل",
   "select_start_point": "حدد نقطة البداية",
-  "select_delivery_point": "حدد نقطة التوصيل"
+  "select_delivery_point": "حدد نقطة التوصيل",
+  "select_location_on_map": "حدد الموقع علي الخريطة "
 }

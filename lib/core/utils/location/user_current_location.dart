@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:location_geocoder/location_geocoder.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
 import '../../../Features/google_maps/model/location_model.dart';
+import '../../../app/constants.dart';
 
 class UserCurrentLocation {
+  final LocatitonGeocoder geocoder = LocatitonGeocoder(Platform.isIOS
+      ? Constants.GOOGLE_API_KEY_IOS
+      : Constants.GOOGLE_API_KEY_ANDROID);
   Future<LocationModel> getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;

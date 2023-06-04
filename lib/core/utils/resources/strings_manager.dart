@@ -74,6 +74,7 @@ class AppStrings {
   static const yes = "yes";
   static const no = "no";
   static const confirmation = "confirmation";
+  static const confirm = "confirm";
   static const firstName = "first_name";
   static const firstNameError = "first_name_error";
   static const firstNameHint = "first_name_hint";
@@ -153,6 +154,7 @@ class AppStrings {
   static const determinateLocation = "determinate_location";
   static const selectStartPoint = "select_start_point";
   static const selectDeliveryPoint = "select_delivery_point";
+  static const selectLocationOnMap = "select_location_on_map";
 
   //Furniture strings
   static const attachFurnitureImages = "attach_furniture_images";

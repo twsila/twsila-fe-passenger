@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
@@ -27,41 +29,28 @@ class GoogleMapsPlacesField extends StatefulWidget {
 
 class _GoogleMapsPlacesFieldState extends State<GoogleMapsPlacesField> {
   Color fillColor = Colors.white70;
-  List<BoxShadow>? shadow;
+  late String googleApiKey;
+
+  @override
+  void initState() {
+    if (Platform.isIOS) {
+      googleApiKey = Constants.GOOGLE_API_KEY_IOS;
+    } else {
+      googleApiKey = Constants.GOOGLE_API_KEY_ANDROID;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      decoration: BoxDecoration(
-        boxShadow: shadow,
-      ),
+    return SizedBox(
+      height: 55,
       child: Focus(
         focusNode: widget.focusNode,
-        onFocusChange: (hasFocus) {
-          if (hasFocus) {
-            setState(() {
-              fillColor = Colors.white;
-              shadow = [
-                const BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 10.0,
-                  spreadRadius: 1,
-                  offset: Offset(0.0, 1.0),
-                )
-              ];
-            });
-          } else {
-            setState(() {
-              fillColor = Colors.white70;
-              shadow = null;
-            });
-          }
-        },
         child: Consumer<MapProvider>(builder: (context, mapProvider, _) {
           return GooglePlaceAutoCompleteTextField(
             textEditingController: widget.controller,
-            googleAPIKey: Constants.GOOGLE_API_KEY,
+            googleAPIKey: googleApiKey,
             debounceTime: 400,
             textStyle: Theme.of(context)
                 .textTheme
@@ -83,7 +72,7 @@ class _GoogleMapsPlacesFieldState extends State<GoogleMapsPlacesField> {
               }
             },
             inputDecoration: InputDecoration(
-              contentPadding: const EdgeInsets.only(left: 8),
+              contentPadding: const EdgeInsets.only(left: 8, right: 8),
               hintText: widget.hintText ?? "Search your location..",
               hintStyle:
                   getRegularStyle(color: ColorManager.grey, fontSize: 14),

@@ -10,14 +10,18 @@ class CustomTextButton extends StatefulWidget {
   final Function()? onPressed;
   final String text;
   final Color? color;
+  final Color? textColor;
   final double? height;
   final bool showIcon;
+  final bool showShadow;
   const CustomTextButton({
     Key? key,
     this.color,
     this.height,
     this.onPressed,
     this.showIcon = true,
+    this.showShadow = true,
+    this.textColor,
     required this.text,
   }) : super(key: key);
 
@@ -34,7 +38,7 @@ class _CustomTextButtonState extends State<CustomTextButton> {
       height: widget.height ?? 50,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(4)),
-        boxShadow: widget.onPressed == null
+        boxShadow: widget.onPressed == null || !widget.showShadow
             ? []
             : [
                 BoxShadow(
@@ -46,6 +50,9 @@ class _CustomTextButtonState extends State<CustomTextButton> {
               ],
       ),
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: widget.color ?? ColorManager.primary,
+        ),
         onPressed: widget.onPressed,
         child: widget.showIcon
             ? Row(
@@ -56,7 +63,7 @@ class _CustomTextButtonState extends State<CustomTextButton> {
                     style: Theme.of(context)
                         .textTheme
                         .headlineLarge!
-                        .copyWith(color: Colors.white),
+                        .copyWith(color: widget.textColor ?? Colors.white),
                   ),
                   const SizedBox(width: 4),
                   Transform.rotate(
@@ -77,7 +84,7 @@ class _CustomTextButtonState extends State<CustomTextButton> {
                 style: Theme.of(context)
                     .textTheme
                     .headlineLarge!
-                    .copyWith(color: Colors.white),
+                    .copyWith(color: widget.textColor ?? Colors.white),
               ),
       ),
     );

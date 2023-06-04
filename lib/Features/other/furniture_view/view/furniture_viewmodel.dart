@@ -56,6 +56,10 @@ class FurnitureViewModel extends BaseViewModel {
   }
 
   bool validateSecondScreen() {
-    return furnitureModel.date != null;
+    return furnitureModel.date != null &&
+        furnitureModel.pickupLocationLatitude != null &&
+        furnitureModel.pickupLocationLongitude != null &&
+        furnitureModel.destinationLocationLatitude != null &&
+        furnitureModel.destinationLocationLongitude != null;
   }
 }

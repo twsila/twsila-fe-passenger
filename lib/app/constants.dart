@@ -5,8 +5,10 @@ class Constants {
   static const String empty = "";
   static const int apiTimeOut = 60;
   static const int otpCountTime = 60;
-  static const String GOOGLE_API_KEY =
-      "AIzaSyCuu1VQ3jSSyDLG0m7qBxLGR1xqv6wVm1w";
+  static const String GOOGLE_API_KEY_ANDROID =
+      "AIzaSyAemSFn6fVufROQDewj0BjzuOKVw_Bxi8M";
+  static const String GOOGLE_API_KEY_IOS =
+      "AIzaSyDB2c1bJWwqm-XSTIopQZovNnRPfXnyd8s";
   static const headers = {
     "Accept": "*/*",
     'Authorization':

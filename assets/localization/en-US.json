@@ -157,6 +157,7 @@
   "ok": "Ok",
   "cancel": "Cancel",
   "confirmation": "Confirmation",
+  "confirm": "confirm",
   "logout": "Logout",
   "logout_confirmation": "Are you sure you want to logout?",
   "trip_confirmation": "Trip Confirmation",
@@ -252,5 +253,6 @@
   "specified_time": "At a specified time",
   "determinate_location": "Determine the starting and delivery location",
   "select_start_point": "Select the start point",
-  "select_delivery_point": "Select the delivery point"
+  "select_delivery_point": "Select the delivery point",
+  "select_location_on_map": "Select location on map"
 }

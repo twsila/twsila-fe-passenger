@@ -36,7 +36,9 @@ class _SecondViewTimeState extends State<SecondViewTime> {
       timeNow.hour,
       timeNow.minute,
     );
-    widget.furnitureViewModel.secondScreenValid.value = true;
+    convertDate();
+    widget.furnitureViewModel.secondScreenValid.value =
+        widget.furnitureViewModel.validateSecondScreen();
     super.initState();
   }
 
@@ -67,7 +69,8 @@ class _SecondViewTimeState extends State<SecondViewTime> {
                 onTap: () => setState(() {
                   isNow = true;
                   convertDate();
-                  widget.furnitureViewModel.secondScreenValid.value = true;
+                  widget.furnitureViewModel.secondScreenValid.value =
+                      widget.furnitureViewModel.validateSecondScreen();
                 }),
                 child: Container(
                   padding:
@@ -103,7 +106,8 @@ class _SecondViewTimeState extends State<SecondViewTime> {
                 onTap: () => setState(() {
                   isNow = false;
                   widget.furnitureViewModel.furnitureModel.date = null;
-                  widget.furnitureViewModel.secondScreenValid.value = false;
+                  widget.furnitureViewModel.secondScreenValid.value =
+                      widget.furnitureViewModel.validateSecondScreen();
                 }),
                 child: Container(
                   padding:
@@ -145,7 +149,7 @@ class _SecondViewTimeState extends State<SecondViewTime> {
                   Future.delayed(
                       Duration.zero,
                       () => widget.furnitureViewModel.secondScreenValid.value =
-                          true);
+                          widget.furnitureViewModel.validateSecondScreen());
                 },
                 firstDate: DateTime.now(),
               )
