@@ -5,10 +5,12 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/network/base_request_interface.dart';
 import 'package:taxi_for_you/data/model/request-model.dart';
+import 'package:taxi_for_you/data/model/user-model.dart';
 
 import '../../app/di.dart';
 import 'app_exceptions.dart';
@@ -31,13 +33,15 @@ class HttpBaseRequest extends BaseRequestInterface {
 
     requestModel.reqBody['language'] = appPreferences.getAppLanguage();
 
+    var headers = checkHeaders(requestModel.headers);
+
     var requestEncoded = json.encode(requestModel.reqBody);
     printFunction(requestModel);
 
     try {
       if (requestModel.requestType == NETWORK_REQUEST_TYPE.POST) {
         response = await http
-            .post(uri, body: requestEncoded, headers: requestModel.headers)
+            .post(uri, body: requestEncoded, headers: headers)
             .timeout(
               const Duration(seconds: Constants.apiTimeOut),
             );
@@ -68,20 +72,30 @@ class HttpBaseRequest extends BaseRequestInterface {
   @override
   Future<dynamic> sendMultiPartRequest(
     RequestModel requestModel,
-    String filePath,
-    Map<String, String> fields,
+    List<XFile>? files,
+    Map<String, dynamic> fields,
   ) async {
     Uri uri = Uri.http(Constants.baseUrl, requestModel.endPoint);
     var request =
         http.MultipartRequest(NETWORK_REQUEST_TYPE.POST.toString(), uri);
-    var headers = Constants.multiPartHeaders;
+
+    var headers = checkHeaders(Constants.multiPartHeaders);
+
     request.headers.addAll(headers);
+    print('Headers: ${request.headers}');
     fields.forEach((key, value) {
       request.fields[key] = value;
       print(value);
     });
-    var multipartFile = await http.MultipartFile.fromPath("file", filePath);
-    request.files.add(multipartFile);
+
+    if (files != null && files.isNotEmpty) {
+      files.forEach((element) async {
+        var multipartFile =
+            await http.MultipartFile.fromPath("tripImages", element.path);
+        request.files.add(multipartFile);
+      });
+    }
+
     print(uri);
     print("*****************Request******************");
     print(this.toString());
@@ -89,7 +103,9 @@ class HttpBaseRequest extends BaseRequestInterface {
 
     log("Request Body:${request.files}");
     try {
-      var streamedResponse = await request.send();
+      var streamedResponse = await request
+          .send()
+          .timeout(const Duration(seconds: Constants.apiTimeOut));
       var response = await http.Response.fromStream(streamedResponse);
       return _returnResponse(response);
     } on SocketException {
@@ -128,6 +144,22 @@ class HttpBaseRequest extends BaseRequestInterface {
           details: baseResponse,
         );
     }
+  }
+
+  Map<String, String> checkHeaders(Map<String, String> currentHeaders) {
+    Map<String, String> headers;
+    UserModel? userModel = appPreferences.getUserData();
+
+    if (userModel != null) {
+      var authHeader = {'Authorization': 'Bearer ${userModel.token}'};
+      headers = currentHeaders;
+      headers.addAll(authHeader);
+    } else {
+      headers = currentHeaders;
+      headers.addAll(Constants.constAuth);
+    }
+
+    return headers;
   }
 
   printFunction(RequestModel requestModel) {

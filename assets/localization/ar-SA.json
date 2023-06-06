@@ -162,7 +162,7 @@
   "logout": "تسجيل الخروج",
   "logout_confirmation": "هل انت متأكد من تسجيل الخروج؟",
   "trip_confirmation": "تأكيد بيانات الرحلة",
-  "trip_confirmation_succeeded": "تم تأكيد الرحلة بنجاح",
+  "trip_confirmation_succeeded": "تم ارسال الطلب بنجاح",
   "select_date": "أختر معاد",
   "scheduling_appointments": "جدولة المواعيد",
   "source_point": "نقطة الإلتقاط",

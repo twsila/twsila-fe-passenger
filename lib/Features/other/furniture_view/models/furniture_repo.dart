@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:taxi_for_you/Features/other/furniture_view/models/furniture_model.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/network/base_request_interface.dart';
@@ -11,16 +13,17 @@ class FurnitureRepo {
   FurnitureRepo(this._baseRequest);
 
   Future<dynamic> sendFurnitureRequest(FurnitureModel furnitureModel) async {
-    var body = furnitureModel.toJson();
+    Map<String, dynamic> body = furnitureModel.toJson();
     RequestModel requestModel = RequestModel(
-      endPoint: EndPointsConstants.login,
+      endPoint: EndPointsConstants.sendFurnitureRequest,
       reqBody: body,
       requestType: NETWORK_REQUEST_TYPE.POST,
     );
-
+    inspect(requestModel);
+    inspect(body);
     try {
-      dynamic response =
-          await _baseRequest.sendMultiPartRequest(requestModel, '', body);
+      dynamic response = await _baseRequest.sendMultiPartRequest(
+          requestModel, furnitureModel.images, body);
       return response;
     } catch (e) {
       rethrow;

@@ -14,11 +14,47 @@ class FurnitureModel {
   String? notes;
   FurnitureItems furnitureItems = FurnitureItems();
   int? paymentValue;
-  bool loadingBool = false;
-  bool assembleBool = false;
-  bool wrappingBool = false;
-  bool craneBool = false;
+  bool containsLoading = false;
+  bool containsAssemble = false;
+  bool containsPacking = false;
+  bool containsLift = false;
   List<XFile>? images;
+
+  FurnitureModel();
+
+  FurnitureModel.fromJson(Map<String, dynamic> json) {
+    pickupLocationLongitude = json['pickupLocationLongitude'];
+    pickupLocationLatitude = json['pickupLocationLatitude'];
+    destinationLocationLongitude = json['destinationLocationLongitude'];
+    destinationLocationLatitude = json['destinationLocationLatitude'];
+    date = json['date'];
+    sourceLocationString = json['sourceLocationString'];
+    sourceLocationString = json['destinationLocationString'];
+    notes = json['notes'];
+    furnitureItems = FurnitureItems.fromJson(json['furnitureItems']);
+    containsLoading = json['containsLoading'];
+    containsAssemble = json['containsAssemble'];
+    containsPacking = json['containsPacking'];
+    containsLift = json['containsLift'];
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = <String, dynamic>{};
+    data['pickupLocationLongitude'] = pickupLocationLongitude;
+    data['pickupLocationLatitude'] = pickupLocationLatitude;
+    data['destinationLocationLongitude'] = destinationLocationLongitude;
+    data['destinationLocationLatitude'] = destinationLocationLatitude;
+    data['date'] = date;
+    data['notes'] = notes;
+    data['furnitureItems'] = furnitureItems.toJson();
+    data['sourceLocationString'] = sourceLocationString;
+    data['destinationLocationString'] = destinationLocationString;
+    data['containsLoading'] = containsLoading;
+    data['containsAssemble'] = containsAssemble;
+    data['containsPacking'] = containsPacking;
+    data['containsLift'] = containsLift;
+    return data;
+  }
 }
 
 class FurnitureItems {
@@ -34,4 +70,32 @@ class FurnitureItems {
   int other = 0;
 
   FurnitureItems();
+
+  FurnitureItems.fromJson(Map<String, dynamic> json) {
+    roomsNumber = json['roomsNumber'];
+    fridgeNumber = json['fridgeNumber'];
+    sofaSetNumber = json['sofaSetNumber'];
+    carpetNumber = json['carpetNumber'];
+    windowAirconditionerNumber = json['windowAirconditionerNumber'];
+    splitAirconditionerNumber = json['splitAirconditionerNumber'];
+    kitchenNumber = json['kitchenNumber'];
+    tablesNumber = json['tablesNumber'];
+    diningRoomNumber = json['diningRoomNumber'];
+    other = json['other'];
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = <String, dynamic>{};
+    data['roomsNumber'] = roomsNumber;
+    data['fridgeNumber'] = fridgeNumber;
+    data['sofaSetNumber'] = sofaSetNumber;
+    data['carpetNumber'] = carpetNumber;
+    data['windowAirconditionerNumber'] = windowAirconditionerNumber;
+    data['splitAirconditionerNumber'] = splitAirconditionerNumber;
+    data['kitchenNumber'] = kitchenNumber;
+    data['tablesNumber'] = tablesNumber;
+    data['diningRoomNumber'] = diningRoomNumber;
+    data['other'] = other;
+    return data;
+  }
 }

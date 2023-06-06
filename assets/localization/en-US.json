@@ -162,7 +162,7 @@
   "logout": "Logout",
   "logout_confirmation": "Are you sure you want to logout?",
   "trip_confirmation": "Trip Confirmation",
-  "trip_confirmation_succeeded": "Trip has been confirmed successfully",
+  "trip_confirmation_succeeded": "Request sent successfully",
   "scheduling_appointments": "Scheduling appointments",
   "select_date": "Select Date",
   "source_point": "Source Point",

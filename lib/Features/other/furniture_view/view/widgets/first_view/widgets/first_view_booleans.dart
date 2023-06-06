@@ -31,29 +31,31 @@ class _FirstViewBooleansState extends State<FirstViewBooleans> {
           ),
         ),
         CustomCheckBox(
-          checked: widget.furnitureViewModel.furnitureModel.assembleBool,
+          checked: widget.furnitureViewModel.furnitureModel.containsAssemble,
           fieldName: AppStrings.assemble.tr(),
           onChange: (checked) {
-            widget.furnitureViewModel.furnitureModel.assembleBool = checked;
+            widget.furnitureViewModel.furnitureModel.containsAssemble = checked;
           },
         ),
         CustomCheckBox(
-            checked: widget.furnitureViewModel.furnitureModel.craneBool,
+            checked: widget.furnitureViewModel.furnitureModel.containsLift,
             fieldName: AppStrings.crane.tr(),
             onChange: (checked) {
-              widget.furnitureViewModel.furnitureModel.craneBool = checked;
+              widget.furnitureViewModel.furnitureModel.containsLift = checked;
             }),
         CustomCheckBox(
-            checked: widget.furnitureViewModel.furnitureModel.loadingBool,
+            checked: widget.furnitureViewModel.furnitureModel.containsLoading,
             fieldName: AppStrings.unloadAndLoad.tr(),
             onChange: (checked) {
-              widget.furnitureViewModel.furnitureModel.loadingBool = checked;
+              widget.furnitureViewModel.furnitureModel.containsLoading =
+                  checked;
             }),
         CustomCheckBox(
-            checked: widget.furnitureViewModel.furnitureModel.wrappingBool,
+            checked: widget.furnitureViewModel.furnitureModel.containsPacking,
             fieldName: AppStrings.wrapping.tr(),
             onChange: (checked) {
-              widget.furnitureViewModel.furnitureModel.wrappingBool = checked;
+              widget.furnitureViewModel.furnitureModel.containsPacking =
+                  checked;
             }),
       ],
     );

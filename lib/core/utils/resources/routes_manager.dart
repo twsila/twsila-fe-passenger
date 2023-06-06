@@ -35,7 +35,10 @@ class RouteGenerator {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashView());
       case Routes.homeRoute:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(
+          builder: (_) => HomeScreen(),
+          settings: const RouteSettings(name: Routes.homeRoute),
+        );
       case Routes.otherRoute:
         return MaterialPageRoute(builder: (_) => const OtherView());
       case Routes.goodsRoute:

@@ -2,12 +2,16 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_amount_field.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_bloc.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_event.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
 import '../../../../../common/widgets/custom_text_input_field.dart';
+import '../../../../../common/widgets/multi_pick_image.dart';
 import '../../furniture_viewmodel.dart';
 
 class FurnitureThirdView extends StatefulWidget {
@@ -61,6 +65,11 @@ class _FurnitureThirdViewState extends State<FurnitureThirdView> {
                 },
               ),
               const SizedBox(height: 16),
+              MutliPickImageWidget(
+                onPickedImages: (images) =>
+                    widget.furnitureViewModel.furnitureModel.images = images,
+              ),
+              const SizedBox(height: 16),
               CustomAmountField(
                 onChanged: (text) {
                   if (text != null && text != '') {
@@ -105,6 +114,12 @@ class _FurnitureThirdViewState extends State<FurnitureThirdView> {
                           ? () {
                               FocusScope.of(context).unfocus();
                               inspect(widget.furnitureViewModel.furnitureModel);
+                              BlocProvider.of<FurnitureBloc>(context).add(
+                                SendFurnitureRequest(
+                                  furnitureModel:
+                                      widget.furnitureViewModel.furnitureModel,
+                                ),
+                              );
                             }
                           : null);
                 }),

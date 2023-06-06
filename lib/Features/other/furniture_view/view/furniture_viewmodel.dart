@@ -13,6 +13,8 @@ class FurnitureViewModel extends BaseViewModel {
   final AppPreferences appPreferences = instance<AppPreferences>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = PageController(initialPage: 0);
+  bool displayLoadingIndicator = false;
+
   ValueNotifier<int> selectedIndex = ValueNotifier(0);
   ValueNotifier<bool> firstScreenValid = ValueNotifier(false);
   ValueNotifier<bool> secondScreenValid = ValueNotifier(false);

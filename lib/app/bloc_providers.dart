@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/Features/login/bloc/login_bloc.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_bloc.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/models/furniture_repo.dart';
 import 'package:taxi_for_you/Features/otp/bloc/otp_bloc.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/registeration/bloc/registeration_bloc.dart';
@@ -18,6 +20,9 @@ blocProviders(BuildContext context) {
   return [
     BlocProvider.value(
         value: LoginBloc(instance<LoginRepo>(), instance<AppPreferences>())),
+    BlocProvider.value(
+        value: FurnitureBloc(
+            instance<FurnitureRepo>(), instance<AppPreferences>())),
     BlocProvider.value(value: RegistrationBloc(instance<RegistrationRepo>())),
     BlocProvider.value(value: OtpBloc(instance<OtpRepo>())),
     BlocProvider.value(value: MapsBloc(MapsRepo())),

@@ -7,10 +7,13 @@ import '../../core/utils/location/map_provider.dart';
 import '../../core/utils/resources/assets_manager.dart';
 import '../../core/utils/resources/color_manager.dart';
 import '../../core/utils/resources/routes_manager.dart';
+import '../../data/model/user-model.dart';
 import '../common/state_renderer/dialogs.dart';
 import '../google_maps/bloc/maps_bloc.dart';
 import '../google_maps/bloc/maps_events.dart';
 import '../google_maps/bloc/maps_state.dart';
+import '../login/bloc/login_bloc.dart';
+import '../login/bloc/login_event.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -50,18 +53,22 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() async {
-    _appPreferences.isUserLoggedIn().then((isUserLoggedIn) => {
-          if (isUserLoggedIn)
-            {
-              // navigate to main screen
-              Navigator.pushReplacementNamed(context, Routes.homeRoute)
-            }
-          else
-            {
-              // Navigate to Login Screen
-              Navigator.pushReplacementNamed(context, Routes.loginRoute)
-            }
-        });
+    _appPreferences.isUserLoggedIn().then((isUserLoggedIn) {
+      if (isUserLoggedIn) {
+        // navigate to main screen
+        UserModel? user = _appPreferences.getUserData();
+        if (user != null) {
+          BlocProvider.of<LoginBloc>(context)
+              .add(LoginUser(mobileNumber: user.mobileNumber!));
+        } else {
+          Navigator.pushReplacementNamed(context, Routes.loginRoute);
+        }
+        Navigator.pushReplacementNamed(context, Routes.homeRoute);
+      } else {
+        // Navigate to Login Screen
+        Navigator.pushReplacementNamed(context, Routes.loginRoute);
+      }
+    });
   }
 
   @override
