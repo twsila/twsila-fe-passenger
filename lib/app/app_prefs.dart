@@ -37,12 +37,14 @@ class AppPreferences {
       CountryModel(
         countryID: '1',
         countryName: AppStrings.saudi.tr(),
+        country: "SA",
         countryCode: "+966",
         imageURL: ImageAssets.saudiFlag,
       ),
       CountryModel(
         countryID: '2',
         countryName: AppStrings.egypt.tr(),
+        country: "EG",
         countryCode: "+20",
         imageURL: ImageAssets.egyptFlag,
       ),
