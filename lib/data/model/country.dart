@@ -1,6 +1,7 @@
 class CountryModel {
   final String countryID;
   final String countryName;
+  final String country;
   final String countryCode;
   final String imageURL;
 
@@ -8,6 +9,7 @@ class CountryModel {
     required this.countryID,
     required this.countryName,
     required this.countryCode,
+    required this.country,
     required this.imageURL,
   });
 
@@ -15,6 +17,7 @@ class CountryModel {
         countryID: json["countryID"],
         countryName: json["countryName"],
         countryCode: json["countryCode"],
+        country: json["country"],
         imageURL: json["imageURL"],
       );
 
@@ -22,6 +25,7 @@ class CountryModel {
         "countryID": countryID,
         "countryName": countryName,
         "countryCode": countryCode,
+        "country": country,
         "imageURL": imageURL,
       };
 }

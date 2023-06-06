@@ -44,7 +44,7 @@ class MapProvider with ChangeNotifier {
   }
 
   setCountry(CountryModel country, {bool needsRebuild = true}) {
-    countries = [country.countryName.substring(0, 2)];
+    countries = [country.country];
     if (!needsRebuild) return;
     notifyListeners();
   }
