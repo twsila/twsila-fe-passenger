@@ -42,6 +42,7 @@ class UserModel {
     data['mobile'] = mobileNumber;
     data['dateOfBirth'] = dateOfBirth;
     data['gender'] = gender;
+    data['token'] = token;
     if (userDevice != null) data['userDevice'] = userDevice!.toJson();
     return data;
   }

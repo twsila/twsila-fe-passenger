@@ -33,10 +33,10 @@ class HttpBaseRequest extends BaseRequestInterface {
 
     requestModel.reqBody['language'] = appPreferences.getAppLanguage();
 
-    var headers = checkHeaders(requestModel.headers);
+    var headers = checkHeaders();
 
     var requestEncoded = json.encode(requestModel.reqBody);
-    printFunction(requestModel);
+    printFunction(requestModel, headers);
 
     try {
       if (requestModel.requestType == NETWORK_REQUEST_TYPE.POST) {
@@ -47,7 +47,7 @@ class HttpBaseRequest extends BaseRequestInterface {
             );
       } else {
         response = await http
-            .get(uri, headers: requestModel.headers)
+            .get(uri, headers: headers)
             .timeout(const Duration(seconds: Constants.apiTimeOut));
       }
       return _returnResponse(response);
@@ -75,11 +75,11 @@ class HttpBaseRequest extends BaseRequestInterface {
     List<XFile>? files,
     Map<String, dynamic> fields,
   ) async {
-    Uri uri = Uri.http(Constants.baseUrl, requestModel.endPoint);
+    Uri uri = Uri.parse(Constants.baseUrl + requestModel.endPoint);
     var request =
         http.MultipartRequest(NETWORK_REQUEST_TYPE.POST.toString(), uri);
 
-    var headers = checkHeaders(Constants.multiPartHeaders);
+    var headers = checkHeaders(isMultiPart: true);
 
     request.headers.addAll(headers);
     print('Headers: ${request.headers}');
@@ -90,8 +90,10 @@ class HttpBaseRequest extends BaseRequestInterface {
 
     if (files != null && files.isNotEmpty) {
       files.forEach((element) async {
-        var multipartFile =
-            await http.MultipartFile.fromPath("tripImages", element.path);
+        var multipartFile = await http.MultipartFile.fromPath(
+          "tripImages",
+          element.path,
+        );
         request.files.add(multipartFile);
       });
     }
@@ -107,7 +109,7 @@ class HttpBaseRequest extends BaseRequestInterface {
           .send()
           .timeout(const Duration(seconds: Constants.apiTimeOut));
       var response = await http.Response.fromStream(streamedResponse);
-      return _returnResponse(response);
+      return response;
     } on SocketException {
       throw NoInternetException();
     } on TimeoutException {
@@ -123,6 +125,7 @@ class HttpBaseRequest extends BaseRequestInterface {
   dynamic _returnResponse(http.Response response) {
     late BaseResponse baseResponse;
     if (response.bodyBytes.isNotEmpty) {
+      print(_decoder.convert(utf8.decode(response.bodyBytes)));
       baseResponse = BaseResponse.fromJson(
         _decoder.convert(utf8.decode(response.bodyBytes)),
         statusCode: response.statusCode,
@@ -146,28 +149,35 @@ class HttpBaseRequest extends BaseRequestInterface {
     }
   }
 
-  Map<String, String> checkHeaders(Map<String, String> currentHeaders) {
-    Map<String, String> headers;
+  Map<String, String> checkHeaders({bool isMultiPart = false}) {
+    Map<String, String> headers = {};
     UserModel? userModel = appPreferences.getUserData();
 
-    if (userModel != null) {
-      var authHeader = {'Authorization': 'Bearer ${userModel.token}'};
-      headers = currentHeaders;
-      headers.addAll(authHeader);
+    if (userModel != null && userModel.token != null) {
+      headers = {
+        'Authorization': 'Bearer ${userModel.token}',
+        "Accept": "*/*",
+        "Content-Type":
+            isMultiPart ? "multipart/form-data" : "application/json",
+      };
     } else {
-      headers = currentHeaders;
-      headers.addAll(Constants.constAuth);
+      headers = {
+        'Authorization': Constants.constAuth,
+        "Accept": "*/*",
+        "Content-Type":
+            isMultiPart ? "multipart/form-data" : "application/json",
+      };
     }
 
     return headers;
   }
 
-  printFunction(RequestModel requestModel) {
+  printFunction(RequestModel requestModel, Map<String, String> headers) {
     var requestEncoded = json.encode(requestModel.reqBody);
     print("""
     uri: ${Constants.baseUrl + requestModel.endPoint}
     body: $requestEncoded
-    headers: ${requestModel.headers}
+    headers: $headers
     method: ${requestModel.requestType}""");
   }
 }

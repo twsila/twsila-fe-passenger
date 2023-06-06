@@ -19,8 +19,6 @@ class FurnitureRepo {
       reqBody: body,
       requestType: NETWORK_REQUEST_TYPE.POST,
     );
-    inspect(requestModel);
-    inspect(body);
     try {
       dynamic response = await _baseRequest.sendMultiPartRequest(
           requestModel, furnitureModel.images, body);

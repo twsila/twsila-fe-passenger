@@ -7,10 +7,8 @@ class Constants {
       "AIzaSyAemSFn6fVufROQDewj0BjzuOKVw_Bxi8M";
   static const String GOOGLE_API_KEY_IOS =
       "AIzaSyDB2c1bJWwqm-XSTIopQZovNnRPfXnyd8s";
-  static const constAuth = {
-    'Authorization':
-        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMTAwMTA4MTMyNyIsImlhdCI6MTY4MzI4OTc5MywiZXhwIjoxNjgzMzMyOTkzfQ.pI_WhlesCN77xhJjyE5t6UNNNNL4wFIOk6xkpA-DNnNFZ4cgS_MvbCoizZX4Xwo9FWHm2v2dIT1t4CqrKykV2w",
-  };
+  static const String constAuth =
+      "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMTAwMTA4MTMyNyIsImlhdCI6MTY4MzI4OTc5MywiZXhwIjoxNjgzMzMyOTkzfQ.pI_WhlesCN77xhJjyE5t6UNNNNL4wFIOk6xkpA-DNnNFZ4cgS_MvbCoizZX4Xwo9FWHm2v2dIT1t4CqrKykV2w";
 
   static const headers = {"Accept": "*/*", "Content-Type": "application/json"};
   static const multiPartHeaders = {

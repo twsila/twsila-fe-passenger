@@ -65,10 +65,10 @@ class _FurnitureThirdViewState extends State<FurnitureThirdView> {
                 },
               ),
               const SizedBox(height: 16),
-              MutliPickImageWidget(
-                onPickedImages: (images) =>
-                    widget.furnitureViewModel.furnitureModel.images = images,
-              ),
+              // MutliPickImageWidget(
+              //   onPickedImages: (images) =>
+              //       widget.furnitureViewModel.furnitureModel.images = images,
+              // ),
               const SizedBox(height: 16),
               CustomAmountField(
                 onChanged: (text) {

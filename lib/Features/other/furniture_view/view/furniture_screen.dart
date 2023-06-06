@@ -43,11 +43,13 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
               _viewModel.displayLoadingIndicator = true;
             });
           } else {
-            _viewModel.displayLoadingIndicator = false;
+            setState(() {
+              _viewModel.displayLoadingIndicator = false;
+            });
           }
           if (state is FurnitureRequestSuccessfully) {
             ShowDialogHelper.showSuccessMessage(
-              AppStrings.sendRequest.tr(),
+              AppStrings.tripConfirmationSucceeded.tr(),
               context,
             );
             Future.delayed(

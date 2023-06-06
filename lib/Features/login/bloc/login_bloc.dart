@@ -36,6 +36,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginStates> {
         if (e.message != null) {
           emit(LoginFailed(baseResponse: e.details as BaseResponse));
         }
+      } else {
+        var response = BaseResponse(errorMessage: e.toString());
+        emit(LoginFailed(baseResponse: response));
       }
     }
   }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:taxi_for_you/Features/google_maps/model/location_model.dart';
 
@@ -40,19 +42,31 @@ class FurnitureModel {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> data = <String, dynamic>{};
-    data['pickupLocationLongitude'] = pickupLocationLongitude;
-    data['pickupLocationLatitude'] = pickupLocationLatitude;
-    data['destinationLocationLongitude'] = destinationLocationLongitude;
-    data['destinationLocationLatitude'] = destinationLocationLatitude;
-    data['date'] = date;
-    data['notes'] = notes;
-    data['furnitureItems'] = furnitureItems.toJson();
-    data['sourceLocationString'] = sourceLocationString;
-    data['destinationLocationString'] = destinationLocationString;
-    data['containsLoading'] = containsLoading;
-    data['containsAssemble'] = containsAssemble;
-    data['containsPacking'] = containsPacking;
-    data['containsLift'] = containsLift;
+    if (pickupLocationLongitude != null) {
+      data['pickupLocationLongitude'] = pickupLocationLongitude;
+    }
+    if (pickupLocationLatitude != null) {
+      data['pickupLocationLatitude'] = pickupLocationLatitude;
+    }
+    if (destinationLocationLongitude != null) {
+      data['destinationLocationLongitude'] = destinationLocationLongitude;
+    }
+    if (destinationLocationLatitude != null) {
+      data['destinationLocationLatitude'] = destinationLocationLatitude;
+    }
+    if (date != null) data['date'] = date;
+    if (notes != null) data['notes'] = notes;
+    data['furnitureItems'] = json.encode(furnitureItems.toJson());
+    if (sourceLocationString != null) {
+      data['sourceLocationString'] = sourceLocationString;
+    }
+    if (destinationLocationString != null) {
+      data['destinationLocationString'] = destinationLocationString;
+    }
+    data['containsLoading'] = containsLoading.toString();
+    data['containsAssemble'] = containsAssemble.toString();
+    data['containsPacking'] = containsPacking.toString();
+    data['containsLift'] = containsLift.toString();
     return data;
   }
 }

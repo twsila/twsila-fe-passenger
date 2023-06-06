@@ -21,20 +21,26 @@ class FurnitureBloc extends Bloc<FurnitureEvent, FurnitureRequestStates> {
     emit(FurnitureRequestIsLoading());
 
     try {
-      BaseResponse response =
+      var response =
           await (furnitureRepo.sendFurnitureRequest(event.furnitureModel));
-      if (response.result != null &&
-          response.success != null &&
-          response.success!) {
-        emit(FurnitureRequestSuccessfully());
-      } else {
-        emit(FurnitureRequestFailed(baseResponse: response));
-      }
+
+      emit(FurnitureRequestSuccessfully());
+      // if (response.result != null &&
+      //     response.success != null &&
+      //     response.success!) {
+      //   emit(FurnitureRequestSuccessfully());
+      // } else {
+      //   emit(FurnitureRequestFailed(baseResponse: response));
+      // }
     } catch (e) {
       if (e is PlatformException) {
         if (e.message != null) {
-          emit(FurnitureRequestFailed(baseResponse: e.details as BaseResponse));
+          emit(FurnitureRequestFailed(
+              baseResponse: BaseResponse(errorMessage: e.message)));
         }
+      } else {
+        var response = BaseResponse(errorMessage: e.toString());
+        emit(FurnitureRequestFailed(baseResponse: response));
       }
     }
   }
