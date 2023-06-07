@@ -32,7 +32,7 @@ class OtpBloc extends Bloc<OtpEvents, OtpStates> {
       }
     } catch (e) {
       if (e is PlatformException) {
-        if (e.message != null) {
+        if (e.message != null && e.details != null) {
           emit(GenerateOtpFailed(baseResponse: e.details as BaseResponse));
         }
         emit(GenerateOtpFailed());
@@ -56,7 +56,7 @@ class OtpBloc extends Bloc<OtpEvents, OtpStates> {
       }
     } catch (e) {
       if (e is PlatformException) {
-        if (e.message != null) {
+        if (e.message != null && e.details != null) {
           emit(ValidateOtpFailed(baseResponse: e.details as BaseResponse));
         }
         emit(ValidateOtpFailed());
