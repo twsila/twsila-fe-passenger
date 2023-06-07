@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
+import 'dart:ui' as ui;
 
 import '../../../app/app_prefs.dart';
 import '../../../app/di.dart';
@@ -52,19 +53,22 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const LanguageWidget(),
-                  Center(
-                    child: Image(
-                      image: const AssetImage(ImageAssets.logoImg),
-                      height: 28,
-                      width: context.getWidth() / 4,
-                      fit: BoxFit.fill,
+              Directionality(
+                textDirection: ui.TextDirection.rtl,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const LanguageWidget(),
+                    Center(
+                      child: Image(
+                        image: const AssetImage(ImageAssets.logoImg),
+                        height: 28,
+                        width: context.getWidth() / 4,
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Expanded(
                 child: Container(
