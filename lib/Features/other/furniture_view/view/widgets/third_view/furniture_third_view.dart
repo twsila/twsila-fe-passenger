@@ -30,25 +30,30 @@ class _FurnitureThirdViewState extends State<FurnitureThirdView> {
     return Stack(
       children: [
         ThirdViewWidget(
-            notes: widget.furnitureViewModel.furnitureModel.notes,
-            amount: widget.furnitureViewModel.furnitureModel.paymentValue,
-            onNotesChanged: (notes) {
-              if (notes != '') {
-                widget.furnitureViewModel.furnitureModel.notes = notes;
-              } else {
-                widget.furnitureViewModel.furnitureModel.notes = null;
-              }
-            },
-            onAmountChanged: (amount) {
-              if (amount != null && amount != '') {
-                widget.furnitureViewModel.furnitureModel.paymentValue =
-                    int.parse(amount);
-                widget.furnitureViewModel.thirdScreenValid.value = true;
-              } else {
-                widget.furnitureViewModel.furnitureModel.paymentValue = null;
-                widget.furnitureViewModel.thirdScreenValid.value = false;
-              }
-            }),
+          images: widget.furnitureViewModel.furnitureModel.images,
+          notes: widget.furnitureViewModel.furnitureModel.notes,
+          amount: widget.furnitureViewModel.furnitureModel.paymentValue,
+          onNotesChanged: (notes) {
+            if (notes != '') {
+              widget.furnitureViewModel.furnitureModel.notes = notes;
+            } else {
+              widget.furnitureViewModel.furnitureModel.notes = null;
+            }
+          },
+          onAmountChanged: (amount) {
+            if (amount != null && amount != '') {
+              widget.furnitureViewModel.furnitureModel.paymentValue =
+                  int.parse(amount);
+              widget.furnitureViewModel.thirdScreenValid.value = true;
+            } else {
+              widget.furnitureViewModel.furnitureModel.paymentValue = null;
+              widget.furnitureViewModel.thirdScreenValid.value = false;
+            }
+          },
+          onSelectImage: (images) {
+            widget.furnitureViewModel.furnitureModel.images = images;
+          },
+        ),
         Positioned(
           bottom: 0,
           left: 0,

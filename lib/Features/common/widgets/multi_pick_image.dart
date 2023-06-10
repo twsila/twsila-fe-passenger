@@ -7,9 +7,13 @@ import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import '../state_renderer/dialogs.dart';
 
 class MutliPickImageWidget extends StatefulWidget {
+  final List<XFile>? images;
   final Function(List<XFile>? images) onPickedImages;
-  const MutliPickImageWidget({Key? key, required this.onPickedImages})
-      : super(key: key);
+  const MutliPickImageWidget({
+    Key? key,
+    required this.onPickedImages,
+    this.images,
+  }) : super(key: key);
 
   @override
   State<MutliPickImageWidget> createState() => _MutliPickImageWidgetState();
@@ -18,6 +22,12 @@ class MutliPickImageWidget extends StatefulWidget {
 class _MutliPickImageWidgetState extends State<MutliPickImageWidget> {
   final ImagePicker imgpicker = ImagePicker();
   List<XFile> imagefiles = [];
+
+  @override
+  void initState() {
+    imagefiles = widget.images != null ? widget.images! : [];
+    super.initState();
+  }
 
   openImages() async {
     showModalBottomSheet(

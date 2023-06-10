@@ -27,25 +27,29 @@ class _GoodsThirdViewState extends State<GoodsThirdView> {
     return Stack(
       children: [
         ThirdViewWidget(
-            notes: widget.goodsViewModel.goodsModel.notes,
-            amount: widget.goodsViewModel.goodsModel.paymentValue,
-            onNotesChanged: (notes) {
-              if (notes != '') {
-                widget.goodsViewModel.goodsModel.notes = notes;
-              } else {
-                widget.goodsViewModel.goodsModel.notes = null;
-              }
-            },
-            onAmountChanged: (amount) {
-              if (amount != null && amount != '') {
-                widget.goodsViewModel.goodsModel.paymentValue =
-                    int.parse(amount);
-                widget.goodsViewModel.thirdScreenValid.value = true;
-              } else {
-                widget.goodsViewModel.goodsModel.paymentValue = null;
-                widget.goodsViewModel.thirdScreenValid.value = false;
-              }
-            }),
+          images: widget.goodsViewModel.goodsModel.images,
+          notes: widget.goodsViewModel.goodsModel.notes,
+          amount: widget.goodsViewModel.goodsModel.paymentValue,
+          onNotesChanged: (notes) {
+            if (notes != '') {
+              widget.goodsViewModel.goodsModel.notes = notes;
+            } else {
+              widget.goodsViewModel.goodsModel.notes = null;
+            }
+          },
+          onAmountChanged: (amount) {
+            if (amount != null && amount != '') {
+              widget.goodsViewModel.goodsModel.paymentValue = int.parse(amount);
+              widget.goodsViewModel.thirdScreenValid.value = true;
+            } else {
+              widget.goodsViewModel.goodsModel.paymentValue = null;
+              widget.goodsViewModel.thirdScreenValid.value = false;
+            }
+          },
+          onSelectImage: (images) {
+            widget.goodsViewModel.goodsModel.images = images;
+          },
+        ),
         Positioned(
           bottom: 0,
           left: 0,
