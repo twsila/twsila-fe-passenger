@@ -1,25 +1,25 @@
-import 'package:taxi_for_you/Features/other/furniture_view/models/furniture_model.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/network/base_request_interface.dart';
 import 'package:taxi_for_you/data/model/request-model.dart';
 
 import '../../../../core/network/http_base_request.dart';
+import '../../goods_view/models/goods_model.dart';
 
-class FurnitureRepo {
+class GoodsRepo {
   final BaseRequestInterface _baseRequest;
 
-  FurnitureRepo(this._baseRequest);
+  GoodsRepo(this._baseRequest);
 
-  Future<dynamic> sendFurnitureRequest(FurnitureModel furnitureModel) async {
-    Map<String, dynamic> body = furnitureModel.toJson();
+  Future<dynamic> sendGoodsRequest(GoodsModel goodsModel) async {
+    Map<String, dynamic> body = goodsModel.toJson();
     RequestModel requestModel = RequestModel(
-      endPoint: EndPointsConstants.sendFurnitureRequest,
+      endPoint: EndPointsConstants.sendGoodsRequest,
       reqBody: body,
       requestType: NETWORK_REQUEST_TYPE.POST,
     );
     try {
       dynamic response = await _baseRequest.sendMultiPartRequest(
-          requestModel, furnitureModel.images, body);
+          requestModel, goodsModel.images, body);
       return response;
     } catch (e) {
       rethrow;

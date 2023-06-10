@@ -1,24 +1,28 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/common/widgets/custom_bottom_sheet.dart';
-import 'package:taxi_for_you/Features/other/common/custom_search_bottomsheet.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/furniture_viewmodel.dart';
 
 import '../../../../../../../../../core/utils/resources/assets_manager.dart';
 import '../../../../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../../../../core/utils/resources/styles_manager.dart';
+import '../../../../../common/widgets/custom_bottom_sheet.dart';
+import '../../../custom_search_bottomsheet.dart';
 
-class SourcePointWidget extends StatefulWidget {
-  final FurnitureViewModel furnitureViewModel;
+class DestinationPointWidget extends StatefulWidget {
+  final Function(String lat, String long, String locationName)
+      onSelectDestinPlace;
+  final String? destinLocationString;
 
-  const SourcePointWidget({Key? key, required this.furnitureViewModel})
-      : super(key: key);
+  const DestinationPointWidget({
+    Key? key,
+    required this.onSelectDestinPlace,
+    this.destinLocationString,
+  }) : super(key: key);
   @override
-  _SourcePointWidgetState createState() => _SourcePointWidgetState();
+  _DestinationPointWidgetState createState() => _DestinationPointWidgetState();
 }
 
-class _SourcePointWidgetState extends State<SourcePointWidget> {
+class _DestinationPointWidgetState extends State<DestinationPointWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -28,19 +32,8 @@ class _SourcePointWidgetState extends State<SourcePointWidget> {
           showCloseButton: false,
           initialChildSize: 0.9,
           customWidget: CustomSearchBottomsheet(
-            title: AppStrings.selectStartPoint.tr(),
-            onSelectPlace: (lat, long, name) {
-              setState(() {
-                widget.furnitureViewModel.furnitureModel.sourceLocationString =
-                    name;
-                widget.furnitureViewModel.furnitureModel
-                    .pickupLocationLatitude = lat;
-                widget.furnitureViewModel.furnitureModel
-                    .pickupLocationLongitude = long;
-                widget.furnitureViewModel.secondScreenValid.value =
-                    widget.furnitureViewModel.validateSecondScreen();
-              });
-            },
+            title: AppStrings.selectDeliveryPoint.tr(),
+            onSelectPlace: widget.onSelectDestinPlace,
           ),
         );
       },
@@ -56,14 +49,14 @@ class _SourcePointWidgetState extends State<SourcePointWidget> {
             const SizedBox(width: 16),
             Expanded(
               child: Text(
-                widget.furnitureViewModel.furnitureModel.sourceLocationString ??
-                    AppStrings.selectStartPoint.tr(),
+                widget.destinLocationString ??
+                    AppStrings.selectDeliveryPoint.tr(),
                 style: getBoldStyle(
                     color: ColorManager.primaryTextColor, fontSize: 16),
               ),
             ),
-            widget.furnitureViewModel.furnitureModel.sourceLocationString ==
-                    null
+            const SizedBox(width: 8),
+            widget.destinLocationString == null
                 ? Icon(
                     Icons.arrow_forward,
                     color: ColorManager.primary,

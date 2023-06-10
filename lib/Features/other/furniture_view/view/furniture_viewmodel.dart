@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/base/baseviewmodel.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/first_view/first_view_screen.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/second_view/second_view_screen.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/third_view/third_view_screen.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/first_view/furniture_first_view.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/second_view/furniture_second_view.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/third_view/furniture_third_view.dart';
 
 import '../../../../app/app_prefs.dart';
 import '../../../../app/di.dart';
@@ -59,8 +59,7 @@ class FurnitureViewModel extends BaseViewModel {
   }
 
   bool validateSecondScreen() {
-    return furnitureModel.date != null &&
-        furnitureModel.pickupLocationLatitude != null &&
+    return furnitureModel.pickupLocationLatitude != null &&
         furnitureModel.pickupLocationLongitude != null &&
         furnitureModel.destinationLocationLatitude != null &&
         furnitureModel.destinationLocationLongitude != null;

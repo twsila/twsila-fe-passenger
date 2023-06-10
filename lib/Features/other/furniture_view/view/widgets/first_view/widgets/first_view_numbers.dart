@@ -7,16 +7,19 @@ import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 import '../../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../common/widgets/custom_counter_widget.dart';
 
-class FirstViewNumbersWidget extends StatefulWidget {
+class FurnitureFirstViewNumbersWidget extends StatefulWidget {
   final FurnitureViewModel furnitureViewModel;
 
-  const FirstViewNumbersWidget({Key? key, required this.furnitureViewModel})
+  const FurnitureFirstViewNumbersWidget(
+      {Key? key, required this.furnitureViewModel})
       : super(key: key);
   @override
-  _FirstViewNumbersWidgetState createState() => _FirstViewNumbersWidgetState();
+  _FurnitureFirstViewNumbersWidgetState createState() =>
+      _FurnitureFirstViewNumbersWidgetState();
 }
 
-class _FirstViewNumbersWidgetState extends State<FirstViewNumbersWidget> {
+class _FurnitureFirstViewNumbersWidgetState
+    extends State<FurnitureFirstViewNumbersWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(

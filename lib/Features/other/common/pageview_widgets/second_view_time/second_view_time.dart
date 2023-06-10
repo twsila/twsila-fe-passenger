@@ -1,20 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_date_picker.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/furniture_viewmodel.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
-import '../../../../../../../app/app_prefs.dart';
-import '../../../../../../../app/di.dart';
-import '../../../../../../../core/utils/resources/color_manager.dart';
-import '../../../../../../../core/utils/resources/styles_manager.dart';
+import '../../../../../core/utils/resources/color_manager.dart';
+import '../../../../../core/utils/resources/styles_manager.dart';
 
 class SecondViewTime extends StatefulWidget {
-  final FurnitureViewModel furnitureViewModel;
+  final String? date;
+  final Function(String? date) onSelectDate;
 
-  const SecondViewTime({Key? key, required this.furnitureViewModel})
-      : super(key: key);
+  const SecondViewTime({
+    Key? key,
+    required this.date,
+    required this.onSelectDate,
+  }) : super(key: key);
   @override
   _SecondViewTimeState createState() => _SecondViewTimeState();
 }
@@ -22,31 +23,15 @@ class SecondViewTime extends StatefulWidget {
 class _SecondViewTimeState extends State<SecondViewTime> {
   bool isNow = true;
   String dateFormatterString = 'dd MMM yyyy/ hh:mm a';
-  final _appPrefs = instance<AppPreferences>();
+  // final _appPrefs = instance<AppPreferences>();
   final dateNow = DateTime.now();
   final timeNow = TimeOfDay.now();
   late DateTime dateTime;
 
   @override
   void initState() {
-    dateTime = DateTime(
-      dateNow.year,
-      dateNow.month,
-      dateNow.day,
-      timeNow.hour,
-      timeNow.minute,
-    );
-    convertDate();
-    widget.furnitureViewModel.secondScreenValid.value =
-        widget.furnitureViewModel.validateSecondScreen();
+    if (widget.date != null) isNow = false;
     super.initState();
-  }
-
-  convertDate() {
-    String dateFormatted =
-        DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
-            .format(dateTime);
-    widget.furnitureViewModel.furnitureModel.date = dateFormatted;
   }
 
   @override
@@ -68,9 +53,7 @@ class _SecondViewTimeState extends State<SecondViewTime> {
               child: GestureDetector(
                 onTap: () => setState(() {
                   isNow = true;
-                  convertDate();
-                  widget.furnitureViewModel.secondScreenValid.value =
-                      widget.furnitureViewModel.validateSecondScreen();
+                  widget.onSelectDate(null);
                 }),
                 child: Container(
                   padding:
@@ -105,9 +88,7 @@ class _SecondViewTimeState extends State<SecondViewTime> {
               child: GestureDetector(
                 onTap: () => setState(() {
                   isNow = false;
-                  widget.furnitureViewModel.furnitureModel.date = null;
-                  widget.furnitureViewModel.secondScreenValid.value =
-                      widget.furnitureViewModel.validateSecondScreen();
+                  widget.onSelectDate(null);
                 }),
                 child: Container(
                   padding:
@@ -145,13 +126,10 @@ class _SecondViewTimeState extends State<SecondViewTime> {
               const SizedBox(height: 16),
               CustomDatePickerWidget(
                 onSelectDate: (date, dateTime) {
-                  widget.furnitureViewModel.furnitureModel.date = date;
-                  Future.delayed(
-                      Duration.zero,
-                      () => widget.furnitureViewModel.secondScreenValid.value =
-                          widget.furnitureViewModel.validateSecondScreen());
+                  widget.onSelectDate(date);
                 },
                 firstDate: DateTime.now(),
+                initialDate: widget.date,
               )
             ],
           )

@@ -13,6 +13,7 @@ class CustomDatePickerWidget extends StatefulWidget {
   final bool isDateOnly;
   final String? title;
   final String? hintText;
+  final String? initialDate;
   final Color? mainColor;
   final DateTime? firstDate;
   const CustomDatePickerWidget({
@@ -23,6 +24,7 @@ class CustomDatePickerWidget extends StatefulWidget {
     this.isDateOnly = false,
     this.mainColor,
     this.firstDate,
+    this.initialDate,
   }) : super(key: key);
 
   @override
@@ -62,7 +64,11 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
               ),
             ),
             title: Text(
-              data != '' ? data : widget.hintText ?? AppStrings.selectDate.tr(),
+              widget.initialDate != null
+                  ? widget.initialDate!
+                  : data != ''
+                      ? data
+                      : widget.hintText ?? AppStrings.selectDate.tr(),
               textAlign: TextAlign.start,
               style: Theme.of(context)
                   .textTheme
@@ -103,7 +109,14 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                             ? ENGLISH_LOCAL
                             : ARABIC_LOCAL,
                         context: context,
-                        initialDate: DateTime.now(),
+                        initialDate: widget.initialDate != null
+                            ? DateFormat(
+                                    widget.isDateOnly
+                                        ? 'dd MMM yyyy'
+                                        : 'dd MMM yyyy/ hh:mm a',
+                                    _appPrefs.getAppLanguage())
+                                .parse(widget.initialDate!)
+                            : DateTime.now(),
                         firstDate: widget.firstDate ?? DateTime(1940),
                         lastDate: DateTime(2050),
                         currentDate: DateTime.now(),
@@ -127,7 +140,14 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                     }
                     final timeValue = await showTimePicker(
                         context: context,
-                        initialTime: TimeOfDay.now(),
+                        initialTime: widget.initialDate != null
+                            ? TimeOfDay.fromDateTime(DateFormat(
+                                    widget.isDateOnly
+                                        ? 'dd MMM yyyy'
+                                        : 'dd MMM yyyy/ hh:mm a',
+                                    _appPrefs.getAppLanguage())
+                                .parse(widget.initialDate!))
+                            : TimeOfDay.now(),
                         builder: (context, child) {
                           return Theme(
                             data: Theme.of(context).copyWith(

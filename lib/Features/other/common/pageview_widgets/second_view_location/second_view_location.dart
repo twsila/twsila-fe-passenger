@@ -1,19 +1,26 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/furniture_viewmodel.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/second_view/widgets/second_view_location/widgets/destination_point.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/second_view/widgets/second_view_location/widgets/source_point.dart';
+import 'package:taxi_for_you/Features/other/common/pageview_widgets/second_view_location/widgets/destination_point.dart';
+import 'package:taxi_for_you/Features/other/common/pageview_widgets/second_view_location/widgets/source_point.dart';
 
 import '../../../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../../../core/utils/resources/styles_manager.dart';
 
 class SecondViewLocation extends StatefulWidget {
-  final FurnitureViewModel furnitureViewModel;
+  final Function(String lat, String long, String locationName)
+      onSelectSourcePlace;
+  final Function(String lat, String long, String locationName)
+      onSelectDestinPlace;
+  final String? sourceLocationString;
+  final String? destinLocationString;
 
   const SecondViewLocation({
     Key? key,
-    required this.furnitureViewModel,
+    required this.onSelectSourcePlace,
+    required this.onSelectDestinPlace,
+    this.sourceLocationString,
+    this.destinLocationString,
   }) : super(key: key);
   @override
   _SecondViewLocationState createState() => _SecondViewLocationState();
@@ -34,11 +41,13 @@ class _SecondViewLocationState extends State<SecondViewLocation> {
         ),
         const SizedBox(height: 16),
         SourcePointWidget(
-          furnitureViewModel: widget.furnitureViewModel,
+          onSelectPlace: widget.onSelectSourcePlace,
+          sourceLocationString: widget.sourceLocationString,
         ),
         const SizedBox(height: 16),
         DestinationPointWidget(
-          furnitureViewModel: widget.furnitureViewModel,
+          onSelectDestinPlace: widget.onSelectDestinPlace,
+          destinLocationString: widget.destinLocationString,
         ),
       ],
     );

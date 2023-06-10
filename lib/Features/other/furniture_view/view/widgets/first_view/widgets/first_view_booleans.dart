@@ -7,16 +7,18 @@ import '../../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../../core/utils/resources/styles_manager.dart';
 import '../../../../../../common/widgets/custom_checkbox.dart';
 
-class FirstViewBooleans extends StatefulWidget {
+class FurnitureFirstViewBooleans extends StatefulWidget {
   final FurnitureViewModel furnitureViewModel;
 
-  const FirstViewBooleans({Key? key, required this.furnitureViewModel})
+  const FurnitureFirstViewBooleans({Key? key, required this.furnitureViewModel})
       : super(key: key);
   @override
-  _FirstViewBooleansState createState() => _FirstViewBooleansState();
+  _FurnitureFirstViewBooleansState createState() =>
+      _FurnitureFirstViewBooleansState();
 }
 
-class _FirstViewBooleansState extends State<FirstViewBooleans> {
+class _FurnitureFirstViewBooleansState
+    extends State<FurnitureFirstViewBooleans> {
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -1,24 +1,32 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/furniture_viewmodel.dart';
 
-import '../../../../../core/utils/resources/assets_manager.dart';
-import '../../../../../core/utils/resources/color_manager.dart';
-import '../../../../../core/utils/resources/strings_manager.dart';
-import '../../../../../core/utils/resources/styles_manager.dart';
-import '../../../../common/widgets/custom_back_button.dart';
-import '../../../../common/widgets/custom_close_button.dart';
+import '../../../../core/utils/resources/assets_manager.dart';
+import '../../../../core/utils/resources/color_manager.dart';
+import '../../../../core/utils/resources/strings_manager.dart';
+import '../../../../core/utils/resources/styles_manager.dart';
+import '../../../common/widgets/custom_back_button.dart';
+import '../../../common/widgets/custom_close_button.dart';
 
-class FurnitureTopWidget extends StatefulWidget {
-  final FurnitureViewModel viewModel;
+class TransportationTopWidget extends StatefulWidget {
+  final String text;
+  final PageController controller;
+  final int selectedIndex;
+  final int noOfScreens;
 
-  const FurnitureTopWidget({Key? key, required this.viewModel})
-      : super(key: key);
+  const TransportationTopWidget({
+    Key? key,
+    required this.text,
+    required this.controller,
+    required this.selectedIndex,
+    required this.noOfScreens,
+  }) : super(key: key);
   @override
-  _FurnitureTopWidgetState createState() => _FurnitureTopWidgetState();
+  _TransportationTopWidgetState createState() =>
+      _TransportationTopWidgetState();
 }
 
-class _FurnitureTopWidgetState extends State<FurnitureTopWidget> {
+class _TransportationTopWidgetState extends State<TransportationTopWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,12 +37,11 @@ class _FurnitureTopWidgetState extends State<FurnitureTopWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              widget.viewModel.selectedIndex.value == 0
+              widget.selectedIndex == 0
                   ? const CustomCloseButton()
                   : CustomBackButton(
-                      onPressed: () =>
-                          widget.viewModel.controller.animateToPage(
-                        widget.viewModel.selectedIndex.value - 1,
+                      onPressed: () => widget.controller.animateToPage(
+                        widget.selectedIndex - 1,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                       ),
@@ -45,14 +52,14 @@ class _FurnitureTopWidgetState extends State<FurnitureTopWidget> {
           const SizedBox(height: 8),
           Text(
             AppStrings.step.tr() +
-                ' ${widget.viewModel.selectedIndex.value + 1}/${widget.viewModel.screens.length}',
+                ' ${widget.selectedIndex + 1}/${widget.noOfScreens}',
             style: getMediumStyle(
               color: ColorManager.primaryTextColor,
               fontSize: 16,
             ),
           ),
           Text(
-            AppStrings.furnitureTransportation.tr(),
+            widget.text,
             style: getBoldStyle(
               color: ColorManager.primaryTextColor,
               fontSize: 24,

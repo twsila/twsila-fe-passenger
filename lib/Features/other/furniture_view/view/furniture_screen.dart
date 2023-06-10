@@ -7,7 +7,7 @@ import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_bloc.dart';
 import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_state.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/furniture_top_widget.dart';
+import 'package:taxi_for_you/Features/other/common/pageview_widgets/transportation_top_widget.dart';
 import 'package:taxi_for_you/core/utils/resources/routes_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'furniture_viewmodel.dart';
@@ -76,7 +76,12 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      FurnitureTopWidget(viewModel: _viewModel),
+                      TransportationTopWidget(
+                        text: AppStrings.furnitureTransportation.tr(),
+                        controller: _viewModel.controller,
+                        selectedIndex: _viewModel.selectedIndex.value,
+                        noOfScreens: _viewModel.screens.length,
+                      ),
                       Expanded(
                         child: PageView(
                           physics: const NeverScrollableScrollPhysics(),

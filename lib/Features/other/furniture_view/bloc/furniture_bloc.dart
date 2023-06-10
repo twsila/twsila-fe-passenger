@@ -21,8 +21,7 @@ class FurnitureBloc extends Bloc<FurnitureEvent, FurnitureRequestStates> {
     emit(FurnitureRequestIsLoading());
 
     try {
-      var response =
-          await (furnitureRepo.sendFurnitureRequest(event.furnitureModel));
+      await (furnitureRepo.sendFurnitureRequest(event.furnitureModel));
 
       emit(FurnitureRequestSuccessfully());
       // if (response.result != null &&

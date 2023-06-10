@@ -1,29 +1,28 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/second_view/widgets/second_view_location/second_view_location.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/second_view/widgets/second_view_time.dart';
-
+import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/first_view/widgets/first_view_booleans.dart';
+import 'package:taxi_for_you/Features/other/furniture_view/view/widgets/first_view/widgets/first_view_numbers.dart';
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
 import '../../furniture_viewmodel.dart';
 
-class FurnitureSecondView extends StatefulWidget {
+class FurnitureFirstView extends StatefulWidget {
   final FurnitureViewModel furnitureViewModel;
 
-  const FurnitureSecondView({
+  const FurnitureFirstView({
     Key? key,
     required this.furnitureViewModel,
   }) : super(key: key);
-
   @override
-  _FurnitureSecondViewState createState() => _FurnitureSecondViewState();
+  _FurnitureFirstViewState createState() => _FurnitureFirstViewState();
 }
 
-class _FurnitureSecondViewState extends State<FurnitureSecondView> {
+class _FurnitureFirstViewState extends State<FurnitureFirstView> {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      fit: StackFit.expand,
       children: [
         SingleChildScrollView(
           child: Container(
@@ -31,14 +30,14 @@ class _FurnitureSecondViewState extends State<FurnitureSecondView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SecondViewTime(
+                FurnitureFirstViewNumbersWidget(
                   furnitureViewModel: widget.furnitureViewModel,
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 16),
                   child: const Divider(),
                 ),
-                SecondViewLocation(
+                FurnitureFirstViewBooleans(
                   furnitureViewModel: widget.furnitureViewModel,
                 ),
                 const SizedBox(
@@ -55,7 +54,7 @@ class _FurnitureSecondViewState extends State<FurnitureSecondView> {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white.withOpacity(0.8),
               boxShadow: [
                 BoxShadow(
                   color: ColorManager.grey.withOpacity(0.1),
@@ -66,7 +65,7 @@ class _FurnitureSecondViewState extends State<FurnitureSecondView> {
               ],
             ),
             child: ValueListenableBuilder(
-                valueListenable: widget.furnitureViewModel.secondScreenValid,
+                valueListenable: widget.furnitureViewModel.firstScreenValid,
                 builder: (BuildContext context, bool value, _) {
                   return CustomTextButton(
                       text: AppStrings.next.tr(),

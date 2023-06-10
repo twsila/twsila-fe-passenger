@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
@@ -31,6 +32,7 @@ class _CustomAmountFieldState extends State<CustomAmountField> {
       labelText: AppStrings.iWantToPay.tr(),
       showLabelText: true,
       hintText: AppStrings.enterAmount.tr(),
+      inputFormatter: [FilteringTextInputFormatter.digitsOnly],
       suffixIcon: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Text(
