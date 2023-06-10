@@ -5,7 +5,6 @@ import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 import 'package:taxi_for_you/Features/request_service/views/request_service_viewmodel.dart';
 import 'package:taxi_for_you/Features/request_service/views/widget/about_tawsela_widget.dart';
 import 'package:taxi_for_you/Features/request_service/views/widget/service_transportation_widget.dart';
-import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 
@@ -46,7 +45,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 AboutTawsela(),
                 Row(
@@ -83,7 +82,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
                 const SizedBox(height: 16),
                 Wrap(
                   direction: Axis.horizontal,
-                  spacing: context.getWidth() / 16,
+                  alignment: WrapAlignment.spaceBetween,
                   runSpacing: 20,
                   children: List.generate(
                       _viewModel.servicesList.length,

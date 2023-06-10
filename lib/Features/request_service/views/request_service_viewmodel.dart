@@ -68,7 +68,7 @@ class RequestServiceViewModel extends BaseViewModel {
         ServiceTransportationModel(
           text: AppStrings.freezerTransportation.tr(),
           imageAsset: ImageAssets.carfrozen,
-          color: const Color.fromRGBO(150, 159, 170, 0.2),
+          color: const Color.fromRGBO(180, 221, 127, 0.2),
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
