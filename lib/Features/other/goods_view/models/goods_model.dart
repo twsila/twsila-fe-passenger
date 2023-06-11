@@ -1,10 +1,6 @@
 import 'package:image_picker/image_picker.dart';
 
-import '../../../google_maps/model/location_model.dart';
-
 class GoodsModel {
-  LocationModel? sourceLocation;
-  LocationModel? destinationLocation;
   String? pickupLocationLongitude;
   String? pickupLocationLatitude;
   String? destinationLocationLongitude;

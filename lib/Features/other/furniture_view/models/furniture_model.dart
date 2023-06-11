@@ -1,11 +1,7 @@
 import 'dart:convert';
-
 import 'package:image_picker/image_picker.dart';
-import 'package:taxi_for_you/Features/google_maps/model/location_model.dart';
 
 class FurnitureModel {
-  LocationModel? sourceLocation;
-  LocationModel? destinationLocation;
   String? pickupLocationLongitude;
   String? pickupLocationLatitude;
   String? destinationLocationLongitude;

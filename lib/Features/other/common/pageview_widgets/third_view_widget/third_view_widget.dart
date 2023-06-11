@@ -8,7 +8,7 @@ import '../../../../common/widgets/custom_text_input_field.dart';
 import '../../../../common/widgets/multi_pick_image.dart';
 
 class ThirdViewWidget extends StatefulWidget {
-  final Function(List<XFile>?) onSelectImage;
+  final Function(List<XFile>?)? onSelectImage;
   final Function(String?) onNotesChanged;
   final Function(String?) onAmountChanged;
   final List<XFile>? images;
@@ -19,7 +19,7 @@ class ThirdViewWidget extends StatefulWidget {
     Key? key,
     required this.onNotesChanged,
     required this.onAmountChanged,
-    required this.onSelectImage,
+    this.onSelectImage,
     this.notes,
     this.amount,
     this.images,
@@ -64,10 +64,11 @@ class _ThirdViewWidgetState extends State<ThirdViewWidget> {
               },
             ),
             const SizedBox(height: 16),
-            MutliPickImageWidget(
-              images: widget.images,
-              onPickedImages: widget.onSelectImage,
-            ),
+            if (widget.onSelectImage != null)
+              MutliPickImageWidget(
+                images: widget.images,
+                onPickedImages: widget.onSelectImage!,
+              ),
             const SizedBox(height: 16),
             CustomAmountField(
               onChanged: (text) {

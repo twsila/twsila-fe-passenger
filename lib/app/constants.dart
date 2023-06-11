@@ -24,4 +24,5 @@ class EndPointsConstants {
   static const String validateOtp = "otp/validate";
   static const String sendFurnitureRequest = 'trips/insert-furniture-trip';
   static const String sendGoodsRequest = 'trips/insert-goods-trip';
+  static const String sendCarAidRequest = 'trips/insert-car-aid-trip';
 }
