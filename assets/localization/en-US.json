@@ -3,6 +3,7 @@
   "ar": "Arabic",
   "egypt": "Egypt",
   "saudi": "Saudi Arabia",
+  "not_supported_country": "Your country is not currently supported by Tawsila",
   "seconds": "seconds",
   "loading": "Loading",
   "app_name": "Twsila",

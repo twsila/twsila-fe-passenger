@@ -77,7 +77,7 @@ class AppPreferences {
   }
 
   //Selected country
-  setUserSelectedCountry(CountryModel country) {
+  setUserSelectedCountry(CountryModel? country) {
     _sharedPreferences.setString(USER_SELECTED_COUNTRY, json.encode(country));
   }
 

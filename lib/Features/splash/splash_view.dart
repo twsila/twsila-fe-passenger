@@ -46,10 +46,8 @@ class _SplashViewState extends State<SplashView> {
   }
 
   setCountry() {
-    var countries = _appPreferences.getCountries();
-    var country = _appPreferences.getUserSelectedCountry();
     Provider.of<MapProvider>(context, listen: false)
-        .setCountry(country ?? countries[0], needsRebuild: false);
+        .setCountry(null, needsRebuild: false);
   }
 
   _goNext() async {

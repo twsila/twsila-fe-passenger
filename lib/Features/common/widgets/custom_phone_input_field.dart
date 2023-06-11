@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'dart:ui' as ui;
 import 'package:taxi_for_you/Features/common/widgets/custom_bottom_sheet.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_flag_widget.dart';
@@ -48,17 +49,30 @@ class CustomPhoneInputField extends StatefulWidget {
 
 class _CustomPhoneInputFieldState extends State<CustomPhoneInputField> {
   final appPreferences = instance<AppPreferences>();
+  bool? autoFocus;
   List<CountryModel> countries = [];
   CountryModel? _selectedCountry;
 
   @override
   void initState() {
     countries = appPreferences.getCountries();
+    autoFocus = widget.autoFocus;
     if (widget.selectedCountry != null) {
       _selectedCountry = widget.selectedCountry;
     } else {
-      _selectedCountry =
-          appPreferences.getUserSelectedCountry() ?? countries[0];
+      if (appPreferences.getUserSelectedCountry() != null) {
+        _selectedCountry = appPreferences.getUserSelectedCountry();
+      } else {
+        autoFocus = false;
+        Future.delayed(
+          Duration.zero,
+          () => ShowDialogHelper.showErrorMessage(
+            AppStrings.notSupportedCountry.tr(),
+            context,
+          ),
+        );
+        _selectedCountry = countries[0];
+      }
     }
 
     widget.onCountryChange(_selectedCountry!);
@@ -76,7 +90,7 @@ class _CustomPhoneInputFieldState extends State<CustomPhoneInputField> {
         children: [
           Expanded(
             child: CustomTextInputField(
-              autoFocus: widget.autoFocus,
+              autoFocus: autoFocus ?? false,
               controller: widget.fieldController,
               hintText: AppStrings.phoneNumberHint.tr(),
               isTitleBold: false,

@@ -3,6 +3,7 @@ class AppStrings {
   static const ar = 'ar';
   static const egypt = 'egypt';
   static const saudi = 'saudi';
+  static const notSupportedCountry = 'not_supported_country';
   static const showCode = 'show_code';
   static const hideCode = 'hide_code';
   static const appTitle = 'app_title';

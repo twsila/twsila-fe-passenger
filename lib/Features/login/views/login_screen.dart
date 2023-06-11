@@ -121,7 +121,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               fieldController: _viewModel.phoneController,
                               onCountryChange: (country) {
                                 _viewModel.countryCode = country.countryCode;
-                                _appPreferences.setUserSelectedCountry(country);
                                 Provider.of<MapProvider>(context, listen: false)
                                     .setCountry(country, needsRebuild: false);
                               },

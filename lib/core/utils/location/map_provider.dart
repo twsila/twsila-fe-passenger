@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:http/http.dart' as http;
+import 'package:collection/collection.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -43,10 +46,36 @@ class MapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  setCountry(CountryModel country, {bool needsRebuild = true}) {
-    countries = [country.country];
+  setCountry(CountryModel? country, {bool needsRebuild = true}) async {
+    List<CountryModel> countriesList = appPreferences.getCountries();
+    if (country == null) {
+      CountryModel? countryModel = await getCountryPhoneCode();
+
+      appPreferences.setUserSelectedCountry(countryModel);
+      countries = countryModel != null ? [countryModel.country] : [];
+    } else {
+      CountryModel country = countriesList[0];
+      appPreferences.setUserSelectedCountry(country);
+      countries = [country.country];
+    }
+
     if (!needsRebuild) return;
     notifyListeners();
+  }
+
+  Future<CountryModel?> getCountryPhoneCode() async {
+    var response = await http.get(Uri.parse('http://ip-api.com/json'));
+    var jsonResponse = json.decode(response.body);
+    final isoCode = jsonResponse['countryCode'];
+
+    print('country is: $isoCode');
+
+    List<CountryModel> countriesList = appPreferences.getCountries();
+    CountryModel? country = countriesList.singleWhereOrNull(
+      (element) => element.country == isoCode,
+    );
+
+    return country;
   }
 
   //Handle Map
