@@ -31,8 +31,6 @@ class HttpBaseRequest extends BaseRequestInterface {
 
     Uri uri = Uri.parse(Constants.baseUrl + requestModel.endPoint);
 
-    requestModel.reqBody['language'] = appPreferences.getAppLanguage();
-
     var headers = checkHeaders();
 
     var requestEncoded = json.encode(requestModel.reqBody);
@@ -157,6 +155,7 @@ class HttpBaseRequest extends BaseRequestInterface {
       headers = {
         'Authorization': 'Bearer ${userModel.token}',
         "Accept": "*/*",
+        'Accept-Language': appPreferences.getAppLanguage(),
         "Content-Type":
             isMultiPart ? "multipart/form-data" : "application/json",
       };
@@ -164,6 +163,7 @@ class HttpBaseRequest extends BaseRequestInterface {
       headers = {
         'Authorization': Constants.constAuth,
         "Accept": "*/*",
+        'Accept-Language': appPreferences.getAppLanguage(),
         "Content-Type":
             isMultiPart ? "multipart/form-data" : "application/json",
       };
