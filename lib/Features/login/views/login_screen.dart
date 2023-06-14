@@ -48,32 +48,31 @@ class _LoginScreenState extends State<LoginScreen> {
         scaffoldKey: widget.scaffoldKey,
         allowBackButtonInAppBar: false,
         context: context,
-        body: Container(
-          margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Directionality(
-                textDirection: ui.TextDirection.rtl,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const LanguageWidget(),
-                    Center(
-                      child: Image(
-                        image: const AssetImage(ImageAssets.logoImg),
-                        height: 28,
-                        width: context.getWidth() / 4,
-                        fit: BoxFit.fill,
+        body: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Directionality(
+                  textDirection: ui.TextDirection.rtl,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const LanguageWidget(),
+                      Center(
+                        child: Image(
+                          image: const AssetImage(ImageAssets.logoImg),
+                          height: 28,
+                          width: context.getWidth() / 4,
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: context.getHeight() / 16),
+                Container(
+                  margin: EdgeInsets.only(top: context.getHeight() / 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -149,9 +148,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

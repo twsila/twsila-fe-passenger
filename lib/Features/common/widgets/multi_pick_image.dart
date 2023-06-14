@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import '../state_renderer/dialogs.dart';
+import 'package:path_provider/path_provider.dart';
 
 class MutliPickImageWidget extends StatefulWidget {
   final List<XFile>? images;
@@ -51,7 +53,26 @@ class _MutliPickImageWidgetState extends State<MutliPickImageWidget> {
                       try {
                         var pickedfiles = await imgpicker.pickMultiImage();
 
-                        imagefiles = pickedfiles;
+                        await Future.forEach<XFile>(pickedfiles,
+                            (element) async {
+                          String filePath = element.path;
+                          final lastIndex =
+                              filePath.lastIndexOf(RegExp(r'.jp'));
+                          final splitted = filePath.substring(0, (lastIndex));
+                          final outPath =
+                              "${splitted}_out${filePath.substring(lastIndex)}";
+
+                          var result =
+                              await FlutterImageCompress.compressAndGetFile(
+                            filePath,
+                            outPath,
+                            quality: 88,
+                          );
+
+                          if (result == null) return;
+                          imagefiles.add(result);
+                        });
+
                         widget.onPickedImages(imagefiles);
                         setState(() {});
                       } catch (e) {
@@ -74,7 +95,24 @@ class _MutliPickImageWidgetState extends State<MutliPickImageWidget> {
                           source: ImageSource.camera,
                         );
 
-                        imagefiles.add(pickedfile!);
+                        if (pickedfile == null) return;
+
+                        String filePath = pickedfile.path;
+                        final lastIndex = filePath.lastIndexOf(RegExp(r'.jp'));
+                        final splitted = filePath.substring(0, (lastIndex));
+                        final outPath =
+                            "${splitted}_out${filePath.substring(lastIndex)}";
+
+                        var result =
+                            await FlutterImageCompress.compressAndGetFile(
+                          filePath,
+                          outPath,
+                          quality: 88,
+                        );
+
+                        if (result == null) return;
+
+                        imagefiles.add(result);
                         widget.onPickedImages(imagefiles);
                         setState(() {});
                       } catch (e) {

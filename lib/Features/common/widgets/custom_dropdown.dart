@@ -19,8 +19,8 @@ class CustomDropDown extends StatefulWidget {
   CustomDropDown(
       {this.title,
       required this.stringsArr,
-      required this.isValid,
       required this.onChanged,
+      this.isValid = true,
       this.intialValue,
       this.hintText,
       this.iconData,

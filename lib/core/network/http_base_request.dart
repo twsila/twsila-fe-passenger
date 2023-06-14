@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
@@ -87,12 +88,9 @@ class HttpBaseRequest extends BaseRequestInterface {
     });
 
     if (files != null && files.isNotEmpty) {
-      files.forEach((element) async {
-        var multipartFile = await http.MultipartFile.fromPath(
-          "tripImages",
-          element.path,
-        );
-        request.files.add(multipartFile);
+      List<http.MultipartFile> multiPartFiles = await listingFiles(files);
+      multiPartFiles.forEach((element) {
+        request.files.add(element);
       });
     }
 
@@ -116,6 +114,7 @@ class HttpBaseRequest extends BaseRequestInterface {
       print(e.message);
       throw InvalidInputException();
     } catch (e) {
+      print(e);
       throw FetchDataException();
     }
   }
@@ -145,6 +144,27 @@ class HttpBaseRequest extends BaseRequestInterface {
           details: baseResponse,
         );
     }
+  }
+
+  Future<List<http.MultipartFile>> listingFiles(List<XFile> xFiles) async {
+    List<http.MultipartFile> files = [];
+    double fileSizeInMB = 0.0;
+    await Future.forEach<XFile>(xFiles, (file) async {
+      var multipartFile = await http.MultipartFile.fromPath(
+        "tripImages",
+        file.path,
+        contentType: MediaType('image', 'jpg'),
+      );
+      files.add(multipartFile);
+      var fileSizeInBytes = File(file.path).lengthSync();
+      // Convert the bytes to Kilobytes (1 KB = 1024 Bytes)
+      var fileSizeInKB = fileSizeInBytes / 1024;
+      // Convert the KB to MegaBytes (1 MB = 1024 KBytes)
+      fileSizeInMB += fileSizeInKB / 1024;
+      log('total Size in MB: ' + fileSizeInMB.toString());
+    });
+
+    return files;
   }
 
   Map<String, String> checkHeaders({bool isMultiPart = false}) {

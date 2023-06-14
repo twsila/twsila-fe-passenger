@@ -5,6 +5,8 @@ import 'package:taxi_for_you/Features/login/bloc/login_bloc.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
 import 'package:taxi_for_you/Features/other/car_aid_view/bloc/car_aid_bloc.dart';
 import 'package:taxi_for_you/Features/other/car_aid_view/models/car_aid_repo.dart';
+import 'package:taxi_for_you/Features/other/freezers_view/bloc/freezers_bloc.dart';
+import 'package:taxi_for_you/Features/other/freezers_view/models/freezers_repo.dart';
 import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_bloc.dart';
 import 'package:taxi_for_you/Features/other/furniture_view/models/furniture_repo.dart';
 import 'package:taxi_for_you/Features/other/goods_view/bloc/goods_bloc.dart';
@@ -23,14 +25,21 @@ import '../core/utils/location/map_provider.dart';
 blocProviders(BuildContext context) {
   return [
     BlocProvider.value(
-        value: LoginBloc(instance<LoginRepo>(), instance<AppPreferences>())),
+      value: LoginBloc(instance<LoginRepo>(), instance<AppPreferences>()),
+    ),
     BlocProvider.value(
-        value: FurnitureBloc(
-            instance<FurnitureRepo>(), instance<AppPreferences>())),
+      value:
+          FurnitureBloc(instance<FurnitureRepo>(), instance<AppPreferences>()),
+    ),
     BlocProvider.value(
-        value: GoodsBloc(instance<GoodsRepo>(), instance<AppPreferences>())),
+      value: GoodsBloc(instance<GoodsRepo>(), instance<AppPreferences>()),
+    ),
     BlocProvider.value(
-        value: CarAidBloc(instance<CarAidRepo>(), instance<AppPreferences>())),
+      value: CarAidBloc(instance<CarAidRepo>(), instance<AppPreferences>()),
+    ),
+    BlocProvider.value(
+      value: FreezersBloc(instance<FreezersRepo>(), instance<AppPreferences>()),
+    ),
     BlocProvider.value(value: RegistrationBloc(instance<RegistrationRepo>())),
     BlocProvider.value(value: OtpBloc(instance<OtpRepo>())),
     BlocProvider.value(value: MapsBloc(MapsRepo())),

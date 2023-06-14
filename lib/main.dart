@@ -13,7 +13,12 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await initAppModule();
   await Firebase.initializeApp();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  const systemBarColors = SystemUiOverlayStyle(
+    statusBarColor: Colors.white,
+    systemNavigationBarColor: Colors.black,
+    statusBarIconBrightness: Brightness.dark,
+  );
+  SystemChrome.setSystemUIOverlayStyle(systemBarColors);
   runApp(EasyLocalization(
       child: Phoenix(child: MyApp()),
       supportedLocales: const [ARABIC_LOCAL, ENGLISH_LOCAL],

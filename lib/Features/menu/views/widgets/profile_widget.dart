@@ -21,11 +21,11 @@ class _CustomProfileWidgetState extends State<CustomProfileWidget> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
-      height: 80,
+      height: 90,
       child: Row(
         children: [
           Container(
-            width: 80,
+            width: 90,
             decoration: BoxDecoration(
                 color: ColorManager.bottomNavUnselected,
                 borderRadius: const BorderRadius.all(Radius.circular(8))),

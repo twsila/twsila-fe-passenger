@@ -47,14 +47,12 @@ class MapProvider with ChangeNotifier {
   }
 
   setCountry(CountryModel? country, {bool needsRebuild = true}) async {
-    List<CountryModel> countriesList = appPreferences.getCountries();
     if (country == null) {
       CountryModel? countryModel = await getCountryPhoneCode();
 
       appPreferences.setUserSelectedCountry(countryModel);
       countries = countryModel != null ? [countryModel.country] : [];
     } else {
-      CountryModel country = countriesList[0];
       appPreferences.setUserSelectedCountry(country);
       countries = [country.country];
     }

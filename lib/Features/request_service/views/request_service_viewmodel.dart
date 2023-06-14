@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/base/baseviewmodel.dart';
 import 'package:taxi_for_you/Features/other/car_aid_view/views/car_aid_view.dart';
-import 'package:taxi_for_you/Features/other/freezers_view/freezers_view.dart';
 import 'package:taxi_for_you/Features/other/goods_view/views/goods_view.dart';
 import 'package:taxi_for_you/Features/other/water_tank_view/views/water_view.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
@@ -12,6 +11,7 @@ import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
 
 import '../../../core/utils/resources/routes_manager.dart';
+import '../../other/freezers_view/view/freezers_view.dart';
 import '../../other/furniture_view/view/furniture_screen.dart';
 
 class RequestServiceViewModel extends BaseViewModel {
