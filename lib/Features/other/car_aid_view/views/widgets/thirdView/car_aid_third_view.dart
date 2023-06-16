@@ -4,13 +4,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxi_for_you/Features/other/car_aid_view/views/car_aid_viewmodel.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_bloc.dart';
+import 'package:taxi_for_you/app/constants.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
-import '../../../../common/pageview_widgets/third_view_widget/third_view_widget.dart';
-import '../../../bloc/car_aid_bloc.dart';
-import '../../../bloc/car_aid_event.dart';
+import '../../../../common/common_bloc/transportation_event.dart';
+import '../../../../common/common_views/pageview_widgets/third_view_widget/third_view_widget.dart';
 
 class CarAidThirdView extends StatefulWidget {
   final CarAidViewModel carAidViewModel;
@@ -75,10 +76,12 @@ class _CarAidThirdViewState extends State<CarAidThirdView> {
                           ? () {
                               FocusScope.of(context).unfocus();
                               inspect(widget.carAidViewModel.carAidModel);
-                              BlocProvider.of<CarAidBloc>(context).add(
-                                SendCarAidRequest(
-                                  carAidModel:
-                                      widget.carAidViewModel.carAidModel,
+                              BlocProvider.of<TransportationBloc>(context).add(
+                                SendTransportationRequest(
+                                  endPoint:
+                                      EndPointsConstants.sendCarAidRequest,
+                                  body: widget.carAidViewModel.carAidModel
+                                      .toJson(),
                                 ),
                               );
                             }

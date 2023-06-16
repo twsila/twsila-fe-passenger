@@ -3,14 +3,15 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:taxi_for_you/Features/other/freezers_view/bloc/freezers_bloc.dart';
-import 'package:taxi_for_you/Features/other/freezers_view/bloc/freezers_event.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_bloc.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_event.dart';
 import 'package:taxi_for_you/Features/other/freezers_view/view/freezers_viewmodel.dart';
 
+import '../../../../../../app/constants.dart';
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
-import '../../../../common/pageview_widgets/third_view_widget/third_view_widget.dart';
+import '../../../../common/common_views/pageview_widgets/third_view_widget/third_view_widget.dart';
 
 class FreezerThirdView extends StatefulWidget {
   final FreezersViewModel freezersViewModel;
@@ -75,10 +76,12 @@ class _FreezerThirdViewState extends State<FreezerThirdView> {
                           ? () {
                               FocusScope.of(context).unfocus();
                               inspect(widget.freezersViewModel.freezersModel);
-                              BlocProvider.of<FreezersBloc>(context).add(
-                                SendFreezersRequest(
-                                  freezersModel:
-                                      widget.freezersViewModel.freezersModel,
+                              BlocProvider.of<TransportationBloc>(context).add(
+                                SendTransportationRequest(
+                                  endPoint:
+                                      EndPointsConstants.sendFreezersRequest,
+                                  body: widget.freezersViewModel.freezersModel
+                                      .toJson(),
                                 ),
                               );
                             }

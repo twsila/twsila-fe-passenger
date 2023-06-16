@@ -5,8 +5,8 @@ import 'package:taxi_for_you/Features/other/freezers_view/view/freezers_viewmode
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
-import '../../../../common/pageview_widgets/second_view_location/second_view_location.dart';
-import '../../../../common/pageview_widgets/second_view_time/second_view_time.dart';
+import '../../../../common/common_views/pageview_widgets/second_view_location/second_view_location.dart';
+import '../../../../common/common_views/pageview_widgets/second_view_time/second_view_time.dart';
 
 class FreezerSecondView extends StatefulWidget {
   final FreezersViewModel freezersViewModel;

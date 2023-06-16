@@ -3,9 +3,10 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:taxi_for_you/Features/other/common/pageview_widgets/third_view_widget/third_view_widget.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_bloc.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_event.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_bloc.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_event.dart';
+import 'package:taxi_for_you/Features/other/common/common_views/pageview_widgets/third_view_widget/third_view_widget.dart';
+import 'package:taxi_for_you/app/constants.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
@@ -80,10 +81,12 @@ class _FurnitureThirdViewState extends State<FurnitureThirdView> {
                           ? () {
                               FocusScope.of(context).unfocus();
                               inspect(widget.furnitureViewModel.furnitureModel);
-                              BlocProvider.of<FurnitureBloc>(context).add(
-                                SendFurnitureRequest(
-                                  furnitureModel:
-                                      widget.furnitureViewModel.furnitureModel,
+                              BlocProvider.of<TransportationBloc>(context).add(
+                                SendTransportationRequest(
+                                  endPoint:
+                                      EndPointsConstants.sendFurnitureRequest,
+                                  body: widget.furnitureViewModel.furnitureModel
+                                      .toJson(),
                                 ),
                               );
                             }

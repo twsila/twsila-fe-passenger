@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
+import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 
 class CustomDropDown extends StatefulWidget {
   final String? title;
-  final List<String>? stringsArr;
+  final List<String> stringsArr;
   final Function(String?) onChanged;
   final String? hintText;
   final IconData? iconData;
@@ -37,6 +38,7 @@ class CustomDropDown extends StatefulWidget {
 
 class _CustomDropDownState extends State<CustomDropDown> {
   bool _isInit = true;
+  String? _selectedValue;
 
   @override
   void initState() {
@@ -52,91 +54,52 @@ class _CustomDropDownState extends State<CustomDropDown> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         widget.title != null && widget.title != ''
-            ? Text(
-                widget.title ?? '',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight:
-                      widget.isTitleBold! ? FontWeight.bold : FontWeight.normal,
-                  fontFamily: 'Avenir',
-                  color: Colors.black,
-                ),
-              )
+            ? Text(widget.title ?? '',
+                style: getMediumStyle(
+                    color: ColorManager.titlesTextColor, fontSize: 14))
             : Container(),
-        Container(
-          height: 45,
-          margin: const EdgeInsets.symmetric(vertical: 8),
-          decoration: BoxDecoration(
-            color: widget.backgroundColor ?? Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            border: widget.isValid
-                ? Border.all(
-                    color: widget.borderColor ?? ColorManager.lightPrimary)
-                : Border.all(color: Colors.red),
-          ),
-          child: Row(
-            children: [
-              if (widget.iconData != null)
-                Container(
-                    margin: const EdgeInsets.only(left: 16),
-                    child: Icon(
-                      Icons.male,
-                      color: ColorManager.lightGrey,
-                    )),
-              Expanded(
-                child: Theme(
-                  data: ThemeData(canvasColor: Colors.white),
-                  child: DropdownButtonHideUnderline(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: DropdownButton<String>(
-                        value: widget.intialValue,
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: widget.borderColor ?? ColorManager.primary,
+        const SizedBox(height: 12),
+        Wrap(
+          runSpacing: 8,
+          children: List.generate(
+            widget.stringsArr.length,
+            (index) => GestureDetector(
+              onTap: () {
+                setState(() {
+                  _selectedValue = widget.stringsArr[index];
+                });
+                widget.onChanged(_selectedValue);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                  color: widget.stringsArr[index] == _selectedValue
+                      ? ColorManager.secondaryLightColor
+                      : Colors.transparent,
+                  border: Border.all(
+                    color: ColorManager.lightPrimary,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(4),
+                  ),
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                  child: Text(
+                    widget.stringsArr[index],
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: ColorManager.secondaryColor,
+                          fontSize: 16,
                         ),
-                        style: Theme.of(context).textTheme.displayMedium,
-                        hint: widget.hintText != null
-                            ? Text(
-                                widget.hintText!,
-                                style: Theme.of(context).textTheme.displaySmall,
-                              )
-                            : null,
-                        onChanged: (String? selectedValue) {
-                          setState(() {
-                            FocusScope.of(context).requestFocus(FocusNode());
-                            widget.onChanged(selectedValue);
-                          });
-                        },
-                        items: widget.stringsArr!.map((String date) {
-                          return DropdownMenuItem<String>(
-                            value: date,
-                            child: Text(
-                              date,
-                              style: TextStyle(
-                                color: widget.textColor ??
-                                    Theme.of(context).primaryColor,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
                   ),
                 ),
               ),
-            ],
+            ),
           ),
         ),
-        !widget.isValid
-            ? Text(
-                widget.errorMessage ?? '',
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(color: Colors.red),
-              )
-            : Container()
+        const SizedBox(height: 16),
+        Divider(color: ColorManager.darkGrey),
       ],
     );
   }

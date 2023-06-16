@@ -47,6 +47,9 @@ class AppStrings {
   static const thinkingOfTravel = "thinking_of_travel";
   static const whichGoods = "which_goods";
   static const peopleVehicle = "people_vehicle";
+  static const request = "request";
+  static const requestWhite = "request_white";
+  static const transportation = "transporation";
   static const freezerTransportation = "transport_freezers";
   static const carAidTransportation = "transport_car_aid";
   static const cisternsTransportation = "transport_cisterns";
@@ -54,6 +57,7 @@ class AppStrings {
   static const goodsTransportation = "transport_goods";
   static const furnitureTransportation = "transport_furniture";
   static const transporationItems = "transporation_items";
+  static const waterTankSize = "water_tank_size";
   static const extraServices = "extra_services";
   static const goods = "goods";
   static const other = "other";

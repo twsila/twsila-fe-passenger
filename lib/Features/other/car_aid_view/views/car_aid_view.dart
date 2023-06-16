@@ -1,15 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_bloc.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_state.dart';
 
 import '../../../../core/utils/resources/routes_manager.dart';
 import '../../../../core/utils/resources/strings_manager.dart';
 import '../../../common/state_renderer/dialogs.dart';
 import '../../../common/widgets/custom_scaffold.dart';
 import '../../../common/widgets/page_builder.dart';
-import '../../common/pageview_widgets/transportation_top_widget.dart';
-import '../bloc/car_aid_bloc.dart';
-import '../bloc/car_aid_state.dart';
+import '../../common/common_views/pageview_widgets/transportation_top_widget.dart';
 import 'car_aid_viewmodel.dart';
 
 class CarAidView extends StatefulWidget {
@@ -36,9 +36,9 @@ class _CarAidViewState extends State<CarAidView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CarAidBloc, CarAidRequestStates>(
+    return BlocListener<TransportationBloc, TransportationRequestStates>(
         listener: (context, state) {
-          if (state is CarAidRequestIsLoading) {
+          if (state is TransportationRequestIsLoading) {
             setState(() {
               _viewModel.displayLoadingIndicator = true;
             });
@@ -47,7 +47,7 @@ class _CarAidViewState extends State<CarAidView> {
               _viewModel.displayLoadingIndicator = false;
             });
           }
-          if (state is CarAidRequestSuccessfully) {
+          if (state is TransportationRequestSuccessfully) {
             ShowDialogHelper.showSuccessMessage(
               AppStrings.tripConfirmationSucceeded.tr(),
               context,
@@ -57,7 +57,7 @@ class _CarAidViewState extends State<CarAidView> {
                 () => Navigator.popUntil(
                     context, ModalRoute.withName(Routes.homeRoute)));
           }
-          if (state is CarAidRequestFailed) {
+          if (state is TransportationRequestFailed) {
             ShowDialogHelper.showErrorMessage(
               state.baseResponse.errorMessage ?? 'Something went wrong',
               context,
@@ -77,7 +77,9 @@ class _CarAidViewState extends State<CarAidView> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       TransportationTopWidget(
-                        text: AppStrings.goodsTransportation.tr(),
+                        text: AppStrings.request.tr() +
+                            ' ' +
+                            AppStrings.carAidTransportation.tr(),
                         controller: _viewModel.controller,
                         selectedIndex: _viewModel.selectedIndex.value,
                         noOfScreens: _viewModel.screens.length,

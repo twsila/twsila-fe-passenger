@@ -1,25 +1,24 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/other/freezers_view/view/freezers_viewmodel.dart';
-import 'package:taxi_for_you/Features/other/freezers_view/view/widgets/first_view/widgets/freezer_boolean_view.dart';
-import 'package:taxi_for_you/Features/other/freezers_view/view/widgets/first_view/widgets/freezer_dropdowns_view.dart';
+import 'package:taxi_for_you/Features/other/water_tank_view/views/widgets/first_view/widgets/water_dropdown_view.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
+import '../../water_viewmodel.dart';
 
-class FreezerFirstView extends StatefulWidget {
-  final FreezersViewModel freezersViewModel;
-  const FreezerFirstView({
+class WaterFirstView extends StatefulWidget {
+  final WaterTankViewModel waterTankViewModel;
+  const WaterFirstView({
     Key? key,
-    required this.freezersViewModel,
+    required this.waterTankViewModel,
   }) : super(key: key);
 
   @override
-  State<FreezerFirstView> createState() => _FreezerFirstViewState();
+  State<WaterFirstView> createState() => _WaterFirstViewState();
 }
 
-class _FreezerFirstViewState extends State<FreezerFirstView> {
+class _WaterFirstViewState extends State<WaterFirstView> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -31,11 +30,9 @@ class _FreezerFirstViewState extends State<FreezerFirstView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FreezerDropdownsView(
-                  freezersViewModel: widget.freezersViewModel,
+                WaterDropdownView(
+                  waterTankViewModel: widget.waterTankViewModel,
                 ),
-                const SizedBox(height: 16),
-                FreezerBooleanView(freezersViewModel: widget.freezersViewModel),
                 const SizedBox(height: 64),
               ],
             ),
@@ -59,7 +56,7 @@ class _FreezerFirstViewState extends State<FreezerFirstView> {
               ],
             ),
             child: ValueListenableBuilder(
-                valueListenable: widget.freezersViewModel.firstScreenValid,
+                valueListenable: widget.waterTankViewModel.firstScreenValid,
                 builder: (BuildContext context, bool value, _) {
                   return CustomTextButton(
                       text: AppStrings.next.tr(),
@@ -67,7 +64,7 @@ class _FreezerFirstViewState extends State<FreezerFirstView> {
                           ? () {
                               FocusScope.of(context).unfocus();
                               setState(() {
-                                widget.freezersViewModel.handleSteps();
+                                widget.waterTankViewModel.handleSteps();
                               });
                             }
                           : null);

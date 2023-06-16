@@ -1,23 +1,25 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/other/water_tank_view/views/water_viewmodel.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
 import '../../../../common/common_views/pageview_widgets/second_view_location/second_view_location.dart';
 import '../../../../common/common_views/pageview_widgets/second_view_time/second_view_time.dart';
-import '../../goods_viewmodel.dart';
 
-class GoodsSecondView extends StatefulWidget {
-  final GoodsViewModel goodsViewModel;
+class WaterSecondView extends StatefulWidget {
+  final WaterTankViewModel waterTankViewModel;
+  const WaterSecondView({
+    Key? key,
+    required this.waterTankViewModel,
+  }) : super(key: key);
 
-  const GoodsSecondView({Key? key, required this.goodsViewModel})
-      : super(key: key);
   @override
-  _GoodsSecondViewState createState() => _GoodsSecondViewState();
+  State<WaterSecondView> createState() => _WaterSecondViewState();
 }
 
-class _GoodsSecondViewState extends State<GoodsSecondView> {
+class _WaterSecondViewState extends State<WaterSecondView> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -29,12 +31,12 @@ class _GoodsSecondViewState extends State<GoodsSecondView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SecondViewTime(
-                  date: widget.goodsViewModel.goodsModel.date,
+                  date: widget.waterTankViewModel.waterModel.date,
                   onSelectDate: (date) {
                     Future.delayed(Duration.zero, () {
                       if (mounted) {
                         setState(() {
-                          widget.goodsViewModel.goodsModel.date = date;
+                          widget.waterTankViewModel.waterModel.date = date;
                         });
                       }
                     });
@@ -47,32 +49,32 @@ class _GoodsSecondViewState extends State<GoodsSecondView> {
                 SecondViewLocation(
                   onSelectSourcePlace: (lat, long, locationName) {
                     setState(() {
-                      widget.goodsViewModel.goodsModel.sourceLocationString =
-                          locationName;
-                      widget.goodsViewModel.goodsModel.pickupLocationLatitude =
-                          lat;
-                      widget.goodsViewModel.goodsModel.pickupLocationLongitude =
-                          long;
-                      widget.goodsViewModel.secondScreenValid.value =
-                          widget.goodsViewModel.validateSecondScreen();
+                      widget.waterTankViewModel.waterModel
+                          .sourceLocationString = locationName;
+                      widget.waterTankViewModel.waterModel
+                          .pickupLocationLatitude = lat;
+                      widget.waterTankViewModel.waterModel
+                          .pickupLocationLongitude = long;
+                      widget.waterTankViewModel.secondScreenValid.value =
+                          widget.waterTankViewModel.validateSecondScreen();
                     });
                   },
                   onSelectDestinPlace: (lat, long, locationName) {
                     setState(() {
-                      widget.goodsViewModel.goodsModel
+                      widget.waterTankViewModel.waterModel
                           .destinationLocationString = locationName;
-                      widget.goodsViewModel.goodsModel
+                      widget.waterTankViewModel.waterModel
                           .destinationLocationLatitude = lat;
-                      widget.goodsViewModel.goodsModel
+                      widget.waterTankViewModel.waterModel
                           .destinationLocationLongitude = long;
-                      widget.goodsViewModel.secondScreenValid.value =
-                          widget.goodsViewModel.validateSecondScreen();
+                      widget.waterTankViewModel.secondScreenValid.value =
+                          widget.waterTankViewModel.validateSecondScreen();
                     });
                   },
                   sourceLocationString:
-                      widget.goodsViewModel.goodsModel.sourceLocationString,
+                      widget.waterTankViewModel.waterModel.sourceLocationString,
                   destinLocationString: widget
-                      .goodsViewModel.goodsModel.destinationLocationString,
+                      .waterTankViewModel.waterModel.destinationLocationString,
                 ),
                 const SizedBox(
                   height: 64,
@@ -99,7 +101,7 @@ class _GoodsSecondViewState extends State<GoodsSecondView> {
               ],
             ),
             child: ValueListenableBuilder(
-                valueListenable: widget.goodsViewModel.secondScreenValid,
+                valueListenable: widget.waterTankViewModel.secondScreenValid,
                 builder: (BuildContext context, bool value, _) {
                   return CustomTextButton(
                       text: AppStrings.next.tr(),
@@ -107,7 +109,7 @@ class _GoodsSecondViewState extends State<GoodsSecondView> {
                           ? () {
                               FocusScope.of(context).unfocus();
                               setState(() {
-                                widget.goodsViewModel.handleSteps();
+                                widget.waterTankViewModel.handleSteps();
                               });
                             }
                           : null);

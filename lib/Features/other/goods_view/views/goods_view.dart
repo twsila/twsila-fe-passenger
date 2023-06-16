@@ -1,15 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:taxi_for_you/Features/other/goods_view/bloc/goods_bloc.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_bloc.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_state.dart';
 
 import '../../../../core/utils/resources/routes_manager.dart';
 import '../../../../core/utils/resources/strings_manager.dart';
 import '../../../common/state_renderer/dialogs.dart';
 import '../../../common/widgets/custom_scaffold.dart';
 import '../../../common/widgets/page_builder.dart';
-import '../../goods_view/bloc/goods_state.dart';
-import '../../common/pageview_widgets/transportation_top_widget.dart';
+import '../../common/common_views/pageview_widgets/transportation_top_widget.dart';
 import 'goods_viewmodel.dart';
 
 class GoodsView extends StatefulWidget {
@@ -36,9 +36,9 @@ class _GoodsViewState extends State<GoodsView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GoodsBloc, GoodsRequestStates>(
+    return BlocListener<TransportationBloc, TransportationRequestStates>(
         listener: (context, state) {
-          if (state is GoodsRequestIsLoading) {
+          if (state is TransportationRequestIsLoading) {
             setState(() {
               _viewModel.displayLoadingIndicator = true;
             });
@@ -47,7 +47,7 @@ class _GoodsViewState extends State<GoodsView> {
               _viewModel.displayLoadingIndicator = false;
             });
           }
-          if (state is GoodsRequestSuccessfully) {
+          if (state is TransportationRequestSuccessfully) {
             ShowDialogHelper.showSuccessMessage(
               AppStrings.tripConfirmationSucceeded.tr(),
               context,
@@ -57,7 +57,7 @@ class _GoodsViewState extends State<GoodsView> {
                 () => Navigator.popUntil(
                     context, ModalRoute.withName(Routes.homeRoute)));
           }
-          if (state is GoodsRequestFailed) {
+          if (state is TransportationRequestFailed) {
             ShowDialogHelper.showErrorMessage(
               state.baseResponse.errorMessage ?? 'Something went wrong',
               context,

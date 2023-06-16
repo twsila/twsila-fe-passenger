@@ -1,5 +1,3 @@
-import '../../../google_maps/model/location_model.dart';
-
 class FreezersModel {
   String? pickupLocationLongitude;
   String? pickupLocationLatitude;
@@ -25,8 +23,9 @@ class FreezersModel {
     destinationLocationLatitude = json['destinationLocationLatitude'];
     date = json['date'];
     sourceLocationString = json['sourceLocationString'];
-    sourceLocationString = json['destinationLocationString'];
+    destinationLocationString = json['destinationLocationString'];
     notes = json['notes'];
+    paymentValue = json['paymentValue'];
     shippedType = json['shippedType'];
     frozenMaterial = json['frozenMaterial'];
     containsLoading = json['containsLoading'];
@@ -57,6 +56,7 @@ class FreezersModel {
     if (destinationLocationString != null) {
       data['destinationLocationString'] = destinationLocationString;
     }
+    data['paymentValue'] = paymentValue.toString();
     data['containsLoading'] = containsLoading.toString();
     data['containscartons'] = containscartons.toString();
     return data;

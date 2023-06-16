@@ -1,10 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
-import 'package:taxi_for_you/Features/other/car_aid_view/models/car_aid_repo.dart';
-import 'package:taxi_for_you/Features/other/freezers_view/models/freezers_repo.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/models/furniture_repo.dart';
-import 'package:taxi_for_you/Features/other/goods_view/models/goods_repo.dart';
+import 'package:taxi_for_you/Features/other/common/common_repo/transportation_repo.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
 import 'package:taxi_for_you/Features/registeration/models/registeration_repo.dart';
@@ -33,16 +30,8 @@ Future<void> initAppModule() async {
     () => RegistrationRepo(instance<HttpBaseRequest>()),
   );
   instance.registerFactory<OtpRepo>(() => OtpRepo(instance<HttpBaseRequest>()));
-  instance.registerFactory<FurnitureRepo>(
-    () => FurnitureRepo(instance<HttpBaseRequest>()),
-  );
-  instance
-      .registerFactory<GoodsRepo>(() => GoodsRepo(instance<HttpBaseRequest>()));
-  instance.registerFactory<CarAidRepo>(
-    () => CarAidRepo(instance<HttpBaseRequest>()),
-  );
-  instance.registerFactory<FreezersRepo>(
-    () => FreezersRepo(instance<HttpBaseRequest>()),
+  instance.registerFactory<TransportationRepo>(
+    () => TransportationRepo(instance<HttpBaseRequest>()),
   );
 }
 

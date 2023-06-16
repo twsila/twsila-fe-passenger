@@ -3,52 +3,51 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_bloc.dart';
-import 'package:taxi_for_you/app/constants.dart';
 
+import '../../../../../../app/constants.dart';
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
+import '../../../../common/common_bloc/transportation_bloc.dart';
 import '../../../../common/common_bloc/transportation_event.dart';
 import '../../../../common/common_views/pageview_widgets/third_view_widget/third_view_widget.dart';
-import '../../goods_viewmodel.dart';
+import '../../water_viewmodel.dart';
 
-class GoodsThirdView extends StatefulWidget {
-  final GoodsViewModel goodsViewModel;
+class WaterThirdView extends StatefulWidget {
+  final WaterTankViewModel waterTankViewModel;
+  const WaterThirdView({
+    Key? key,
+    required this.waterTankViewModel,
+  }) : super(key: key);
 
-  const GoodsThirdView({Key? key, required this.goodsViewModel})
-      : super(key: key);
   @override
-  _GoodsThirdViewState createState() => _GoodsThirdViewState();
+  State<WaterThirdView> createState() => _WaterThirdViewState();
 }
 
-class _GoodsThirdViewState extends State<GoodsThirdView> {
+class _WaterThirdViewState extends State<WaterThirdView> {
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ThirdViewWidget(
-          images: widget.goodsViewModel.goodsModel.images,
-          notes: widget.goodsViewModel.goodsModel.notes,
-          amount: widget.goodsViewModel.goodsModel.paymentValue,
+          notes: widget.waterTankViewModel.waterModel.notes,
+          amount: widget.waterTankViewModel.waterModel.paymentValue,
           onNotesChanged: (notes) {
             if (notes != '') {
-              widget.goodsViewModel.goodsModel.notes = notes;
+              widget.waterTankViewModel.waterModel.notes = notes;
             } else {
-              widget.goodsViewModel.goodsModel.notes = null;
+              widget.waterTankViewModel.waterModel.notes = null;
             }
           },
           onAmountChanged: (amount) {
             if (amount != null && amount != '') {
-              widget.goodsViewModel.goodsModel.paymentValue = int.parse(amount);
-              widget.goodsViewModel.thirdScreenValid.value = true;
+              widget.waterTankViewModel.waterModel.paymentValue =
+                  int.parse(amount);
+              widget.waterTankViewModel.thirdScreenValid.value = true;
             } else {
-              widget.goodsViewModel.goodsModel.paymentValue = null;
-              widget.goodsViewModel.thirdScreenValid.value = false;
+              widget.waterTankViewModel.waterModel.paymentValue = null;
+              widget.waterTankViewModel.thirdScreenValid.value = false;
             }
-          },
-          onSelectImage: (images) {
-            widget.goodsViewModel.goodsModel.images = images;
           },
         ),
         Positioned(
@@ -69,19 +68,19 @@ class _GoodsThirdViewState extends State<GoodsThirdView> {
               ],
             ),
             child: ValueListenableBuilder(
-                valueListenable: widget.goodsViewModel.thirdScreenValid,
+                valueListenable: widget.waterTankViewModel.thirdScreenValid,
                 builder: (BuildContext context, bool value, _) {
                   return CustomTextButton(
                       text: AppStrings.sendRequest.tr(),
                       onPressed: value
                           ? () {
                               FocusScope.of(context).unfocus();
-                              inspect(widget.goodsViewModel.goodsModel);
+                              inspect(widget.waterTankViewModel.waterModel);
                               BlocProvider.of<TransportationBloc>(context).add(
                                 SendTransportationRequest(
-                                  endPoint: EndPointsConstants.sendGoodsRequest,
-                                  body:
-                                      widget.goodsViewModel.goodsModel.toJson(),
+                                  endPoint: EndPointsConstants.sendWaterRequest,
+                                  body: widget.waterTankViewModel.waterModel
+                                      .toJson(),
                                 ),
                               );
                             }

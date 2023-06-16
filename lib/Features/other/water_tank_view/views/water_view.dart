@@ -1,16 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxi_for_you/Features/other/water_tank_view/views/water_viewmodel.dart';
-import 'package:taxi_for_you/Features/other/water_tank_view/views/widgets/water_data_fields.dart';
-import 'package:taxi_for_you/Features/other/water_tank_view/views/widgets/water_result_widget.dart';
-import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
 
-import '../../../../core/utils/resources/assets_manager.dart';
+import '../../../../core/utils/resources/routes_manager.dart';
 import '../../../../core/utils/resources/strings_manager.dart';
 import '../../../common/state_renderer/dialogs.dart';
-import '../../../common/widgets/custom_back_button.dart';
-import '../../../common/widgets/custom_text_button.dart';
-import '../../../google_maps/view/google_search.dart';
+import '../../../common/widgets/custom_scaffold.dart';
+import '../../../common/widgets/page_builder.dart';
+import '../../common/common_bloc/transportation_bloc.dart';
+import '../../common/common_bloc/transportation_state.dart';
+import '../../common/common_views/pageview_widgets/transportation_top_widget.dart';
 
 class WaterTankView extends StatefulWidget {
   const WaterTankView({Key? key}) : super(key: key);
@@ -20,101 +20,82 @@ class WaterTankView extends StatefulWidget {
 }
 
 class _WaterTankViewState extends State<WaterTankView> {
-  bool isValidWeight = true;
-  WaterTankViewModel waterTankViewModel = WaterTankViewModel();
-  final TextEditingController sourceController = TextEditingController();
-  final TextEditingController destinationController = TextEditingController();
-
+  WaterTankViewModel _viewModel = WaterTankViewModel();
   @override
   void initState() {
-    sourceController.addListener(() {
-      waterTankViewModel.waterTankModel.sourceLocationString =
-          sourceController.text;
-    });
-    destinationController.addListener(() {
-      waterTankViewModel.waterTankModel.destinationLocationString =
-          destinationController.text;
-    });
+    _viewModel.start();
     super.initState();
   }
 
   @override
   void dispose() {
-    sourceController.dispose();
-    destinationController.dispose();
+    _viewModel.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: Container(
-            margin: const EdgeInsets.all(16),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  CustomBackButton(
-                    onPressed: () => Navigator.pop(context),
-                    text: AppStrings.waterTank.tr(),
-                  ),
-                  Container(
-                    height: context.getHeight() / 6,
-                    margin: const EdgeInsets.all(16),
-                    child: Center(child: Image.asset(ImageAssets.logoImg)),
-                  ),
-                  GoogleSearchScreen(
-                    sourceController: sourceController,
-                    destinationController: destinationController,
-                    onSelectSource: (source) => waterTankViewModel
-                        .waterTankModel.sourceLocation = source,
-                    onSelectDestination: (destination) => waterTankViewModel
-                        .waterTankModel.destinationLocation = destination,
-                    onSelectDate: (date, dateTime) =>
-                        waterTankViewModel.waterTankModel.date = date,
-                  ),
-                  WaterTankDataField(
-                    waterTankViewModel: waterTankViewModel,
-                    isValidWeight: isValidWeight,
-                  ),
-                  CustomTextButton(
-                    text: AppStrings.tripConfirmation.tr(),
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
-                      waterTankViewModel.waterTankModel.tankWeight == null
-                          ? setState(() {
-                              isValidWeight = false;
-                            })
-                          : setState(() {
-                              isValidWeight = true;
-                            });
-                      if (!isValidWeight) return;
-                      ShowDialogHelper.showDialogPopupWithCancel(
-                        AppStrings.tripConfirmation.tr(),
-                        '',
-                        context,
-                        () => Navigator.pop(context),
-                        () {
-                          ShowDialogHelper.showSuccessMessage(
-                              AppStrings.tripConfirmationSucceeded.tr(),
-                              context);
-                          Navigator.pop(context);
-                        },
-                        messageWidget: WaterTankResultWidget(
-                          waterTankModel: waterTankViewModel.waterTankModel,
+    return BlocListener<TransportationBloc, TransportationRequestStates>(
+        listener: (context, state) {
+          if (state is TransportationRequestIsLoading) {
+            setState(() {
+              _viewModel.displayLoadingIndicator = true;
+            });
+          } else {
+            setState(() {
+              _viewModel.displayLoadingIndicator = false;
+            });
+          }
+          if (state is TransportationRequestSuccessfully) {
+            ShowDialogHelper.showSuccessMessage(
+              AppStrings.tripConfirmationSucceeded.tr(),
+              context,
+            );
+            Future.delayed(
+                const Duration(seconds: 1),
+                () => Navigator.popUntil(
+                    context, ModalRoute.withName(Routes.homeRoute)));
+          }
+          if (state is TransportationRequestFailed) {
+            ShowDialogHelper.showErrorMessage(
+              state.baseResponse.errorMessage ?? 'Something went wrong',
+              context,
+            );
+          }
+        },
+        child: CustomScaffold(
+          pageBuilder: PageBuilder(
+            scaffoldKey: _viewModel.scaffoldKey,
+            displayLoadingIndicator: _viewModel.displayLoadingIndicator,
+            allowBackButtonInAppBar: false,
+            context: context,
+            body: ValueListenableBuilder<int>(
+                valueListenable: _viewModel.selectedIndex,
+                builder: (BuildContext context, int selectedIndex, _) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      TransportationTopWidget(
+                        text: AppStrings.requestWhite.tr() +
+                            ' ' +
+                            AppStrings.waterTankTransportation.tr(),
+                        controller: _viewModel.controller,
+                        selectedIndex: _viewModel.selectedIndex.value,
+                        noOfScreens: _viewModel.screens.length,
+                      ),
+                      Expanded(
+                        child: PageView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          controller: _viewModel.controller,
+                          children: _viewModel.screens,
+                          onPageChanged: (value) =>
+                              _viewModel.selectedIndex.value = value,
                         ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+                      ),
+                    ],
+                  );
+                }),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

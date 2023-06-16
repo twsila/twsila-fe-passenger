@@ -30,6 +30,7 @@ class FurnitureModel {
     sourceLocationString = json['destinationLocationString'];
     notes = json['notes'];
     furnitureItems = FurnitureItems.fromJson(json['furnitureItems']);
+    paymentValue = json['paymentValue'];
     containsLoading = json['containsLoading'];
     containsAssemble = json['containsAssemble'];
     containsPacking = json['containsPacking'];
@@ -59,6 +60,7 @@ class FurnitureModel {
     if (destinationLocationString != null) {
       data['destinationLocationString'] = destinationLocationString;
     }
+    data['paymentValue'] = paymentValue.toString();
     data['containsLoading'] = containsLoading.toString();
     data['containsAssemble'] = containsAssemble.toString();
     data['containsPacking'] = containsPacking.toString();

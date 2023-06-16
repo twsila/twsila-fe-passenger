@@ -1,8 +1,4 @@
-import '../../../google_maps/model/location_model.dart';
-
-class CarAidModel {
-  LocationModel? sourceLocation;
-  LocationModel? destinationLocation;
+class WaterModel {
   String? pickupLocationLongitude;
   String? pickupLocationLatitude;
   String? destinationLocationLongitude;
@@ -11,11 +7,12 @@ class CarAidModel {
   String? sourceLocationString;
   String? destinationLocationString;
   String? notes;
+  String? tankDetails;
   int? paymentValue;
 
-  CarAidModel();
+  WaterModel();
 
-  CarAidModel.fromJson(Map<String, dynamic> json) {
+  WaterModel.fromJson(Map<String, dynamic> json) {
     pickupLocationLongitude = json['pickupLocationLongitude'];
     pickupLocationLatitude = json['pickupLocationLatitude'];
     destinationLocationLongitude = json['destinationLocationLongitude'];
@@ -24,6 +21,7 @@ class CarAidModel {
     sourceLocationString = json['sourceLocationString'];
     sourceLocationString = json['destinationLocationString'];
     notes = json['notes'];
+    tankDetails = json['tankDetails'];
     paymentValue = json['paymentValue'];
   }
 
@@ -43,13 +41,13 @@ class CarAidModel {
     }
     if (date != null) data['date'] = date;
     if (notes != null) data['notes'] = notes;
-    if (paymentValue != null) data['paymentValue'] = paymentValue;
     if (sourceLocationString != null) {
       data['sourceLocationString'] = sourceLocationString;
     }
     if (destinationLocationString != null) {
       data['destinationLocationString'] = destinationLocationString;
     }
+    data['tankDetails'] = tankDetails.toString();
     return data;
   }
 }

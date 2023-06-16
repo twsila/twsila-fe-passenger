@@ -26,4 +26,5 @@ class EndPointsConstants {
   static const String sendGoodsRequest = 'trips/insert-goods-trip';
   static const String sendCarAidRequest = 'trips/insert-car-aid-trip';
   static const String sendFreezersRequest = 'trips/insert-frozen-trip';
+  static const String sendWaterRequest = 'trips/insert-water-tank-trip';
 }

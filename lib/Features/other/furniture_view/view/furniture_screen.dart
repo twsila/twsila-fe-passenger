@@ -5,9 +5,9 @@ import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 
 import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_bloc.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_state.dart';
-import 'package:taxi_for_you/Features/other/common/pageview_widgets/transportation_top_widget.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_bloc.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_state.dart';
+import 'package:taxi_for_you/Features/other/common/common_views/pageview_widgets/transportation_top_widget.dart';
 import 'package:taxi_for_you/core/utils/resources/routes_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'furniture_viewmodel.dart';
@@ -36,9 +36,9 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<FurnitureBloc, FurnitureRequestStates>(
+    return BlocListener<TransportationBloc, TransportationRequestStates>(
         listener: (context, state) {
-          if (state is FurnitureRequestIsLoading) {
+          if (state is TransportationRequestIsLoading) {
             setState(() {
               _viewModel.displayLoadingIndicator = true;
             });
@@ -47,7 +47,7 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
               _viewModel.displayLoadingIndicator = false;
             });
           }
-          if (state is FurnitureRequestSuccessfully) {
+          if (state is TransportationRequestSuccessfully) {
             ShowDialogHelper.showSuccessMessage(
               AppStrings.tripConfirmationSucceeded.tr(),
               context,
@@ -57,7 +57,7 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
                 () => Navigator.popUntil(
                     context, ModalRoute.withName(Routes.homeRoute)));
           }
-          if (state is FurnitureRequestFailed) {
+          if (state is TransportationRequestFailed) {
             ShowDialogHelper.showErrorMessage(
               state.baseResponse.errorMessage ?? 'Something went wrong',
               context,

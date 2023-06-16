@@ -9,10 +9,10 @@ class GoodsModel {
   String? sourceLocationString;
   String? destinationLocationString;
   String? notes;
-  String? transportationNature;
-  String? kindOfWrapping;
+  String? packagingType;
+  String? materialType;
+  int? payloadWeight;
   int? paymentValue;
-  int? goodsWeight;
   bool containsLoading = false;
   bool containsPacking = false;
   bool containsLift = false;
@@ -29,6 +29,10 @@ class GoodsModel {
     sourceLocationString = json['sourceLocationString'];
     sourceLocationString = json['destinationLocationString'];
     notes = json['notes'];
+    paymentValue = json['paymentValue'];
+    payloadWeight = json['payloadWeight'];
+    packagingType = json['packagingType'];
+    materialType = json['materialType'];
     containsLoading = json['containsLoading'];
     containsPacking = json['containsPacking'];
     containsLift = json['containsLift'];
@@ -56,6 +60,9 @@ class GoodsModel {
     if (destinationLocationString != null) {
       data['destinationLocationString'] = destinationLocationString;
     }
+    data['payloadWeight'] = payloadWeight.toString();
+    data['packagingType'] = packagingType.toString();
+    data['materialType'] = materialType.toString();
     data['containsLoading'] = containsLoading.toString();
     data['containsPacking'] = containsPacking.toString();
     data['containsLift'] = containsLift.toString();

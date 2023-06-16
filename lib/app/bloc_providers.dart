@@ -3,14 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/Features/login/bloc/login_bloc.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
-import 'package:taxi_for_you/Features/other/car_aid_view/bloc/car_aid_bloc.dart';
-import 'package:taxi_for_you/Features/other/car_aid_view/models/car_aid_repo.dart';
-import 'package:taxi_for_you/Features/other/freezers_view/bloc/freezers_bloc.dart';
-import 'package:taxi_for_you/Features/other/freezers_view/models/freezers_repo.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/bloc/furniture_bloc.dart';
-import 'package:taxi_for_you/Features/other/furniture_view/models/furniture_repo.dart';
-import 'package:taxi_for_you/Features/other/goods_view/bloc/goods_bloc.dart';
-import 'package:taxi_for_you/Features/other/goods_view/models/goods_repo.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_bloc.dart';
+import 'package:taxi_for_you/Features/other/common/common_repo/transportation_repo.dart';
 import 'package:taxi_for_you/Features/otp/bloc/otp_bloc.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/registeration/bloc/registeration_bloc.dart';
@@ -28,17 +22,8 @@ blocProviders(BuildContext context) {
       value: LoginBloc(instance<LoginRepo>(), instance<AppPreferences>()),
     ),
     BlocProvider.value(
-      value:
-          FurnitureBloc(instance<FurnitureRepo>(), instance<AppPreferences>()),
-    ),
-    BlocProvider.value(
-      value: GoodsBloc(instance<GoodsRepo>(), instance<AppPreferences>()),
-    ),
-    BlocProvider.value(
-      value: CarAidBloc(instance<CarAidRepo>(), instance<AppPreferences>()),
-    ),
-    BlocProvider.value(
-      value: FreezersBloc(instance<FreezersRepo>(), instance<AppPreferences>()),
+      value: TransportationBloc(
+          instance<TransportationRepo>(), instance<AppPreferences>()),
     ),
     BlocProvider.value(value: RegistrationBloc(instance<RegistrationRepo>())),
     BlocProvider.value(value: OtpBloc(instance<OtpRepo>())),

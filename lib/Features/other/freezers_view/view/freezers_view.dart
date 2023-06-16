@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_bloc.dart';
+import 'package:taxi_for_you/Features/other/common/common_bloc/transportation_state.dart';
 import '../../../../core/utils/resources/routes_manager.dart';
 import '../../../../core/utils/resources/strings_manager.dart';
 import '../../../common/state_renderer/dialogs.dart';
 import '../../../common/widgets/custom_scaffold.dart';
 import '../../../common/widgets/page_builder.dart';
-import '../../common/pageview_widgets/transportation_top_widget.dart';
-import '../bloc/freezers_bloc.dart';
-import '../bloc/freezers_state.dart';
+import '../../common/common_views/pageview_widgets/transportation_top_widget.dart';
 import 'freezers_viewmodel.dart';
 
 class FreezersView extends StatefulWidget {
@@ -35,9 +35,9 @@ class _FreezersViewState extends State<FreezersView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<FreezersBloc, FreezersRequestStates>(
+    return BlocListener<TransportationBloc, TransportationRequestStates>(
         listener: (context, state) {
-          if (state is FreezersRequestIsLoading) {
+          if (state is TransportationRequestIsLoading) {
             setState(() {
               _viewModel.displayLoadingIndicator = true;
             });
@@ -46,7 +46,7 @@ class _FreezersViewState extends State<FreezersView> {
               _viewModel.displayLoadingIndicator = false;
             });
           }
-          if (state is FreezersRequestSuccessfully) {
+          if (state is TransportationRequestSuccessfully) {
             ShowDialogHelper.showSuccessMessage(
               AppStrings.tripConfirmationSucceeded.tr(),
               context,
@@ -56,7 +56,7 @@ class _FreezersViewState extends State<FreezersView> {
                 () => Navigator.popUntil(
                     context, ModalRoute.withName(Routes.homeRoute)));
           }
-          if (state is FreezersRequestFailed) {
+          if (state is TransportationRequestFailed) {
             ShowDialogHelper.showErrorMessage(
               state.baseResponse.errorMessage ?? 'Something went wrong',
               context,

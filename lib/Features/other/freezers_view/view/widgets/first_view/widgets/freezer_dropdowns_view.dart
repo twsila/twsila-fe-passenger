@@ -24,13 +24,6 @@ class _FreezerDropdownsViewState extends State<FreezerDropdownsView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          AppStrings.transporationItems.tr(),
-          textAlign: TextAlign.start,
-          style:
-              getMediumStyle(color: ColorManager.titlesTextColor, fontSize: 16),
-        ),
-        const SizedBox(height: 16),
         CustomDropDown(
           stringsArr: widget.freezersViewModel.shippingTypes,
           intialValue: widget.freezersViewModel.freezersModel.shippedType,
@@ -43,6 +36,7 @@ class _FreezerDropdownsViewState extends State<FreezerDropdownsView> {
             });
           },
         ),
+        const SizedBox(height: 16),
         CustomDropDown(
           stringsArr: widget.freezersViewModel.materialsTobeShipped,
           intialValue: widget.freezersViewModel.freezersModel.frozenMaterial,
