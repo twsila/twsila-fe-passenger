@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
-import 'package:taxi_for_you/Features/other/common/common_repo/transportation_repo.dart';
+import 'package:taxi_for_you/Features/transportation_requests/common/common_repo/transportation_repo.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
 import 'package:taxi_for_you/Features/registeration/models/registeration_repo.dart';

@@ -88,7 +88,8 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
                       _viewModel.servicesList.length,
                       (index) => ServiceTransportationWidget(
                           serviceItem: _viewModel.servicesList[index])),
-                )
+                ),
+                const SizedBox(height: 32),
               ],
             ),
           ),

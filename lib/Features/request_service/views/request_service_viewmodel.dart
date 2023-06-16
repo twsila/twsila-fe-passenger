@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/base/baseviewmodel.dart';
-import 'package:taxi_for_you/Features/other/car_aid_view/views/car_aid_view.dart';
-import 'package:taxi_for_you/Features/other/goods_view/views/goods_view.dart';
-import 'package:taxi_for_you/Features/other/water_tank_view/views/water_view.dart';
+import 'package:taxi_for_you/Features/transportation_requests/car_aid_view/views/car_aid_view.dart';
+import 'package:taxi_for_you/Features/transportation_requests/cisterns_view/views/cisterns_view.dart';
+import 'package:taxi_for_you/Features/transportation_requests/goods_view/views/goods_view.dart';
+import 'package:taxi_for_you/Features/transportation_requests/water_tank_view/views/water_view.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
@@ -11,8 +12,8 @@ import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
 
 import '../../../core/utils/resources/routes_manager.dart';
-import '../../other/freezers_view/view/freezers_view.dart';
-import '../../other/furniture_view/view/furniture_screen.dart';
+import '../../transportation_requests/freezers_view/view/freezers_view.dart';
+import '../../transportation_requests/furniture_view/view/furniture_screen.dart';
 
 class RequestServiceViewModel extends BaseViewModel {
   final AppPreferences appPreferences = instance<AppPreferences>();
@@ -93,7 +94,13 @@ class RequestServiceViewModel extends BaseViewModel {
           text: AppStrings.cisternsTransportation.tr(),
           imageAsset: ImageAssets.carCisterns,
           color: const Color.fromRGBO(44, 132, 143, 0.15),
-          onPressed: () {},
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CisternsView(),
+              settings: const RouteSettings(name: Routes.cisternsRoute),
+            ),
+          ),
         ),
       ];
     }

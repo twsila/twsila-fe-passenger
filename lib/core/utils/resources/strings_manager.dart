@@ -58,7 +58,11 @@ class AppStrings {
   static const furnitureTransportation = "transport_furniture";
   static const transporationItems = "transporation_items";
   static const waterTankSize = "water_tank_size";
+  static const goodsSize = "goods_size";
+  static const cisternsType = "cisterns_type";
   static const extraServices = "extra_services";
+  static const materialTypes = "material_type";
+  static const packagingTypes = "packaging_type";
   static const goods = "goods";
   static const other = "other";
   static const freezers = "freezers";
