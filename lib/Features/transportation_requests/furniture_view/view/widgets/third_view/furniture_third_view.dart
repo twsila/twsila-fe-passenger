@@ -85,6 +85,8 @@ class _FurnitureThirdViewState extends State<FurnitureThirdView> {
                                 SendTransportationRequest(
                                   endPoint:
                                       EndPointsConstants.sendFurnitureRequest,
+                                  files: widget
+                                      .furnitureViewModel.furnitureModel.images,
                                   body: widget.furnitureViewModel.furnitureModel
                                       .toJson(),
                                 ),

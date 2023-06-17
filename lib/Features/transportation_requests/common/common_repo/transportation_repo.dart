@@ -1,3 +1,4 @@
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:taxi_for_you/core/network/base_request_interface.dart';
 import 'package:taxi_for_you/data/model/request-model.dart';
 
@@ -10,6 +11,7 @@ class TransportationRepo {
 
   Future<dynamic> sendTransportationRequest(
     String endPoint,
+    List<XFile>? files,
     Map<String, dynamic> body,
   ) async {
     RequestModel requestModel = RequestModel(
@@ -19,7 +21,7 @@ class TransportationRepo {
     );
     try {
       dynamic response =
-          await _baseRequest.sendMultiPartRequest(requestModel, null, body);
+          await _baseRequest.sendMultiPartRequest(requestModel, files, body);
       return response;
     } catch (e) {
       rethrow;

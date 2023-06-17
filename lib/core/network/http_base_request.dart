@@ -153,6 +153,7 @@ class HttpBaseRequest extends BaseRequestInterface {
       var multipartFile = await http.MultipartFile.fromPath(
         "tripImages",
         file.path,
+        filename: file.name,
         contentType: MediaType('image', 'jpg'),
       );
       files.add(multipartFile);

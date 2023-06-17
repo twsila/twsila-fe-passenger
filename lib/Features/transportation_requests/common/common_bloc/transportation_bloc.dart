@@ -22,7 +22,11 @@ class TransportationBloc
     emit(TransportationRequestIsLoading());
 
     try {
-      await (goodsRepo.sendTransportationRequest(event.endPoint, event.body));
+      await (goodsRepo.sendTransportationRequest(
+        event.endPoint,
+        event.files,
+        event.body,
+      ));
 
       emit(TransportationRequestSuccessfully());
     } catch (e) {
