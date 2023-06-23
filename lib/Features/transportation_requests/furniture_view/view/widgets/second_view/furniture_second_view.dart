@@ -33,10 +33,12 @@ class _FurnitureSecondViewState extends State<FurnitureSecondView> {
               children: [
                 SecondViewTime(
                   date: widget.furnitureViewModel.furnitureModel.date,
-                  onSelectDate: (date) {
+                  onSelectDate: (date, stringDate) {
                     Future.delayed(Duration.zero, () {
                       if (mounted) {
                         setState(() {
+                          widget.furnitureViewModel.furnitureModel.stringDate =
+                              stringDate;
                           widget.furnitureViewModel.furnitureModel.date = date;
                         });
                       }
@@ -51,7 +53,7 @@ class _FurnitureSecondViewState extends State<FurnitureSecondView> {
                   onSelectSourcePlace: (lat, long, locationName) {
                     setState(() {
                       widget.furnitureViewModel.furnitureModel
-                          .sourceLocationString = locationName;
+                          .pickupLocationName = locationName;
                       widget.furnitureViewModel.furnitureModel
                           .pickupLocationLatitude = lat;
                       widget.furnitureViewModel.furnitureModel
@@ -63,7 +65,7 @@ class _FurnitureSecondViewState extends State<FurnitureSecondView> {
                   onSelectDestinPlace: (lat, long, locationName) {
                     setState(() {
                       widget.furnitureViewModel.furnitureModel
-                          .destinationLocationString = locationName;
+                          .destinationLocationName = locationName;
                       widget.furnitureViewModel.furnitureModel
                           .destinationLocationLatitude = lat;
                       widget.furnitureViewModel.furnitureModel
@@ -72,10 +74,10 @@ class _FurnitureSecondViewState extends State<FurnitureSecondView> {
                           widget.furnitureViewModel.validateSecondScreen();
                     });
                   },
-                  sourceLocationString: widget
-                      .furnitureViewModel.furnitureModel.sourceLocationString,
+                  pickupLocationName: widget
+                      .furnitureViewModel.furnitureModel.pickupLocationName,
                   destinLocationString: widget.furnitureViewModel.furnitureModel
-                      .destinationLocationString,
+                      .destinationLocationName,
                 ),
                 const SizedBox(
                   height: 64,

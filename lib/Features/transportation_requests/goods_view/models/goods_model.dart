@@ -6,8 +6,9 @@ class GoodsModel {
   String? destinationLocationLongitude;
   String? destinationLocationLatitude;
   String? date;
-  String? sourceLocationString;
-  String? destinationLocationString;
+  String? stringDate;
+  String? pickupLocationName;
+  String? destinationLocationName;
   String? notes;
   String? packagingType;
   String? materialType;
@@ -25,11 +26,11 @@ class GoodsModel {
     pickupLocationLatitude = json['pickupLocationLatitude'];
     destinationLocationLongitude = json['destinationLocationLongitude'];
     destinationLocationLatitude = json['destinationLocationLatitude'];
-    date = json['date'];
-    sourceLocationString = json['sourceLocationString'];
-    sourceLocationString = json['destinationLocationString'];
+    stringDate = json['date'];
+    pickupLocationName = json['pickupLocationName'];
+    pickupLocationName = json['destinationLocationName'];
     notes = json['notes'];
-    paymentValue = json['paymentValue'];
+    paymentValue = json['clientOffer'];
     payloadWeight = json['payloadWeight'];
     packagingType = json['packagingType'];
     materialType = json['materialType'];
@@ -52,16 +53,19 @@ class GoodsModel {
     if (destinationLocationLatitude != null) {
       data['destinationLocationLatitude'] = destinationLocationLatitude;
     }
-    if (date != null) data['date'] = date;
+    if (date != null) data['date'] = stringDate;
     if (notes != null) data['notes'] = notes;
-    if (sourceLocationString != null) {
-      data['sourceLocationString'] = sourceLocationString;
+    if (pickupLocationName != null) {
+      data['pickupLocationName'] = pickupLocationName;
     }
-    if (destinationLocationString != null) {
-      data['destinationLocationString'] = destinationLocationString;
+    if (destinationLocationName != null) {
+      data['destinationLocationName'] = destinationLocationName;
     }
-    data['payloadWeight'] = payloadWeight.toString();
+    if (data['payloadWeight'] != null) {
+      data['payloadWeight'] = payloadWeight.toString();
+    }
     data['packagingType'] = packagingType.toString();
+    data['clientOffer'] = paymentValue.toString();
     data['materialType'] = materialType.toString();
     data['containsLoading'] = containsLoading.toString();
     data['containsPacking'] = containsPacking.toString();

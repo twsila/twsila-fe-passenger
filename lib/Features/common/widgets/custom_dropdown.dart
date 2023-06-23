@@ -43,6 +43,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
   @override
   void initState() {
     if (_isInit) {
+      _selectedValue = widget.intialValue;
       _isInit = false;
     }
     super.initState();

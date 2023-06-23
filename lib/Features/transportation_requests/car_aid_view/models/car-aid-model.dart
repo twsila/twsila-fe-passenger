@@ -4,8 +4,9 @@ class CarAidModel {
   String? destinationLocationLongitude;
   String? destinationLocationLatitude;
   String? date;
-  String? sourceLocationString;
-  String? destinationLocationString;
+  String? stringDate;
+  String? pickupLocationName;
+  String? destinationLocationName;
   String? notes;
   int? paymentValue;
 
@@ -16,11 +17,11 @@ class CarAidModel {
     pickupLocationLatitude = json['pickupLocationLatitude'];
     destinationLocationLongitude = json['destinationLocationLongitude'];
     destinationLocationLatitude = json['destinationLocationLatitude'];
-    date = json['date'];
-    sourceLocationString = json['sourceLocationString'];
-    sourceLocationString = json['destinationLocationString'];
+    stringDate = json['date'];
+    pickupLocationName = json['pickupLocationName'];
+    pickupLocationName = json['destinationLocationName'];
     notes = json['notes'];
-    paymentValue = json['paymentValue'];
+    paymentValue = json['clientOffer'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,12 +40,12 @@ class CarAidModel {
     }
     if (date != null) data['date'] = date;
     if (notes != null) data['notes'] = notes;
-    if (paymentValue != null) data['paymentValue'] = paymentValue;
-    if (sourceLocationString != null) {
-      data['sourceLocationString'] = sourceLocationString;
+    if (paymentValue != null) data['clientOffer'] = paymentValue.toString();
+    if (pickupLocationName != null) {
+      data['pickupLocationName'] = pickupLocationName;
     }
-    if (destinationLocationString != null) {
-      data['destinationLocationString'] = destinationLocationString;
+    if (destinationLocationName != null) {
+      data['destinationLocationName'] = destinationLocationName;
     }
     return data;
   }

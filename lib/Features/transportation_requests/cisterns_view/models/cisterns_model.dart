@@ -4,8 +4,9 @@ class CisternsModel {
   String? destinationLocationLongitude;
   String? destinationLocationLatitude;
   String? date;
-  String? sourceLocationString;
-  String? destinationLocationString;
+  String? stringDate;
+  String? pickupLocationName;
+  String? destinationLocationName;
   String? notes;
   String? cisternsType;
   int? paymentValue;
@@ -17,12 +18,12 @@ class CisternsModel {
     pickupLocationLatitude = json['pickupLocationLatitude'];
     destinationLocationLongitude = json['destinationLocationLongitude'];
     destinationLocationLatitude = json['destinationLocationLatitude'];
-    date = json['date'];
-    sourceLocationString = json['sourceLocationString'];
-    sourceLocationString = json['destinationLocationString'];
+    stringDate = json['date'];
+    pickupLocationName = json['pickupLocationName'];
+    pickupLocationName = json['destinationLocationName'];
     notes = json['notes'];
     cisternsType = json['cisternsType'];
-    paymentValue = json['paymentValue'];
+    paymentValue = json['clientOffer'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,15 +40,15 @@ class CisternsModel {
     if (destinationLocationLatitude != null) {
       data['destinationLocationLatitude'] = destinationLocationLatitude;
     }
-    if (date != null) data['date'] = date;
+    if (date != null) data['date'] = stringDate;
     if (notes != null) data['notes'] = notes;
-    if (cisternsType != null) data['cisternsType'] = cisternsType;
-    if (paymentValue != null) data['paymentValue'] = paymentValue.toString();
-    if (sourceLocationString != null) {
-      data['sourceLocationString'] = sourceLocationString;
+    if (cisternsType != null) data['tankType'] = 'SEWER'; //TODO: TO BE FIXED
+    if (paymentValue != null) data['clientOffer'] = paymentValue.toString();
+    if (pickupLocationName != null) {
+      data['pickupLocationName'] = pickupLocationName;
     }
-    if (destinationLocationString != null) {
-      data['destinationLocationString'] = destinationLocationString;
+    if (destinationLocationName != null) {
+      data['destinationLocationName'] = destinationLocationName;
     }
     return data;
   }

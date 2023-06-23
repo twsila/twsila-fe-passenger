@@ -74,9 +74,9 @@ class HttpBaseRequest extends BaseRequestInterface {
     List<XFile>? files,
     Map<String, dynamic> fields,
   ) async {
-    Uri uri = Uri.parse(Constants.baseUrl + requestModel.endPoint);
-    var request =
-        http.MultipartRequest(NETWORK_REQUEST_TYPE.POST.toString(), uri);
+    // Uri uri = Uri.parse(Constants.baseUrl + requestModel.endPoint);
+    Uri uri = Uri.https(Constants.baseUrlMultiPart, requestModel.endPoint);
+    var request = http.MultipartRequest('POST', uri);
 
     var headers = checkHeaders(isMultiPart: true);
 
@@ -97,15 +97,15 @@ class HttpBaseRequest extends BaseRequestInterface {
     print(uri);
     print("*****************Request******************");
     print(this.toString());
-    log("Request Body:${request.fields}");
+    log("Request Fields:${request.fields}");
 
-    log("Request Body:${request.files}");
+    log("Request Files:${request.files}");
     try {
       var streamedResponse = await request
           .send()
           .timeout(const Duration(seconds: Constants.apiTimeOut));
       var response = await http.Response.fromStream(streamedResponse);
-      return response;
+      return _returnResponse(response);
     } on SocketException {
       throw NoInternetException();
     } on TimeoutException {
@@ -115,13 +115,20 @@ class HttpBaseRequest extends BaseRequestInterface {
       throw InvalidInputException();
     } catch (e) {
       print(e);
+      if (e is PlatformException) {
+        throw PlatformException(
+          message: e.message,
+          code: e.code,
+          details: e.details,
+        );
+      }
       throw FetchDataException();
     }
   }
 
   dynamic _returnResponse(http.Response response) {
     late BaseResponse baseResponse;
-    if (response.bodyBytes.isNotEmpty) {
+    if (response.bodyBytes.isNotEmpty && response.statusCode == 200) {
       print(_decoder.convert(utf8.decode(response.bodyBytes)));
       baseResponse = BaseResponse.fromJson(
         _decoder.convert(utf8.decode(response.bodyBytes)),

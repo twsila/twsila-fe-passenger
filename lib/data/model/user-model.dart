@@ -1,6 +1,7 @@
 import 'package:taxi_for_you/data/model/user-device.dart';
 
 class UserModel {
+  int? userid;
   String? firstName;
   String? lastName;
   String? mobileNumber;
@@ -12,6 +13,7 @@ class UserModel {
   UserDevice? userDevice;
 
   UserModel({
+    this.userid,
     this.firstName,
     this.lastName,
     this.mobileNumber,
@@ -23,6 +25,7 @@ class UserModel {
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
+    userid = json['passengerId'];
     firstName = json['firstName'];
     lastName = json['lastName'];
     mobileNumber = json['mobile'];
@@ -36,6 +39,7 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> data = <String, dynamic>{};
+    data['passengerId'] = userid;
     data['firstName'] = firstName;
     data['lastName'] = lastName;
     data['email'] = email;

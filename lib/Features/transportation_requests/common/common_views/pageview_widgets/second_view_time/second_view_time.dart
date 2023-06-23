@@ -9,7 +9,7 @@ import '../../../../../../core/utils/resources/styles_manager.dart';
 
 class SecondViewTime extends StatefulWidget {
   final String? date;
-  final Function(String? date) onSelectDate;
+  final Function(String? date, String? formattedDate) onSelectDate;
 
   const SecondViewTime({
     Key? key,
@@ -22,7 +22,6 @@ class SecondViewTime extends StatefulWidget {
 
 class _SecondViewTimeState extends State<SecondViewTime> {
   bool isNow = true;
-  String dateFormatterString = 'dd MMM yyyy/ hh:mm a';
   // final _appPrefs = instance<AppPreferences>();
   final dateNow = DateTime.now();
   final timeNow = TimeOfDay.now();
@@ -53,7 +52,7 @@ class _SecondViewTimeState extends State<SecondViewTime> {
               child: GestureDetector(
                 onTap: () => setState(() {
                   isNow = true;
-                  widget.onSelectDate(null);
+                  widget.onSelectDate(null, null);
                 }),
                 child: Container(
                   padding:
@@ -88,7 +87,7 @@ class _SecondViewTimeState extends State<SecondViewTime> {
               child: GestureDetector(
                 onTap: () => setState(() {
                   isNow = false;
-                  widget.onSelectDate(null);
+                  widget.onSelectDate(null, null);
                 }),
                 child: Container(
                   padding:
@@ -126,7 +125,9 @@ class _SecondViewTimeState extends State<SecondViewTime> {
               const SizedBox(height: 16),
               CustomDatePickerWidget(
                 onSelectDate: (date, dateTime) {
-                  widget.onSelectDate(date);
+                  String? stringDate =
+                      DateFormat('dd-MM-yyyy hh:mm:ss').format(dateTime);
+                  widget.onSelectDate(date, stringDate);
                 },
                 firstDate: DateTime.now(),
                 initialDate: widget.date,

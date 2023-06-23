@@ -10,12 +10,12 @@ import '../../../../../../../../../../core/utils/resources/styles_manager.dart';
 
 class SourcePointWidget extends StatefulWidget {
   final Function(String lat, String long, String locationName) onSelectPlace;
-  final String? sourceLocationString;
+  final String? pickupLocationName;
 
   const SourcePointWidget({
     Key? key,
     required this.onSelectPlace,
-    this.sourceLocationString,
+    this.pickupLocationName,
   }) : super(key: key);
   @override
   _SourcePointWidgetState createState() => _SourcePointWidgetState();
@@ -48,13 +48,13 @@ class _SourcePointWidgetState extends State<SourcePointWidget> {
             const SizedBox(width: 16),
             Expanded(
               child: Text(
-                widget.sourceLocationString ?? AppStrings.selectStartPoint.tr(),
+                widget.pickupLocationName ?? AppStrings.selectStartPoint.tr(),
                 style: getBoldStyle(
                     color: ColorManager.primaryTextColor, fontSize: 16),
               ),
             ),
             const SizedBox(width: 8),
-            widget.sourceLocationString == null
+            widget.pickupLocationName == null
                 ? Icon(
                     Icons.arrow_forward,
                     color: ColorManager.primary,

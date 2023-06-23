@@ -7,8 +7,9 @@ class FurnitureModel {
   String? destinationLocationLongitude;
   String? destinationLocationLatitude;
   String? date;
-  String? sourceLocationString;
-  String? destinationLocationString;
+  String? stringDate;
+  String? pickupLocationName;
+  String? destinationLocationName;
   String? notes;
   FurnitureItems furnitureItems = FurnitureItems();
   int? paymentValue;
@@ -25,12 +26,12 @@ class FurnitureModel {
     pickupLocationLatitude = json['pickupLocationLatitude'];
     destinationLocationLongitude = json['destinationLocationLongitude'];
     destinationLocationLatitude = json['destinationLocationLatitude'];
-    date = json['date'];
-    sourceLocationString = json['sourceLocationString'];
-    sourceLocationString = json['destinationLocationString'];
+    stringDate = json['date'];
+    pickupLocationName = json['pickupLocationName'];
+    pickupLocationName = json['destinationLocationName'];
     notes = json['notes'];
     furnitureItems = FurnitureItems.fromJson(json['furnitureItems']);
-    paymentValue = json['paymentValue'];
+    paymentValue = json['clientOffer'];
     containsLoading = json['containsLoading'];
     containsAssemble = json['containsAssemble'];
     containsPacking = json['containsPacking'];
@@ -51,16 +52,16 @@ class FurnitureModel {
     if (destinationLocationLatitude != null) {
       data['destinationLocationLatitude'] = destinationLocationLatitude;
     }
-    if (date != null) data['date'] = date;
+    if (date != null) data['date'] = stringDate;
     if (notes != null) data['notes'] = notes;
     data['furnitureItems'] = json.encode(furnitureItems.toJson());
-    if (sourceLocationString != null) {
-      data['sourceLocationString'] = sourceLocationString;
+    if (pickupLocationName != null) {
+      data['pickupLocationName'] = pickupLocationName;
     }
-    if (destinationLocationString != null) {
-      data['destinationLocationString'] = destinationLocationString;
+    if (destinationLocationName != null) {
+      data['destinationLocationName'] = destinationLocationName;
     }
-    data['paymentValue'] = paymentValue.toString();
+    data['clientOffer'] = paymentValue.toString();
     data['containsLoading'] = containsLoading.toString();
     data['containsAssemble'] = containsAssemble.toString();
     data['containsPacking'] = containsPacking.toString();
@@ -98,16 +99,16 @@ class FurnitureItems {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> data = <String, dynamic>{};
-    data['roomsNumber'] = roomsNumber;
-    data['fridgeNumber'] = fridgeNumber;
-    data['sofaSetNumber'] = sofaSetNumber;
-    data['carpetNumber'] = carpetNumber;
-    data['windowAirconditionerNumber'] = windowAirconditionerNumber;
-    data['splitAirconditionerNumber'] = splitAirconditionerNumber;
-    data['kitchenNumber'] = kitchenNumber;
-    data['tablesNumber'] = tablesNumber;
-    data['diningRoomNumber'] = diningRoomNumber;
-    data['other'] = other;
+    data['roomsNumber'] = roomsNumber.toString();
+    data['fridgeNumber'] = fridgeNumber.toString();
+    data['sofaSetNumber'] = sofaSetNumber.toString();
+    data['carpetNumber'] = carpetNumber.toString();
+    data['windowAirconditionerNumber'] = windowAirconditionerNumber.toString();
+    data['splitAirconditionerNumber'] = splitAirconditionerNumber.toString();
+    data['kitchenNumber'] = kitchenNumber.toString();
+    data['tablesNumber'] = tablesNumber.toString();
+    data['diningRoomNumber'] = diningRoomNumber.toString();
+    data['other'] = other.toString();
     return data;
   }
 }

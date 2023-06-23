@@ -32,10 +32,12 @@ class _CisternsSecondViewState extends State<CisternsSecondView> {
               children: [
                 SecondViewTime(
                   date: widget.cisternsViewModel.cisternsModel.date,
-                  onSelectDate: (date) {
+                  onSelectDate: (date, stringDate) {
                     Future.delayed(Duration.zero, () {
                       if (mounted) {
                         setState(() {
+                          widget.cisternsViewModel.cisternsModel.stringDate =
+                              stringDate;
                           widget.cisternsViewModel.cisternsModel.date = date;
                         });
                       }
@@ -50,7 +52,7 @@ class _CisternsSecondViewState extends State<CisternsSecondView> {
                   onSelectSourcePlace: (lat, long, locationName) {
                     setState(() {
                       widget.cisternsViewModel.cisternsModel
-                          .sourceLocationString = locationName;
+                          .pickupLocationName = locationName;
                       widget.cisternsViewModel.cisternsModel
                           .pickupLocationLatitude = lat;
                       widget.cisternsViewModel.cisternsModel
@@ -62,7 +64,7 @@ class _CisternsSecondViewState extends State<CisternsSecondView> {
                   onSelectDestinPlace: (lat, long, locationName) {
                     setState(() {
                       widget.cisternsViewModel.cisternsModel
-                          .destinationLocationString = locationName;
+                          .destinationLocationName = locationName;
                       widget.cisternsViewModel.cisternsModel
                           .destinationLocationLatitude = lat;
                       widget.cisternsViewModel.cisternsModel
@@ -71,10 +73,10 @@ class _CisternsSecondViewState extends State<CisternsSecondView> {
                           widget.cisternsViewModel.validateSecondScreen();
                     });
                   },
-                  sourceLocationString: widget
-                      .cisternsViewModel.cisternsModel.sourceLocationString,
-                  destinLocationString: widget.cisternsViewModel.cisternsModel
-                      .destinationLocationString,
+                  pickupLocationName:
+                      widget.cisternsViewModel.cisternsModel.pickupLocationName,
+                  destinLocationString: widget
+                      .cisternsViewModel.cisternsModel.destinationLocationName,
                 ),
                 const SizedBox(
                   height: 64,

@@ -40,10 +40,16 @@ class _FreezerBooleanViewState extends State<FreezerBooleanView> {
           },
         ),
         CustomCheckBox(
-            checked: widget.freezersViewModel.freezersModel.containscartons,
+            checked: widget.freezersViewModel.freezersModel.containsPacking,
             fieldName: AppStrings.cartons.tr(),
             onChange: (checked) {
-              widget.freezersViewModel.freezersModel.containscartons = checked;
+              widget.freezersViewModel.freezersModel.containsPacking = checked;
+            }),
+        CustomCheckBox(
+            checked: widget.freezersViewModel.freezersModel.containsLift,
+            fieldName: AppStrings.crane.tr(),
+            onChange: (checked) {
+              widget.freezersViewModel.freezersModel.containsLift = checked;
             }),
       ],
     );

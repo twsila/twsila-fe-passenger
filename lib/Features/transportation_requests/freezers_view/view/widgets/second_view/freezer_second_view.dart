@@ -32,10 +32,12 @@ class _FreezerSecondViewState extends State<FreezerSecondView> {
               children: [
                 SecondViewTime(
                   date: widget.freezersViewModel.freezersModel.date,
-                  onSelectDate: (date) {
+                  onSelectDate: (date, stringDate) {
                     Future.delayed(Duration.zero, () {
                       if (mounted) {
                         setState(() {
+                          widget.freezersViewModel.freezersModel.stringDate =
+                              stringDate;
                           widget.freezersViewModel.freezersModel.date = date;
                         });
                       }
@@ -50,7 +52,7 @@ class _FreezerSecondViewState extends State<FreezerSecondView> {
                   onSelectSourcePlace: (lat, long, locationName) {
                     setState(() {
                       widget.freezersViewModel.freezersModel
-                          .sourceLocationString = locationName;
+                          .pickupLocationName = locationName;
                       widget.freezersViewModel.freezersModel
                           .pickupLocationLatitude = lat;
                       widget.freezersViewModel.freezersModel
@@ -62,7 +64,7 @@ class _FreezerSecondViewState extends State<FreezerSecondView> {
                   onSelectDestinPlace: (lat, long, locationName) {
                     setState(() {
                       widget.freezersViewModel.freezersModel
-                          .destinationLocationString = locationName;
+                          .destinationLocationName = locationName;
                       widget.freezersViewModel.freezersModel
                           .destinationLocationLatitude = lat;
                       widget.freezersViewModel.freezersModel
@@ -71,10 +73,10 @@ class _FreezerSecondViewState extends State<FreezerSecondView> {
                           widget.freezersViewModel.validateSecondScreen();
                     });
                   },
-                  sourceLocationString: widget
-                      .freezersViewModel.freezersModel.sourceLocationString,
-                  destinLocationString: widget.freezersViewModel.freezersModel
-                      .destinationLocationString,
+                  pickupLocationName:
+                      widget.freezersViewModel.freezersModel.pickupLocationName,
+                  destinLocationString: widget
+                      .freezersViewModel.freezersModel.destinationLocationName,
                 ),
                 const SizedBox(
                   height: 64,

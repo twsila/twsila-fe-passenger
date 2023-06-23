@@ -32,10 +32,12 @@ class _WaterSecondViewState extends State<WaterSecondView> {
               children: [
                 SecondViewTime(
                   date: widget.waterTankViewModel.waterModel.date,
-                  onSelectDate: (date) {
+                  onSelectDate: (date, stringDate) {
                     Future.delayed(Duration.zero, () {
                       if (mounted) {
                         setState(() {
+                          widget.waterTankViewModel.waterModel.stringDate =
+                              stringDate;
                           widget.waterTankViewModel.waterModel.date = date;
                         });
                       }
@@ -49,8 +51,8 @@ class _WaterSecondViewState extends State<WaterSecondView> {
                 SecondViewLocation(
                   onSelectSourcePlace: (lat, long, locationName) {
                     setState(() {
-                      widget.waterTankViewModel.waterModel
-                          .sourceLocationString = locationName;
+                      widget.waterTankViewModel.waterModel.pickupLocationName =
+                          locationName;
                       widget.waterTankViewModel.waterModel
                           .pickupLocationLatitude = lat;
                       widget.waterTankViewModel.waterModel
@@ -62,7 +64,7 @@ class _WaterSecondViewState extends State<WaterSecondView> {
                   onSelectDestinPlace: (lat, long, locationName) {
                     setState(() {
                       widget.waterTankViewModel.waterModel
-                          .destinationLocationString = locationName;
+                          .destinationLocationName = locationName;
                       widget.waterTankViewModel.waterModel
                           .destinationLocationLatitude = lat;
                       widget.waterTankViewModel.waterModel
@@ -71,10 +73,10 @@ class _WaterSecondViewState extends State<WaterSecondView> {
                           widget.waterTankViewModel.validateSecondScreen();
                     });
                   },
-                  sourceLocationString:
-                      widget.waterTankViewModel.waterModel.sourceLocationString,
+                  pickupLocationName:
+                      widget.waterTankViewModel.waterModel.pickupLocationName,
                   destinLocationString: widget
-                      .waterTankViewModel.waterModel.destinationLocationString,
+                      .waterTankViewModel.waterModel.destinationLocationName,
                 ),
                 const SizedBox(
                   height: 64,

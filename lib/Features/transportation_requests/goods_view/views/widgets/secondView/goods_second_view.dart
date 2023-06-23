@@ -30,10 +30,12 @@ class _GoodsSecondViewState extends State<GoodsSecondView> {
               children: [
                 SecondViewTime(
                   date: widget.goodsViewModel.goodsModel.date,
-                  onSelectDate: (date) {
+                  onSelectDate: (date, stringDate) {
                     Future.delayed(Duration.zero, () {
                       if (mounted) {
                         setState(() {
+                          widget.goodsViewModel.goodsModel.stringDate =
+                              stringDate;
                           widget.goodsViewModel.goodsModel.date = date;
                         });
                       }
@@ -47,7 +49,7 @@ class _GoodsSecondViewState extends State<GoodsSecondView> {
                 SecondViewLocation(
                   onSelectSourcePlace: (lat, long, locationName) {
                     setState(() {
-                      widget.goodsViewModel.goodsModel.sourceLocationString =
+                      widget.goodsViewModel.goodsModel.pickupLocationName =
                           locationName;
                       widget.goodsViewModel.goodsModel.pickupLocationLatitude =
                           lat;
@@ -59,8 +61,8 @@ class _GoodsSecondViewState extends State<GoodsSecondView> {
                   },
                   onSelectDestinPlace: (lat, long, locationName) {
                     setState(() {
-                      widget.goodsViewModel.goodsModel
-                          .destinationLocationString = locationName;
+                      widget.goodsViewModel.goodsModel.destinationLocationName =
+                          locationName;
                       widget.goodsViewModel.goodsModel
                           .destinationLocationLatitude = lat;
                       widget.goodsViewModel.goodsModel
@@ -69,10 +71,10 @@ class _GoodsSecondViewState extends State<GoodsSecondView> {
                           widget.goodsViewModel.validateSecondScreen();
                     });
                   },
-                  sourceLocationString:
-                      widget.goodsViewModel.goodsModel.sourceLocationString,
-                  destinLocationString: widget
-                      .goodsViewModel.goodsModel.destinationLocationString,
+                  pickupLocationName:
+                      widget.goodsViewModel.goodsModel.pickupLocationName,
+                  destinLocationString:
+                      widget.goodsViewModel.goodsModel.destinationLocationName,
                 ),
                 const SizedBox(
                   height: 64,

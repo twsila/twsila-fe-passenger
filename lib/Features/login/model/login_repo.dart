@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/network/base_request_interface.dart';
 import 'package:taxi_for_you/data/model/request-model.dart';
@@ -11,10 +15,7 @@ class LoginRepo {
   LoginRepo(this._baseRequest);
 
   Future<dynamic> loginUser(String mobileNumber) async {
-    UserDevice userDevice = UserDevice(
-        registrationId: "asda8sd84asd",
-        appVersion: "android",
-        deviceOs: "2.3,23");
+    UserDevice userDevice = await setUserDevice();
     var body = {'userDeviceDTO': userDevice.toJson(), "mobile": mobileNumber};
     RequestModel requestModel = RequestModel(
       endPoint: EndPointsConstants.login,
@@ -28,5 +29,27 @@ class LoginRepo {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<UserDevice> setUserDevice() async {
+    late UserDevice userDevice;
+
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    if (Platform.isIOS) {
+      userDevice = UserDevice(
+        deviceOs: 'iPhone',
+        appVersion: packageInfo.version,
+        registrationId: '123',
+      );
+    } else {
+      userDevice = UserDevice(
+        deviceOs: 'Android',
+        appVersion: packageInfo.version,
+        registrationId: '123',
+      );
+    }
+
+    return userDevice;
   }
 }

@@ -32,10 +32,12 @@ class _CarAidSecondViewState extends State<CarAidSecondView> {
               children: [
                 SecondViewTime(
                   date: widget.carAidViewModel.carAidModel.date,
-                  onSelectDate: (date) {
+                  onSelectDate: (date, stringDate) {
                     Future.delayed(Duration.zero, () {
                       if (mounted) {
                         setState(() {
+                          widget.carAidViewModel.carAidModel.stringDate =
+                              stringDate;
                           widget.carAidViewModel.carAidModel.date = date;
                         });
                       }
@@ -49,7 +51,7 @@ class _CarAidSecondViewState extends State<CarAidSecondView> {
                 SecondViewLocation(
                   onSelectSourcePlace: (lat, long, locationName) {
                     setState(() {
-                      widget.carAidViewModel.carAidModel.sourceLocationString =
+                      widget.carAidViewModel.carAidModel.pickupLocationName =
                           locationName;
                       widget.carAidViewModel.carAidModel
                           .pickupLocationLatitude = lat;
@@ -62,7 +64,7 @@ class _CarAidSecondViewState extends State<CarAidSecondView> {
                   onSelectDestinPlace: (lat, long, locationName) {
                     setState(() {
                       widget.carAidViewModel.carAidModel
-                          .destinationLocationString = locationName;
+                          .destinationLocationName = locationName;
                       widget.carAidViewModel.carAidModel
                           .destinationLocationLatitude = lat;
                       widget.carAidViewModel.carAidModel
@@ -71,10 +73,10 @@ class _CarAidSecondViewState extends State<CarAidSecondView> {
                           widget.carAidViewModel.validateSecondScreen();
                     });
                   },
-                  sourceLocationString:
-                      widget.carAidViewModel.carAidModel.sourceLocationString,
+                  pickupLocationName:
+                      widget.carAidViewModel.carAidModel.pickupLocationName,
                   destinLocationString: widget
-                      .carAidViewModel.carAidModel.destinationLocationString,
+                      .carAidViewModel.carAidModel.destinationLocationName,
                 ),
                 const SizedBox(
                   height: 64,

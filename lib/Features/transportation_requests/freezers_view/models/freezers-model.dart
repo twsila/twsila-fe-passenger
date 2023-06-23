@@ -4,15 +4,17 @@ class FreezersModel {
   String? destinationLocationLongitude;
   String? destinationLocationLatitude;
   String? date;
-  String? sourceLocationString;
-  String? destinationLocationString;
+  String? stringDate;
+  String? pickupLocationName;
+  String? destinationLocationName;
   String? notes;
   String? shippedType;
   String? frozenMaterial;
   int? paymentValue;
   int? goodsWeight;
   bool containsLoading = false;
-  bool containscartons = false;
+  bool containsPacking = false;
+  bool containsLift = false;
 
   FreezersModel();
 
@@ -21,15 +23,16 @@ class FreezersModel {
     pickupLocationLatitude = json['pickupLocationLatitude'];
     destinationLocationLongitude = json['destinationLocationLongitude'];
     destinationLocationLatitude = json['destinationLocationLatitude'];
-    date = json['date'];
-    sourceLocationString = json['sourceLocationString'];
-    destinationLocationString = json['destinationLocationString'];
+    stringDate = json['date'];
+    pickupLocationName = json['pickupLocationName'];
+    destinationLocationName = json['destinationLocationName'];
     notes = json['notes'];
-    paymentValue = json['paymentValue'];
-    shippedType = json['shippedType'];
+    paymentValue = json['clientOffer'];
+    shippedType = json['shippingType'];
     frozenMaterial = json['frozenMaterial'];
     containsLoading = json['containsLoading'];
-    containscartons = json['containsLift'];
+    containsPacking = json['containsPacking'];
+    containsPacking = json['containsLift'];
   }
 
   Map<String, dynamic> toJson() {
@@ -46,19 +49,20 @@ class FreezersModel {
     if (destinationLocationLatitude != null) {
       data['destinationLocationLatitude'] = destinationLocationLatitude;
     }
-    if (date != null) data['date'] = date;
+    if (date != null) data['date'] = stringDate;
     if (notes != null) data['notes'] = notes;
-    if (shippedType != null) data['shippedType'] = shippedType;
+    if (shippedType != null) data['shippingType'] = 'DRY'; //TODO: TO BE FIXED
     if (frozenMaterial != null) data['frozenMaterial'] = frozenMaterial;
-    if (sourceLocationString != null) {
-      data['sourceLocationString'] = sourceLocationString;
+    if (pickupLocationName != null) {
+      data['pickupLocationName'] = pickupLocationName;
     }
-    if (destinationLocationString != null) {
-      data['destinationLocationString'] = destinationLocationString;
+    if (destinationLocationName != null) {
+      data['destinationLocationName'] = destinationLocationName;
     }
-    data['paymentValue'] = paymentValue.toString();
+    data['clientOffer'] = paymentValue.toString();
     data['containsLoading'] = containsLoading.toString();
-    data['containscartons'] = containscartons.toString();
+    data['containsPacking'] = containsPacking.toString();
+    data['containsLift'] = containsLift.toString();
     return data;
   }
 }

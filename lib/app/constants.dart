@@ -1,6 +1,8 @@
 class Constants {
   static const String baseUrl =
       "https://twsila-dev-service-f33wiujt7a-lm.a.run.app/";
+  static const String baseUrlMultiPart =
+      "twsila-dev-service-f33wiujt7a-lm.a.run.app";
   static const int apiTimeOut = 60;
   static const int otpCountTime = 60;
   static const String GOOGLE_API_KEY_ANDROID =

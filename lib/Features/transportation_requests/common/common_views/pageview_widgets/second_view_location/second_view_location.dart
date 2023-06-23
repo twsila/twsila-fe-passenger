@@ -12,14 +12,14 @@ class SecondViewLocation extends StatefulWidget {
       onSelectSourcePlace;
   final Function(String lat, String long, String locationName)
       onSelectDestinPlace;
-  final String? sourceLocationString;
+  final String? pickupLocationName;
   final String? destinLocationString;
 
   const SecondViewLocation({
     Key? key,
     required this.onSelectSourcePlace,
     required this.onSelectDestinPlace,
-    this.sourceLocationString,
+    this.pickupLocationName,
     this.destinLocationString,
   }) : super(key: key);
   @override
@@ -42,7 +42,7 @@ class _SecondViewLocationState extends State<SecondViewLocation> {
         const SizedBox(height: 16),
         SourcePointWidget(
           onSelectPlace: widget.onSelectSourcePlace,
-          sourceLocationString: widget.sourceLocationString,
+          pickupLocationName: widget.pickupLocationName,
         ),
         const SizedBox(height: 16),
         DestinationPointWidget(
