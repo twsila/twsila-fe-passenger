@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -10,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/network/base_request_interface.dart';
+import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/data/model/request-model.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
 
@@ -128,7 +130,7 @@ class HttpBaseRequest extends BaseRequestInterface {
 
   dynamic _returnResponse(http.Response response) {
     late BaseResponse baseResponse;
-    if (response.bodyBytes.isNotEmpty && response.statusCode == 200) {
+    if (response.bodyBytes.isNotEmpty) {
       print(_decoder.convert(utf8.decode(response.bodyBytes)));
       baseResponse = BaseResponse.fromJson(
         _decoder.convert(utf8.decode(response.bodyBytes)),
@@ -146,7 +148,8 @@ class HttpBaseRequest extends BaseRequestInterface {
         return baseResponse;
       default:
         throw PlatformException(
-          message: baseResponse.errorMessage ?? '',
+          message:
+              baseResponse.errorMessage ?? AppStrings.somethingWentWrong.tr(),
           code: baseResponse.errorCode ?? '',
           details: baseResponse,
         );

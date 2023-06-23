@@ -19,6 +19,7 @@
   "save": "Save",
   "step": "Step",
   "next": "Next",
+  "something_went_wrong": "Something went wrong, Please try again later!",
   "birthdate": "Birthdate",
   "register": "Register",
   "login": "Login",
