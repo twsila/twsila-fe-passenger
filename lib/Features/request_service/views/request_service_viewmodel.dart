@@ -1,19 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/base/baseviewmodel.dart';
-import 'package:taxi_for_you/Features/transportation_requests/car_aid_view/views/car_aid_view.dart';
-import 'package:taxi_for_you/Features/transportation_requests/cisterns_view/views/cisterns_view.dart';
-import 'package:taxi_for_you/Features/transportation_requests/goods_view/views/goods_view.dart';
-import 'package:taxi_for_you/Features/transportation_requests/water_tank_view/views/water_view.dart';
+import 'package:taxi_for_you/Features/transportation_requests/car_aid_view/models/car-aid-model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/cisterns_view/models/cisterns_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/common/common_views/transport_request_view.dart';
+import 'package:taxi_for_you/Features/transportation_requests/freezers_view/models/freezers-model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/furniture_view/models/furniture_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/goods_view/models/goods_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/water_tank_view/models/water_model.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
-
-import '../../../core/utils/resources/routes_manager.dart';
-import '../../transportation_requests/freezers_view/view/freezers_view.dart';
-import '../../transportation_requests/furniture_view/view/furniture_screen.dart';
 
 class RequestServiceViewModel extends BaseViewModel {
   final AppPreferences appPreferences = instance<AppPreferences>();
@@ -37,8 +36,11 @@ class RequestServiceViewModel extends BaseViewModel {
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const FurnitureScreen(),
-              settings: const RouteSettings(name: Routes.furnitureRoute),
+              builder: (context) => TransportRequestScreen(
+                transportationBaseModel: FurnitureModel(),
+                icon: ImageAssets.carFurniture,
+                title: AppStrings.furnitureTransportation.tr(),
+              ),
             ),
           ),
         ),
@@ -49,8 +51,11 @@ class RequestServiceViewModel extends BaseViewModel {
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const GoodsView(),
-              settings: const RouteSettings(name: Routes.goodsRoute),
+              builder: (context) => TransportRequestScreen(
+                transportationBaseModel: GoodsModel(),
+                icon: ImageAssets.carGoods,
+                title: AppStrings.goodsTransportation.tr(),
+              ),
             ),
           ),
         ),
@@ -61,8 +66,14 @@ class RequestServiceViewModel extends BaseViewModel {
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const CarAidView(),
-              settings: const RouteSettings(name: Routes.carAidRoute),
+              builder: (context) => TransportRequestScreen(
+                transportationBaseModel: CarAidModel(),
+                hasImages: false,
+                icon: ImageAssets.carAid,
+                title: AppStrings.request.tr() +
+                    ' ' +
+                    AppStrings.carAidTransportation.tr(),
+              ),
             ),
           ),
         ),
@@ -73,8 +84,11 @@ class RequestServiceViewModel extends BaseViewModel {
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const FreezersView(),
-              settings: const RouteSettings(name: Routes.freezerRoute),
+              builder: (context) => TransportRequestScreen(
+                transportationBaseModel: FreezersModel(),
+                icon: ImageAssets.carfrozen,
+                title: AppStrings.freezerTransportation.tr(),
+              ),
             ),
           ),
         ),
@@ -85,8 +99,14 @@ class RequestServiceViewModel extends BaseViewModel {
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const WaterTankView(),
-              settings: const RouteSettings(name: Routes.waterTankRoute),
+              builder: (context) => TransportRequestScreen(
+                hasImages: false,
+                icon: ImageAssets.carDrinkWater,
+                transportationBaseModel: WaterModel(),
+                title: AppStrings.requestWhite.tr() +
+                    ' ' +
+                    AppStrings.waterTankTransportation.tr(),
+              ),
             ),
           ),
         ),
@@ -97,8 +117,13 @@ class RequestServiceViewModel extends BaseViewModel {
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const CisternsView(),
-              settings: const RouteSettings(name: Routes.cisternsRoute),
+              builder: (context) => TransportRequestScreen(
+                transportationBaseModel: CisternsModel(),
+                icon: ImageAssets.carCisterns,
+                title: AppStrings.request.tr() +
+                    ' ' +
+                    AppStrings.cisternsTransportation.tr(),
+              ),
             ),
           ),
         ),

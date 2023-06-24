@@ -1,55 +1,19 @@
-class CisternsModel {
-  String? pickupLocationLongitude;
-  String? pickupLocationLatitude;
-  String? destinationLocationLongitude;
-  String? destinationLocationLatitude;
-  String? date;
-  String? stringDate;
-  String? pickupLocationName;
-  String? destinationLocationName;
-  String? notes;
+import 'package:taxi_for_you/Features/transportation_requests/common/common_repo/transportation_base_model.dart';
+
+class CisternsModel extends TransportationBaseModel {
   String? cisternsType;
-  int? paymentValue;
 
   CisternsModel();
 
   CisternsModel.fromJson(Map<String, dynamic> json) {
-    pickupLocationLongitude = json['pickupLocationLongitude'];
-    pickupLocationLatitude = json['pickupLocationLatitude'];
-    destinationLocationLongitude = json['destinationLocationLongitude'];
-    destinationLocationLatitude = json['destinationLocationLatitude'];
-    stringDate = json['date'];
-    pickupLocationName = json['pickupLocationName'];
-    pickupLocationName = json['destinationLocationName'];
-    notes = json['notes'];
+    fromJSON(json);
     cisternsType = json['cisternsType'];
-    paymentValue = json['clientOffer'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toCisternsJson() {
     Map<String, dynamic> data = <String, dynamic>{};
-    if (pickupLocationLongitude != null) {
-      data['pickupLocationLongitude'] = pickupLocationLongitude;
-    }
-    if (pickupLocationLatitude != null) {
-      data['pickupLocationLatitude'] = pickupLocationLatitude;
-    }
-    if (destinationLocationLongitude != null) {
-      data['destinationLocationLongitude'] = destinationLocationLongitude;
-    }
-    if (destinationLocationLatitude != null) {
-      data['destinationLocationLatitude'] = destinationLocationLatitude;
-    }
-    if (date != null) data['date'] = stringDate;
-    if (notes != null) data['notes'] = notes;
+    data = toJSON();
     if (cisternsType != null) data['tankType'] = 'SEWER'; //TODO: TO BE FIXED
-    if (paymentValue != null) data['clientOffer'] = paymentValue.toString();
-    if (pickupLocationName != null) {
-      data['pickupLocationName'] = pickupLocationName;
-    }
-    if (destinationLocationName != null) {
-      data['destinationLocationName'] = destinationLocationName;
-    }
     return data;
   }
 }

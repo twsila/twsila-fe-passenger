@@ -146,7 +146,7 @@ class _MutliPickImageWidgetState extends State<MutliPickImageWidget> {
                 const Icon(Icons.file_upload_outlined),
                 const SizedBox(width: 8),
                 Text(
-                  AppStrings.attachFurnitureImages.tr(),
+                  AppStrings.addImages.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!

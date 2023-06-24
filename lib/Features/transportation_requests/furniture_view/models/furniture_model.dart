@@ -1,67 +1,28 @@
 import 'dart:convert';
-import 'package:image_picker/image_picker.dart';
+import 'package:taxi_for_you/Features/transportation_requests/common/common_repo/transportation_base_model.dart';
 
-class FurnitureModel {
-  String? pickupLocationLongitude;
-  String? pickupLocationLatitude;
-  String? destinationLocationLongitude;
-  String? destinationLocationLatitude;
-  String? date;
-  String? stringDate;
-  String? pickupLocationName;
-  String? destinationLocationName;
-  String? notes;
+class FurnitureModel extends TransportationBaseModel {
   FurnitureItems furnitureItems = FurnitureItems();
-  int? paymentValue;
   bool containsLoading = false;
   bool containsAssemble = false;
   bool containsPacking = false;
   bool containsLift = false;
-  List<XFile>? images;
 
   FurnitureModel();
 
   FurnitureModel.fromJson(Map<String, dynamic> json) {
-    pickupLocationLongitude = json['pickupLocationLongitude'];
-    pickupLocationLatitude = json['pickupLocationLatitude'];
-    destinationLocationLongitude = json['destinationLocationLongitude'];
-    destinationLocationLatitude = json['destinationLocationLatitude'];
-    stringDate = json['date'];
-    pickupLocationName = json['pickupLocationName'];
-    pickupLocationName = json['destinationLocationName'];
-    notes = json['notes'];
+    fromJSON(json);
     furnitureItems = FurnitureItems.fromJson(json['furnitureItems']);
-    paymentValue = json['clientOffer'];
     containsLoading = json['containsLoading'];
     containsAssemble = json['containsAssemble'];
     containsPacking = json['containsPacking'];
     containsLift = json['containsLift'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toFurnitureJson() {
     Map<String, dynamic> data = <String, dynamic>{};
-    if (pickupLocationLongitude != null) {
-      data['pickupLocationLongitude'] = pickupLocationLongitude;
-    }
-    if (pickupLocationLatitude != null) {
-      data['pickupLocationLatitude'] = pickupLocationLatitude;
-    }
-    if (destinationLocationLongitude != null) {
-      data['destinationLocationLongitude'] = destinationLocationLongitude;
-    }
-    if (destinationLocationLatitude != null) {
-      data['destinationLocationLatitude'] = destinationLocationLatitude;
-    }
-    if (date != null) data['date'] = stringDate;
-    if (notes != null) data['notes'] = notes;
+    data = toJSON();
     data['furnitureItems'] = json.encode(furnitureItems.toJson());
-    if (pickupLocationName != null) {
-      data['pickupLocationName'] = pickupLocationName;
-    }
-    if (destinationLocationName != null) {
-      data['destinationLocationName'] = destinationLocationName;
-    }
-    data['clientOffer'] = paymentValue.toString();
     data['containsLoading'] = containsLoading.toString();
     data['containsAssemble'] = containsAssemble.toString();
     data['containsPacking'] = containsPacking.toString();

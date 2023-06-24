@@ -143,6 +143,7 @@ class AppStrings {
   static const privateNotes = "private_notes";
   static const notesHint = "notes_hint";
   static const pickedImages = "picked_images";
+  static const addImages = "add_images";
   static const nothing = "nothing";
   static const gallery = "gallery";
   static const camera = "camera";
