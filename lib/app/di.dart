@@ -1,12 +1,12 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
-import 'package:taxi_for_you/Features/transportation_requests/common/common_repo/transportation_repo.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
 import 'package:taxi_for_you/Features/registeration/models/registeration_repo.dart';
 import '../Features/login/views/login_viewmodel.dart';
 import '../Features/registeration/views/registeration_viewmodel.dart';
+import '../Features/transportation_requests/model/transportation_repo.dart';
 import '../core/network/http_base_request.dart';
 import 'app_prefs.dart';
 

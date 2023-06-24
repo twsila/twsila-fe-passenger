@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/Features/login/bloc/login_bloc.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
-import 'package:taxi_for_you/Features/transportation_requests/common/common_bloc/transportation_bloc.dart';
-import 'package:taxi_for_you/Features/transportation_requests/common/common_repo/transportation_repo.dart';
 import 'package:taxi_for_you/Features/otp/bloc/otp_bloc.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/registeration/bloc/registeration_bloc.dart';
@@ -14,6 +12,8 @@ import 'package:taxi_for_you/app/di.dart';
 
 import '../Features/google_maps/bloc/maps_bloc.dart';
 import '../Features/google_maps/model/maps_repo.dart';
+import '../Features/transportation_requests/bloc/transportation_bloc.dart';
+import '../Features/transportation_requests/model/transportation_repo.dart';
 import '../core/utils/location/map_provider.dart';
 
 blocProviders(BuildContext context) {

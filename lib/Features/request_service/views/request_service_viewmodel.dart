@@ -1,18 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/base/baseviewmodel.dart';
-import 'package:taxi_for_you/Features/transportation_requests/car_aid_view/models/car-aid-model.dart';
-import 'package:taxi_for_you/Features/transportation_requests/cisterns_view/models/cisterns_model.dart';
-import 'package:taxi_for_you/Features/transportation_requests/common/common_views/transport_request_view.dart';
-import 'package:taxi_for_you/Features/transportation_requests/freezers_view/models/freezers-model.dart';
-import 'package:taxi_for_you/Features/transportation_requests/furniture_view/models/furniture_model.dart';
-import 'package:taxi_for_you/Features/transportation_requests/goods_view/models/goods_model.dart';
-import 'package:taxi_for_you/Features/transportation_requests/water_tank_view/models/water_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/furniture/models/furniture_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
+
+import '../../transportation_requests/view/transport_request_view.dart';
+import '../../transportation_requests/view/widgets/transportation_widgets/car_aid/models/car-aid-model.dart';
+import '../../transportation_requests/view/widgets/transportation_widgets/cisterns/models/cisterns_model.dart';
+import '../../transportation_requests/view/widgets/transportation_widgets/freezers/models/freezers-model.dart';
+import '../../transportation_requests/view/widgets/transportation_widgets/water_tank/models/water_model.dart';
 
 class RequestServiceViewModel extends BaseViewModel {
   final AppPreferences appPreferences = instance<AppPreferences>();
