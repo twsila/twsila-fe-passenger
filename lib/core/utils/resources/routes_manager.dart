@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/home/views/home_screen.dart';
 import 'package:taxi_for_you/Features/transportation_requests/cisterns_view/views/cisterns_view.dart';
+import 'package:taxi_for_you/Features/trip_details/view/trip_details_screen.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_screen.dart';
 import '../../../Features/transportation_requests/car_aid_view/views/car_aid_view.dart';
@@ -28,6 +29,7 @@ class Routes {
   static const String carAidRoute = "/carAid";
   static const String waterTankRoute = "/waterTank";
   static const String cisternsRoute = "/cisterns";
+  static const String tripDetailsRoute = "/trip-details";
 }
 
 class RouteGenerator {
@@ -52,6 +54,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const CisternsView());
       case Routes.freezerRoute:
         return MaterialPageRoute(builder: (_) => const FreezersView());
+      case Routes.tripDetailsRoute:
+        return MaterialPageRoute(builder: (_) => const TripDetailsScreen());
       case Routes.loginRoute:
         initLoginModule();
         return MaterialPageRoute(

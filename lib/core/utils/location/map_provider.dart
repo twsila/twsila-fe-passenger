@@ -15,6 +15,7 @@ import 'package:taxi_for_you/core/utils/location/show_all_markers.dart';
 import 'package:taxi_for_you/data/model/country.dart';
 
 import '../../../Features/google_maps/model/location_model.dart';
+import '../../../data/model/user-model.dart';
 
 class MapProvider with ChangeNotifier {
   final AppPreferences appPreferences = instance<AppPreferences>();
@@ -62,18 +63,36 @@ class MapProvider with ChangeNotifier {
   }
 
   Future<CountryModel?> getCountryPhoneCode() async {
-    var response = await http.get(Uri.parse('http://ip-api.com/json'));
-    var jsonResponse = json.decode(response.body);
-    final isoCode = jsonResponse['countryCode'];
-
-    print('country is: $isoCode');
-
     List<CountryModel> countriesList = appPreferences.getCountries();
-    CountryModel? country = countriesList.singleWhereOrNull(
-      (element) => element.country == isoCode,
-    );
+    try {
+      var response = await http.get(Uri.parse('http://ip-api.com/json'));
+      var jsonResponse = json.decode(response.body);
+      final isoCode = jsonResponse['countryCode'];
 
-    return country;
+      print('country is: $isoCode');
+
+      CountryModel? country = countriesList.singleWhereOrNull(
+        (element) => element.country == isoCode,
+      );
+
+      return country;
+    } catch (e) {
+      if (appPreferences.getUserData() != null) {
+        UserModel user = appPreferences.getUserData()!;
+        if (user.mobileNumber!.contains('+20')) {
+          CountryModel? country = countriesList.singleWhereOrNull(
+            (element) => element.countryCode == '+20',
+          );
+          return country;
+        } else if (user.mobileNumber!.contains('+966')) {
+          CountryModel? country = countriesList.singleWhereOrNull(
+            (element) => element.countryCode == '+966',
+          );
+          return country;
+        }
+      }
+    }
+    return null;
   }
 
   //Handle Map
