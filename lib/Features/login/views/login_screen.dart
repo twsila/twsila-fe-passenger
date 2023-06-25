@@ -6,7 +6,6 @@ import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
 import 'dart:ui' as ui;
 
-import '../../../app/app_prefs.dart';
 import '../../../app/di.dart';
 import '../../../core/utils/location/map_provider.dart';
 import '../../../core/utils/resources/assets_manager.dart';
@@ -28,7 +27,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final LoginViewModel _viewModel = instance<LoginViewModel>();
-  final AppPreferences _appPreferences = instance<AppPreferences>();
   final _formKey = GlobalKey<FormState>();
 
   _bind() {
@@ -63,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       Center(
                         child: Image(
                           image: const AssetImage(ImageAssets.logoImg),
-                          height: 28,
                           width: context.getWidth() / 4,
                           fit: BoxFit.fill,
                         ),
@@ -72,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: context.getHeight() / 16),
+                  margin: EdgeInsets.only(top: context.getHeight() / 40),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
