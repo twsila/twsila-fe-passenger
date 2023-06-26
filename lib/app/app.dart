@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/app/bloc_providers.dart';
+import 'package:taxi_for_you/app/global_variables.dart';
 import '../core/utils/resources/routes_manager.dart';
 import '../core/utils/resources/theme_manager.dart';
 import 'app_prefs.dart';
@@ -41,6 +42,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
+        navigatorObservers: [GlobalVariable.routeObserver],
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.splashRoute,
         theme: getApplicationTheme(),

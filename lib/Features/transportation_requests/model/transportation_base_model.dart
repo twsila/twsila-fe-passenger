@@ -1,6 +1,8 @@
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class TransportationBaseModel {
+  int? tripId;
+  String? tripEndPoint;
   String? pickupLocationLongitude;
   String? pickupLocationLatitude;
   String? destinationLocationLongitude;
@@ -16,6 +18,8 @@ class TransportationBaseModel {
   TransportationBaseModel();
 
   fromJSON(Map<String, dynamic> json) {
+    tripId = json['tripId'];
+    tripEndPoint = json['tripEndPoint'];
     pickupLocationLongitude = json['pickupLocationLongitude'];
     pickupLocationLatitude = json['pickupLocationLatitude'];
     destinationLocationLongitude = json['destinationLocationLongitude'];
@@ -24,7 +28,7 @@ class TransportationBaseModel {
     pickupLocationName = json['pickupLocationName'];
     pickupLocationName = json['destinationLocationName'];
     notes = json['notes'];
-    paymentValue = json['clientOffer'];
+    paymentValue = int.parse(json['clientOffer']);
   }
 
   Map<String, dynamic> toJSON() {

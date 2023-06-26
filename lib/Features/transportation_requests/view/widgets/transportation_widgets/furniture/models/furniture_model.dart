@@ -13,11 +13,12 @@ class FurnitureModel extends TransportationBaseModel {
 
   FurnitureModel.fromJson(Map<String, dynamic> json) {
     fromJSON(json);
-    furnitureItems = FurnitureItems.fromJson(json['furnitureItems']);
-    containsLoading = json['containsLoading'];
-    containsAssemble = json['containsAssemble'];
-    containsPacking = json['containsPacking'];
-    containsLift = json['containsLift'];
+    furnitureItems =
+        FurnitureItems.fromJson(jsonDecode(json['furnitureItems']));
+    containsLoading = json['containsLoading'] == 'true';
+    containsAssemble = json['containsAssemble'] == 'true';
+    containsPacking = json['containsPacking'] == 'true';
+    containsLift = json['containsLift'] == 'true';
   }
 
   Map<String, dynamic> toFurnitureJson() {
@@ -47,16 +48,16 @@ class FurnitureItems {
   FurnitureItems();
 
   FurnitureItems.fromJson(Map<String, dynamic> json) {
-    roomsNumber = json['roomsNumber'];
-    fridgeNumber = json['fridgeNumber'];
-    sofaSetNumber = json['sofaSetNumber'];
-    carpetNumber = json['carpetNumber'];
-    windowAirconditionerNumber = json['windowAirconditionerNumber'];
-    splitAirconditionerNumber = json['splitAirconditionerNumber'];
-    kitchenNumber = json['kitchenNumber'];
-    tablesNumber = json['tablesNumber'];
-    diningRoomNumber = json['diningRoomNumber'];
-    other = json['other'];
+    roomsNumber = int.parse(json['roomsNumber']);
+    fridgeNumber = int.parse(json['fridgeNumber']);
+    sofaSetNumber = int.parse(json['sofaSetNumber']);
+    carpetNumber = int.parse(json['carpetNumber']);
+    windowAirconditionerNumber = int.parse(json['windowAirconditionerNumber']);
+    splitAirconditionerNumber = int.parse(json['splitAirconditionerNumber']);
+    kitchenNumber = int.parse(json['kitchenNumber']);
+    tablesNumber = int.parse(json['tablesNumber']);
+    diningRoomNumber = int.parse(json['diningRoomNumber']);
+    other = int.parse(json['other']);
   }
 
   Map<String, dynamic> toJson() {

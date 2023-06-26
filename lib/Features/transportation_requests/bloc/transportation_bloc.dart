@@ -22,13 +22,21 @@ class TransportationBloc
     emit(TransportationRequestIsLoading());
 
     try {
-      await (goodsRepo.sendTransportationRequest(
+      BaseResponse baseResponse = await (goodsRepo.sendTransportationRequest(
         event.endPoint,
         event.files,
         event.body,
       ));
 
-      emit(TransportationRequestSuccessfully());
+      int tripId = baseResponse.result;
+      var body = event.body;
+      body['tripId'] = tripId;
+      body['tripEndPoint'] = event.endPoint;
+
+      emit(TransportationRequestSuccessfully(
+        body: body,
+        endPoint: event.endPoint,
+      ));
     } catch (e) {
       if (e is PlatformException) {
         if (e.message != null) {

@@ -6,6 +6,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/car_aid/models/car-aid-model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/cisterns/models/cisterns_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/freezers/models/freezers-model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/furniture/models/furniture_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/models/water_model.dart';
+import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/data/model/country.dart';
@@ -16,6 +24,12 @@ const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
 const String USER_MODEL = "USER_MODEL";
 const String USER_SELECTED_COUNTRY = "USER_SELECTED_COUNTRY";
 const String USER_MOBILE_NUMBER = "USER_MOBILE_NUMBER";
+const String FURNITURE_TRIP = "FURNITURE_TRIP";
+const String GOODS_TRIP = "GOODS_TRIP";
+const String FREEZERS_TRIP = "FREEZERS_TRIP";
+const String CISTERNS_TRIP = "CISTERNS_TRIP";
+const String CAR_AID_TRIP = "CAR_AID_TRIP";
+const String WATER_TRIP = "WATER_TRIP";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -148,5 +162,69 @@ class AppPreferences {
     _sharedPreferences.remove(USER_MODEL);
 
     Phoenix.rebirth(context);
+  }
+
+  //Save Trip to cache
+  Future saveTripToCache({
+    required Map<String, dynamic> tripJson,
+    required String endPoint,
+  }) async {
+    if (endPoint == EndPointsConstants.sendFurnitureRequest) {
+      await _sharedPreferences.setString(FURNITURE_TRIP, json.encode(tripJson));
+    } else if (endPoint == EndPointsConstants.sendGoodsRequest) {
+      await _sharedPreferences.setString(GOODS_TRIP, json.encode(tripJson));
+    } else if (endPoint == EndPointsConstants.sendCarAidRequest) {
+      await _sharedPreferences.setString(CAR_AID_TRIP, json.encode(tripJson));
+    } else if (endPoint == EndPointsConstants.sendFreezersRequest) {
+      await _sharedPreferences.setString(FREEZERS_TRIP, json.encode(tripJson));
+    } else if (endPoint == EndPointsConstants.sendCisternsRequest) {
+      await _sharedPreferences.setString(CISTERNS_TRIP, json.encode(tripJson));
+    } else if (endPoint == EndPointsConstants.sendWaterRequest) {
+      await _sharedPreferences.setString(WATER_TRIP, json.encode(tripJson));
+    }
+  }
+
+  List<TransportationBaseModel> getTrips() {
+    List<TransportationBaseModel> tripList = [];
+    if (_sharedPreferences.getString(FURNITURE_TRIP) != null) {
+      tripList.add(FurnitureModel.fromJson(
+        json.decode(_sharedPreferences.getString(FURNITURE_TRIP)!),
+      ));
+    }
+    if (_sharedPreferences.getString(GOODS_TRIP) != null) {
+      tripList.add(GoodsModel.fromJson(
+        json.decode(_sharedPreferences.getString(GOODS_TRIP)!),
+      ));
+    }
+    if (_sharedPreferences.getString(FREEZERS_TRIP) != null) {
+      tripList.add(FreezersModel.fromJson(
+        json.decode(_sharedPreferences.getString(FREEZERS_TRIP)!),
+      ));
+    }
+    if (_sharedPreferences.getString(CAR_AID_TRIP) != null) {
+      tripList.add(CarAidModel.fromJson(
+        json.decode(_sharedPreferences.getString(CAR_AID_TRIP)!),
+      ));
+    }
+    if (_sharedPreferences.getString(CISTERNS_TRIP) != null) {
+      tripList.add(CisternsModel.fromJson(
+        json.decode(_sharedPreferences.getString(CISTERNS_TRIP)!),
+      ));
+    }
+    if (_sharedPreferences.getString(WATER_TRIP) != null) {
+      tripList.add(WaterModel.fromJson(
+        json.decode(_sharedPreferences.getString(WATER_TRIP)!),
+      ));
+    }
+    return tripList;
+  }
+
+  void removeTrips() {
+    _sharedPreferences.remove(FURNITURE_TRIP);
+    _sharedPreferences.remove(GOODS_TRIP);
+    _sharedPreferences.remove(CAR_AID_TRIP);
+    _sharedPreferences.remove(FREEZERS_TRIP);
+    _sharedPreferences.remove(CISTERNS_TRIP);
+    _sharedPreferences.remove(FREEZERS_TRIP);
   }
 }

@@ -11,7 +11,15 @@ class TransportationRequestIsNotLoading extends TransportationRequestStates {}
 
 class TransportationRequestIsLoading extends TransportationRequestStates {}
 
-class TransportationRequestSuccessfully extends TransportationRequestStates {}
+class TransportationRequestSuccessfully extends TransportationRequestStates {
+  final Map<String, dynamic> body;
+  final String endPoint;
+
+  TransportationRequestSuccessfully({
+    required this.body,
+    required this.endPoint,
+  });
+}
 
 class TransportationRequestFailed extends TransportationRequestStates {
   final BaseResponse baseResponse;

@@ -49,7 +49,7 @@ class _TransportRequestScreenState extends State<TransportRequestScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<TransportationBloc, TransportationRequestStates>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is TransportationRequestIsLoading) {
             setState(() {
               _viewModel.displayLoadingIndicator = true;
@@ -63,6 +63,10 @@ class _TransportRequestScreenState extends State<TransportRequestScreen> {
             ShowDialogHelper.showSuccessMessage(
               AppStrings.tripConfirmationSucceeded.tr(),
               context,
+            );
+            await _viewModel.appPreferences.saveTripToCache(
+              tripJson: state.body,
+              endPoint: state.endPoint,
             );
             Future.delayed(
                 const Duration(seconds: 1),

@@ -11,6 +11,9 @@ class AppStrings {
   static const save = "save";
   static const step = "step";
   static const next = "next";
+  static const continueRequest = "continue_request";
+  static const newRequest = "new_request";
+  static const oldRequest = "old_request";
   static const somethingWentWrong = "something_went_wrong";
   static const codeIs = "code_is";
   static const validateSuccessfully = "validate_successfully";

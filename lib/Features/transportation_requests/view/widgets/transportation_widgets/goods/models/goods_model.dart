@@ -12,12 +12,12 @@ class GoodsModel extends TransportationBaseModel {
 
   GoodsModel.fromJson(Map<String, dynamic> json) {
     fromJSON(json);
-    payloadWeight = json['payloadWeight'];
+    payloadWeight = int.parse(json['payloadWeight']);
     packagingType = json['packagingType'];
     materialType = json['materialType'];
-    containsLoading = json['containsLoading'];
-    containsPacking = json['containsPacking'];
-    containsLift = json['containsLift'];
+    containsLoading = json['containsLoading'] == true;
+    containsPacking = json['containsPacking'] == true;
+    containsLift = json['containsLift'] == true;
   }
 
   Map<String, dynamic> toGoodsJson() {
