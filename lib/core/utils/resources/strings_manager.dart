@@ -12,6 +12,7 @@ class AppStrings {
   static const step = "step";
   static const next = "next";
   static const continueRequest = "continue_request";
+  static const tripDetails = 'trip_details';
   static const newRequest = "new_request";
   static const oldRequest = "old_request";
   static const somethingWentWrong = "something_went_wrong";

@@ -34,6 +34,7 @@ class TransportationBloc
       body['tripEndPoint'] = event.endPoint;
 
       emit(TransportationRequestSuccessfully(
+        tripId: tripId,
         body: body,
         endPoint: event.endPoint,
       ));

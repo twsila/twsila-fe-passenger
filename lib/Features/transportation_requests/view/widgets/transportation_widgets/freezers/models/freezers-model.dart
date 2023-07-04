@@ -14,9 +14,9 @@ class FreezersModel extends TransportationBaseModel {
     fromJSON(json);
     shippedType = json['shippingType'];
     frozenMaterial = json['frozenMaterial'];
-    containsLoading = json['containsLoading'];
-    containsPacking = json['containsPacking'];
-    containsPacking = json['containsLift'];
+    containsLoading = json['containsLoading'] == true;
+    containsPacking = json['containsPacking'] == true;
+    containsPacking = json['containsLift'] == true;
   }
 
   Map<String, dynamic> toFreezersJson() {

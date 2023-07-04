@@ -12,10 +12,12 @@ class TransportationRequestIsNotLoading extends TransportationRequestStates {}
 class TransportationRequestIsLoading extends TransportationRequestStates {}
 
 class TransportationRequestSuccessfully extends TransportationRequestStates {
+  final int tripId;
   final Map<String, dynamic> body;
   final String endPoint;
 
   TransportationRequestSuccessfully({
+    required this.tripId,
     required this.body,
     required this.endPoint,
   });

@@ -11,6 +11,7 @@ class CustomTextButton extends StatefulWidget {
   final String text;
   final Color? color;
   final Color? textColor;
+  final bool? hasBorder;
   final double? height;
   final bool showIcon;
   final bool showShadow;
@@ -19,6 +20,7 @@ class CustomTextButton extends StatefulWidget {
     this.color,
     this.height,
     this.onPressed,
+    this.hasBorder = false,
     this.showIcon = true,
     this.showShadow = true,
     this.textColor,
@@ -37,6 +39,9 @@ class _CustomTextButtonState extends State<CustomTextButton> {
       width: double.infinity,
       height: widget.height ?? 50,
       decoration: BoxDecoration(
+        border: widget.hasBorder!
+            ? Border.all(color: ColorManager.primaryTextColor, width: 0.5)
+            : null,
         borderRadius: const BorderRadius.all(Radius.circular(4)),
         boxShadow: widget.onPressed == null || !widget.showShadow
             ? []

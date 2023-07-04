@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_close_button.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
+import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 
 import '../state_renderer/easy_loader.dart';
 import 'custom_back_button.dart';
@@ -98,7 +99,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                                   Colors.transparent,
                           // Material 3, disable scroll elevation
                           scrolledUnderElevation: 0,
-                          centerTitle: widget.pageBuilder.centerTitle ?? false,
+                          centerTitle: widget.pageBuilder.centerTitle ?? true,
                           iconTheme: const IconThemeData(color: Colors.black),
                           elevation: widget.pageBuilder.elevation ?? 0,
                         ),
@@ -138,17 +139,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   }
 
   Widget? _buildAppbarTitle() {
-    return widget.pageBuilder.appbarTitleWidget != null
-        ? widget.pageBuilder.appbarTitleWidget
-        : widget.pageBuilder.appBarTitle != null
+    return widget.pageBuilder.appbarTitleWidget ??
+        (widget.pageBuilder.appBarTitle != null
             ? Text(
                 widget.pageBuilder.appBarTitle!,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center,
+                style: getMediumStyle(color: Colors.black, fontSize: 22),
               )
-            : null;
+            : null);
   }
 
   _buildBody(PageBuilder pageBuilder) {

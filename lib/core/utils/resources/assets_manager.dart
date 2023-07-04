@@ -8,6 +8,7 @@ class ImageAssets {
   static const String how = "$imagePath/how.png";
   static const String car = "$imagePath/car.png";
   static const String thunder = "$imagePath/thunder.png";
+  static const String driverWaiting = "$imagePath/driver-waiting.gif";
   static const String pin = "$imagePath/pin.png";
   static const String clock = "$imagePath/clock.png";
   static const String correct = "$imagePath/correct.png";

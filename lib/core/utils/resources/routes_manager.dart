@@ -17,7 +17,6 @@ class Routes {
   static const String verifyOtpRoute = "/verifyOtp";
   static const String homeRoute = "/home";
   static const String otherRoute = "/other";
-  static const String tripDetailsRoute = "/trip-details";
 }
 
 class RouteGenerator {
@@ -30,8 +29,6 @@ class RouteGenerator {
           builder: (_) => HomeScreen(),
           settings: const RouteSettings(name: Routes.homeRoute),
         );
-      case Routes.tripDetailsRoute:
-        return MaterialPageRoute(builder: (_) => const TripDetailsScreen());
       case Routes.loginRoute:
         initLoginModule();
         return MaterialPageRoute(

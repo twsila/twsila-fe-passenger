@@ -10,6 +10,7 @@ import '../../../../core/utils/resources/assets_manager.dart';
 import '../../../../core/utils/resources/langauge_manager.dart';
 import '../../../../core/utils/resources/strings_manager.dart';
 import '../../../../core/utils/resources/styles_manager.dart';
+import '../../../trip_details/view/trip_details_screen.dart';
 
 class OldTripWidget extends StatefulWidget {
   final List<TransportationBaseModel> tripsList;
@@ -39,11 +40,11 @@ class _OldTripWidgetState extends State<OldTripWidget> {
       return AppStrings.request.tr() +
           ' ' +
           AppStrings.freezerTransportation.tr();
-    } else if (endPoint == EndPointsConstants.sendCisternsRequest) {
+    } else if (endPoint == EndPointsConstants.sendWaterRequest) {
       return AppStrings.requestWhite.tr() +
           ' ' +
           AppStrings.waterTankTransportation.tr();
-    } else if (endPoint == EndPointsConstants.sendWaterRequest) {
+    } else if (endPoint == EndPointsConstants.sendCisternsRequest) {
       return AppStrings.request.tr() +
           ' ' +
           AppStrings.cisternsTransportation.tr();
@@ -75,7 +76,15 @@ class _OldTripWidgetState extends State<OldTripWidget> {
               children: List.generate(
                   widget.tripsList.length,
                   (index) => GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TripDetailsScreen(
+                                  tripId: widget.tripsList[index].tripId!),
+                            ),
+                          );
+                        },
                         child: Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(

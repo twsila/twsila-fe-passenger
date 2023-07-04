@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/transport_request_viewmodel.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/custom_widgets/transportation_top_widget.dart';
+import 'package:taxi_for_you/Features/trip_details/view/trip_details_screen.dart';
 
 import '../../../../core/utils/resources/routes_manager.dart';
 import '../../../../core/utils/resources/strings_manager.dart';
@@ -69,9 +70,14 @@ class _TransportRequestScreenState extends State<TransportRequestScreen> {
               endPoint: state.endPoint,
             );
             Future.delayed(
-                const Duration(seconds: 1),
-                () => Navigator.popUntil(
-                    context, ModalRoute.withName(Routes.homeRoute)));
+              const Duration(seconds: 1),
+              () => Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TripDetailsScreen(tripId: state.tripId),
+                ),
+              ),
+            );
           }
           if (state is TransportationRequestFailed) {
             ShowDialogHelper.showErrorMessage(
