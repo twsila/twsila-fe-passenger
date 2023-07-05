@@ -56,8 +56,8 @@ class _SplashViewState extends State<SplashView> {
         // navigate to main screen
         UserModel? user = _appPreferences.getUserData();
         if (user != null) {
-          BlocProvider.of<LoginBloc>(context)
-              .add(LoginUser(mobileNumber: user.mobileNumber!));
+          BlocProvider.of<LoginBloc>(context).add(
+              LoginUser(mobileNumber: user.mobileNumber!, context: context));
         } else {
           Navigator.pushReplacementNamed(context, Routes.loginRoute);
         }

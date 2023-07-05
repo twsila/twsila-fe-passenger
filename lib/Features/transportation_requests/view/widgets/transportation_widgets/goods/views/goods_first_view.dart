@@ -57,6 +57,7 @@ class _GoodsFirstViewState extends State<GoodsFirstView> {
                                   0) +
                               1;
                     });
+                    widget.viewModel.goodsViewModel.validateFirstScreen();
                   },
                   onMinusPressed: () {
                     setState(() {
@@ -65,6 +66,7 @@ class _GoodsFirstViewState extends State<GoodsFirstView> {
                                   .payloadWeight! -
                               1;
                     });
+                    widget.viewModel.goodsViewModel.validateFirstScreen();
                   },
                 ),
                 Divider(color: ColorManager.grey),

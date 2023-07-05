@@ -15,6 +15,7 @@ class ImageAssets {
   static const String eye = "$imagePath/eye.png";
   static const String plus = "$imagePath/plus.png";
   static const String minus = "$imagePath/minus.png";
+  static const String question = "$imagePath/question.png";
   static const String eye_closed = "$imagePath/eye-closed.png";
   static const String egyptFlag = "$imagePath/egypt-flag.png";
   static const String saudiFlag = "$imagePath/saudi-flag.png";

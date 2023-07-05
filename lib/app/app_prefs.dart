@@ -223,7 +223,7 @@ class AppPreferences {
     _sharedPreferences.remove(FURNITURE_TRIP);
     _sharedPreferences.remove(GOODS_TRIP);
     _sharedPreferences.remove(CAR_AID_TRIP);
-    _sharedPreferences.remove(FREEZERS_TRIP);
+    _sharedPreferences.remove(WATER_TRIP);
     _sharedPreferences.remove(CISTERNS_TRIP);
     _sharedPreferences.remove(FREEZERS_TRIP);
   }

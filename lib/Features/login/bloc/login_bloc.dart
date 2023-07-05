@@ -32,8 +32,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginStates> {
         emit(LoginFailed(baseResponse: response));
       }
     } catch (e) {
+      appPreferences.logout(event.context);
       if (e is PlatformException) {
-        if (e.message != null) {
+        if (e.message != null && e.details != null) {
           emit(LoginFailed(baseResponse: e.details as BaseResponse));
         }
       } else {

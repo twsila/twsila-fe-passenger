@@ -19,7 +19,9 @@ class GoodsViewModel {
   }
 
   validateFirstScreen() {
-    firstScreenValid.value =
-        goodsModel.materialType != null && goodsModel.packagingType != null;
+    firstScreenValid.value = goodsModel.materialType != null &&
+        goodsModel.packagingType != null &&
+        goodsModel.payloadWeight != null &&
+        goodsModel.payloadWeight! > 0;
   }
 }

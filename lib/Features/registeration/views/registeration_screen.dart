@@ -117,8 +117,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           } else if (state is RegistrationSuccessfully) {
             ShowDialogHelper.showSuccessMessage(
                 AppStrings.registerSuccess.tr(), context);
-            BlocProvider.of<LoginBloc>(context)
-                .add(LoginUser(mobileNumber: _viewModel.user.mobileNumber!));
+            BlocProvider.of<LoginBloc>(context).add(LoginUser(
+              mobileNumber: _viewModel.user.mobileNumber!,
+              context: context,
+            ));
           }
         }
       },

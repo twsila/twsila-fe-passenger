@@ -203,7 +203,7 @@
   "assemble": "reassemble and assemble",
   "transporation_items": "Transporation items",
   "water_tank_size": "Water tank size",
-  "goods_size": "Goods size per tone(Optional)",
+  "goods_size": "Goods size per ton (evaluative)",
   "cisterns_type": "Cisterns type",
   "extra_services": "Extra services",
   "crane": "crane",
