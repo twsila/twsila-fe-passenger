@@ -55,32 +55,32 @@ class _TransportSecondViewState extends State<TransportSecondView> {
                 SecondViewLocation(
                   onSelectSourcePlace: (lat, long, locationName) {
                     setState(() {
-                      widget.transportationBaseModel.pickupLocationName =
-                          locationName;
-                      widget.transportationBaseModel.pickupLocationLatitude =
-                          lat;
-                      widget.transportationBaseModel.pickupLocationLongitude =
-                          long;
+                      widget.transportationBaseModel.pickupLocation
+                          .locationName = locationName;
+                      widget.transportationBaseModel.pickupLocation.latitude =
+                          double.tryParse(lat);
+                      widget.transportationBaseModel.pickupLocation.longitude =
+                          double.tryParse(long);
                       widget.viewModel.secondScreenValid.value =
                           widget.viewModel.validateSecondScreen();
                     });
                   },
                   onSelectDestinPlace: (lat, long, locationName) {
                     setState(() {
-                      widget.transportationBaseModel.destinationLocationName =
-                          locationName;
-                      widget.transportationBaseModel
-                          .destinationLocationLatitude = lat;
-                      widget.transportationBaseModel
-                          .destinationLocationLongitude = long;
+                      widget.transportationBaseModel.destinationLocation
+                          .locationName = locationName;
+                      widget.transportationBaseModel.destinationLocation
+                          .latitude = double.tryParse(lat);
+                      widget.transportationBaseModel.destinationLocation
+                          .longitude = double.tryParse(long);
                       widget.viewModel.secondScreenValid.value =
                           widget.viewModel.validateSecondScreen();
                     });
                   },
-                  pickupLocationName:
-                      widget.transportationBaseModel.pickupLocationName,
-                  destinLocationString:
-                      widget.transportationBaseModel.destinationLocationName,
+                  pickupLocationName: widget
+                      .transportationBaseModel.pickupLocation.locationName,
+                  destinLocationString: widget
+                      .transportationBaseModel.destinationLocation.locationName,
                 ),
                 const SizedBox(
                   height: 64,

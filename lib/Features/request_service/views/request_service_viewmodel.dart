@@ -40,7 +40,7 @@ class RequestServiceViewModel extends BaseViewModel {
 
   @override
   void start() {
-    // appPreferences.removeTrips();
+    appPreferences.removeTrips();
     var user = appPreferences.getUserData();
     if (user == null) {
       appPreferences.logout(context);

@@ -116,9 +116,7 @@ class TransportRequestViewModel {
   }
 
   bool validateSecondScreen() {
-    return transportationBaseModel.pickupLocationLatitude != null &&
-        transportationBaseModel.pickupLocationLongitude != null &&
-        transportationBaseModel.destinationLocationLatitude != null &&
-        transportationBaseModel.destinationLocationLongitude != null;
+    return transportationBaseModel.pickupLocation.locationName != null &&
+        transportationBaseModel.destinationLocation.locationName != null;
   }
 }

@@ -21,11 +21,4 @@ class FurnitureViewModel {
         furnitureModel.furnitureItems.diningRoomNumber == 0 &&
         furnitureModel.furnitureItems.other == 0);
   }
-
-  bool validateSecondScreen() {
-    return furnitureModel.pickupLocationLatitude != null &&
-        furnitureModel.pickupLocationLongitude != null &&
-        furnitureModel.destinationLocationLatitude != null &&
-        furnitureModel.destinationLocationLongitude != null;
-  }
 }

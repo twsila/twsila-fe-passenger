@@ -13,10 +13,10 @@ class SecondViewModel {
   String? distance;
 
   checkAndCalculateDistance(FurnitureModel furnitureModel) async {
-    if (furnitureModel.pickupLocationLatitude != null &&
-        furnitureModel.pickupLocationLongitude != null &&
-        furnitureModel.destinationLocationLatitude != null &&
-        furnitureModel.destinationLocationLongitude != null) {
+    if (furnitureModel.pickupLocation.latitude != null &&
+        furnitureModel.pickupLocation.longitude != null &&
+        furnitureModel.destinationLocation.latitude != null &&
+        furnitureModel.destinationLocation.longitude != null) {
       PolylinePoints polylinePoints = PolylinePoints();
       List<LatLng> polylineCoordinates = [];
       PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
@@ -24,11 +24,11 @@ class SecondViewModel {
             ? Constants.GOOGLE_API_KEY_IOS
             : Constants.GOOGLE_API_KEY_ANDROID,
         PointLatLng(
-          double.parse(furnitureModel.pickupLocationLatitude!),
-          double.parse(furnitureModel.pickupLocationLongitude!),
+          furnitureModel.pickupLocation.latitude!,
+          furnitureModel.pickupLocation.longitude!,
         ),
-        PointLatLng(double.parse(furnitureModel.destinationLocationLatitude!),
-            double.parse(furnitureModel.destinationLocationLongitude!)),
+        PointLatLng(furnitureModel.destinationLocation.latitude!,
+            furnitureModel.destinationLocation.longitude!),
         travelMode: TravelMode.driving,
       );
       if (result.points.isNotEmpty) {
