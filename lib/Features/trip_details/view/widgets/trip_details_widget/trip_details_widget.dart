@@ -1,17 +1,20 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/trip_details_widget/trips_details_widget_viewmodel.dart';
-import 'package:taxi_for_you/data/model/trip_type.dart';
+import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
 
 import '../../../../../core/utils/resources/assets_manager.dart';
 import '../../../../../core/utils/resources/color_manager.dart';
+import '../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../core/utils/resources/styles_manager.dart';
 import '../../../../common/widgets/custom_dashed_line.dart';
 
 class TripDetailsWidget extends StatefulWidget {
-  final TripType tripType;
+  final TransportationBaseModel trip;
   const TripDetailsWidget({
     Key? key,
-    required this.tripType,
+    required this.trip,
   }) : super(key: key);
 
   @override
@@ -23,7 +26,7 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
 
   @override
   void initState() {
-    _viewModel.setTripType(widget.tripType);
+    _viewModel.setTripType(widget.trip.tripType!);
     super.initState();
   }
 
@@ -35,7 +38,9 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(' تم ارسالة الاحد ١٣ ابريل, ٢٠٢٣'),
+            Text(AppStrings.sendIn.tr() +
+                context.formatDateTime(
+                    dateTime: DateTime.tryParse(widget.trip.creationDate!))),
             Image.asset(_viewModel.getIconName()),
           ],
         ),
@@ -49,7 +54,13 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
         ),
         const SizedBox(height: 4),
         Text(
-          'بميزانية ٩٠٠ ريال سعودي',
+          AppStrings.onBudget.tr() +
+              widget.trip.paymentValue.toString() +
+              ' ' +
+              (_viewModel.appPreferences.getUserSelectedCountry()!.country ==
+                      "SA"
+                  ? AppStrings.saudiCurrency.tr()
+                  : AppStrings.egpCurrency.tr()),
           style: getMediumStyle(
             color: ColorManager.primaryTextColor,
             fontSize: 18,
@@ -61,7 +72,8 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
             Image.asset(ImageAssets.pin),
             const SizedBox(width: 16),
             Text(
-              'من سوق البوادي',
+              AppStrings.from.tr() +
+                  (widget.trip.pickupLocation.locationName ?? ''),
               style: getMediumStyle(
                 color: ColorManager.primaryTextColor,
                 fontSize: 14,
@@ -82,7 +94,8 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
             Image.asset(ImageAssets.pin),
             const SizedBox(width: 16),
             Text(
-              'الي طريق الجامعة',
+              AppStrings.to.tr() +
+                  (widget.trip.destinationLocation.locationName ?? ''),
               style: getMediumStyle(
                 color: ColorManager.primaryTextColor,
                 fontSize: 14,

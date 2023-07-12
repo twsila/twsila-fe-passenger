@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/network/base_response.dart';
+import '../model/transportation_base_model.dart';
 
 class TransportationRequestStates extends Equatable {
   @override
@@ -13,11 +14,13 @@ class TransportationRequestIsLoading extends TransportationRequestStates {}
 
 class TransportationRequestSuccessfully extends TransportationRequestStates {
   final int tripId;
+  final TransportationBaseModel transportationBaseModel;
   final Map<String, dynamic> body;
   final String endPoint;
 
   TransportationRequestSuccessfully({
     required this.tripId,
+    required this.transportationBaseModel,
     required this.body,
     required this.endPoint,
   });

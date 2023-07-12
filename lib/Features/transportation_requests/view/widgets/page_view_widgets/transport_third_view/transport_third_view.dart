@@ -32,6 +32,12 @@ class TransportThirdView extends StatefulWidget {
 
 class _TransportThirdViewState extends State<TransportThirdView> {
   TransportThirdViewModel viewModel = TransportThirdViewModel();
+  @override
+  initState() {
+    widget.viewModel.thirdScreenValid.value =
+        widget.transportationBaseModel.paymentValue != null;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,8 @@ class _TransportThirdViewState extends State<TransportThirdView> {
           },
           onAmountChanged: (amount) {
             if (amount != null && amount != '') {
-              widget.transportationBaseModel.paymentValue = int.parse(amount);
+              widget.transportationBaseModel.paymentValue =
+                  double.parse(amount);
               widget.viewModel.thirdScreenValid.value = true;
             } else {
               widget.transportationBaseModel.paymentValue = null;
@@ -93,6 +100,8 @@ class _TransportThirdViewState extends State<TransportThirdView> {
                               BlocProvider.of<TransportationBloc>(context).add(
                                 SendTransportationRequest(
                                   endPoint: viewModel.endPoint,
+                                  transportationBaseModel:
+                                      widget.transportationBaseModel,
                                   files: widget.transportationBaseModel.images,
                                   body: viewModel.jsonBody,
                                 ),

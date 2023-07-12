@@ -25,6 +25,13 @@ class TransportSecondView extends StatefulWidget {
 
 class _TransportSecondViewState extends State<TransportSecondView> {
   @override
+  void initState() {
+    widget.viewModel.secondScreenValid.value =
+        widget.viewModel.validateSecondScreen();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [

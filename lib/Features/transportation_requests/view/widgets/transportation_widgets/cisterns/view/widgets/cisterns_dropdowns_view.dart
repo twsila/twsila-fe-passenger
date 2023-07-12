@@ -18,6 +18,12 @@ class CisternsDropdownsView extends StatefulWidget {
 
 class _CisternsDropdownsViewState extends State<CisternsDropdownsView> {
   @override
+  void initState() {
+    widget.cisternsViewModel.validateFirstScreen();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

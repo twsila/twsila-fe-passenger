@@ -7,10 +7,14 @@ class AppStrings {
   static const showCode = 'show_code';
   static const hideCode = 'hide_code';
   static const appTitle = 'app_title';
+  static const sendIn = "send_in";
   static const codesent = "code_sent";
   static const save = "save";
   static const step = "step";
   static const next = "next";
+  static const from = "from";
+  static const to = "to";
+  static const onBudget = "on_budget";
   static const continueRequest = "continue_request";
   static const tripDetails = 'trip_details';
   static const newRequest = "new_request";
@@ -85,6 +89,8 @@ class AppStrings {
   static const retryAgain = "retry_again";
   static const ok = "ok";
   static const cancel = "cancel";
+  static const cancelRequest = "cancel_request";
+  static const cancelRequestConfirmation = "cancel_request_confirmation";
   static const yes = "yes";
   static const no = "no";
   static const confirmation = "confirmation";
@@ -122,6 +128,7 @@ class AppStrings {
   static const home = "home";
   static const notifications = "notification";
   static const search = "search";
+  static const saveTrip = "save_trip";
   static const settings = "settings";
   static const services = "services";
   static const stores = "stores";

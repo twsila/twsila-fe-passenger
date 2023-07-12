@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/trip_details/model/offer_model.dart';
 import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 
@@ -8,14 +9,15 @@ import '../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../core/utils/resources/styles_manager.dart';
 import '../../../../common/widgets/custom_text_button.dart';
 
-class DriversListWidget extends StatefulWidget {
-  const DriversListWidget({Key? key}) : super(key: key);
+class OffersWidget extends StatefulWidget {
+  final OfferModel? offer;
+  const OffersWidget({Key? key, required this.offer}) : super(key: key);
 
   @override
-  State<DriversListWidget> createState() => _DriversListWidgetState();
+  State<OffersWidget> createState() => _OffersWidgetState();
 }
 
-class _DriversListWidgetState extends State<DriversListWidget> {
+class _OffersWidgetState extends State<OffersWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(

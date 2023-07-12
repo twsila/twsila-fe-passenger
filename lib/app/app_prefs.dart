@@ -30,6 +30,7 @@ const String FREEZERS_TRIP = "FREEZERS_TRIP";
 const String CISTERNS_TRIP = "CISTERNS_TRIP";
 const String CAR_AID_TRIP = "CAR_AID_TRIP";
 const String WATER_TRIP = "WATER_TRIP";
+const String PERSON_TRIP = "PERSON_TRIP";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -158,7 +159,7 @@ class AppPreferences {
 
     // clear cache of logged out user
     // _localDataSource.clearCache();
-
+    removeTrips();
     _sharedPreferences.remove(USER_MODEL);
 
     Phoenix.rebirth(context);
@@ -167,20 +168,22 @@ class AppPreferences {
   //Save Trip to cache
   Future saveTripToCache({
     required Map<String, dynamic> tripJson,
-    required String endPoint,
+    required String tripType,
   }) async {
-    if (endPoint == EndPointsConstants.sendFurnitureRequest) {
+    if (tripType == TripTypeConstants.furnitureType) {
       await _sharedPreferences.setString(FURNITURE_TRIP, json.encode(tripJson));
-    } else if (endPoint == EndPointsConstants.sendGoodsRequest) {
+    } else if (tripType == TripTypeConstants.goodsType) {
       await _sharedPreferences.setString(GOODS_TRIP, json.encode(tripJson));
-    } else if (endPoint == EndPointsConstants.sendCarAidRequest) {
+    } else if (tripType == TripTypeConstants.carAidType) {
       await _sharedPreferences.setString(CAR_AID_TRIP, json.encode(tripJson));
-    } else if (endPoint == EndPointsConstants.sendFreezersRequest) {
+    } else if (tripType == TripTypeConstants.frozenType) {
       await _sharedPreferences.setString(FREEZERS_TRIP, json.encode(tripJson));
-    } else if (endPoint == EndPointsConstants.sendCisternsRequest) {
+    } else if (tripType == TripTypeConstants.otherTankType) {
       await _sharedPreferences.setString(CISTERNS_TRIP, json.encode(tripJson));
-    } else if (endPoint == EndPointsConstants.sendWaterRequest) {
+    } else if (tripType == TripTypeConstants.drinkWaterType) {
       await _sharedPreferences.setString(WATER_TRIP, json.encode(tripJson));
+    } else if (tripType == TripTypeConstants.personType) {
+      await _sharedPreferences.setString(PERSON_TRIP, json.encode(tripJson));
     }
   }
 
@@ -226,5 +229,24 @@ class AppPreferences {
     _sharedPreferences.remove(WATER_TRIP);
     _sharedPreferences.remove(CISTERNS_TRIP);
     _sharedPreferences.remove(FREEZERS_TRIP);
+    _sharedPreferences.remove(PERSON_TRIP);
+  }
+
+  void removeTripByType(String tripType) {
+    if (tripType == TripTypeConstants.furnitureType) {
+      _sharedPreferences.remove(FURNITURE_TRIP);
+    } else if (tripType == TripTypeConstants.goodsType) {
+      _sharedPreferences.remove(GOODS_TRIP);
+    } else if (tripType == TripTypeConstants.carAidType) {
+      _sharedPreferences.remove(CAR_AID_TRIP);
+    } else if (tripType == TripTypeConstants.frozenType) {
+      _sharedPreferences.remove(FREEZERS_TRIP);
+    } else if (tripType == TripTypeConstants.otherTankType) {
+      _sharedPreferences.remove(CISTERNS_TRIP);
+    } else if (tripType == TripTypeConstants.drinkWaterType) {
+      _sharedPreferences.remove(WATER_TRIP);
+    } else if (tripType == TripTypeConstants.personType) {
+      _sharedPreferences.remove(PERSON_TRIP);
+    }
   }
 }

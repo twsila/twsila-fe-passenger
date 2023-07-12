@@ -18,7 +18,7 @@ class ThirdViewWidget extends StatefulWidget {
   final Function(String?) onAmountChanged;
   final List<XFile>? images;
   final String? notes;
-  final int? amount;
+  final double? amount;
   final bool hasImages;
 
   const ThirdViewWidget({

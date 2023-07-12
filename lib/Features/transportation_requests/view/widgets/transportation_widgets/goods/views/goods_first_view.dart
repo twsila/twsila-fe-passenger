@@ -27,6 +27,7 @@ class _GoodsFirstViewState extends State<GoodsFirstView> {
   @override
   void initState() {
     widget.viewModel.goodsViewModel.start(widget.goodsModel);
+    widget.viewModel.goodsViewModel.validateFirstScreen();
     super.initState();
   }
 

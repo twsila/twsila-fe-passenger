@@ -12,4 +12,8 @@ class CarAidModel extends TransportationBaseModel {
     data = toJSON();
     return data;
   }
+
+  CarAidModel copyWith(CarAidModel carAidModel) {
+    return CarAidModel.fromJson(carAidModel.toCarAidJson());
+  }
 }

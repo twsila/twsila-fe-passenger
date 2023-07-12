@@ -1,29 +1,32 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/constants.dart';
+import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
-import 'package:taxi_for_you/data/model/trip_type.dart';
 
 import '../../../../../core/utils/resources/strings_manager.dart';
 
 class TripsDetailsWidgetViewModel {
-  late TripType tripType;
+  final AppPreferences appPreferences = instance();
+  late String tripType;
 
-  setTripType(TripType tripType) {
+  setTripType(String tripType) {
     this.tripType = tripType;
   }
 
   String getIconName() {
     switch (tripType) {
-      case TripType.furniture:
+      case TripTypeConstants.furnitureType:
         return ImageAssets.carFurniture;
-      case TripType.freezers:
+      case TripTypeConstants.frozenType:
         return ImageAssets.carfrozen;
-      case TripType.goods:
+      case TripTypeConstants.goodsType:
         return ImageAssets.carGoods;
-      case TripType.carAid:
+      case TripTypeConstants.carAidType:
         return ImageAssets.carAid;
-      case TripType.cisterns:
+      case TripTypeConstants.otherTankType:
         return ImageAssets.carCisterns;
-      case TripType.waterTank:
+      case TripTypeConstants.drinkWaterType:
         return ImageAssets.carDrinkWater;
       default:
         return ImageAssets.carFurniture;
@@ -32,27 +35,27 @@ class TripsDetailsWidgetViewModel {
 
   String getTitle() {
     switch (tripType) {
-      case TripType.furniture:
+      case TripTypeConstants.furnitureType:
         return AppStrings.request.tr() +
             ' ' +
             AppStrings.furnitureTransportation.tr();
-      case TripType.freezers:
+      case TripTypeConstants.frozenType:
         return AppStrings.request.tr() +
             ' ' +
             AppStrings.freezerTransportation.tr();
-      case TripType.goods:
+      case TripTypeConstants.goodsType:
         return AppStrings.request.tr() +
             ' ' +
             AppStrings.goodsTransportation.tr();
-      case TripType.carAid:
+      case TripTypeConstants.carAidType:
         return AppStrings.request.tr() +
             ' ' +
             AppStrings.carAidTransportation.tr();
-      case TripType.cisterns:
+      case TripTypeConstants.otherTankType:
         return AppStrings.request.tr() +
             ' ' +
             AppStrings.cisternsTransportation.tr();
-      case TripType.waterTank:
+      case TripTypeConstants.drinkWaterType:
         return AppStrings.requestWhite.tr() +
             ' ' +
             AppStrings.waterTankTransportation.tr();

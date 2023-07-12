@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_second_view/transport_second_view.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_third_view/transport_third_view.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/car_aid/models/car-aid-model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/cisterns/models/cisterns_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/cisterns/view/cisterns_first_view.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/cisterns/view/cisterns_viewmodel.dart';
@@ -16,6 +19,7 @@ import 'package:taxi_for_you/Features/transportation_requests/view/widgets/trans
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/models/water_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/views/water_first_view.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/views/water_viewmodel.dart';
+import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
 import '../../../../app/app_prefs.dart';
 import '../../../../app/di.dart';
@@ -25,6 +29,9 @@ class TransportRequestViewModel {
   final AppPreferences appPreferences = instance<AppPreferences>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late TransportationBaseModel transportationBaseModel;
+  late BuildContext context;
+  late TransportationBaseModel copyTripModel;
+  late Map<String, dynamic> jsonBody;
   bool displayLoadingIndicator = false;
 
   //ViewModels
@@ -43,6 +50,7 @@ class TransportRequestViewModel {
 
   void start(TransportationBaseModel transportationBaseModel, bool hasImages) {
     this.transportationBaseModel = transportationBaseModel;
+    copyTripModel = copyWith();
     screens = [
       TransportSecondView(
         transportationBaseModel: transportationBaseModel,
@@ -59,6 +67,26 @@ class TransportRequestViewModel {
 
   void dispose() {
     controller.dispose();
+  }
+
+  cacheOnBack() {
+    if (stringModel(copyTripModel) == stringModel(transportationBaseModel)) {
+      Navigator.pop(context);
+      return;
+    }
+    ShowDialogHelper.showDialogPopupWithCancel(
+        AppStrings.confirmation.tr(), AppStrings.saveTrip.tr(), context, () {
+      Navigator.pop(context);
+      Navigator.pop(context);
+    }, () async {
+      setJsonBody();
+      await appPreferences.saveTripToCache(
+        tripJson: jsonBody,
+        tripType: transportationBaseModel.tripType!,
+      );
+      Navigator.pop(context);
+      Navigator.pop(context);
+    });
   }
 
   checkScreen() {
@@ -118,5 +146,64 @@ class TransportRequestViewModel {
   bool validateSecondScreen() {
     return transportationBaseModel.pickupLocation.locationName != null &&
         transportationBaseModel.destinationLocation.locationName != null;
+  }
+
+  TransportationBaseModel copyWith() {
+    var dynamicType = transportationBaseModel;
+    if (dynamicType is FurnitureModel) {
+      return dynamicType.copyWith(dynamicType);
+    } else if (dynamicType is GoodsModel) {
+      return dynamicType.copyWith(dynamicType);
+    } else if (dynamicType is WaterModel) {
+      return dynamicType.copyWith(dynamicType);
+    } else if (dynamicType is CisternsModel) {
+      return dynamicType.copyWith(dynamicType);
+    } else if (dynamicType is CarAidModel) {
+      return dynamicType.copyWith(dynamicType);
+    } else if (dynamicType is FreezersModel) {
+      return dynamicType.copyWith(dynamicType);
+    }
+    return transportationBaseModel;
+  }
+
+  void setJsonBody() {
+    var dynamicType = transportationBaseModel;
+    if (dynamicType is FurnitureModel) {
+      jsonBody = dynamicType.toFurnitureJson();
+      return;
+    } else if (dynamicType is GoodsModel) {
+      jsonBody = dynamicType.toGoodsJson();
+      return;
+    } else if (dynamicType is WaterModel) {
+      jsonBody = dynamicType.toWaterJson();
+      return;
+    } else if (dynamicType is CisternsModel) {
+      jsonBody = dynamicType.toCisternsJson();
+      return;
+    } else if (dynamicType is CarAidModel) {
+      jsonBody = dynamicType.toCarAidJson();
+      return;
+    } else if (dynamicType is FreezersModel) {
+      jsonBody = dynamicType.toFreezersJson();
+      return;
+    }
+    jsonBody = dynamicType.toJSON();
+  }
+
+  String stringModel(TransportationBaseModel transportationBaseModel) {
+    if (transportationBaseModel is FurnitureModel) {
+      return transportationBaseModel.toFurnitureJson().toString();
+    } else if (transportationBaseModel is GoodsModel) {
+      return transportationBaseModel.toGoodsJson().toString();
+    } else if (transportationBaseModel is WaterModel) {
+      return transportationBaseModel.toWaterJson().toString();
+    } else if (transportationBaseModel is CisternsModel) {
+      return transportationBaseModel.toCisternsJson().toString();
+    } else if (transportationBaseModel is CarAidModel) {
+      return transportationBaseModel.toCarAidJson().toString();
+    } else if (transportationBaseModel is FreezersModel) {
+      return transportationBaseModel.toFreezersJson().toString();
+    }
+    return '';
   }
 }

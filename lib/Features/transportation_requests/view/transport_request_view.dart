@@ -16,15 +16,11 @@ import '../model/transportation_base_model.dart';
 
 class TransportRequestScreen extends StatefulWidget {
   final TransportationBaseModel transportationBaseModel;
-  final String title;
-  final String icon;
   final bool hasImages;
 
   const TransportRequestScreen({
     Key? key,
     required this.transportationBaseModel,
-    required this.title,
-    required this.icon,
     this.hasImages = true,
   }) : super(key: key);
 
@@ -37,6 +33,7 @@ class _TransportRequestScreenState extends State<TransportRequestScreen> {
 
   @override
   void initState() {
+    _viewModel.context = context;
     _viewModel.start(widget.transportationBaseModel, widget.hasImages);
     super.initState();
   }
@@ -49,75 +46,77 @@ class _TransportRequestScreenState extends State<TransportRequestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<TransportationBloc, TransportationRequestStates>(
-        listener: (context, state) async {
-          if (state is TransportationRequestIsLoading) {
-            setState(() {
-              _viewModel.displayLoadingIndicator = true;
-            });
-          } else {
-            setState(() {
-              _viewModel.displayLoadingIndicator = false;
-            });
-          }
-          if (state is TransportationRequestSuccessfully) {
-            ShowDialogHelper.showSuccessMessage(
-              AppStrings.tripConfirmationSucceeded.tr(),
-              context,
-            );
-            await _viewModel.appPreferences.saveTripToCache(
-              tripJson: state.body,
-              endPoint: state.endPoint,
-            );
-            Future.delayed(
-              const Duration(seconds: 1),
-              () => Navigator.pushReplacement(
+    return WillPopScope(
+      onWillPop: () async {
+        await _viewModel.cacheOnBack();
+        return true;
+      },
+      child: BlocListener<TransportationBloc, TransportationRequestStates>(
+          listener: (context, state) {
+            if (state is TransportationRequestIsLoading) {
+              setState(() {
+                _viewModel.displayLoadingIndicator = true;
+              });
+            } else {
+              setState(() {
+                _viewModel.displayLoadingIndicator = false;
+              });
+            }
+            if (state is TransportationRequestSuccessfully) {
+              ShowDialogHelper.showSuccessMessage(
+                AppStrings.tripConfirmationSucceeded.tr(),
                 context,
-                MaterialPageRoute(
-                  builder: (context) => TripDetailsScreen(tripId: state.tripId),
+              );
+              _viewModel.appPreferences.removeTripByType(
+                state.transportationBaseModel.tripType!,
+              );
+              Future.delayed(
+                const Duration(seconds: 1),
+                () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        TripDetailsScreen(tripId: state.tripId),
+                  ),
                 ),
-              ),
-            );
-          }
-          if (state is TransportationRequestFailed) {
-            ShowDialogHelper.showErrorMessage(
-              state.baseResponse.errorMessage ?? 'Something went wrong',
-              context,
-            );
-          }
-        },
-        child: CustomScaffold(
-          pageBuilder: PageBuilder(
-            scaffoldKey: _viewModel.scaffoldKey,
-            displayLoadingIndicator: _viewModel.displayLoadingIndicator,
-            allowBackButtonInAppBar: false,
-            context: context,
-            body: ValueListenableBuilder<int>(
-                valueListenable: _viewModel.selectedIndex,
-                builder: (BuildContext context, int selectedIndex, _) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      TransportationTopWidget(
-                        text: widget.title,
-                        icon: widget.icon,
-                        controller: _viewModel.controller,
-                        selectedIndex: _viewModel.selectedIndex.value,
-                        noOfScreens: _viewModel.screens.length,
-                      ),
-                      Expanded(
-                        child: PageView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          controller: _viewModel.controller,
-                          children: _viewModel.screens,
-                          onPageChanged: (value) =>
-                              _viewModel.selectedIndex.value = value,
+              );
+            }
+            if (state is TransportationRequestFailed) {
+              ShowDialogHelper.showErrorMessage(
+                state.baseResponse.errorMessage ?? 'Something went wrong',
+                context,
+              );
+            }
+          },
+          child: CustomScaffold(
+            pageBuilder: PageBuilder(
+              scaffoldKey: _viewModel.scaffoldKey,
+              displayLoadingIndicator: _viewModel.displayLoadingIndicator,
+              allowBackButtonInAppBar: false,
+              context: context,
+              body: ValueListenableBuilder<int>(
+                  valueListenable: _viewModel.selectedIndex,
+                  builder: (BuildContext context, int selectedIndex, _) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TransportationTopWidget(
+                          transportViewModel: _viewModel,
                         ),
-                      ),
-                    ],
-                  );
-                }),
-          ),
-        ));
+                        Expanded(
+                          child: PageView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            controller: _viewModel.controller,
+                            children: _viewModel.screens,
+                            onPageChanged: (value) =>
+                                _viewModel.selectedIndex.value = value,
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
+            ),
+          )),
+    );
   }
 }

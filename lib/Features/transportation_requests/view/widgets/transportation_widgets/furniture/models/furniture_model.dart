@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
+import '../../../../../../../core/utils/helpers/double_prase.dart';
 import '../../../../../model/transportation_base_model.dart';
 
 class FurnitureModel extends TransportationBaseModel {
@@ -15,10 +18,18 @@ class FurnitureModel extends TransportationBaseModel {
     fromJSON(json);
     furnitureItems =
         FurnitureItems.fromJson(jsonDecode(json['furnitureItems']));
-    containsLoading = json['containsLoading'] == 'true';
-    containsAssemble = json['containsAssemble'] == 'true';
-    containsPacking = json['containsPacking'] == 'true';
-    containsLift = json['containsLift'] == 'true';
+    containsLoading = json['containsLoading'] is String
+        ? json['containsLoading'] == 'true'
+        : json['containsLoading'];
+    containsAssemble = json['containsAssemble'] is String
+        ? json['containsAssemble'] == 'true'
+        : json['containsAssemble'];
+    containsPacking = json['containsPacking'] is String
+        ? json['containsPacking'] == 'true'
+        : json['containsPacking'];
+    containsLift = json['containsLift'] is String
+        ? json['containsLift'] == 'true'
+        : json['containsLift'];
   }
 
   Map<String, dynamic> toFurnitureJson() {
@@ -31,33 +42,39 @@ class FurnitureModel extends TransportationBaseModel {
     data['containsLift'] = containsLift.toString();
     return data;
   }
+
+  FurnitureModel copyWith(FurnitureModel furnitureModel) {
+    return FurnitureModel.fromJson(furnitureModel.toFurnitureJson());
+  }
 }
 
 class FurnitureItems {
-  int roomsNumber = 0;
-  int fridgeNumber = 0;
-  int sofaSetNumber = 0;
-  int carpetNumber = 0;
-  int windowAirconditionerNumber = 0;
-  int splitAirconditionerNumber = 0;
-  int kitchenNumber = 0;
-  int tablesNumber = 0;
-  int diningRoomNumber = 0;
-  int other = 0;
+  double roomsNumber = 0;
+  double fridgeNumber = 0;
+  double sofaSetNumber = 0;
+  double carpetNumber = 0;
+  double windowAirconditionerNumber = 0;
+  double splitAirconditionerNumber = 0;
+  double kitchenNumber = 0;
+  double tablesNumber = 0;
+  double diningRoomNumber = 0;
+  double other = 0;
 
   FurnitureItems();
 
   FurnitureItems.fromJson(Map<String, dynamic> json) {
-    roomsNumber = int.parse(json['roomsNumber']);
-    fridgeNumber = int.parse(json['fridgeNumber']);
-    sofaSetNumber = int.parse(json['sofaSetNumber']);
-    carpetNumber = int.parse(json['carpetNumber']);
-    windowAirconditionerNumber = int.parse(json['windowAirconditionerNumber']);
-    splitAirconditionerNumber = int.parse(json['splitAirconditionerNumber']);
-    kitchenNumber = int.parse(json['kitchenNumber']);
-    tablesNumber = int.parse(json['tablesNumber']);
-    diningRoomNumber = int.parse(json['diningRoomNumber']);
-    other = int.parse(json['other']);
+    roomsNumber = dynamicToDouble(json['roomsNumber']) ?? 0;
+    fridgeNumber = dynamicToDouble(json['fridgeNumber']) ?? 0;
+    sofaSetNumber = dynamicToDouble(json['sofaSetNumber']) ?? 0;
+    carpetNumber = dynamicToDouble(json['carpetNumber']) ?? 0;
+    windowAirconditionerNumber =
+        dynamicToDouble(json['windowAirconditionerNumber']) ?? 0;
+    splitAirconditionerNumber =
+        dynamicToDouble(json['splitAirconditionerNumber']) ?? 0;
+    kitchenNumber = dynamicToDouble(json['kitchenNumber']) ?? 0;
+    tablesNumber = dynamicToDouble(json['tablesNumber']) ?? 0;
+    diningRoomNumber = dynamicToDouble(json['diningRoomNumber']) ?? 0;
+    other = dynamicToDouble(json['other']) ?? 0;
   }
 
   Map<String, dynamic> toJson() {

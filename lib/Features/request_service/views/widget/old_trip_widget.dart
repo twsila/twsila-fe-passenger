@@ -1,16 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
-import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 
+import '../../../../app/constants.dart';
 import '../../../../core/utils/resources/assets_manager.dart';
 import '../../../../core/utils/resources/langauge_manager.dart';
 import '../../../../core/utils/resources/strings_manager.dart';
 import '../../../../core/utils/resources/styles_manager.dart';
-import '../../../trip_details/view/trip_details_screen.dart';
+import '../../../transportation_requests/view/transport_request_view.dart';
 
 class OldTripWidget extends StatefulWidget {
   final List<TransportationBaseModel> tripsList;
@@ -21,30 +22,30 @@ class OldTripWidget extends StatefulWidget {
 }
 
 class _OldTripWidgetState extends State<OldTripWidget> {
-  final AppPreferences _appPrefs = instance<AppPreferences>();
+  final AppPreferences appPreferences = instance<AppPreferences>();
 
-  String getString(String endPoint) {
-    if (endPoint == EndPointsConstants.sendFurnitureRequest) {
+  String getString(String tripType) {
+    if (tripType == TripTypeConstants.furnitureType) {
       return AppStrings.request.tr() +
           ' ' +
           AppStrings.furnitureTransportation.tr();
-    } else if (endPoint == EndPointsConstants.sendGoodsRequest) {
+    } else if (tripType == TripTypeConstants.goodsType) {
       return AppStrings.request.tr() +
           ' ' +
           AppStrings.goodsTransportation.tr();
-    } else if (endPoint == EndPointsConstants.sendCarAidRequest) {
+    } else if (tripType == TripTypeConstants.carAidType) {
       return AppStrings.request.tr() +
           ' ' +
           AppStrings.carAidTransportation.tr();
-    } else if (endPoint == EndPointsConstants.sendFreezersRequest) {
+    } else if (tripType == TripTypeConstants.frozenType) {
       return AppStrings.request.tr() +
           ' ' +
           AppStrings.freezerTransportation.tr();
-    } else if (endPoint == EndPointsConstants.sendWaterRequest) {
+    } else if (tripType == TripTypeConstants.drinkWaterType) {
       return AppStrings.requestWhite.tr() +
           ' ' +
           AppStrings.waterTankTransportation.tr();
-    } else if (endPoint == EndPointsConstants.sendCisternsRequest) {
+    } else if (tripType == TripTypeConstants.otherTankType) {
       return AppStrings.request.tr() +
           ' ' +
           AppStrings.cisternsTransportation.tr();
@@ -80,8 +81,10 @@ class _OldTripWidgetState extends State<OldTripWidget> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TripDetailsScreen(
-                                  tripId: widget.tripsList[index].tripId!),
+                              builder: (context) => TransportRequestScreen(
+                                transportationBaseModel:
+                                    widget.tripsList[index],
+                              ),
                             ),
                           );
                         },
@@ -92,27 +95,51 @@ class _OldTripWidgetState extends State<OldTripWidget> {
                                 const BorderRadius.all(Radius.circular(8)),
                             color: ColorManager.accentColor,
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
+                          child: Column(
                             children: [
-                              Image.asset(ImageAssets.clock),
-                              const SizedBox(width: 4),
-                              Text(
-                                getString(
-                                    widget.tripsList[index].tripEndPoint!),
-                                style: getBoldStyle(
-                                    color: ColorManager.primaryTextColor,
-                                    fontSize: 12),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset(ImageAssets.clock),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    getString(
+                                        widget.tripsList[index].tripType!),
+                                    style: getBoldStyle(
+                                        color: ColorManager.primaryTextColor,
+                                        fontSize: 12),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Icon(
+                                    appPreferences.getAppLanguage() ==
+                                            LanguageType.ENGLISH.getValue()
+                                        ? Icons.arrow_back
+                                        : Icons.arrow_forward,
+                                    color: ColorManager.primary,
+                                    size: 16,
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 4),
-                              Icon(
-                                _appPrefs.getAppLanguage() ==
-                                        LanguageType.ENGLISH.getValue()
-                                    ? Icons.arrow_back
-                                    : Icons.arrow_forward,
-                                color: ColorManager.primary,
-                                size: 16,
-                              ),
+                              // const SizedBox(height: 4),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     ShowDialogHelper.showDialogPopupWithCancel(
+                              //         AppStrings.confirmation.tr(),
+                              //         AppStrings.cancelRequestConfirmation.tr(),
+                              //         context,
+                              //         () => Navigator.pop(context), () {
+                              //       appPreferences.removeTripByType(
+                              //           widget.tripsList[index].tripType!);
+                              //       Navigator.pop(context);
+                              //     });
+                              //   },
+                              //   child: Text(
+                              //     AppStrings.cancelRequest.tr(),
+                              //     style: TextStyle(
+                              //         color: ColorManager.primaryTextColor,
+                              //         decoration: TextDecoration.underline),
+                              //   ),
+                              // )
                             ],
                           ),
                         ),

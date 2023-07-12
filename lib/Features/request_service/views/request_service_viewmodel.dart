@@ -32,15 +32,9 @@ class RequestServiceViewModel extends BaseViewModel {
     oldTrips = appPreferences.getTrips();
   }
 
-  bool checkOldTrips(String endPoint) {
-    return (oldTrips
-            .singleWhereOrNull((trip) => trip.tripEndPoint == endPoint)) ==
-        null;
-  }
-
   @override
   void start() {
-    appPreferences.removeTrips();
+    // appPreferences.removeTrips();
     var user = appPreferences.getUserData();
     if (user == null) {
       appPreferences.logout(context);
@@ -51,118 +45,105 @@ class RequestServiceViewModel extends BaseViewModel {
           text: AppStrings.furnitureTransportation.tr(),
           imageAsset: ImageAssets.carFurniture,
           color: const Color.fromRGBO(255, 130, 110, 0.15),
-          onPressed: () =>
-              checkOldTrips(EndPointsConstants.sendFurnitureRequest)
-                  ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TransportRequestScreen(
-                          transportationBaseModel: FurnitureModel(),
-                          icon: ImageAssets.carFurniture,
-                          title: AppStrings.furnitureTransportation.tr(),
-                        ),
-                      ),
-                    )
-                  : ShowDialogHelper.showErrorMessage(
-                      AppStrings.oldRequest.tr(), context),
+          onPressed: () {
+            FurnitureModel furnitureModel = FurnitureModel();
+            furnitureModel.tripType = TripTypeConstants.furnitureType;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TransportRequestScreen(
+                  transportationBaseModel: furnitureModel,
+                ),
+              ),
+            );
+          },
         ),
         ServiceTransportationModel(
           text: AppStrings.goodsTransportation.tr(),
           imageAsset: ImageAssets.carGoods,
           color: const Color.fromRGBO(209, 133, 43, 0.15),
-          onPressed: () => checkOldTrips(EndPointsConstants.sendGoodsRequest)
-              ? Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TransportRequestScreen(
-                      transportationBaseModel: GoodsModel(),
-                      icon: ImageAssets.carGoods,
-                      title: AppStrings.goodsTransportation.tr(),
-                    ),
-                  ),
-                )
-              : ShowDialogHelper.showErrorMessage(
-                  AppStrings.oldRequest.tr(), context),
+          onPressed: () {
+            GoodsModel goodsModel = GoodsModel();
+            goodsModel.tripType = TripTypeConstants.goodsType;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TransportRequestScreen(
+                  transportationBaseModel: goodsModel,
+                ),
+              ),
+            );
+          },
         ),
         ServiceTransportationModel(
           text: AppStrings.carAidTransportation.tr(),
           imageAsset: ImageAssets.carAid,
           color: const Color.fromRGBO(150, 159, 170, 0.2),
-          onPressed: () => checkOldTrips(EndPointsConstants.sendCarAidRequest)
-              ? Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TransportRequestScreen(
-                      transportationBaseModel: CarAidModel(),
-                      hasImages: false,
-                      icon: ImageAssets.carAid,
-                      title: AppStrings.request.tr() +
-                          ' ' +
-                          AppStrings.carAidTransportation.tr(),
-                    ),
-                  ),
-                )
-              : ShowDialogHelper.showErrorMessage(
-                  AppStrings.oldRequest.tr(), context),
+          onPressed: () {
+            CarAidModel carAidModel = CarAidModel();
+            carAidModel.tripType = TripTypeConstants.carAidType;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TransportRequestScreen(
+                  transportationBaseModel: carAidModel,
+                  hasImages: false,
+                ),
+              ),
+            );
+          },
         ),
         ServiceTransportationModel(
           text: AppStrings.freezerTransportation.tr(),
           imageAsset: ImageAssets.carfrozen,
           color: const Color.fromRGBO(180, 221, 127, 0.2),
-          onPressed: () => checkOldTrips(EndPointsConstants.sendFreezersRequest)
-              ? Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TransportRequestScreen(
-                      transportationBaseModel: FreezersModel(),
-                      icon: ImageAssets.carfrozen,
-                      title: AppStrings.freezerTransportation.tr(),
-                    ),
-                  ),
-                )
-              : ShowDialogHelper.showErrorMessage(
-                  AppStrings.oldRequest.tr(), context),
+          onPressed: () {
+            FreezersModel freezersModel = FreezersModel();
+            freezersModel.tripType = TripTypeConstants.frozenType;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TransportRequestScreen(
+                  transportationBaseModel: freezersModel,
+                ),
+              ),
+            );
+          },
         ),
         ServiceTransportationModel(
           text: AppStrings.waterTankTransportation.tr(),
           imageAsset: ImageAssets.carDrinkWater,
           color: const Color.fromRGBO(5, 75, 210, 0.1),
-          onPressed: () => checkOldTrips(EndPointsConstants.sendWaterRequest)
-              ? Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TransportRequestScreen(
-                      hasImages: false,
-                      icon: ImageAssets.carDrinkWater,
-                      transportationBaseModel: WaterModel(),
-                      title: AppStrings.requestWhite.tr() +
-                          ' ' +
-                          AppStrings.waterTankTransportation.tr(),
-                    ),
-                  ),
-                )
-              : ShowDialogHelper.showErrorMessage(
-                  AppStrings.oldRequest.tr(), context),
+          onPressed: () {
+            WaterModel waterModel = WaterModel();
+            waterModel.tripType = TripTypeConstants.drinkWaterType;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TransportRequestScreen(
+                  hasImages: false,
+                  transportationBaseModel: waterModel,
+                ),
+              ),
+            );
+          },
         ),
         ServiceTransportationModel(
           text: AppStrings.cisternsTransportation.tr(),
           imageAsset: ImageAssets.carCisterns,
           color: const Color.fromRGBO(44, 132, 143, 0.15),
-          onPressed: () => checkOldTrips(EndPointsConstants.sendCisternsRequest)
-              ? Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TransportRequestScreen(
-                      transportationBaseModel: CisternsModel(),
-                      icon: ImageAssets.carCisterns,
-                      title: AppStrings.request.tr() +
-                          ' ' +
-                          AppStrings.cisternsTransportation.tr(),
-                    ),
-                  ),
-                )
-              : ShowDialogHelper.showErrorMessage(
-                  AppStrings.oldRequest.tr(), context),
+          onPressed: () {
+            CisternsModel cisternsModel = CisternsModel();
+            cisternsModel.tripType = TripTypeConstants.otherTankType;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TransportRequestScreen(
+                  transportationBaseModel: cisternsModel,
+                ),
+              ),
+            );
+          },
         ),
       ];
     }

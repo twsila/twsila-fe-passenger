@@ -16,4 +16,8 @@ class CisternsModel extends TransportationBaseModel {
     if (cisternsType != null) data['tankType'] = 'SEWER'; //TODO: TO BE FIXED
     return data;
   }
+
+  CisternsModel copyWith(CisternsModel cisternsModel) {
+    return CisternsModel.fromJson(cisternsModel.toCisternsJson());
+  }
 }

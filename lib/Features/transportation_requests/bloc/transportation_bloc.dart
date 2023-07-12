@@ -9,10 +9,10 @@ import '../model/transportation_repo.dart';
 
 class TransportationBloc
     extends Bloc<TransportationEvent, TransportationRequestStates> {
-  final TransportationRepo goodsRepo;
+  final TransportationRepo transportationRepo;
   final AppPreferences appPreferences;
 
-  TransportationBloc(this.goodsRepo, this.appPreferences)
+  TransportationBloc(this.transportationRepo, this.appPreferences)
       : super(TransportationRequestIsNotLoading()) {
     on<SendTransportationRequest>(_sendTransportationRequest);
   }
@@ -22,7 +22,8 @@ class TransportationBloc
     emit(TransportationRequestIsLoading());
 
     try {
-      BaseResponse baseResponse = await (goodsRepo.sendTransportationRequest(
+      BaseResponse baseResponse =
+          await (transportationRepo.sendTransportationRequest(
         event.endPoint,
         event.files,
         event.body,
@@ -35,6 +36,7 @@ class TransportationBloc
 
       emit(TransportationRequestSuccessfully(
         tripId: tripId,
+        transportationBaseModel: event.transportationBaseModel,
         body: body,
         endPoint: event.endPoint,
       ));

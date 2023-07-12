@@ -25,6 +25,8 @@ class _FurnitureFirstViewState extends State<FurnitureFirstView> {
   @override
   void initState() {
     widget.viewModel.furnitureViewModel.start(widget.furnitureModel);
+    widget.viewModel.furnitureViewModel.firstScreenValid.value =
+        widget.viewModel.furnitureViewModel.validateFirstScreen();
     super.initState();
   }
 

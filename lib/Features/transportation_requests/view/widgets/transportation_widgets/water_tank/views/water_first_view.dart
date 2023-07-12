@@ -26,6 +26,7 @@ class _WaterFirstViewState extends State<WaterFirstView> {
   @override
   void initState() {
     widget.viewModel.waterTankViewModel.start(widget.waterModel);
+    widget.viewModel.waterTankViewModel.validateFirstScreen();
     super.initState();
   }
 

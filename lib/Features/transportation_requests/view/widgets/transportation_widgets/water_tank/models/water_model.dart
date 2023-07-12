@@ -13,7 +13,11 @@ class WaterModel extends TransportationBaseModel {
   Map<String, dynamic> toWaterJson() {
     Map<String, dynamic> data = <String, dynamic>{};
     data = toJSON();
-    data['tankDetails'] = tankDetails.toString();
+    if (tankDetails != null) data['tankDetails'] = tankDetails.toString();
     return data;
+  }
+
+  WaterModel copyWith(WaterModel waterModel) {
+    return WaterModel.fromJson(waterModel.toWaterJson());
   }
 }

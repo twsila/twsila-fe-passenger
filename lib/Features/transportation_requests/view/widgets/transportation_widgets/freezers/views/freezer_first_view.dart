@@ -26,6 +26,7 @@ class _FreezerFirstViewState extends State<FreezerFirstView> {
   @override
   void initState() {
     widget.viewModel.freezersViewModel.start(widget.freezersModel);
+    widget.viewModel.freezersViewModel.validateFirstScreen();
     super.initState();
   }
 

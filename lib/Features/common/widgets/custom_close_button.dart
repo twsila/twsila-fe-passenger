@@ -10,7 +10,7 @@ class CustomCloseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onPressed ?? Navigator.pop(context),
+      onTap: onPressed ?? () => Navigator.pop(context),
       child: SizedBox(
         width: 24,
         height: 24,

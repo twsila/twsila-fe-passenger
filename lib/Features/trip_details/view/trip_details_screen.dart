@@ -1,13 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_reload_widget.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
+import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_bloc.dart';
+import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_event.dart';
+import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_state.dart';
 import 'package:taxi_for_you/Features/trip_details/view/trip_details_viewmodel.dart';
-import 'package:taxi_for_you/Features/trip_details/view/widgets/drivers_list_widget/drivers_list_widget.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/trip_details_widget/trip_details_widget.dart';
+import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
-import 'package:taxi_for_you/data/model/trip_type.dart';
 
 class TripDetailsScreen extends StatefulWidget {
   final int tripId;
@@ -26,6 +32,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
   @override
   void initState() {
     _viewModel.start();
+    BlocProvider.of<TripDetailsBloc>(context).add(
+      GetTripDetailsRequest(tripId: widget.tripId),
+    );
     super.initState();
   }
 
@@ -46,14 +55,51 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
         body: Container(
           margin: const EdgeInsets.all(16),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const TripDetailsWidget(tripType: TripType.furniture),
-                const SizedBox(height: 16),
-                Divider(color: ColorManager.grey1),
-                const DriversListWidget(),
-              ],
+            child: BlocConsumer<TripDetailsBloc, TripDetailsStates>(
+              listener: (context, state) {
+                if (state is TripDetailsIsLoading) {
+                  setState(() {
+                    _viewModel.displayLoadingIndicator = true;
+                  });
+                } else {
+                  setState(() {
+                    _viewModel.displayLoadingIndicator = false;
+                  });
+                  if (state is TripDetailsFailed) {
+                    ShowDialogHelper.showErrorMessage(
+                      state.baseResponse.errorMessage ??
+                          AppStrings.somethingWentWrong.tr(),
+                      context,
+                    );
+                  }
+                }
+              },
+              builder: (context, state) {
+                if (state is TripDetailsSuccessfully) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      TripDetailsWidget(
+                          trip: state.tripDetailsModel.tripDetails),
+                      const SizedBox(height: 16),
+                      Divider(color: ColorManager.grey1),
+                      const OffersWidget(offer: null),
+                    ],
+                  );
+                } else if (state is TripDetailsFailed) {
+                  return Padding(
+                    padding: EdgeInsets.only(top: context.getHeight() / 3),
+                    child: CustomReloadWidget(
+                      onPressed: () =>
+                          BlocProvider.of<TripDetailsBloc>(context).add(
+                        GetTripDetailsRequest(tripId: widget.tripId),
+                      ),
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              },
             ),
           ),
         ),

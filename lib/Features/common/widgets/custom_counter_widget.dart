@@ -6,7 +6,7 @@ import '../../../core/utils/resources/color_manager.dart';
 
 class CustomCounterWidget extends StatefulWidget {
   final String text;
-  final int? value;
+  final double? value;
   final Function onPlusPressed;
   final Function onMinusPressed;
 
@@ -54,7 +54,7 @@ class _CustomCounterWidgetState extends State<CustomCounterWidget> {
               ),
               const SizedBox(width: 16),
               Text(
-                (widget.value ?? 0).toString(),
+                ((widget.value ?? 0).toInt()).toString(),
                 style: getMediumStyle(
                     color: ColorManager.titlesTextColor, fontSize: 18),
               ),

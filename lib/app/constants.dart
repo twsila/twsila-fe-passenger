@@ -19,11 +19,22 @@ class Constants {
   };
 }
 
+class TripTypeConstants {
+  static const String carAidType = "CAR_AID";
+  static const String drinkWaterType = "DRINK_WATER_TANK";
+  static const String frozenType = "FROZEN";
+  static const String furnitureType = "FURNITURE";
+  static const String goodsType = "GOODS";
+  static const String otherTankType = "OTHER_TANK";
+  static const String personType = "PERSON";
+}
+
 class EndPointsConstants {
   static const String login = "passenger/login";
   static const String register = "passenger/register-passenger";
   static const String generateOtp = "otp/generate";
   static const String validateOtp = "otp/validate";
+  static const String tripDetails = "passengers/trips/details";
   static const String sendFurnitureRequest = 'trips/insert-furniture-trip';
   static const String sendGoodsRequest = 'trips/insert-goods-trip';
   static const String sendCarAidRequest = 'trips/insert-car-aid-trip';
