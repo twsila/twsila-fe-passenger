@@ -90,6 +90,8 @@ class AppStrings {
   static const ok = "ok";
   static const cancel = "cancel";
   static const cancelRequest = "cancel_request";
+  static const cancelTripConfirmation = "cancel_trip_confirmation";
+  static const cancelTripSuccessfully = "cancel_trip_successfully";
   static const cancelRequestConfirmation = "cancel_request_confirmation";
   static const yes = "yes";
   static const no = "no";

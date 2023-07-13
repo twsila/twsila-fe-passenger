@@ -12,6 +12,7 @@ class TripDetailsBloc extends Bloc<TripDetailsEvent, TripDetailsStates> {
 
   TripDetailsBloc(this.tripDetailsRepo) : super(TripDetailsIsNotLoading()) {
     on<GetTripDetailsRequest>(_getTripDetails);
+    on<CancelTripRequest>(_cancelTrip);
   }
 
   void _getTripDetails(
@@ -37,6 +38,27 @@ class TripDetailsBloc extends Bloc<TripDetailsEvent, TripDetailsStates> {
       } else {
         var response = BaseResponse(errorMessage: e.toString());
         emit(TripDetailsFailed(baseResponse: response));
+      }
+    }
+  }
+
+  void _cancelTrip(
+      CancelTripRequest event, Emitter<TripDetailsStates> emit) async {
+    emit(TripDetailsIsLoading());
+
+    try {
+      await tripDetailsRepo.cancelTripRequest(event.tripId);
+
+      emit(CancelTripSuccessfully());
+    } catch (e) {
+      if (e is PlatformException) {
+        if (e.message != null) {
+          emit(CancelTripFailed(
+              baseResponse: BaseResponse(errorMessage: e.message)));
+        }
+      } else {
+        var response = BaseResponse(errorMessage: e.toString());
+        emit(CancelTripFailed(baseResponse: response));
       }
     }
   }

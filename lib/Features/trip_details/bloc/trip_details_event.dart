@@ -12,3 +12,11 @@ class GetTripDetailsRequest extends TripDetailsEvent {
     required this.tripId,
   });
 }
+
+class CancelTripRequest extends TripDetailsEvent {
+  final int tripId;
+
+  CancelTripRequest({
+    required this.tripId,
+  });
+}

@@ -71,12 +71,14 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
           children: [
             Image.asset(ImageAssets.pin),
             const SizedBox(width: 16),
-            Text(
-              AppStrings.from.tr() +
-                  (widget.trip.pickupLocation.locationName ?? ''),
-              style: getMediumStyle(
-                color: ColorManager.primaryTextColor,
-                fontSize: 14,
+            Expanded(
+              child: Text(
+                AppStrings.from.tr() +
+                    (widget.trip.pickupLocation.locationName ?? ''),
+                style: getMediumStyle(
+                  color: ColorManager.primaryTextColor,
+                  fontSize: 14,
+                ),
               ),
             ),
           ],
@@ -93,12 +95,14 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
           children: [
             Image.asset(ImageAssets.pin),
             const SizedBox(width: 16),
-            Text(
-              AppStrings.to.tr() +
-                  (widget.trip.destinationLocation.locationName ?? ''),
-              style: getMediumStyle(
-                color: ColorManager.primaryTextColor,
-                fontSize: 14,
+            Expanded(
+              child: Text(
+                AppStrings.to.tr() +
+                    (widget.trip.destinationLocation.locationName ?? ''),
+                style: getMediumStyle(
+                  color: ColorManager.primaryTextColor,
+                  fontSize: 14,
+                ),
               ),
             ),
           ],

@@ -176,6 +176,8 @@
   "confirm": "Confirm",
   "send_request": "Send Request",
   "cancel_request": "Cancel request",
+  "cancel_trip_confirmation": "Are you sure you want to cancel the trip ?",
+  "cancel_trip_successfully": "Trip canceled successfully",
   "cancel_request_confirmation": "Are you sure you want to cancel the request ?",
   "logout": "Logout",
   "logout_confirmation": "Are you sure you want to logout?",
