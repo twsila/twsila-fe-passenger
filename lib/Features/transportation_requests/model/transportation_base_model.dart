@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:taxi_for_you/Features/trip_details/model/offer_model.dart';
 import 'package:taxi_for_you/core/utils/helpers/double_prase.dart';
 
 class TransportationBaseModel {
@@ -15,6 +16,8 @@ class TransportationBaseModel {
   String? notes;
   double? paymentValue;
   List<XFile>? images;
+  AcceptedOffer? acceptedOffer;
+  List<OfferModel>? offers;
 
   TransportationBaseModel();
 
@@ -37,6 +40,13 @@ class TransportationBaseModel {
         json['destination'] is String
             ? jsonDecode(json['destination'])
             : json['destination']);
+    if (json['offers'] != null && json['offers'].isNotEmpty) {
+      offers = List<OfferModel>.from(
+          json["offers"].map((x) => OfferModel.fromJson(x)));
+    }
+    if (json['acceptedOffer'] != null) {
+      acceptedOffer = AcceptedOffer.fromJson(json['acceptedOffer']);
+    }
     return this;
   }
 

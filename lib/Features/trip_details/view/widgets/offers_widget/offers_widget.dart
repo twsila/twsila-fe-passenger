@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/trip_details/model/offer_model.dart';
-import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
-import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
-
-import '../../../../../core/utils/resources/color_manager.dart';
-import '../../../../../core/utils/resources/styles_manager.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_status/trip_accepted_offer.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_status/trip_all_offers.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_status/trip_no_offers.dart';
 
 class OffersWidget extends StatefulWidget {
-  final OfferModel? offer;
-  const OffersWidget({Key? key, required this.offer}) : super(key: key);
+  final AcceptedOffer? acceptedOffer;
+  final List<OfferModel>? offers;
+  const OffersWidget({
+    Key? key,
+    required this.acceptedOffer,
+    required this.offers,
+  }) : super(key: key);
 
   @override
   State<OffersWidget> createState() => _OffersWidgetState();
@@ -17,20 +20,10 @@ class OffersWidget extends StatefulWidget {
 class _OffersWidgetState extends State<OffersWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: context.getHeight() / 3,
-          child: Image.asset(ImageAssets.driverWaiting),
-        ),
-        Text(
-          'في انتظار العروض من السائقين',
-          style: getBoldStyle(
-            color: ColorManager.black,
-            fontSize: 18,
-          ),
-        ),
-      ],
-    );
+    return widget.acceptedOffer != null
+        ? TripAccepterdOffer(offer: widget.acceptedOffer!.offer)
+        : widget.offers != null
+            ? TripAllOffer(offers: widget.offers!)
+            : const TripNoOffers();
   }
 }

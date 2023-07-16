@@ -110,6 +110,12 @@ class AppPreferences {
     }
   }
 
+  String getCurrentCurrnecy() {
+    return getUserSelectedCountry()!.country == "SA"
+        ? AppStrings.saudiCurrency.tr()
+        : AppStrings.egpCurrency.tr();
+  }
+
   //Set User Devices
   setUserDevices(String mobileNumber) {
     List<String>? mobileNumbers =

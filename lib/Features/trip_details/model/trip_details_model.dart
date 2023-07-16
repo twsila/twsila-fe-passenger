@@ -5,36 +5,33 @@ import 'package:taxi_for_you/Features/transportation_requests/view/widgets/trans
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/furniture/models/furniture_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/models/water_model.dart';
-import 'package:taxi_for_you/Features/trip_details/model/offer_model.dart';
 import 'package:taxi_for_you/app/constants.dart';
 
 class TripDetailsModel {
   final TransportationBaseModel tripDetails;
-  final OfferModel? offer;
 
-  TripDetailsModel({required this.tripDetails, required this.offer});
+  TripDetailsModel({required this.tripDetails});
 
   factory TripDetailsModel.fromJson(Map<String, dynamic> json) {
     var details;
-    Map<String, dynamic> tripJson = json['trip'];
-    String tripType = tripJson['tripType'];
+    String tripType = json['tripType'];
 
     if (tripType == TripTypeConstants.furnitureType) {
-      details = FurnitureModel.fromJson(tripJson);
+      details = FurnitureModel.fromJson(json);
     } else if (tripType == TripTypeConstants.goodsType) {
-      details = GoodsModel.fromJson(tripJson);
+      details = GoodsModel.fromJson(json);
     } else if (tripType == TripTypeConstants.frozenType) {
-      details = FreezersModel.fromJson(tripJson);
+      details = FreezersModel.fromJson(json);
     } else if (tripType == TripTypeConstants.carAidType) {
-      details = CarAidModel.fromJson(tripJson);
+      details = CarAidModel.fromJson(json);
     } else if (tripType == TripTypeConstants.drinkWaterType) {
-      details = WaterModel.fromJson(tripJson);
+      details = WaterModel.fromJson(json);
     } else if (tripType == TripTypeConstants.otherTankType) {
-      details = CisternsModel.fromJson(tripJson);
+      details = CisternsModel.fromJson(json);
     } else if (tripType == TripTypeConstants.personType) {
-      details = CisternsModel.fromJson(tripJson);
+      details = CisternsModel.fromJson(json);
     }
 
-    return TripDetailsModel(tripDetails: details, offer: null);
+    return TripDetailsModel(tripDetails: details);
   }
 }

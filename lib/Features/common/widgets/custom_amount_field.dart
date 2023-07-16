@@ -36,9 +36,7 @@ class _CustomAmountFieldState extends State<CustomAmountField> {
       suffixIcon: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Text(
-          _appPrefs.getUserSelectedCountry()!.country == "SA"
-              ? AppStrings.saudiCurrency.tr()
-              : AppStrings.egpCurrency.tr(),
+          _appPrefs.getCurrentCurrnecy(),
           style: getMediumStyle(color: Colors.black, fontSize: 12),
         ),
       ),

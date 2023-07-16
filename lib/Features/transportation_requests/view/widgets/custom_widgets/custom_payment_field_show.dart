@@ -42,9 +42,7 @@ class CustomPaymentFieldShow extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        _appPrefs.getUserSelectedCountry() == "SA"
-                            ? AppStrings.saudiCurrency.tr()
-                            : AppStrings.egpCurrency.tr(),
+                        _appPrefs.getCurrentCurrnecy(),
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],

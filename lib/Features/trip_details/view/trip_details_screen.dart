@@ -35,9 +35,14 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
   @override
   void initState() {
     _viewModel.start();
-    BlocProvider.of<TripDetailsBloc>(context).add(
-      GetTripDetailsRequest(tripId: widget.tripId),
+    BlocProvider.of<TripDetailsBloc>(context)
+        .add(GetTripDetailsRequest(tripId: widget.tripId));
+    _viewModel.setTimer(
+      () => BlocProvider.of<TripDetailsBloc>(context).add(
+        GetTripDetailsRequest(tripId: widget.tripId),
+      ),
     );
+
     super.initState();
   }
 
@@ -61,13 +66,22 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
             child: BlocConsumer<TripDetailsBloc, TripDetailsStates>(
               listener: (context, state) {
                 if (state is TripDetailsIsLoading) {
-                  setState(() {
-                    _viewModel.displayLoadingIndicator = true;
-                  });
+                  if (_viewModel.isInit) {
+                    _viewModel.isInit = false;
+                    setState(() {
+                      _viewModel.displayLoadingIndicator = true;
+                    });
+                  }
                 } else {
                   setState(() {
                     _viewModel.displayLoadingIndicator = false;
                   });
+                  if (state is TripDetailsSuccessfully) {
+                    if (state.tripDetailsModel.tripDetails.acceptedOffer !=
+                        null) {
+                      _viewModel.cancelTimer();
+                    }
+                  }
                   if (state is CancelTripSuccessfully) {
                     ShowDialogHelper.showSuccessMessage(
                         AppStrings.cancelTripSuccessfully.tr(), context);
@@ -101,7 +115,11 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                           trip: state.tripDetailsModel.tripDetails),
                       const SizedBox(height: 16),
                       Divider(color: ColorManager.grey1),
-                      const OffersWidget(offer: null),
+                      OffersWidget(
+                        acceptedOffer:
+                            state.tripDetailsModel.tripDetails.acceptedOffer,
+                        offers: state.tripDetailsModel.tripDetails.offers,
+                      ),
                       CancelTripButton(tripId: widget.tripId)
                     ],
                   );

@@ -57,10 +57,7 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
           AppStrings.onBudget.tr() +
               widget.trip.paymentValue.toString() +
               ' ' +
-              (_viewModel.appPreferences.getUserSelectedCountry()!.country ==
-                      "SA"
-                  ? AppStrings.saudiCurrency.tr()
-                  : AppStrings.egpCurrency.tr()),
+              (_viewModel.appPreferences.getCurrentCurrnecy()),
           style: getMediumStyle(
             color: ColorManager.primaryTextColor,
             fontSize: 18,

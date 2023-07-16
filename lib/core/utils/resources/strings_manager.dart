@@ -17,6 +17,9 @@ class AppStrings {
   static const onBudget = "on_budget";
   static const continueRequest = "continue_request";
   static const tripDetails = 'trip_details';
+  static const offers = 'offers';
+  static const waitingOffers = 'waiting_offers';
+  static const chooseOffer = 'choose_offer';
   static const newRequest = "new_request";
   static const oldRequest = "old_request";
   static const somethingWentWrong = "something_went_wrong";

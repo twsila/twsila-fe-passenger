@@ -42,9 +42,7 @@ class _CustomPaymentFieldState extends State<CustomPaymentField> {
               ),
             ),
             Text(
-              _appPrefs.getUserSelectedCountry() == "SA"
-                  ? AppStrings.saudiCurrency.tr()
-                  : AppStrings.egpCurrency.tr(),
+              _appPrefs.getCurrentCurrnecy(),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
