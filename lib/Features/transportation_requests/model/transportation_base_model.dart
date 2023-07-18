@@ -8,6 +8,8 @@ class TransportationBaseModel {
   int? tripId;
   String? tripEndPoint;
   String? tripType;
+  String? tripNumber;
+  String? tripStatus;
   TransportationLocation pickupLocation = TransportationLocation();
   TransportationLocation destinationLocation = TransportationLocation();
   String? creationDate;
@@ -25,9 +27,11 @@ class TransportationBaseModel {
     tripId = json['id'];
     tripEndPoint = json['tripEndPoint'];
     tripType = json['tripType'];
+    tripNumber = json['tripNumber'];
+    tripStatus = json['tripStatus'];
     creationDate = json['creationDate'];
-    stringDate = json['date'];
-    date = json['stringDate'];
+    stringDate = json['stringDate'];
+    date = json['date'];
     notes = json['notes'];
     paymentValue = (json['clientOffer'] != null)
         ? dynamicToDouble(json['clientOffer'])
@@ -53,13 +57,15 @@ class TransportationBaseModel {
   Map<String, dynamic> toJSON() {
     Map<String, dynamic> data = <String, dynamic>{};
     if (creationDate != null) data['creationDate'] = creationDate;
-    if (stringDate != null) data['date'] = stringDate;
-    if (date != null) data['stringDate'] = date;
+    if (stringDate != null) data['stringDate'] = stringDate;
+    if (date != null) data['date'] = date;
     if (notes != null) data['notes'] = notes;
     if (paymentValue != null) data['clientOffer'] = paymentValue.toString();
     data['pickupLocation'] = json.encode(pickupLocation.toJson());
     data['destination'] = json.encode(destinationLocation.toJson());
-    data['tripType'] = tripType;
+    if (tripType != null) data['tripType'] = tripType;
+    if (tripNumber != null) data['tripNumber'] = tripNumber;
+    if (tripStatus != null) data['tripStatus'] = tripStatus;
     return data;
   }
 }

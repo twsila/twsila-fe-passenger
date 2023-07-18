@@ -42,7 +42,7 @@ class _TransportSecondViewState extends State<TransportSecondView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SecondViewTime(
-                  date: widget.transportationBaseModel.date,
+                  date: widget.transportationBaseModel.stringDate,
                   onSelectDate: (date, stringDate) {
                     Future.delayed(Duration.zero, () {
                       if (mounted) {

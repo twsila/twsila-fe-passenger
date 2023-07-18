@@ -35,6 +35,7 @@ class EndPointsConstants {
   static const String generateOtp = "otp/generate";
   static const String validateOtp = "otp/validate";
   static const String tripDetails = "passengers/trips/details";
+  static const String userTrips = "passengers/offers/select-trip";
   static const String cancelTrip = "passengers/trips/cancel";
   static const String sendFurnitureRequest = 'trips/insert-furniture-trip';
   static const String sendGoodsRequest = 'trips/insert-goods-trip';

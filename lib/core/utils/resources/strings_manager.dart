@@ -9,6 +9,10 @@ class AppStrings {
   static const appTitle = 'app_title';
   static const sendIn = "send_in";
   static const codesent = "code_sent";
+  static const past = 'past';
+  static const noPast = 'no_past';
+  static const upcoming = 'upcoming';
+  static const noUpcoming = 'no_upcoming';
   static const save = "save";
   static const step = "step";
   static const next = "next";
@@ -17,6 +21,7 @@ class AppStrings {
   static const onBudget = "on_budget";
   static const continueRequest = "continue_request";
   static const tripDetails = 'trip_details';
+  static const tripStartIn = 'trip_start_in';
   static const offers = 'offers';
   static const waitingOffers = 'waiting_offers';
   static const chooseOffer = 'choose_offer';
@@ -91,6 +96,8 @@ class AppStrings {
   static const loading = "loading";
   static const retryAgain = "retry_again";
   static const ok = "ok";
+  static const driverCancelled = 'driver_cancelled';
+  static const passengerCancelled = 'passenger_cancelled';
   static const cancel = "cancel";
   static const cancelRequest = "cancel_request";
   static const cancelTripConfirmation = "cancel_trip_confirmation";
@@ -133,6 +140,7 @@ class AppStrings {
   static const home = "home";
   static const notifications = "notification";
   static const search = "search";
+  static const tripFinished = "trip_finished";
   static const saveTrip = "save_trip";
   static const settings = "settings";
   static const services = "services";
@@ -182,6 +190,7 @@ class AppStrings {
   static const getHelp = "get_help";
   static const whenService = "when_service";
   static const fastestTime = "fastest_time";
+  static const scheduledTime = "scheduled_time";
   static const specifiedTime = "specified_time";
   static const determinateLocation = "determinate_location";
   static const selectStartPoint = "select_start_point";

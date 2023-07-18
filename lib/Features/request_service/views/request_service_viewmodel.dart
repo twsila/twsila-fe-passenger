@@ -11,7 +11,6 @@ import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
-import 'package:collection/collection.dart';
 
 import '../../transportation_requests/view/transport_request_view.dart';
 import '../../transportation_requests/view/widgets/transportation_widgets/car_aid/models/car-aid-model.dart';

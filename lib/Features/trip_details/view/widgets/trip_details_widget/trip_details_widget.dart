@@ -38,9 +38,12 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(AppStrings.sendIn.tr() +
-                context.formatDateTime(
-                    dateTime: DateTime.tryParse(widget.trip.creationDate!))),
+            Expanded(
+              child: Text(AppStrings.sendIn.tr() +
+                  context.formatDateTime(
+                      dateTime: DateTime.tryParse(widget.trip.creationDate!))),
+            ),
+            const SizedBox(width: 16),
             Image.asset(_viewModel.getIconName()),
           ],
         ),

@@ -127,7 +127,7 @@ class _SecondViewTimeState extends State<SecondViewTime> {
                 onSelectDate: (date, dateTime) {
                   String? stringDate =
                       DateFormat('dd/MM/yyyy hh:mm:ss').format(dateTime);
-                  widget.onSelectDate(date, stringDate);
+                  widget.onSelectDate(stringDate, date);
                 },
                 firstDate: DateTime.now(),
                 initialDate: widget.date,

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
+import 'package:taxi_for_you/Features/my_trips/model/my_trips_repo.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
 import 'package:taxi_for_you/Features/registeration/models/registeration_repo.dart';
@@ -32,6 +33,9 @@ Future<void> initAppModule() async {
   );
   instance.registerFactory<TripDetailsRepo>(
     () => TripDetailsRepo(instance<HttpBaseRequest>()),
+  );
+  instance.registerFactory<MyTripsRepo>(
+    () => MyTripsRepo(instance<HttpBaseRequest>()),
   );
   instance.registerFactory<OtpRepo>(() => OtpRepo(instance<HttpBaseRequest>()));
   instance.registerFactory<TransportationRepo>(

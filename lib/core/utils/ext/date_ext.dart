@@ -6,7 +6,7 @@ import '../../../app/di.dart';
 
 extension DateString on BuildContext {
   String formatDateTime({
-    String pattern = 'dd/MM/yyyy hh:mm a',
+    String pattern = 'EEEE dd MMM yyyy / hh:mm a',
     DateTime? dateTime,
   }) {
     final AppPreferences _appPrefs = instance();
