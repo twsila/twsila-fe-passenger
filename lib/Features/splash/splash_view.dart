@@ -1,6 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_reload_widget.dart';
+import 'package:taxi_for_you/Features/lookups/bloc/lookups_bloc.dart';
+import 'package:taxi_for_you/Features/lookups/bloc/lookups_event.dart';
+import 'package:taxi_for_you/Features/lookups/bloc/lookups_state.dart';
+import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import '../../app/app_prefs.dart';
 import '../../app/di.dart';
 import '../../core/utils/location/map_provider.dart';
@@ -29,7 +35,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    getCurrentLocation();
+    getLookups();
   }
 
   @override
@@ -41,8 +47,8 @@ class _SplashViewState extends State<SplashView> {
     super.didChangeDependencies();
   }
 
-  getCurrentLocation() async {
-    BlocProvider.of<MapsBloc>(context, listen: false).add(GetCurrentLocation());
+  getLookups() {
+    BlocProvider.of<LookupsBloc>(context).add(GetLookups());
   }
 
   setCountry() {
@@ -80,22 +86,25 @@ class _SplashViewState extends State<SplashView> {
           children: [
             Image.asset(ImageAssets.logoImg),
             const SizedBox(height: 16),
-            BlocConsumer<MapsBloc, MapsState>(
+            BlocConsumer<LookupsBloc, LookupsStates>(
               listener: ((context, state) {
-                if (state is CurrentLocationFailed) {
+                if (state is LookupsFailed) {
                   ShowDialogHelper.showErrorMessage(
-                      state.errorMessage, context);
-                  _goNext();
-                } else if (state is CurrentLocationLoadedSuccessfully) {
-                  Provider.of<MapProvider>(context, listen: false)
-                      .currentLocation = state.currentLocation;
+                    state.baseResponse.errorMessage ??
+                        AppStrings.noInternetError.tr(),
+                    context,
+                  );
+                } else if (state is LookupsSuccessfully) {
                   _goNext();
                 }
               }),
               builder: ((context, state) {
+                if (state is LookupsFailed) {
+                  return CustomReloadWidget(onPressed: () => getLookups());
+                }
                 return const SizedBox();
               }),
-            )
+            ),
           ],
         ),
       ),

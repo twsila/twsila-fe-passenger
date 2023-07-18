@@ -25,6 +25,7 @@
   "next": "Next",
   "from": "From ",
   "to": "To ",
+  "tap_to_reload": "Tap to reload",
   "on_budget": "On a budget ",
   "continue_request": "Continue request",
   "trip_details": "Trip Details",
@@ -295,5 +296,6 @@
   "select_delivery_point": "Select the delivery point",
   "select_location_on_map": "Select location on map",
   "distance": "Distance: ",
-  "km": "KM"
+  "km": "KM",
+  "no_internet_error": "No internet connection"
 }

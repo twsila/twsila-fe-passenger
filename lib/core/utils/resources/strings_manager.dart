@@ -18,6 +18,7 @@ class AppStrings {
   static const next = "next";
   static const from = "from";
   static const to = "to";
+  static const tapToReload = 'tap_to_reload';
   static const onBudget = "on_budget";
   static const continueRequest = "continue_request";
   static const tripDetails = 'trip_details';

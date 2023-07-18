@@ -20,7 +20,6 @@ Future<void> initAppModule() async {
 
   // instances
   final sharedPrefs = await SharedPreferences.getInstance();
-  final baseRequestInterface = instance<HttpBaseRequest>();
 
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
 
@@ -28,6 +27,8 @@ Future<void> initAppModule() async {
   instance
       .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
   instance.registerFactory<HttpBaseRequest>(() => HttpBaseRequest());
+
+  final baseRequestInterface = instance<HttpBaseRequest>();
   instance.registerFactory<LoginRepo>(() => LoginRepo(baseRequestInterface));
   instance.registerFactory<RegistrationRepo>(
     () => RegistrationRepo(baseRequestInterface),
