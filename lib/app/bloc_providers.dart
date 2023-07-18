@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/Features/login/bloc/login_bloc.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
+import 'package:taxi_for_you/Features/lookups/bloc/lookups_bloc.dart';
+import 'package:taxi_for_you/Features/lookups/model/lookups_repo.dart';
 import 'package:taxi_for_you/Features/my_trips/bloc/my_trips_bloc.dart';
 import 'package:taxi_for_you/Features/my_trips/model/my_trips_repo.dart';
 import 'package:taxi_for_you/Features/otp/bloc/otp_bloc.dart';
@@ -32,6 +34,7 @@ blocProviders(BuildContext context) {
     BlocProvider.value(value: TripDetailsBloc(instance<TripDetailsRepo>())),
     BlocProvider.value(value: RegistrationBloc(instance<RegistrationRepo>())),
     BlocProvider.value(value: MyTripsBloc(instance<MyTripsRepo>())),
+    BlocProvider.value(value: LookupsBloc(instance<LookupsRepo>())),
     BlocProvider.value(value: OtpBloc(instance<OtpRepo>())),
     BlocProvider.value(value: MapsBloc(MapsRepo())),
     ChangeNotifierProvider(create: (_) => MapProvider()),

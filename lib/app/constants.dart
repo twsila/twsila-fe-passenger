@@ -30,6 +30,7 @@ class TripTypeConstants {
 }
 
 class EndPointsConstants {
+  static const String lookups = 'lookup';
   static const String login = "passenger/login";
   static const String register = "passenger/register-passenger";
   static const String generateOtp = "otp/generate";

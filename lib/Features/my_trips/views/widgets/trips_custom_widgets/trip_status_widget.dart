@@ -38,8 +38,10 @@ class _TripStatusState extends State<TripStatus> {
         if (status == 'DRAFT') {
           text = AppStrings.tripStartIn.tr() +
               context.formatDateTime(
-                  dateTime: DateTime.tryParse(
-                      widget.trip.date ?? widget.trip.creationDate!));
+                dateTime: DateTime.tryParse(
+                  widget.trip.date ?? widget.trip.creationDate!,
+                ),
+              );
         } else if (status == 'TAKEOFF') {}
       }
     }

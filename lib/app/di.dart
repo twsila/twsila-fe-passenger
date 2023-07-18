@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
+import 'package:taxi_for_you/Features/lookups/model/lookups_repo.dart';
 import 'package:taxi_for_you/Features/my_trips/model/my_trips_repo.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
@@ -17,8 +18,9 @@ final instance = GetIt.instance;
 Future<void> initAppModule() async {
   // app module, its a module where we put all generic dependencies
 
-  // shared prefs instance
+  // instances
   final sharedPrefs = await SharedPreferences.getInstance();
+  final baseRequestInterface = instance<HttpBaseRequest>();
 
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
 
@@ -26,20 +28,22 @@ Future<void> initAppModule() async {
   instance
       .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
   instance.registerFactory<HttpBaseRequest>(() => HttpBaseRequest());
-  instance
-      .registerFactory<LoginRepo>(() => LoginRepo(instance<HttpBaseRequest>()));
+  instance.registerFactory<LoginRepo>(() => LoginRepo(baseRequestInterface));
   instance.registerFactory<RegistrationRepo>(
-    () => RegistrationRepo(instance<HttpBaseRequest>()),
+    () => RegistrationRepo(baseRequestInterface),
+  );
+  instance.registerFactory<LookupsRepo>(
+    () => LookupsRepo(baseRequestInterface),
   );
   instance.registerFactory<TripDetailsRepo>(
-    () => TripDetailsRepo(instance<HttpBaseRequest>()),
+    () => TripDetailsRepo(baseRequestInterface),
   );
   instance.registerFactory<MyTripsRepo>(
-    () => MyTripsRepo(instance<HttpBaseRequest>()),
+    () => MyTripsRepo(baseRequestInterface),
   );
-  instance.registerFactory<OtpRepo>(() => OtpRepo(instance<HttpBaseRequest>()));
+  instance.registerFactory<OtpRepo>(() => OtpRepo(baseRequestInterface));
   instance.registerFactory<TransportationRepo>(
-    () => TransportationRepo(instance<HttpBaseRequest>()),
+    () => TransportationRepo(baseRequestInterface),
   );
 }
 
