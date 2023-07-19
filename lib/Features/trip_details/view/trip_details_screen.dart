@@ -9,7 +9,8 @@ import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_bloc.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_event.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_state.dart';
 import 'package:taxi_for_you/Features/trip_details/view/trip_details_viewmodel.dart';
-import 'package:taxi_for_you/Features/trip_details/view/widgets/cancel_trip_button.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/cancel_trip_button.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/need_help_button.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/trip_details_widget/trip_details_widget.dart';
 import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
@@ -120,7 +121,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                             state.tripDetailsModel.tripDetails.acceptedOffer,
                         offers: state.tripDetailsModel.tripDetails.offers,
                       ),
-                      CancelTripButton(tripId: widget.tripId)
+                      state.tripDetailsModel.tripDetails.acceptedOffer != null
+                          ? NeedHelpButton(tripId: widget.tripId)
+                          : CancelTripButton(tripId: widget.tripId)
                     ],
                   );
                 } else if (state is TripDetailsFailed) {

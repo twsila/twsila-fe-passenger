@@ -6,9 +6,9 @@ import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_bloc.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_event.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_state.dart';
 
-import '../../../../core/utils/resources/color_manager.dart';
-import '../../../../core/utils/resources/strings_manager.dart';
-import '../../../common/widgets/custom_text_button.dart';
+import '../../../../../core/utils/resources/color_manager.dart';
+import '../../../../../core/utils/resources/strings_manager.dart';
+import '../../../../common/widgets/custom_text_button.dart';
 
 class CancelTripButton extends StatefulWidget {
   final int tripId;

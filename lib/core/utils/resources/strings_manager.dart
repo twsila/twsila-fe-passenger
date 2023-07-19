@@ -97,6 +97,8 @@ class AppStrings {
   static const loading = "loading";
   static const retryAgain = "retry_again";
   static const ok = "ok";
+  static const driverDetails = 'driver_details';
+  static const driverCall = 'driver_call';
   static const driverCancelled = 'driver_cancelled';
   static const passengerCancelled = 'passenger_cancelled';
   static const cancel = "cancel";
@@ -189,6 +191,7 @@ class AppStrings {
   static const walletAndPayments = "wallets_payments";
   static const inviteAndWin = "invite_and_win";
   static const getHelp = "get_help";
+  static const needHelp = 'need_help';
   static const whenService = "when_service";
   static const fastestTime = "fastest_time";
   static const scheduledTime = "scheduled_time";

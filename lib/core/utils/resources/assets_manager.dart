@@ -2,6 +2,7 @@ const String imagePath = "assets/images";
 const String jsonPath = "assets/json";
 
 class ImageAssets {
+  static const String logo = "$imagePath/logo.jpeg";
   static const String logoImg = "$imagePath/logo-twsila.jpeg";
   static const String logoApp = "$imagePath/logo-furniture.png";
   static const String star = "$imagePath/star.png";

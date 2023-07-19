@@ -11,10 +11,13 @@ class CustomTextButton extends StatefulWidget {
   final String text;
   final Color? color;
   final Color? textColor;
-  final bool? hasBorder;
   final double? height;
+  final double? fontSize;
+  final bool? hasBorder;
   final bool showIcon;
   final bool showShadow;
+  final IconData? iconData;
+  final String? imageData;
   const CustomTextButton({
     Key? key,
     this.color,
@@ -24,6 +27,9 @@ class CustomTextButton extends StatefulWidget {
     this.showIcon = true,
     this.showShadow = true,
     this.textColor,
+    this.fontSize,
+    this.iconData,
+    this.imageData,
     required this.text,
   }) : super(key: key);
 
@@ -65,31 +71,40 @@ class _CustomTextButtonState extends State<CustomTextButton> {
                 children: [
                   Text(
                     widget.text,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(color: widget.textColor ?? Colors.white),
+                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                          color: widget.textColor ?? Colors.white,
+                          fontSize: widget.fontSize,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   const SizedBox(width: 4),
-                  Transform.rotate(
-                    angle: appPreferences.getAppLanguage() ==
-                            LanguageType.ENGLISH.getValue()
-                        ? 0
-                        : math.pi,
-                    child: const Icon(
-                      Icons.arrow_right_alt,
-                      color: Colors.white,
-                    ),
-                  )
+                  widget.imageData != null
+                      ? Image.asset(widget.imageData!)
+                      : widget.iconData != null
+                          ? Icon(
+                              widget.iconData,
+                              color: Colors.white,
+                            )
+                          : Transform.rotate(
+                              angle: appPreferences.getAppLanguage() ==
+                                      LanguageType.ENGLISH.getValue()
+                                  ? 0
+                                  : math.pi,
+                              child: const Icon(
+                                Icons.arrow_right_alt,
+                                color: Colors.white,
+                              ),
+                            )
                 ],
               )
             : Text(
                 widget.text,
                 textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge!
-                    .copyWith(color: widget.textColor ?? Colors.white),
+                style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                      color: widget.textColor ?? Colors.white,
+                      fontSize: widget.fontSize,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
       ),
     );
