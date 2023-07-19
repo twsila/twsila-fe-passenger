@@ -83,6 +83,18 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                       _viewModel.cancelTimer();
                     }
                   }
+                  if (state is AcceptOfferSuccessfully) {
+                    ShowDialogHelper.showSuccessMessage(
+                        AppStrings.offerAccepted.tr(), context);
+                    BlocProvider.of<TripDetailsBloc>(context)
+                        .add(GetTripDetailsRequest(tripId: widget.tripId));
+                  }
+                  if (state is AcceptOfferFailed) {
+                    ShowDialogHelper.showErrorMessage(
+                        state.baseResponse.errorMessage ??
+                            AppStrings.somethingWentWrong.tr(),
+                        context);
+                  }
                   if (state is CancelTripSuccessfully) {
                     ShowDialogHelper.showSuccessMessage(
                         AppStrings.cancelTripSuccessfully.tr(), context);

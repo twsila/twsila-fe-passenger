@@ -24,6 +24,7 @@ class AppStrings {
   static const tripDetails = 'trip_details';
   static const tripStartIn = 'trip_start_in';
   static const offers = 'offers';
+  static const offerAccepted = 'offer_accepted';
   static const waitingOffers = 'waiting_offers';
   static const chooseOffer = 'choose_offer';
   static const newRequest = "new_request";

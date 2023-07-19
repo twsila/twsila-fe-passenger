@@ -13,6 +13,14 @@ class GetTripDetailsRequest extends TripDetailsEvent {
   });
 }
 
+class AcceptOfferRequest extends TripDetailsEvent {
+  final int offerId;
+
+  AcceptOfferRequest({
+    required this.offerId,
+  });
+}
+
 class CancelTripRequest extends TripDetailsEvent {
   final int tripId;
 

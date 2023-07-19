@@ -34,6 +34,24 @@ class TripDetailsRepo {
     }
   }
 
+  Future<dynamic> acceptOfferRequest(
+    int offerId,
+  ) async {
+    try {
+      Map<String, dynamic> body = {'offerId': offerId};
+
+      RequestModel requestModel = RequestModel(
+        endPoint: EndPointsConstants.acceptOffer,
+        reqBody: body,
+        requestType: NETWORK_REQUEST_TYPE.PUT,
+      );
+      dynamic response = await _baseRequest.sendRequest(requestModel);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<dynamic> cancelTripRequest(
     int tripId,
   ) async {

@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_bloc.dart';
+import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_event.dart';
 import 'package:taxi_for_you/Features/trip_details/model/offer_model.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
@@ -133,7 +136,10 @@ class _SingleOfferWidgetState extends State<SingleOfferWidget> {
             margin: const EdgeInsets.all(8),
             child: CustomTextButton(
               text: AppStrings.chooseOffer.tr(),
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<TripDetailsBloc>(context)
+                    .add(AcceptOfferRequest(offerId: widget.offer.offerId));
+              },
               showIcon: false,
             ),
           ),

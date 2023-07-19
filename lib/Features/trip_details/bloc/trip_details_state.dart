@@ -28,6 +28,16 @@ class TripDetailsFailed extends TripDetailsStates {
   List<Object> get props => [baseResponse];
 }
 
+class AcceptOfferSuccessfully extends TripDetailsStates {}
+
+class AcceptOfferFailed extends TripDetailsStates {
+  final BaseResponse baseResponse;
+
+  AcceptOfferFailed({required this.baseResponse});
+  @override
+  List<Object> get props => [baseResponse];
+}
+
 class CancelTripSuccessfully extends TripDetailsStates {}
 
 class CancelTripFailed extends TripDetailsStates {

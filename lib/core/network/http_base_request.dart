@@ -46,6 +46,11 @@ class HttpBaseRequest extends BaseRequestInterface {
             .timeout(
               const Duration(seconds: Constants.apiTimeOut),
             );
+      } else if (requestModel.requestType == NETWORK_REQUEST_TYPE.PUT) {
+        response =
+            await http.put(uri, body: requestEncoded, headers: headers).timeout(
+                  const Duration(seconds: Constants.apiTimeOut),
+                );
       } else {
         response = await http
             .get(uri, headers: headers)
