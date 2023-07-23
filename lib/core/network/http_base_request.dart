@@ -56,6 +56,12 @@ class HttpBaseRequest extends BaseRequestInterface {
             .get(uri, headers: headers)
             .timeout(const Duration(seconds: Constants.apiTimeOut));
       }
+      if (response.statusCode == 401) {
+        bool shouldRefresh = await appPreferences.refreshToken();
+        if (shouldRefresh) {
+          return sendRequest(requestModel);
+        }
+      }
       return _returnResponse(response);
     } on SocketException {
       throw NoInternetException();
@@ -112,6 +118,12 @@ class HttpBaseRequest extends BaseRequestInterface {
           .send()
           .timeout(const Duration(seconds: Constants.apiTimeOut));
       var response = await http.Response.fromStream(streamedResponse);
+      if (response.statusCode == 401) {
+        bool shouldRefresh = await appPreferences.refreshToken();
+        if (shouldRefresh) {
+          sendMultiPartRequest(requestModel, files, fields);
+        }
+      }
       return _returnResponse(response);
     } on SocketException {
       throw NoInternetException();
@@ -133,14 +145,22 @@ class HttpBaseRequest extends BaseRequestInterface {
     }
   }
 
-  dynamic _returnResponse(http.Response response) {
+  dynamic _returnResponse(http.Response response) async {
     late BaseResponse baseResponse;
     if (response.bodyBytes.isNotEmpty) {
-      print(_decoder.convert(utf8.decode(response.bodyBytes)));
-      baseResponse = BaseResponse.fromJson(
-        _decoder.convert(utf8.decode(response.bodyBytes)),
-        statusCode: response.statusCode,
-      );
+      dynamic bodyBytes = _decoder.convert(utf8.decode(response.bodyBytes));
+      print(bodyBytes);
+      if (bodyBytes is String) {
+        baseResponse = BaseResponse(
+          errorMessage: bodyBytes,
+          status: response.statusCode,
+        );
+      } else {
+        baseResponse = BaseResponse.fromJson(
+          bodyBytes,
+          statusCode: response.statusCode,
+        );
+      }
     } else {
       baseResponse = BaseResponse(
         errorMessage: response.reasonPhrase,

@@ -2,17 +2,22 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/network/base_request_interface.dart';
 import 'package:taxi_for_you/data/model/request-model.dart';
 
 import '../../../core/network/http_base_request.dart';
 import '../../../data/model/user-device.dart';
+import '../../../data/model/user-model.dart';
 
 class LoginRepo {
   final BaseRequestInterface _baseRequest;
-
-  LoginRepo(this._baseRequest);
+  final AppPreferences appPreferences;
+  LoginRepo(
+    this._baseRequest,
+    this.appPreferences,
+  );
 
   Future<dynamic> loginUser(String mobileNumber) async {
     UserDevice userDevice = await setUserDevice();
@@ -25,6 +30,8 @@ class LoginRepo {
 
     try {
       dynamic response = await _baseRequest.sendRequest(requestModel);
+      UserModel userModel = UserModel.fromJson(response.result);
+      await appPreferences.setUserLoggedIn(userModel);
       return response;
     } catch (e) {
       rethrow;

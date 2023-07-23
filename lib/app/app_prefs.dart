@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taxi_for_you/Features/login/model/login_repo.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/car_aid/models/car-aid-model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/cisterns/models/cisterns_model.dart';
@@ -14,6 +15,7 @@ import 'package:taxi_for_you/Features/transportation_requests/view/widgets/trans
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/models/water_model.dart';
 import 'package:taxi_for_you/app/constants.dart';
+import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/data/model/country.dart';
@@ -157,6 +159,19 @@ class AppPreferences {
       return UserModel.fromJson(decodedJson);
     }
     return null;
+  }
+
+  Future<bool> refreshToken() async {
+    String? user = _sharedPreferences.getString(USER_MODEL);
+    if (user != null) {
+      Map<String, dynamic> decodedJson = json.decode(user);
+
+      UserModel userModel = UserModel.fromJson(decodedJson);
+      LoginRepo loginRepo = instance();
+      await loginRepo.loginUser(userModel.mobileNumber!);
+      return true;
+    }
+    return false;
   }
 
   Future<void> logout(BuildContext context) async {

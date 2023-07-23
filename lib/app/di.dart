@@ -29,7 +29,8 @@ Future<void> initAppModule() async {
   instance.registerFactory<HttpBaseRequest>(() => HttpBaseRequest());
 
   final baseRequestInterface = instance<HttpBaseRequest>();
-  instance.registerFactory<LoginRepo>(() => LoginRepo(baseRequestInterface));
+  instance.registerFactory<LoginRepo>(
+      () => LoginRepo(baseRequestInterface, instance<AppPreferences>()));
   instance.registerFactory<RegistrationRepo>(
     () => RegistrationRepo(baseRequestInterface),
   );

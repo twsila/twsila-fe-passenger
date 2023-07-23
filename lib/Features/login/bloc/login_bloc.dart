@@ -26,7 +26,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginStates> {
           response.success!) {
         dynamic results = response.result;
         UserModel userModel = UserModel.fromJson(results);
-        appPreferences.setUserLoggedIn(userModel);
         emit(LoginSuccessfully(userModel));
       } else {
         emit(LoginFailed(baseResponse: response));

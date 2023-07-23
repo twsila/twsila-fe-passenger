@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_reload_widget.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 import 'package:taxi_for_you/Features/my_trips/bloc/my_trips_state.dart';
 import 'package:taxi_for_you/Features/my_trips/views/my_trips_viewmodel.dart';
 import 'package:taxi_for_you/Features/my_trips/views/widgets/my_trips_widget.dart';
 import 'package:taxi_for_you/Features/my_trips/views/widgets/toggle_widget.dart';
+import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
@@ -119,6 +121,11 @@ class _MyTripsScreenState extends State<MyTripsScreen> {
                             ),
                           ),
                         );
+                } else if (state is MyTripsFailed) {
+                  return Padding(
+                    padding: EdgeInsets.only(top: context.getHeight() / 5),
+                    child: CustomReloadWidget(onPressed: refresh),
+                  );
                 } else {
                   return Container();
                 }

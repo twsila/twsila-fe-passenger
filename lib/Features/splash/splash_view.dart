@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_reload_widget.dart';
+import 'package:taxi_for_you/Features/login/bloc/login_state.dart';
 import 'package:taxi_for_you/Features/lookups/bloc/lookups_bloc.dart';
 import 'package:taxi_for_you/Features/lookups/bloc/lookups_event.dart';
 import 'package:taxi_for_you/Features/lookups/bloc/lookups_state.dart';
@@ -30,12 +31,13 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   bool _isInit = true;
+  UserModel? user;
   final AppPreferences _appPreferences = instance<AppPreferences>();
 
   @override
   void initState() {
     super.initState();
-    getLookups();
+    start();
   }
 
   @override
@@ -45,6 +47,20 @@ class _SplashViewState extends State<SplashView> {
       setCountry();
     }
     super.didChangeDependencies();
+  }
+
+  start() {
+    user = _appPreferences.getUserData();
+    if (user != null) {
+      refreshToken();
+    } else {
+      getLookups();
+    }
+  }
+
+  refreshToken() {
+    BlocProvider.of<LoginBloc>(context)
+        .add(LoginUser(mobileNumber: user!.mobileNumber!, context: context));
   }
 
   getLookups() {
@@ -60,13 +76,6 @@ class _SplashViewState extends State<SplashView> {
     _appPreferences.isUserLoggedIn().then((isUserLoggedIn) {
       if (isUserLoggedIn) {
         // navigate to main screen
-        UserModel? user = _appPreferences.getUserData();
-        if (user != null) {
-          BlocProvider.of<LoginBloc>(context).add(
-              LoginUser(mobileNumber: user.mobileNumber!, context: context));
-        } else {
-          Navigator.pushReplacementNamed(context, Routes.loginRoute);
-        }
         Navigator.pushReplacementNamed(context, Routes.homeRoute);
       } else {
         // Navigate to Login Screen
@@ -86,6 +95,25 @@ class _SplashViewState extends State<SplashView> {
           children: [
             Image.asset(ImageAssets.logoImg),
             const SizedBox(height: 16),
+            BlocConsumer<LoginBloc, LoginStates>(
+              listener: ((context, state) {
+                if (state is LoginFailed) {
+                  ShowDialogHelper.showErrorMessage(
+                    state.baseResponse.errorMessage ??
+                        AppStrings.noInternetError.tr(),
+                    context,
+                  );
+                } else if (state is LoginSuccessfully) {
+                  getLookups();
+                }
+              }),
+              builder: ((context, state) {
+                if (state is LookupsFailed) {
+                  return CustomReloadWidget(onPressed: () => start());
+                }
+                return const SizedBox();
+              }),
+            ),
             BlocConsumer<LookupsBloc, LookupsStates>(
               listener: ((context, state) {
                 if (state is LookupsFailed) {
@@ -100,7 +128,7 @@ class _SplashViewState extends State<SplashView> {
               }),
               builder: ((context, state) {
                 if (state is LookupsFailed) {
-                  return CustomReloadWidget(onPressed: () => getLookups());
+                  return CustomReloadWidget(onPressed: () => start());
                 }
                 return const SizedBox();
               }),
