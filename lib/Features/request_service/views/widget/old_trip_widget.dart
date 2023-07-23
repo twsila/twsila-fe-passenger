@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
@@ -14,8 +13,8 @@ import '../../../../core/utils/resources/styles_manager.dart';
 import '../../../transportation_requests/view/transport_request_view.dart';
 
 class OldTripWidget extends StatefulWidget {
-  final List<TransportationBaseModel> tripsList;
-  const OldTripWidget({Key? key, required this.tripsList}) : super(key: key);
+  final TransportationBaseModel draftTrip;
+  const OldTripWidget({Key? key, required this.draftTrip}) : super(key: key);
 
   @override
   State<OldTripWidget> createState() => _OldTripWidgetState();
@@ -69,81 +68,70 @@ class _OldTripWidgetState extends State<OldTripWidget> {
           ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 8),
-            child: Wrap(
-              direction: Axis.horizontal,
-              alignment: WrapAlignment.spaceBetween,
-              runSpacing: 16,
-              spacing: 16,
-              children: List.generate(
-                  widget.tripsList.length,
-                  (index) => GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TransportRequestScreen(
-                                transportationBaseModel:
-                                    widget.tripsList[index],
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
-                            color: ColorManager.accentColor,
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Image.asset(ImageAssets.clock),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    getString(
-                                        widget.tripsList[index].tripType!),
-                                    style: getBoldStyle(
-                                        color: ColorManager.primaryTextColor,
-                                        fontSize: 12),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Icon(
-                                    appPreferences.getAppLanguage() ==
-                                            LanguageType.ENGLISH.getValue()
-                                        ? Icons.arrow_back
-                                        : Icons.arrow_forward,
-                                    color: ColorManager.primary,
-                                    size: 16,
-                                  ),
-                                ],
-                              ),
-                              // const SizedBox(height: 4),
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     ShowDialogHelper.showDialogPopupWithCancel(
-                              //         AppStrings.confirmation.tr(),
-                              //         AppStrings.cancelRequestConfirmation.tr(),
-                              //         context,
-                              //         () => Navigator.pop(context), () {
-                              //       appPreferences.removeTripByType(
-                              //           widget.tripsList[index].tripType!);
-                              //       Navigator.pop(context);
-                              //     });
-                              //   },
-                              //   child: Text(
-                              //     AppStrings.cancelRequest.tr(),
-                              //     style: TextStyle(
-                              //         color: ColorManager.primaryTextColor,
-                              //         decoration: TextDecoration.underline),
-                              //   ),
-                              // )
-                            ],
-                          ),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TransportRequestScreen(
+                      transportationBaseModel: widget.draftTrip,
+                    ),
+                  ),
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  color: ColorManager.accentColor,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(ImageAssets.clock),
+                        const SizedBox(width: 4),
+                        Text(
+                          getString(widget.draftTrip.tripType!),
+                          style: getBoldStyle(
+                              color: ColorManager.primaryTextColor,
+                              fontSize: 12),
                         ),
-                      )),
+                        const SizedBox(width: 4),
+                        Icon(
+                          appPreferences.getAppLanguage() ==
+                                  LanguageType.ENGLISH.getValue()
+                              ? Icons.arrow_back
+                              : Icons.arrow_forward,
+                          color: ColorManager.primary,
+                          size: 16,
+                        ),
+                      ],
+                    ),
+                    // const SizedBox(height: 4),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     ShowDialogHelper.showDialogPopupWithCancel(
+                    //         AppStrings.confirmation.tr(),
+                    //         AppStrings.cancelRequestConfirmation.tr(),
+                    //         context,
+                    //         () => Navigator.pop(context), () {
+                    //       appPreferences.removeTripByType(
+                    //           widget.tripsList[index].tripType!);
+                    //       Navigator.pop(context);
+                    //     });
+                    //   },
+                    //   child: Text(
+                    //     AppStrings.cancelRequest.tr(),
+                    //     style: TextStyle(
+                    //         color: ColorManager.primaryTextColor,
+                    //         decoration: TextDecoration.underline),
+                    //   ),
+                    // )
+                  ],
+                ),
+              ),
             ),
           ),
         ],

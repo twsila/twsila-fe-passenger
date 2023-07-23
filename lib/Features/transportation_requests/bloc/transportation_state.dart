@@ -34,21 +34,3 @@ class TransportationRequestFailed extends TransportationRequestStates {
   @override
   List<Object> get props => [baseResponse];
 }
-
-class DraftTripIsLoading extends TransportationRequestStates {}
-
-class DraftTripSuccessfully extends TransportationRequestStates {
-  final TripDetailsModel transportationBaseModel;
-
-  DraftTripSuccessfully({
-    required this.transportationBaseModel,
-  });
-}
-
-class DraftTripFailed extends TransportationRequestStates {
-  final BaseResponse baseResponse;
-
-  DraftTripFailed({required this.baseResponse});
-  @override
-  List<Object> get props => [baseResponse];
-}

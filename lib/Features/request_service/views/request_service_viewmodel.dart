@@ -5,6 +5,7 @@ import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/furniture/models/furniture_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
+import 'package:taxi_for_you/Features/trip_details/model/trip_details_model.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/app/di.dart';
@@ -25,7 +26,7 @@ class RequestServiceViewModel extends BaseViewModel {
   late UserModel userModel;
   late BuildContext context;
   bool isInit = true;
-  List<TransportationBaseModel> oldTrips = [];
+  TripDetailsModel? draftTrip;
 
   getOldTrips() {}
 

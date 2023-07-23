@@ -91,8 +91,9 @@ class _RequestServiceScreenState extends State<RequestServiceScreen>
                     ),
                   ],
                 ),
-                _viewModel.oldTrips.isNotEmpty
-                    ? OldTripWidget(tripsList: _viewModel.oldTrips)
+                _viewModel.draftTrip != null
+                    ? OldTripWidget(
+                        draftTrip: _viewModel.draftTrip!.tripDetails)
                     : Container(
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         child: Text(
@@ -103,7 +104,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen>
                           ),
                         ),
                       ),
-                if (_viewModel.oldTrips.isNotEmpty)
+                if (_viewModel.draftTrip != null)
                   Text(
                     AppStrings.newRequest.tr(),
                     textAlign: TextAlign.start,

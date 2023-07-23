@@ -11,6 +11,8 @@ import 'package:taxi_for_you/Features/otp/bloc/otp_bloc.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/registeration/bloc/registeration_bloc.dart';
 import 'package:taxi_for_you/Features/registeration/models/registeration_repo.dart';
+import 'package:taxi_for_you/Features/request_service/bloc/draft_trip_bloc.dart';
+import 'package:taxi_for_you/Features/request_service/model/draft_trip_repo.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_bloc.dart';
 import 'package:taxi_for_you/Features/trip_details/model/trip_details_repo.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
@@ -32,6 +34,7 @@ blocProviders(BuildContext context) {
           instance<TransportationRepo>(), instance<AppPreferences>()),
     ),
     BlocProvider.value(value: TripDetailsBloc(instance<TripDetailsRepo>())),
+    BlocProvider.value(value: DraftTripBloc(instance<DraftTripRepo>())),
     BlocProvider.value(value: RegistrationBloc(instance<RegistrationRepo>())),
     BlocProvider.value(value: MyTripsBloc(instance<MyTripsRepo>())),
     BlocProvider.value(value: LookupsBloc(instance<LookupsRepo>())),

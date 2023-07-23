@@ -6,6 +6,7 @@ import 'package:taxi_for_you/Features/my_trips/model/my_trips_repo.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
 import 'package:taxi_for_you/Features/registeration/models/registeration_repo.dart';
+import 'package:taxi_for_you/Features/request_service/model/draft_trip_repo.dart';
 import 'package:taxi_for_you/Features/trip_details/model/trip_details_repo.dart';
 import '../Features/login/views/login_viewmodel.dart';
 import '../Features/registeration/views/registeration_viewmodel.dart';
@@ -45,8 +46,9 @@ Future<void> initAppModule() async {
   );
   instance.registerFactory<OtpRepo>(() => OtpRepo(baseRequestInterface));
   instance.registerFactory<TransportationRepo>(
-    () => TransportationRepo(baseRequestInterface),
-  );
+      () => TransportationRepo(baseRequestInterface));
+  instance.registerFactory<DraftTripRepo>(
+      () => DraftTripRepo(baseRequestInterface));
 }
 
 initLoginModule() {

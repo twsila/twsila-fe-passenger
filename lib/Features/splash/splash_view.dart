@@ -108,7 +108,7 @@ class _SplashViewState extends State<SplashView> {
                 }
               }),
               builder: ((context, state) {
-                if (state is LookupsFailed) {
+                if (state is LoginFailed) {
                   return CustomReloadWidget(onPressed: () => start());
                 }
                 return const SizedBox();
