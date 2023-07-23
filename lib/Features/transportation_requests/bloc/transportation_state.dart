@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/network/base_response.dart';
+import '../../trip_details/model/trip_details_model.dart';
 import '../model/transportation_base_model.dart';
 
 class TransportationRequestStates extends Equatable {
@@ -30,6 +31,24 @@ class TransportationRequestFailed extends TransportationRequestStates {
   final BaseResponse baseResponse;
 
   TransportationRequestFailed({required this.baseResponse});
+  @override
+  List<Object> get props => [baseResponse];
+}
+
+class DraftTripIsLoading extends TransportationRequestStates {}
+
+class DraftTripSuccessfully extends TransportationRequestStates {
+  final TripDetailsModel transportationBaseModel;
+
+  DraftTripSuccessfully({
+    required this.transportationBaseModel,
+  });
+}
+
+class DraftTripFailed extends TransportationRequestStates {
+  final BaseResponse baseResponse;
+
+  DraftTripFailed({required this.baseResponse});
   @override
   List<Object> get props => [baseResponse];
 }

@@ -1,16 +1,8 @@
-import 'dart:developer';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_third_view/transport_third_viewmodel.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_third_view/widgets/third_view_widget.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/send_trip_request/send_trip_request_button.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
-import '../../../../../../core/utils/resources/strings_manager.dart';
-import '../../../../../common/widgets/custom_text_button.dart';
-import '../../../../bloc/transportation_bloc.dart';
-import '../../../../bloc/transportation_event.dart';
 import '../../../../model/transportation_base_model.dart';
 import '../../../transport_request_viewmodel.dart';
 
@@ -31,7 +23,6 @@ class TransportThirdView extends StatefulWidget {
 }
 
 class _TransportThirdViewState extends State<TransportThirdView> {
-  TransportThirdViewModel viewModel = TransportThirdViewModel();
   @override
   initState() {
     widget.viewModel.thirdScreenValid.value =
@@ -89,25 +80,10 @@ class _TransportThirdViewState extends State<TransportThirdView> {
             child: ValueListenableBuilder(
                 valueListenable: widget.viewModel.thirdScreenValid,
                 builder: (BuildContext context, bool value, _) {
-                  return CustomTextButton(
-                      text: AppStrings.sendRequest.tr(),
-                      onPressed: value
-                          ? () {
-                              FocusScope.of(context).unfocus();
-                              inspect(widget.transportationBaseModel);
-                              viewModel
-                                  .sendRequest(widget.transportationBaseModel);
-                              BlocProvider.of<TransportationBloc>(context).add(
-                                SendTransportationRequest(
-                                  endPoint: viewModel.endPoint,
-                                  transportationBaseModel:
-                                      widget.transportationBaseModel,
-                                  files: widget.transportationBaseModel.images,
-                                  body: viewModel.jsonBody,
-                                ),
-                              );
-                            }
-                          : null);
+                  return SendTripRequestButton(
+                    transportationBaseModel: widget.transportationBaseModel,
+                    value: value,
+                  );
                 }),
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_for_you/Features/my_trips/bloc/my_trips_bloc.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/transport_request_viewmodel.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/custom_widgets/transportation_top_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/trip_details_screen.dart';
@@ -10,6 +11,7 @@ import '../../../../core/utils/resources/strings_manager.dart';
 import '../../common/state_renderer/dialogs.dart';
 import '../../common/widgets/custom_scaffold.dart';
 import '../../common/widgets/page_builder.dart';
+import '../../my_trips/bloc/my_trips_event.dart';
 import '../bloc/transportation_bloc.dart';
 import '../bloc/transportation_state.dart';
 import '../model/transportation_base_model.dart';
@@ -67,8 +69,8 @@ class _TransportRequestScreenState extends State<TransportRequestScreen> {
                 AppStrings.tripConfirmationSucceeded.tr(),
                 context,
               );
-              _viewModel.appPreferences.removeTripByType(
-                state.transportationBaseModel.tripType!,
+              BlocProvider.of<MyTripsBloc>(context).add(
+                GetUserTrips(tripModelType: 5),
               );
               Future.delayed(
                 const Duration(seconds: 1),

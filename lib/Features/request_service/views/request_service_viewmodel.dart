@@ -27,9 +27,7 @@ class RequestServiceViewModel extends BaseViewModel {
   bool isInit = true;
   List<TransportationBaseModel> oldTrips = [];
 
-  getOldTrips() {
-    oldTrips = appPreferences.getTrips();
-  }
+  getOldTrips() {}
 
   @override
   void start() {

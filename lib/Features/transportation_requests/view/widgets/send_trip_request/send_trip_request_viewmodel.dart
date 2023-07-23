@@ -1,17 +1,19 @@
 import '../../../../../../app/constants.dart';
-import '../../../../model/transportation_base_model.dart';
-import '../../transportation_widgets/car_aid/models/car-aid-model.dart';
-import '../../transportation_widgets/cisterns/models/cisterns_model.dart';
-import '../../transportation_widgets/freezers/models/freezers-model.dart';
-import '../../transportation_widgets/furniture/models/furniture_model.dart';
-import '../../transportation_widgets/goods/models/goods_model.dart';
-import '../../transportation_widgets/water_tank/models/water_model.dart';
+import '../../../model/transportation_base_model.dart';
+import '../transportation_widgets/car_aid/models/car-aid-model.dart';
+import '../transportation_widgets/cisterns/models/cisterns_model.dart';
+import '../transportation_widgets/freezers/models/freezers-model.dart';
+import '../transportation_widgets/furniture/models/furniture_model.dart';
+import '../transportation_widgets/goods/models/goods_model.dart';
+import '../transportation_widgets/water_tank/models/water_model.dart';
 
-class TransportThirdViewModel {
+class SendTripRequestViewModel {
   late String endPoint;
   late Map<String, dynamic> jsonBody;
 
-  void sendRequest(TransportationBaseModel transportationBaseModel) {
+  void sendRequest(
+      TransportationBaseModel transportationBaseModel, String tripStatus) {
+    transportationBaseModel.tripStatus = tripStatus;
     var dynamicType = transportationBaseModel;
     if (dynamicType is FurnitureModel) {
       endPoint = EndPointsConstants.sendFurnitureRequest;

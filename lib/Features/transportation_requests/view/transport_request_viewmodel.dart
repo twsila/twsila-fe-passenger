@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_second_view/transport_second_view.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_third_view/transport_third_view.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/send_trip_request/send_trip_request_viewmodel.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/car_aid/models/car-aid-model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/cisterns/models/cisterns_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/cisterns/view/cisterns_first_view.dart';
@@ -23,6 +27,8 @@ import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
 import '../../../../app/app_prefs.dart';
 import '../../../../app/di.dart';
+import '../bloc/transportation_bloc.dart';
+import '../bloc/transportation_event.dart';
 import '../model/transportation_base_model.dart';
 
 class TransportRequestViewModel {
@@ -40,6 +46,7 @@ class TransportRequestViewModel {
   final FreezersViewModel freezersViewModel = FreezersViewModel();
   final CisternsViewModel cisternsViewModel = CisternsViewModel();
   final WaterTankViewModel waterTankViewModel = WaterTankViewModel();
+  final SendTripRequestViewModel viewModel = SendTripRequestViewModel();
 
   //Screen Controller
   late List<Widget> screens;
@@ -79,10 +86,16 @@ class TransportRequestViewModel {
       Navigator.pop(context);
       Navigator.pop(context);
     }, () async {
-      setJsonBody();
-      await appPreferences.saveTripToCache(
-        tripJson: jsonBody,
-        tripType: transportationBaseModel.tripType!,
+      FocusScope.of(context).unfocus();
+      inspect(transportationBaseModel);
+      viewModel.sendRequest(transportationBaseModel, 'DRAFT');
+      BlocProvider.of<TransportationBloc>(context).add(
+        SendTransportationRequest(
+          endPoint: viewModel.endPoint,
+          transportationBaseModel: transportationBaseModel,
+          files: transportationBaseModel.images,
+          body: viewModel.jsonBody,
+        ),
       );
       Navigator.pop(context);
       Navigator.pop(context);
@@ -164,30 +177,6 @@ class TransportRequestViewModel {
       return dynamicType.copyWith(dynamicType);
     }
     return transportationBaseModel;
-  }
-
-  void setJsonBody() {
-    var dynamicType = transportationBaseModel;
-    if (dynamicType is FurnitureModel) {
-      jsonBody = dynamicType.toFurnitureJson();
-      return;
-    } else if (dynamicType is GoodsModel) {
-      jsonBody = dynamicType.toGoodsJson();
-      return;
-    } else if (dynamicType is WaterModel) {
-      jsonBody = dynamicType.toWaterJson();
-      return;
-    } else if (dynamicType is CisternsModel) {
-      jsonBody = dynamicType.toCisternsJson();
-      return;
-    } else if (dynamicType is CarAidModel) {
-      jsonBody = dynamicType.toCarAidJson();
-      return;
-    } else if (dynamicType is FreezersModel) {
-      jsonBody = dynamicType.toFreezersJson();
-      return;
-    }
-    jsonBody = dynamicType.toJSON();
   }
 
   String stringModel(TransportationBaseModel transportationBaseModel) {

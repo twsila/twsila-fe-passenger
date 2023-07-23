@@ -20,3 +20,5 @@ class SendTransportationRequest extends TransportationEvent {
     this.files,
   });
 }
+
+class GetDraftTrip extends TransportationEvent {}
