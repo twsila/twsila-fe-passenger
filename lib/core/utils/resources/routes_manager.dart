@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/home/views/home_screen.dart';
-import 'package:taxi_for_you/Features/trip_details/view/trip_details_screen.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_screen.dart';
 import '../../../Features/registeration/views/registeration_screen.dart';

@@ -157,13 +157,11 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                           Routes.homeRoute,
                         );
                       } else if (state is LoginFailed) {
-                        if (state.baseResponse.status == 401) {
-                          Navigator.pushNamed(
-                            context,
-                            Routes.registerRoute,
-                            arguments: _viewModel.mobileNumber,
-                          );
-                        }
+                        Navigator.pushNamed(
+                          context,
+                          Routes.registerRoute,
+                          arguments: _viewModel.mobileNumber,
+                        );
                       }
                     },
                     child: const SizedBox(),

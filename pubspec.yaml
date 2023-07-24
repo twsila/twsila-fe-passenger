@@ -60,6 +60,7 @@ dependencies:
   google_places_flutter: ^2.0.5
   flutter_polyline_points: ^1.0.0
   flutter_launcher_icons: ^0.13.1
+  firebase_messaging: ^14.6.5
   url_launcher: ^6.1.10
   geolocator: ^9.0.2
   fluttertoast: ^8.0.8

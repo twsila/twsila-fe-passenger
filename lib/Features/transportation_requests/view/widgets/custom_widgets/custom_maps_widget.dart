@@ -14,6 +14,7 @@ import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 
+import '../../../../../core/utils/location/user_current_location.dart';
 import '../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../common/widgets/custom_text_button.dart';
 
@@ -56,16 +57,35 @@ class _CustomMapsWidgetState extends State<CustomMapsWidget> {
   }
 
   void getLocation() async {
-    var position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    setState(() {
-      location = LatLng(position.latitude, position.longitude);
-      getAddress(location!);
-      _position = CameraPosition(
-        target: location!,
-        zoom: 16.5,
+    try {
+      await UserCurrentLocation().checkLocationPermission();
+      var position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      setState(() {
+        location = LatLng(position.latitude, position.longitude);
+        getAddress(location!);
+        _position = CameraPosition(
+          target: location!,
+          zoom: 16.5,
+        );
+      });
+    } catch (e) {
+      ShowDialogHelper.showDialogPopupWithCancel(
+        AppStrings.confirmation.tr(),
+        AppStrings.locationEnable.tr(),
+        context,
+        () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        },
+        () {
+          Geolocator.openLocationSettings();
+          Navigator.pop(context);
+          Navigator.pop(context);
+        },
+        dismissible: false,
       );
-    });
+    }
   }
 
   void getAddress(LatLng location) async {

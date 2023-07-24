@@ -24,6 +24,7 @@ import '../core/utils/resources/langauge_manager.dart';
 
 const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
 const String USER_MODEL = "USER_MODEL";
+const String USER_FCM_TOKEN = "USER_FCM_TOKEN";
 const String USER_SELECTED_COUNTRY = "USER_SELECTED_COUNTRY";
 const String USER_MOBILE_NUMBER = "USER_MOBILE_NUMBER";
 const String FURNITURE_TRIP = "FURNITURE_TRIP";
@@ -174,6 +175,20 @@ class AppPreferences {
     return false;
   }
 
+  //USER Firebase Token
+  Future setFCMToken(String token) async {
+    await _sharedPreferences.setString(USER_FCM_TOKEN, token);
+  }
+
+  Future<String?> getFCMToken() async {
+    return _sharedPreferences.getString(USER_FCM_TOKEN);
+  }
+
+  Future removeFCMToken() async {
+    await _sharedPreferences.remove(USER_FCM_TOKEN);
+  }
+
+  //USER Logout
   Future<void> logout(BuildContext context) async {
     // final LocalDataSource _localDataSource = instance<LocalDataSource>();
     await FirebaseAuth.instance.signOut();
@@ -181,6 +196,7 @@ class AppPreferences {
     // clear cache of logged out user
     // _localDataSource.clearCache();
     _sharedPreferences.remove(USER_MODEL);
+    await removeFCMToken();
 
     Phoenix.rebirth(context);
   }

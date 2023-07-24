@@ -94,7 +94,7 @@ class _TripAccepterdOfferState extends State<TripAccepterdOffer> {
                         Container(
                           margin: const EdgeInsets.all(0),
                           child: CustomTextButton(
-                            fontSize: 14,
+                            fontSize: 12,
                             text: AppStrings.driverCall.tr(),
                             onPressed: () {
                               final Uri launchUri = Uri(

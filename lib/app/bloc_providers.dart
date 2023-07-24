@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:taxi_for_you/Features/home/bloc/home_bloc.dart';
+import 'package:taxi_for_you/Features/home/model/home_repo.dart';
 import 'package:taxi_for_you/Features/login/bloc/login_bloc.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
 import 'package:taxi_for_you/Features/lookups/bloc/lookups_bloc.dart';
@@ -28,6 +30,9 @@ blocProviders(BuildContext context) {
   return [
     BlocProvider.value(
       value: LoginBloc(instance<LoginRepo>(), instance<AppPreferences>()),
+    ),
+    BlocProvider.value(
+      value: HomeBloc(instance<HomeRepo>(), instance<AppPreferences>()),
     ),
     BlocProvider.value(
       value: TransportationBloc(

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taxi_for_you/Features/home/model/home_repo.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
 import 'package:taxi_for_you/Features/lookups/model/lookups_repo.dart';
 import 'package:taxi_for_you/Features/my_trips/model/my_trips_repo.dart';
@@ -37,6 +38,9 @@ Future<void> initAppModule() async {
   );
   instance.registerFactory<LookupsRepo>(
     () => LookupsRepo(baseRequestInterface),
+  );
+  instance.registerFactory<HomeRepo>(
+    () => HomeRepo(baseRequestInterface, instance()),
   );
   instance.registerFactory<TripDetailsRepo>(
     () => TripDetailsRepo(baseRequestInterface),

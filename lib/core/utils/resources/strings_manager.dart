@@ -237,6 +237,7 @@ class AppStrings {
   static const locationDisabled = "location_disabled";
   static const locationDenied = "location_denied";
   static const locationDeniedLong = "location_denied_long";
+  static const locationEnable = "enable_location";
 
   // error handler
   static const badRequestError = "bad_request_error";

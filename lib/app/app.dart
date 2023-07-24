@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         navigatorObservers: [GlobalVariable.routeObserver],
+        navigatorKey: GlobalVariable.navigatorKey,
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.splashRoute,
         theme: getApplicationTheme(),

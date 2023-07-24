@@ -13,7 +13,8 @@ class UserCurrentLocation {
   final LocatitonGeocoder geocoder = LocatitonGeocoder(Platform.isIOS
       ? Constants.GOOGLE_API_KEY_IOS
       : Constants.GOOGLE_API_KEY_ANDROID);
-  Future<LocationModel> getCurrentLocation() async {
+
+  Future checkLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -36,7 +37,10 @@ class UserCurrentLocation {
       throw PlatformException(
           code: "", message: AppStrings.locationDeniedLong.tr());
     }
+  }
 
+  Future<LocationModel> getCurrentLocation() async {
+    await checkLocationPermission();
     Position currentLocation = await Geolocator.getCurrentPosition();
 
     // final coordinates =

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
@@ -42,18 +41,19 @@ class LoginRepo {
     late UserDevice userDevice;
 
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String token = await appPreferences.getFCMToken() ?? '';
 
     if (Platform.isIOS) {
       userDevice = UserDevice(
         deviceOs: 'iPhone',
         appVersion: packageInfo.version,
-        registrationId: '123',
+        registrationId: token,
       );
     } else {
       userDevice = UserDevice(
         deviceOs: 'Android',
         appVersion: packageInfo.version,
-        registrationId: '123',
+        registrationId: token,
       );
     }
 

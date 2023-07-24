@@ -87,11 +87,13 @@ class _MyTripsScreenState extends State<MyTripsScreen> {
               builder: (context, state) {
                 if (state is MyTripsSuccessfully) {
                   return state.trips.isEmpty
-                      ? Center(
-                          child: Text(
-                            _viewModel.selectedIndex == 0
-                                ? AppStrings.noUpcoming.tr()
-                                : AppStrings.noPast.tr(),
+                      ? Expanded(
+                          child: Center(
+                            child: Text(
+                              _viewModel.selectedIndex == 0
+                                  ? AppStrings.noUpcoming.tr()
+                                  : AppStrings.noPast.tr(),
+                            ),
                           ),
                         )
                       : Expanded(
