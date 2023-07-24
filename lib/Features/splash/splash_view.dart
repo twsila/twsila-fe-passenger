@@ -30,7 +30,6 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  bool _isInit = true;
   UserModel? user;
   final AppPreferences _appPreferences = instance<AppPreferences>();
 
@@ -38,15 +37,6 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
     start();
-  }
-
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      _isInit = false;
-      setCountry();
-    }
-    super.didChangeDependencies();
   }
 
   start() {
@@ -60,7 +50,7 @@ class _SplashViewState extends State<SplashView> {
 
   refreshToken() {
     BlocProvider.of<LoginBloc>(context)
-        .add(LoginUser(mobileNumber: user!.mobileNumber!, context: context));
+        .add(LoginUser(mobileNumber: user!.mobileNumber!));
   }
 
   getLookups() {
@@ -73,6 +63,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() async {
+    await setCountry();
     _appPreferences.isUserLoggedIn().then((isUserLoggedIn) {
       if (isUserLoggedIn) {
         // navigate to main screen

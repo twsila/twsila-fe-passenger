@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class LoginEvent extends Equatable {
   @override
@@ -8,7 +7,6 @@ class LoginEvent extends Equatable {
 
 class LoginUser extends LoginEvent {
   final String mobileNumber;
-  final BuildContext context;
 
-  LoginUser({required this.mobileNumber, required this.context});
+  LoginUser({required this.mobileNumber});
 }

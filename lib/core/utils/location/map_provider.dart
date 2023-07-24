@@ -47,7 +47,7 @@ class MapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  setCountry(CountryModel? country, {bool needsRebuild = true}) async {
+  Future setCountry(CountryModel? country, {bool needsRebuild = true}) async {
     if (country == null) {
       CountryModel? countryModel = await getCountryPhoneCode();
 

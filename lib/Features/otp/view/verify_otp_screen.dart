@@ -89,18 +89,14 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
               AppStrings.validateSuccessfully.tr(), context);
           Future.delayed(
               const Duration(seconds: 1),
-              () => BlocProvider.of<LoginBloc>(context).add(LoginUser(
-                    mobileNumber: _viewModel.mobileNumber,
-                    context: context,
-                  )));
+              () => BlocProvider.of<LoginBloc>(context)
+                  .add(LoginUser(mobileNumber: _viewModel.mobileNumber)));
         }
         if (state is ValidateOtpFailed) {
           // ShowDialogHelper.showErrorMessage(
           //     AppStrings.validateFailed.tr(), context);
-          BlocProvider.of<LoginBloc>(context).add(LoginUser(
-            mobileNumber: _viewModel.mobileNumber,
-            context: context,
-          ));
+          BlocProvider.of<LoginBloc>(context)
+              .add(LoginUser(mobileNumber: _viewModel.mobileNumber));
           //TODO: REMOVE THIS CODE
           // Future.delayed(
           //     const Duration(seconds: 1),
