@@ -24,7 +24,7 @@ class TransportationBaseModel {
   TransportationBaseModel();
 
   fromJSON(Map<String, dynamic> json) {
-    tripId = json['id'];
+    tripId = json['id'] is String ? int.parse(json['id']) : json['id'];
     tripEndPoint = json['tripEndPoint'];
     tripType = json['tripType'];
     tripNumber = json['tripNumber'];
@@ -36,12 +36,14 @@ class TransportationBaseModel {
     paymentValue = (json['clientOffer'] != null)
         ? dynamicToDouble(json['clientOffer'])
         : null;
-    pickupLocation = TransportationLocation.fromJson(
-        json['pickupLocation'] is String
+    pickupLocation = json['pickupLocation'] == null
+        ? TransportationLocation()
+        : TransportationLocation.fromJson(json['pickupLocation'] is String
             ? jsonDecode(json['pickupLocation'])
             : json['pickupLocation']);
-    destinationLocation = TransportationLocation.fromJson(
-        json['destination'] is String
+    destinationLocation = json['destination'] == null
+        ? TransportationLocation()
+        : TransportationLocation.fromJson(json['destination'] is String
             ? jsonDecode(json['destination'])
             : json['destination']);
     if (json['offers'] != null && json['offers'].isNotEmpty) {
@@ -56,13 +58,19 @@ class TransportationBaseModel {
 
   Map<String, dynamic> toJSON() {
     Map<String, dynamic> data = <String, dynamic>{};
+    if (tripId != null) data['id'] = tripId.toString();
     if (creationDate != null) data['creationDate'] = creationDate;
     if (stringDate != null) data['stringDate'] = stringDate;
     if (date != null) data['date'] = date;
     if (notes != null) data['notes'] = notes;
     if (paymentValue != null) data['clientOffer'] = paymentValue.toString();
-    data['pickupLocation'] = json.encode(pickupLocation.toJson());
-    data['destination'] = json.encode(destinationLocation.toJson());
+    if (pickupLocation.latitude != null && pickupLocation.longitude != null) {
+      data['pickupLocation'] = json.encode(pickupLocation.toJson());
+    }
+    if (destinationLocation.latitude != null &&
+        destinationLocation.longitude != null) {
+      data['destination'] = json.encode(destinationLocation.toJson());
+    }
     if (tripType != null) data['tripType'] = tripType;
     if (tripNumber != null) data['tripNumber'] = tripNumber;
     if (tripStatus != null) data['tripStatus'] = tripStatus;

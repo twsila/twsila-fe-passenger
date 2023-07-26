@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
 
 import '../../../app/app_prefs.dart';
 import '../../../core/network/base_response.dart';
+import '../../../core/utils/resources/strings_manager.dart';
 import '../model/login_repo.dart';
 import 'login_event.dart';
 import 'login_state.dart';
@@ -34,6 +36,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginStates> {
       if (e is PlatformException) {
         if (e.message != null && e.details != null) {
           emit(LoginFailed(baseResponse: e.details as BaseResponse));
+        } else if (e.message != null) {
+          emit(
+              LoginFailed(baseResponse: BaseResponse(errorMessage: e.message)));
+        } else {
+          emit(LoginFailed(
+              baseResponse: BaseResponse(
+                  errorMessage: AppStrings.somethingWentWrong.tr())));
         }
       } else {
         var response = BaseResponse(errorMessage: e.toString());

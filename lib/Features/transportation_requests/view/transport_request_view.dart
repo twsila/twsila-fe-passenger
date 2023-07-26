@@ -12,6 +12,8 @@ import '../../common/state_renderer/dialogs.dart';
 import '../../common/widgets/custom_scaffold.dart';
 import '../../common/widgets/page_builder.dart';
 import '../../my_trips/bloc/my_trips_event.dart';
+import '../../request_service/bloc/draft_trip_bloc.dart';
+import '../../request_service/bloc/draft_trip_event.dart';
 import '../bloc/transportation_bloc.dart';
 import '../bloc/transportation_state.dart';
 import '../model/transportation_base_model.dart';
@@ -65,6 +67,11 @@ class _TransportRequestScreenState extends State<TransportRequestScreen> {
               });
             }
             if (state is TransportationRequestSuccessfully) {
+              BlocProvider.of<DraftTripBloc>(context).add(GetDraftTrip());
+              if (state.transportationBaseModel.tripStatus == 'DRAFT') {
+                Navigator.pop(context);
+                return;
+              }
               ShowDialogHelper.showSuccessMessage(
                 AppStrings.tripConfirmationSucceeded.tr(),
                 context,

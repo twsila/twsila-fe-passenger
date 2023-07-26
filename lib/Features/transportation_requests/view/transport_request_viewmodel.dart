@@ -98,7 +98,6 @@ class TransportRequestViewModel {
         ),
       );
       Navigator.pop(context);
-      Navigator.pop(context);
     });
   }
 

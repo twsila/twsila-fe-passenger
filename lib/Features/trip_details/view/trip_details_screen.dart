@@ -94,6 +94,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                         state.baseResponse.errorMessage ??
                             AppStrings.somethingWentWrong.tr(),
                         context);
+                    _viewModel.cancelTimer();
                   }
                   if (state is CancelTripSuccessfully) {
                     ShowDialogHelper.showSuccessMessage(
@@ -106,6 +107,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                           AppStrings.somethingWentWrong.tr(),
                       context,
                     );
+                    _viewModel.cancelTimer();
                   }
                   if (state is CancelTripFailed) {
                     ShowDialogHelper.showErrorMessage(

@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/network/base_response.dart';
-import '../../trip_details/model/trip_details_model.dart';
 import '../model/transportation_base_model.dart';
 
 class TransportationRequestStates extends Equatable {

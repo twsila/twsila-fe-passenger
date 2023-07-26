@@ -83,11 +83,17 @@ class MapProvider with ChangeNotifier {
           CountryModel? country = countriesList.singleWhereOrNull(
             (element) => element.countryCode == '+20',
           );
+          if (country != null) {
+            print('user country is: ${country.country}');
+          }
           return country;
         } else if (user.mobileNumber!.contains('+966')) {
           CountryModel? country = countriesList.singleWhereOrNull(
             (element) => element.countryCode == '+966',
           );
+          if (country != null) {
+            print('user country is: ${country.country}');
+          }
           return country;
         }
       }

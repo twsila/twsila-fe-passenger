@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxi_for_you/Features/base/baseviewmodel.dart';
-import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
-import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
+import 'package:taxi_for_you/Features/request_service/bloc/draft_trip_bloc.dart';
+import 'package:taxi_for_you/Features/request_service/bloc/draft_trip_event.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/furniture/models/furniture_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
 import 'package:taxi_for_you/Features/trip_details/model/trip_details_model.dart';
@@ -25,10 +26,7 @@ class RequestServiceViewModel extends BaseViewModel {
   late List<ServiceTransportationModel> servicesList;
   late UserModel userModel;
   late BuildContext context;
-  bool isInit = true;
   TripDetailsModel? draftTrip;
-
-  getOldTrips() {}
 
   @override
   void start() {
