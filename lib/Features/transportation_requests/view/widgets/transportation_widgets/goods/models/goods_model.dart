@@ -17,11 +17,13 @@ class GoodsModel extends TransportationBaseModel {
     if (json['payloadWeight'] != null) {
       payloadWeight = dynamicToDouble(json['payloadWeight']);
     }
-    if (json['packagingType'] != null) {
-      packagingType = json['packagingType'];
+    if (json['packingDetails'] != null &&
+        json['packingDetails']['description'] != null) {
+      packagingType = json['packingDetails']['description'];
     }
-    if (json['materialType'] != null) {
-      materialType = json['materialType'];
+    if (json['materialDetails'] != null &&
+        json['materialDetails']['description'] != null) {
+      materialType = json['materialDetails']['description'];
     }
     containsLoading = json['containsLoading'] is String
         ? json['containsLoading'] == "true"
@@ -40,8 +42,10 @@ class GoodsModel extends TransportationBaseModel {
     if (payloadWeight != null) {
       data['payloadWeight'] = payloadWeight.toString();
     }
-    if (packagingType != null) data['packagingType'] = packagingType.toString();
-    if (materialType != null) data['materialType'] = materialType.toString();
+    if (packagingType != null) {
+      data['packingDetails'] = packagingType.toString();
+    }
+    if (materialType != null) data['materialDetails'] = materialType.toString();
     data['containsLoading'] = containsLoading.toString();
     data['containsPacking'] = containsPacking.toString();
     data['containsLift'] = containsLift.toString();
@@ -50,5 +54,23 @@ class GoodsModel extends TransportationBaseModel {
 
   GoodsModel copyWith(GoodsModel goodsModel) {
     return GoodsModel.fromJson(goodsModel.toGoodsJson());
+  }
+}
+
+class DropdownModel {
+  int id;
+  String description;
+
+  DropdownModel({required this.id, required this.description});
+
+  factory DropdownModel.fromJson(Map<String, dynamic> json) {
+    return DropdownModel(id: json['id'], description: json['description']);
+  }
+
+  Map<String, dynamic> toGoodsJson() {
+    Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id.toString();
+    data['description'] = description;
+    return data;
   }
 }

@@ -38,7 +38,7 @@ class _GoodsDropdownsViewState extends State<GoodsDropdownsView> {
         CustomDropDown(
           stringsArr: widget.goodsViewModel.packagingTypes,
           intialValue: widget.goodsViewModel.goodsModel.packagingType,
-          title: AppStrings.packagingTypes.tr(),
+          title: AppStrings.selectPackagingTypes.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
             setState(() {

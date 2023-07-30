@@ -81,7 +81,7 @@ class AppStrings {
   static const cisternsType = "cisterns_type";
   static const extraServices = "extra_services";
   static const materialTypes = "material_type";
-  static const packagingTypes = "packaging_type";
+  static const selectPackagingTypes = "packaging_type";
   static const goods = "goods";
   static const other = "other";
   static const freezers = "freezers";

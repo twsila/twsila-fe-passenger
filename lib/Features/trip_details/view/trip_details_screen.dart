@@ -9,6 +9,7 @@ import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_bloc.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_event.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_state.dart';
 import 'package:taxi_for_you/Features/trip_details/view/trip_details_viewmodel.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/more_details_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/cancel_trip_button.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/need_help_button.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_widget.dart';
@@ -38,11 +39,11 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
     _viewModel.start();
     BlocProvider.of<TripDetailsBloc>(context)
         .add(GetTripDetailsRequest(tripId: widget.tripId));
-    _viewModel.setTimer(
-      () => BlocProvider.of<TripDetailsBloc>(context).add(
-        GetTripDetailsRequest(tripId: widget.tripId),
-      ),
-    );
+    // _viewModel.setTimer(
+    //   () => BlocProvider.of<TripDetailsBloc>(context).add(
+    //     GetTripDetailsRequest(tripId: widget.tripId),
+    //   ),
+    // );
 
     super.initState();
   }
@@ -129,7 +130,10 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                       TripDetailsWidget(
                           trip: state.tripDetailsModel.tripDetails),
                       const SizedBox(height: 16),
-                      Divider(color: ColorManager.grey1),
+                      MoreDetailsWidget(
+                        transportationBaseModel:
+                            state.tripDetailsModel.tripDetails,
+                      ),
                       OffersWidget(
                         acceptedOffer:
                             state.tripDetailsModel.tripDetails.acceptedOffer,

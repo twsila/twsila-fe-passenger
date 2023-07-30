@@ -18,11 +18,6 @@ class MyTripDetails extends StatefulWidget {
 
 class _MyTripDetailsState extends State<MyTripDetails> {
   final TripsDetailsWidgetViewModel _viewModel = TripsDetailsWidgetViewModel();
-  @override
-  void initState() {
-    _viewModel.setTripType(widget.trip.tripType!);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +28,7 @@ class _MyTripDetailsState extends State<MyTripDetails> {
             context.formatDateTime(
                 dateTime: DateTime.tryParse(widget.trip.creationDate!))),
         Text(
-          _viewModel.getTitle(),
+          _viewModel.getTitle(widget.trip.tripType!),
           style: getBoldStyle(
             color: ColorManager.primaryTextColor,
             fontSize: 24,

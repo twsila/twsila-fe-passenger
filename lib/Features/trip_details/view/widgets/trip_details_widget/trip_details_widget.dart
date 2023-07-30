@@ -25,12 +25,6 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
   final TripsDetailsWidgetViewModel _viewModel = TripsDetailsWidgetViewModel();
 
   @override
-  void initState() {
-    _viewModel.setTripType(widget.trip.tripType!);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,12 +38,12 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
                       dateTime: DateTime.tryParse(widget.trip.creationDate!))),
             ),
             const SizedBox(width: 16),
-            Image.asset(_viewModel.getIconName()),
+            Image.asset(_viewModel.getIconName(widget.trip.tripType!)),
           ],
         ),
         const SizedBox(height: 8),
         Text(
-          _viewModel.getTitle(),
+          _viewModel.getTitle(widget.trip.tripType!),
           style: getBoldStyle(
             color: ColorManager.primaryTextColor,
             fontSize: 24,

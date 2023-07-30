@@ -8,13 +8,8 @@ import '../../../../../core/utils/resources/strings_manager.dart';
 
 class TripsDetailsWidgetViewModel {
   final AppPreferences appPreferences = instance();
-  late String tripType;
 
-  setTripType(String tripType) {
-    this.tripType = tripType;
-  }
-
-  String getIconName() {
+  String getIconName(String tripType) {
     switch (tripType) {
       case TripTypeConstants.furnitureType:
         return ImageAssets.carFurniture;
@@ -33,7 +28,7 @@ class TripsDetailsWidgetViewModel {
     }
   }
 
-  String getTitle() {
+  String getTitle(String tripType) {
     switch (tripType) {
       case TripTypeConstants.furnitureType:
         return AppStrings.request.tr() +
