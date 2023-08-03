@@ -6,6 +6,7 @@ import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_wid
 import '../../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../../core/utils/resources/styles_manager.dart';
+import '../../item_widget.dart';
 
 class GoodsDetailsWidget extends StatelessWidget {
   final GoodsModel goodsModel;
@@ -25,15 +26,15 @@ class GoodsDetailsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: itemWidget(
-                AppStrings.materialTypes.tr(),
-                goodsModel.materialType ?? '',
+              child: ItemWidget(
+                title: AppStrings.materialTypes.tr(),
+                text: goodsModel.materialType ?? AppStrings.unknown.tr(),
               ),
             ),
             Expanded(
-              child: itemWidget(
-                AppStrings.selectPackagingTypes.tr(),
-                goodsModel.packagingType ?? '',
+              child: ItemWidget(
+                title: AppStrings.selectPackagingTypes.tr(),
+                text: goodsModel.packagingType ?? AppStrings.unknown.tr(),
               ),
             ),
           ],
@@ -47,9 +48,10 @@ class GoodsDetailsWidget extends StatelessWidget {
               child: GoodsExtraServices(goodsModel: goodsModel),
             ),
             Expanded(
-              child: itemWidget(
-                AppStrings.goodsWeight.tr(),
-                goodsModel.payloadWeight!.toInt().toString(),
+              child: ItemWidget(
+                title: AppStrings.goodsWeight.tr(),
+                text: (goodsModel.payloadWeight ?? AppStrings.unknown.tr())
+                    .toString(),
               ),
             )
           ],
@@ -57,28 +59,4 @@ class GoodsDetailsWidget extends StatelessWidget {
       ],
     );
   }
-}
-
-Widget itemWidget(String title, String text) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        title,
-        textAlign: TextAlign.start,
-        style: getMediumStyle(
-          color: ColorManager.titlesTextColor,
-          fontSize: 16,
-        ),
-      ),
-      Text(
-        text,
-        textAlign: TextAlign.start,
-        style: getBoldStyle(
-          color: ColorManager.primaryTextColor,
-          fontSize: 16,
-        ),
-      ),
-    ],
-  );
 }

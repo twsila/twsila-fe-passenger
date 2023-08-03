@@ -96,7 +96,7 @@ class _SplashViewState extends State<SplashView> {
                     context,
                   );
                 } else if (state is LoginSuccessfully) {
-                  getLookups();
+                  _goNext();
                 }
               }),
               builder: ((context, state) {

@@ -29,7 +29,7 @@ class HttpBaseRequest extends BaseRequestInterface {
 
   @override
   Future<dynamic> sendRequest(RequestModel requestModel,
-      [String param = '']) async {
+      {String param = '', int retryNumber = 2}) async {
     http.Response response;
 
     Uri uri = Uri.parse(Constants.baseUrl + requestModel.endPoint);
@@ -58,8 +58,12 @@ class HttpBaseRequest extends BaseRequestInterface {
       }
       if (response.statusCode == 401) {
         bool shouldRefresh = await appPreferences.refreshToken();
-        if (shouldRefresh) {
-          return sendRequest(requestModel);
+        if (shouldRefresh && retryNumber != 0) {
+          int retry = retryNumber - 1;
+          return sendRequest(
+            requestModel,
+            retryNumber: retry,
+          );
         }
       }
       return _returnResponse(response);
@@ -82,11 +86,9 @@ class HttpBaseRequest extends BaseRequestInterface {
   }
 
   @override
-  Future<dynamic> sendMultiPartRequest(
-    RequestModel requestModel,
-    List<XFile>? files,
-    Map<String, dynamic> fields,
-  ) async {
+  Future<dynamic> sendMultiPartRequest(RequestModel requestModel,
+      List<XFile>? files, Map<String, dynamic> fields,
+      {int retryNumber = 2}) async {
     // Uri uri = Uri.parse(Constants.baseUrl + requestModel.endPoint);
     Uri uri = Uri.https(Constants.baseUrlMultiPart, requestModel.endPoint);
     var request = http.MultipartRequest('POST', uri);
@@ -120,8 +122,14 @@ class HttpBaseRequest extends BaseRequestInterface {
       var response = await http.Response.fromStream(streamedResponse);
       if (response.statusCode == 401) {
         bool shouldRefresh = await appPreferences.refreshToken();
-        if (shouldRefresh) {
-          sendMultiPartRequest(requestModel, files, fields);
+        if (shouldRefresh && retryNumber != 0) {
+          int retry = retryNumber - 1;
+          return sendMultiPartRequest(
+            requestModel,
+            files,
+            fields,
+            retryNumber: retry,
+          );
         }
       }
       return _returnResponse(response);

@@ -261,5 +261,6 @@
   "select_location_on_map": "Select location on map",
   "distance": "Distance: ",
   "km": "KM",
-  "no_internet_error": "No internet connection"
+  "no_internet_error": "No internet connection",
+  "unknown": "unknown"
 }

@@ -201,6 +201,7 @@ class AppStrings {
   static const selectStartPoint = "select_start_point";
   static const selectDeliveryPoint = "select_delivery_point";
   static const selectLocationOnMap = "select_location_on_map";
+  static const unknown = 'unknown';
 
   //Furniture strings
   static const attachFurnitureImages = "attach_furniture_images";

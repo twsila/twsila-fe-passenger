@@ -5,7 +5,6 @@ import '../../../../../model/transportation_base_model.dart';
 class FreezersModel extends TransportationBaseModel {
   String? shippedType;
   String? frozenMaterial;
-  double? goodsWeight;
   bool containsLoading = false;
   bool containsPacking = false;
   bool containsLift = false;
@@ -15,8 +14,11 @@ class FreezersModel extends TransportationBaseModel {
   FreezersModel.fromJson(Map<String, dynamic> json) {
     fromJSON(json);
     shippedType = json['shippingType'];
-    frozenMaterial = json['frozenMaterial'];
-    goodsWeight = dynamicToDouble(json['goodsWeight']);
+    frozenMaterial = json['frozenMaterial'] is String
+        ? json['frozenMaterial']
+        : json['frozenMaterial'] != null
+            ? json['frozenMaterial']['description']
+            : null;
     containsLoading = json['containsLoading'] is String
         ? json['containsLoading'] == "true"
         : json['containsLoading'];

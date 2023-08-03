@@ -39,11 +39,11 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
     _viewModel.start();
     BlocProvider.of<TripDetailsBloc>(context)
         .add(GetTripDetailsRequest(tripId: widget.tripId));
-    // _viewModel.setTimer(
-    //   () => BlocProvider.of<TripDetailsBloc>(context).add(
-    //     GetTripDetailsRequest(tripId: widget.tripId),
-    //   ),
-    // );
+    _viewModel.setTimer(
+      () => BlocProvider.of<TripDetailsBloc>(context).add(
+        GetTripDetailsRequest(tripId: widget.tripId),
+      ),
+    );
 
     super.initState();
   }
@@ -54,110 +54,120 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
     super.dispose();
   }
 
+  Future refresh() async {
+    if (_viewModel.condition) {
+      BlocProvider.of<TripDetailsBloc>(context)
+          .add(GetTripDetailsRequest(tripId: widget.tripId));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      pageBuilder: PageBuilder(
-        scaffoldKey: _viewModel.scaffoldKey,
-        context: context,
-        displayLoadingIndicator: _viewModel.displayLoadingIndicator,
-        appBarTitle: AppStrings.tripDetails.tr(),
-        body: Container(
-          margin: const EdgeInsets.all(16),
-          child: SingleChildScrollView(
-            child: BlocConsumer<TripDetailsBloc, TripDetailsStates>(
-              listener: (context, state) {
-                if (state is TripDetailsIsLoading) {
-                  if (_viewModel.isInit) {
-                    _viewModel.isInit = false;
+    return RefreshIndicator(
+      onRefresh: refresh,
+      child: CustomScaffold(
+        pageBuilder: PageBuilder(
+          scaffoldKey: _viewModel.scaffoldKey,
+          context: context,
+          displayLoadingIndicator: _viewModel.displayLoadingIndicator,
+          appBarTitle: AppStrings.tripDetails.tr(),
+          body: Container(
+            margin: const EdgeInsets.all(16),
+            child: SingleChildScrollView(
+              child: BlocConsumer<TripDetailsBloc, TripDetailsStates>(
+                listener: (context, state) {
+                  if (state is TripDetailsIsLoading) {
+                    if (_viewModel.isInit) {
+                      _viewModel.isInit = false;
+                      setState(() {
+                        _viewModel.displayLoadingIndicator = true;
+                      });
+                    }
+                  } else {
                     setState(() {
-                      _viewModel.displayLoadingIndicator = true;
+                      _viewModel.displayLoadingIndicator = false;
                     });
-                  }
-                } else {
-                  setState(() {
-                    _viewModel.displayLoadingIndicator = false;
-                  });
-                  if (state is TripDetailsSuccessfully) {
-                    if (state.tripDetailsModel.tripDetails.acceptedOffer !=
-                        null) {
+                    if (state is TripDetailsSuccessfully) {
+                      if (state.tripDetailsModel.tripDetails.acceptedOffer !=
+                          null) {
+                        _viewModel.cancelTimer();
+                      }
+                    }
+                    if (state is AcceptOfferSuccessfully) {
+                      ShowDialogHelper.showSuccessMessage(
+                          AppStrings.offerAccepted.tr(), context);
+                      BlocProvider.of<TripDetailsBloc>(context)
+                          .add(GetTripDetailsRequest(tripId: widget.tripId));
+                    }
+                    if (state is AcceptOfferFailed) {
+                      ShowDialogHelper.showErrorMessage(
+                          state.baseResponse.errorMessage ??
+                              AppStrings.somethingWentWrong.tr(),
+                          context);
                       _viewModel.cancelTimer();
                     }
-                  }
-                  if (state is AcceptOfferSuccessfully) {
-                    ShowDialogHelper.showSuccessMessage(
-                        AppStrings.offerAccepted.tr(), context);
-                    BlocProvider.of<TripDetailsBloc>(context)
-                        .add(GetTripDetailsRequest(tripId: widget.tripId));
-                  }
-                  if (state is AcceptOfferFailed) {
-                    ShowDialogHelper.showErrorMessage(
+                    if (state is CancelTripSuccessfully) {
+                      ShowDialogHelper.showSuccessMessage(
+                          AppStrings.cancelTripSuccessfully.tr(), context);
+                      Navigator.pop(context);
+                    }
+                    if (state is TripDetailsFailed) {
+                      ShowDialogHelper.showErrorMessage(
                         state.baseResponse.errorMessage ??
                             AppStrings.somethingWentWrong.tr(),
-                        context);
-                    _viewModel.cancelTimer();
+                        context,
+                      );
+                      _viewModel.cancelTimer();
+                    }
+                    if (state is CancelTripFailed) {
+                      ShowDialogHelper.showErrorMessage(
+                        state.baseResponse.errorMessage ??
+                            AppStrings.somethingWentWrong.tr(),
+                        context,
+                      );
+                    }
                   }
-                  if (state is CancelTripSuccessfully) {
-                    ShowDialogHelper.showSuccessMessage(
-                        AppStrings.cancelTripSuccessfully.tr(), context);
-                    Navigator.pop(context);
-                  }
-                  if (state is TripDetailsFailed) {
-                    ShowDialogHelper.showErrorMessage(
-                      state.baseResponse.errorMessage ??
-                          AppStrings.somethingWentWrong.tr(),
-                      context,
+                },
+                buildWhen: (previous, current) =>
+                    current is TripDetailsSuccessfully ||
+                    current is TripDetailsFailed,
+                builder: (context, state) {
+                  if (state is TripDetailsSuccessfully) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TripDetailsWidget(
+                            trip: state.tripDetailsModel.tripDetails),
+                        const SizedBox(height: 16),
+                        MoreDetailsWidget(
+                          transportationBaseModel:
+                              state.tripDetailsModel.tripDetails,
+                        ),
+                        OffersWidget(
+                          acceptedOffer:
+                              state.tripDetailsModel.tripDetails.acceptedOffer,
+                          offers: state.tripDetailsModel.tripDetails.offers,
+                        ),
+                        state.tripDetailsModel.tripDetails.acceptedOffer != null
+                            ? NeedHelpButton(tripId: widget.tripId)
+                            : CancelTripButton(tripId: widget.tripId)
+                      ],
                     );
-                    _viewModel.cancelTimer();
-                  }
-                  if (state is CancelTripFailed) {
-                    ShowDialogHelper.showErrorMessage(
-                      state.baseResponse.errorMessage ??
-                          AppStrings.somethingWentWrong.tr(),
-                      context,
+                  } else if (state is TripDetailsFailed) {
+                    return Padding(
+                      padding: EdgeInsets.only(top: context.getHeight() / 3),
+                      child: CustomReloadWidget(
+                        onPressed: () =>
+                            BlocProvider.of<TripDetailsBloc>(context).add(
+                          GetTripDetailsRequest(tripId: widget.tripId),
+                        ),
+                      ),
                     );
+                  } else {
+                    return Container();
                   }
-                }
-              },
-              buildWhen: (previous, current) =>
-                  current is TripDetailsSuccessfully ||
-                  current is TripDetailsFailed,
-              builder: (context, state) {
-                if (state is TripDetailsSuccessfully) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      TripDetailsWidget(
-                          trip: state.tripDetailsModel.tripDetails),
-                      const SizedBox(height: 16),
-                      MoreDetailsWidget(
-                        transportationBaseModel:
-                            state.tripDetailsModel.tripDetails,
-                      ),
-                      OffersWidget(
-                        acceptedOffer:
-                            state.tripDetailsModel.tripDetails.acceptedOffer,
-                        offers: state.tripDetailsModel.tripDetails.offers,
-                      ),
-                      state.tripDetailsModel.tripDetails.acceptedOffer != null
-                          ? NeedHelpButton(tripId: widget.tripId)
-                          : CancelTripButton(tripId: widget.tripId)
-                    ],
-                  );
-                } else if (state is TripDetailsFailed) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: context.getHeight() / 3),
-                    child: CustomReloadWidget(
-                      onPressed: () =>
-                          BlocProvider.of<TripDetailsBloc>(context).add(
-                        GetTripDetailsRequest(tripId: widget.tripId),
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              },
+                },
+              ),
             ),
           ),
         ),

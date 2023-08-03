@@ -24,12 +24,15 @@ class _WaterDropdownViewState extends State<WaterDropdownView> {
       children: [
         CustomDropDown(
           stringsArr: widget.waterTankViewModel.tankWeights,
-          intialValue: widget.waterTankViewModel.waterModel.tankDetails,
+          intialValue:
+              widget.waterTankViewModel.waterModel.tankDetails.toString(),
           title: AppStrings.waterTankSize.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
             setState(() {
-              widget.waterTankViewModel.waterModel.tankDetails = value;
+              if (value == null) return;
+              widget.waterTankViewModel.waterModel.tankDetails =
+                  int.parse(value);
               widget.waterTankViewModel.validateFirstScreen();
             });
           },

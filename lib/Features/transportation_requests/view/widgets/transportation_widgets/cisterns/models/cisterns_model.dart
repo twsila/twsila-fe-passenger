@@ -7,7 +7,7 @@ class CisternsModel extends TransportationBaseModel {
 
   CisternsModel.fromJson(Map<String, dynamic> json) {
     fromJSON(json);
-    cisternsType = json['cisternsType'];
+    cisternsType = json['tankType'];
   }
 
   Map<String, dynamic> toCisternsJson() {

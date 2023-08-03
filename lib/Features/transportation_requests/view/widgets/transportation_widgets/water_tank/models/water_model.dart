@@ -1,13 +1,17 @@
 import '../../../../../model/transportation_base_model.dart';
 
 class WaterModel extends TransportationBaseModel {
-  String? tankDetails;
+  int? tankDetails;
 
   WaterModel();
 
   WaterModel.fromJson(Map<String, dynamic> json) {
     fromJSON(json);
-    tankDetails = json['tankDetails'];
+    tankDetails = json['tankDetails'] != null
+        ? json['tankDetails'] is String
+            ? int.parse(json['tankDetails'])
+            : json['tankDetails']['size']
+        : null;
   }
 
   Map<String, dynamic> toWaterJson() {

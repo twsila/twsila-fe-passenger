@@ -265,5 +265,6 @@
   "select_location_on_map": "حدد الموقع علي الخريطة ",
   "distance": "المسافة: ",
   "km": "كم",
-  "no_internet_error": "لا يوجد اتصال بالانترنت"
+  "no_internet_error": "لا يوجد اتصال بالانترنت",
+  "unknown": "غير معروف"
 }
