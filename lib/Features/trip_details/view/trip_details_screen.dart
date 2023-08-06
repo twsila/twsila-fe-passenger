@@ -14,6 +14,8 @@ import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/c
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/need_help_button.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/trip_details_widget/trip_details_widget.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/trip_status_ui/trip_status_widget.dart';
+import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
@@ -39,11 +41,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
     _viewModel.start();
     BlocProvider.of<TripDetailsBloc>(context)
         .add(GetTripDetailsRequest(tripId: widget.tripId));
-    _viewModel.setTimer(
-      () => BlocProvider.of<TripDetailsBloc>(context).add(
-        GetTripDetailsRequest(tripId: widget.tripId),
-      ),
-    );
 
     super.initState();
   }
@@ -55,10 +52,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
   }
 
   Future refresh() async {
-    if (_viewModel.condition) {
-      BlocProvider.of<TripDetailsBloc>(context)
-          .add(GetTripDetailsRequest(tripId: widget.tripId));
-    }
+    BlocProvider.of<TripDetailsBloc>(context)
+        .add(GetTripDetailsRequest(tripId: widget.tripId));
   }
 
   @override
@@ -72,7 +67,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
           displayLoadingIndicator: _viewModel.displayLoadingIndicator,
           appBarTitle: AppStrings.tripDetails.tr(),
           body: Container(
-            margin: const EdgeInsets.all(16),
+            margin: const EdgeInsets.symmetric(vertical: 16),
             child: SingleChildScrollView(
               child: BlocConsumer<TripDetailsBloc, TripDetailsStates>(
                 listener: (context, state) {
@@ -88,8 +83,16 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                       _viewModel.displayLoadingIndicator = false;
                     });
                     if (state is TripDetailsSuccessfully) {
-                      if (state.tripDetailsModel.tripDetails.acceptedOffer !=
-                          null) {
+                      if (state.tripDetailsModel.tripDetails.tripStatus !=
+                              TripStatusConstants.cancelled &&
+                          state.tripDetailsModel.tripDetails.tripStatus !=
+                              TripStatusConstants.completed) {
+                        _viewModel.setTimer(
+                          () => BlocProvider.of<TripDetailsBloc>(context).add(
+                            GetTripDetailsRequest(tripId: widget.tripId),
+                          ),
+                        );
+                      } else {
                         _viewModel.cancelTimer();
                       }
                     }
@@ -109,6 +112,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                     if (state is CancelTripSuccessfully) {
                       ShowDialogHelper.showSuccessMessage(
                           AppStrings.cancelTripSuccessfully.tr(), context);
+                      BlocProvider.of<TripDetailsBloc>(context)
+                          .add(GetTripDetailsRequest(tripId: widget.tripId));
                       Navigator.pop(context);
                     }
                     if (state is TripDetailsFailed) {
@@ -136,21 +141,45 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        TripDetailsWidget(
-                            trip: state.tripDetailsModel.tripDetails),
-                        const SizedBox(height: 16),
-                        MoreDetailsWidget(
-                          transportationBaseModel:
-                              state.tripDetailsModel.tripDetails,
+                        TripDetailsStatusWidget(
+                            transportationBaseModel:
+                                state.tripDetailsModel.tripDetails),
+                        Container(
+                          margin: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              TripDetailsWidget(
+                                  trip: state.tripDetailsModel.tripDetails),
+                              const SizedBox(height: 16),
+                              MoreDetailsWidget(
+                                transportationBaseModel:
+                                    state.tripDetailsModel.tripDetails,
+                              ),
+                              if (state.tripDetailsModel.tripDetails
+                                          .tripStatus !=
+                                      TripStatusConstants.cancelled &&
+                                  state.tripDetailsModel.tripDetails
+                                          .tripStatus !=
+                                      TripStatusConstants.completed)
+                                Column(
+                                  children: [
+                                    OffersWidget(
+                                      acceptedOffer: state.tripDetailsModel
+                                          .tripDetails.acceptedOffer,
+                                      offers: state
+                                          .tripDetailsModel.tripDetails.offers,
+                                    ),
+                                    state.tripDetailsModel.tripDetails
+                                                .acceptedOffer !=
+                                            null
+                                        ? NeedHelpButton(tripId: widget.tripId)
+                                        : CancelTripButton(
+                                            tripId: widget.tripId)
+                                  ],
+                                )
+                            ],
+                          ),
                         ),
-                        OffersWidget(
-                          acceptedOffer:
-                              state.tripDetailsModel.tripDetails.acceptedOffer,
-                          offers: state.tripDetailsModel.tripDetails.offers,
-                        ),
-                        state.tripDetailsModel.tripDetails.acceptedOffer != null
-                            ? NeedHelpButton(tripId: widget.tripId)
-                            : CancelTripButton(tripId: widget.tripId)
                       ],
                     );
                   } else if (state is TripDetailsFailed) {

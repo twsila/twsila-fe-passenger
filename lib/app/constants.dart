@@ -29,8 +29,21 @@ class TripTypeConstants {
   static const String personType = "PERSON";
 }
 
+class TripStatusConstants {
+  static const String draft = "DRAFT";
+  static const String submitted = "SUBMITTED";
+  static const String evaluation = "EVALUATION";
+  static const String payment = "PAYMENT";
+  static const String waitForTakeOff = "WAIT_FOR_TAKEOFF";
+  static const String takeOff = "TAKEOFF";
+  static const String executed = "EXECUTED";
+  static const String completed = "COMPLETED";
+  static const String cancelled = "CANCELLED";
+  static const String accepted = 'ACCEPTED';
+}
+
 class EndPointsConstants {
-  static const String lookups = 'lookup';
+  static const String lookups = 'lookups';
   static const String login = "passenger/login";
   static const String logout = "passenger/logout";
   static const String register = "passenger/register-passenger";

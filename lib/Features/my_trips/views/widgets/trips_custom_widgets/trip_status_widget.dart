@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
+import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
@@ -27,15 +28,16 @@ class _TripStatusState extends State<TripStatus> {
   checkStatus() {
     String? status = widget.trip.tripStatus;
     if (status != null) {
-      if (status == 'CANCELLED') {
+      if (status == TripStatusConstants.cancelled) {
         text = AppStrings.passengerCancelled.tr();
         color = ColorManager.error;
-      } else if (status == 'COMPLETED') {
+      } else if (status == TripStatusConstants.completed) {
         text = AppStrings.tripFinished.tr();
         color = ColorManager.green;
       } else if (widget.trip.acceptedOffer != null &&
-          widget.trip.acceptedOffer!.offer.acceptanceStatus == 'ACCEPTED') {
-        if (status == 'DRAFT') {
+          widget.trip.acceptedOffer!.offer.acceptanceStatus ==
+              TripStatusConstants.accepted) {
+        if (status == TripStatusConstants.submitted) {
           text = AppStrings.tripStartIn.tr() +
               context.formatDateTime(
                 dateTime: DateTime.tryParse(
