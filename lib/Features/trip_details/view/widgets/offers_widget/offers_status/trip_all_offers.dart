@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/trip_details/model/offer_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_status/single_offer_widget.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
@@ -8,10 +8,10 @@ import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/styles_manager.dart';
 
 class TripAllOffer extends StatefulWidget {
-  final List<OfferModel> offers;
+  final TransportationBaseModel transportationBaseModel;
   const TripAllOffer({
     Key? key,
-    required this.offers,
+    required this.transportationBaseModel,
   }) : super(key: key);
 
   @override
@@ -35,9 +35,10 @@ class _TripAllOfferState extends State<TripAllOffer> {
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: widget.offers.length,
+          itemCount: widget.transportationBaseModel.offers!.length,
           itemBuilder: (context, index) {
-            return SingleOfferWidget(offer: widget.offers[index]);
+            return SingleOfferWidget(
+                offer: widget.transportationBaseModel.offers![index]);
           },
         )
       ],

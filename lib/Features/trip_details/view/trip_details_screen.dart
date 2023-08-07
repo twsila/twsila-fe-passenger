@@ -138,49 +138,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                     current is TripDetailsFailed,
                 builder: (context, state) {
                   if (state is TripDetailsSuccessfully) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        TripDetailsStatusWidget(
-                            transportationBaseModel:
-                                state.tripDetailsModel.tripDetails),
-                        Container(
-                          margin: const EdgeInsets.all(16),
-                          child: Column(
-                            children: [
-                              TripDetailsWidget(
-                                  trip: state.tripDetailsModel.tripDetails),
-                              const SizedBox(height: 16),
-                              MoreDetailsWidget(
-                                transportationBaseModel:
-                                    state.tripDetailsModel.tripDetails,
-                              ),
-                              if (state.tripDetailsModel.tripDetails
-                                          .tripStatus !=
-                                      TripStatusConstants.cancelled &&
-                                  state.tripDetailsModel.tripDetails
-                                          .tripStatus !=
-                                      TripStatusConstants.completed)
-                                Column(
-                                  children: [
-                                    OffersWidget(
-                                      acceptedOffer: state.tripDetailsModel
-                                          .tripDetails.acceptedOffer,
-                                      offers: state
-                                          .tripDetailsModel.tripDetails.offers,
-                                    ),
-                                    state.tripDetailsModel.tripDetails
-                                                .acceptedOffer !=
-                                            null
-                                        ? NeedHelpButton(tripId: widget.tripId)
-                                        : CancelTripButton(
-                                            tripId: widget.tripId)
-                                  ],
-                                )
-                            ],
-                          ),
-                        ),
-                      ],
+                    return TripDetailsStatusWidget(
+                      transportationBaseModel:
+                          state.tripDetailsModel.tripDetails,
                     );
                   } else if (state is TripDetailsFailed) {
                     return Padding(

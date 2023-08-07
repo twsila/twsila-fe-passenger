@@ -39,6 +39,8 @@ class TripStatusConstants {
   static const String executed = "EXECUTED";
   static const String completed = "COMPLETED";
   static const String cancelled = "CANCELLED";
+  static const String cancelledByDriver = "CANCELLED_BY_DRIVER";
+  static const String cancelledByPassenger = "CANCELLED_BY_PASSENGER";
   static const String accepted = 'ACCEPTED';
 }
 

@@ -1,8 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
+import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_bloc.dart';
+import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_event.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
+import 'package:taxi_for_you/core/utils/helpers/trip_helper.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 
 import '../../../../app/constants.dart';
@@ -10,6 +14,7 @@ import '../../../../core/utils/resources/assets_manager.dart';
 import '../../../../core/utils/resources/langauge_manager.dart';
 import '../../../../core/utils/resources/strings_manager.dart';
 import '../../../../core/utils/resources/styles_manager.dart';
+import '../../../common/state_renderer/dialogs.dart';
 import '../../../transportation_requests/view/transport_request_view.dart';
 
 class OldTripWidget extends StatefulWidget {
@@ -22,36 +27,6 @@ class OldTripWidget extends StatefulWidget {
 
 class _OldTripWidgetState extends State<OldTripWidget> {
   final AppPreferences appPreferences = instance<AppPreferences>();
-
-  String getString(String tripType) {
-    if (tripType == TripTypeConstants.furnitureType) {
-      return AppStrings.request.tr() +
-          ' ' +
-          AppStrings.furnitureTransportation.tr();
-    } else if (tripType == TripTypeConstants.goodsType) {
-      return AppStrings.request.tr() +
-          ' ' +
-          AppStrings.goodsTransportation.tr();
-    } else if (tripType == TripTypeConstants.carAidType) {
-      return AppStrings.request.tr() +
-          ' ' +
-          AppStrings.carAidTransportation.tr();
-    } else if (tripType == TripTypeConstants.frozenType) {
-      return AppStrings.request.tr() +
-          ' ' +
-          AppStrings.freezerTransportation.tr();
-    } else if (tripType == TripTypeConstants.drinkWaterType) {
-      return AppStrings.requestWhite.tr() +
-          ' ' +
-          AppStrings.waterTankTransportation.tr();
-    } else if (tripType == TripTypeConstants.otherTankType) {
-      return AppStrings.request.tr() +
-          ' ' +
-          AppStrings.cisternsTransportation.tr();
-    } else {
-      return '';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +68,7 @@ class _OldTripWidgetState extends State<OldTripWidget> {
                         Image.asset(ImageAssets.clock),
                         const SizedBox(width: 4),
                         Text(
-                          getString(widget.draftTrip.tripType!),
+                          TripHelper.getTripTitle(widget.draftTrip.tripType!),
                           style: getBoldStyle(
                               color: ColorManager.primaryTextColor,
                               fontSize: 12),
@@ -117,8 +92,9 @@ class _OldTripWidgetState extends State<OldTripWidget> {
                     //         AppStrings.cancelRequestConfirmation.tr(),
                     //         context,
                     //         () => Navigator.pop(context), () {
-                    //       appPreferences.removeTripByType(
-                    //           widget.tripsList[index].tripType!);
+                    //       BlocProvider.of<TripDetailsBloc>(context).add(
+                    //           CancelTripRequest(
+                    //               tripId: widget.draftTrip.tripId!));
                     //       Navigator.pop(context);
                     //     });
                     //   },

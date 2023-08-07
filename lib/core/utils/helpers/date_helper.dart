@@ -1,11 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 
 import '../../../app/di.dart';
 
-extension DateString on BuildContext {
-  String formatDateTime({
+class DateHelper {
+  static String formatDateTime({
     String pattern = 'EEEE dd MMM yyyy / hh:mm a',
     DateTime? dateTime,
   }) {
@@ -14,11 +13,11 @@ extension DateString on BuildContext {
         .format(dateTime ?? DateTime.now());
   }
 
-  String currentDateTimeString({String pattern = 'dd/MM/yyyy hh:mm a'}) {
+  static String currentDateTimeString({String pattern = 'dd/MM/yyyy hh:mm a'}) {
     return DateFormat(pattern).format(DateTime.now());
   }
 
-  DateTime currentDateTime() {
+  static DateTime currentDateTime() {
     return DateTime.now();
   }
 }

@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
-import 'package:taxi_for_you/Features/trip_details/view/widgets/trip_details_widget/trips_details_widget_viewmodel.dart';
-import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/constants.dart';
+import 'package:taxi_for_you/app/di.dart';
+import 'package:taxi_for_you/core/utils/helpers/date_helper.dart';
+import 'package:taxi_for_you/core/utils/helpers/trip_helper.dart';
 
 import '../../../../../core/utils/resources/assets_manager.dart';
 import '../../../../../core/utils/resources/color_manager.dart';
@@ -22,8 +25,7 @@ class TripDetailsWidget extends StatefulWidget {
 }
 
 class _TripDetailsWidgetState extends State<TripDetailsWidget> {
-  final TripsDetailsWidgetViewModel _viewModel = TripsDetailsWidgetViewModel();
-
+  final AppPreferences appPreferences = instance();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,32 +36,51 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
           children: [
             Expanded(
               child: Text(AppStrings.sendIn.tr() +
-                  context.formatDateTime(
+                  DateHelper.formatDateTime(
                       dateTime: DateTime.tryParse(widget.trip.creationDate!))),
             ),
             const SizedBox(width: 16),
-            Image.asset(_viewModel.getIconName(widget.trip.tripType!)),
+            Image.asset(TripHelper.getIconName(widget.trip.tripType!)),
           ],
         ),
         const SizedBox(height: 8),
         Text(
-          _viewModel.getTitle(widget.trip.tripType!),
+          TripHelper.getTripTitle(widget.trip.tripType!),
           style: getBoldStyle(
             color: ColorManager.primaryTextColor,
             fontSize: 24,
           ),
         ),
         const SizedBox(height: 4),
-        Text(
-          AppStrings.onBudget.tr() +
-              widget.trip.paymentValue.toString() +
-              ' ' +
-              (_viewModel.appPreferences.getCurrentCurrnecy()),
-          style: getMediumStyle(
-            color: ColorManager.primaryTextColor,
-            fontSize: 18,
-          ),
-        ),
+        (widget.trip.tripStatus == TripStatusConstants.submitted ||
+                widget.trip.tripStatus == TripStatusConstants.evaluation ||
+                widget.trip.tripStatus == TripStatusConstants.payment)
+            ? Text(
+                AppStrings.onBudget.tr() +
+                    widget.trip.paymentValue.toString() +
+                    ' ' +
+                    (appPreferences.getCurrentCurrnecy()),
+                style: getMediumStyle(
+                  color: ColorManager.primaryTextColor,
+                  fontSize: 18,
+                ),
+              )
+            : Row(
+                children: [
+                  Image.asset(ImageAssets.tripMarked),
+                  const SizedBox(width: 16),
+                  Text(
+                    AppStrings.tripPaidConfirmed.tr() +
+                        widget.trip.paymentValue.toString() +
+                        ' ' +
+                        (appPreferences.getCurrentCurrnecy()),
+                    style: getMediumStyle(
+                      color: ColorManager.green,
+                      fontSize: 18,
+                    ),
+                  )
+                ],
+              ),
         const SizedBox(height: 16),
         Row(
           children: [

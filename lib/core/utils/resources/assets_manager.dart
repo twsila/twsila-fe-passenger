@@ -39,6 +39,9 @@ class ImageAssets {
   static const String carGoods = "$imagePath/car-goods.png";
   static const String carPeople = "$imagePath/car-people.png";
   static const String tripFinished = "$imagePath/trip-finished.png";
+  static const String tripMarked = "$imagePath/trip_marked.png";
+  static const String tripCancel = "$imagePath/trip_cancel.png";
+  static const String tripRoad = "$imagePath/trip_road.png";
 }
 
 class JsonAssets {

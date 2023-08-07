@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_bloc.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_event.dart';
-import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_state.dart';
+import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 
 import '../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../core/utils/resources/strings_manager.dart';
@@ -24,11 +24,11 @@ class _CancelTripButtonState extends State<CancelTripButton> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       child: CustomTextButton(
-        text: AppStrings.cancel.tr() + ' ' + AppStrings.request.tr(),
-        showIcon: false,
+        text: AppStrings.cancel.tr() + ' ' + AppStrings.request.tr() + ' ',
         showShadow: false,
         hasBorder: true,
         color: ColorManager.white,
+        imageData: ImageAssets.tripCancel,
         textColor: ColorManager.primaryTextColor,
         onPressed: () {
           ShowDialogHelper.showDialogPopupWithCancel(

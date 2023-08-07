@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/trip_details/model/offer_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_status/trip_accepted_offer.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_status/trip_all_offers.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_status/trip_no_offers.dart';
 
 class OffersWidget extends StatefulWidget {
-  final AcceptedOffer? acceptedOffer;
-  final List<OfferModel>? offers;
+  final TransportationBaseModel transportationBaseModel;
   const OffersWidget({
     Key? key,
-    required this.acceptedOffer,
-    required this.offers,
+    required this.transportationBaseModel,
   }) : super(key: key);
 
   @override
@@ -20,10 +18,13 @@ class OffersWidget extends StatefulWidget {
 class _OffersWidgetState extends State<OffersWidget> {
   @override
   Widget build(BuildContext context) {
-    return widget.acceptedOffer != null
-        ? TripAccepterdOffer(offer: widget.acceptedOffer!.offer)
-        : widget.offers != null
-            ? TripAllOffer(offers: widget.offers!)
+    return widget.transportationBaseModel.acceptedOffer != null
+        ? TripAccepterdOffer(
+            transportationBaseModel: widget.transportationBaseModel)
+        : widget.transportationBaseModel.offers != null
+            ? TripAllOffer(
+                transportationBaseModel: widget.transportationBaseModel,
+              )
             : const TripNoOffers();
   }
 }

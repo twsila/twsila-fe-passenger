@@ -25,7 +25,6 @@ class AppStrings {
   static const tripStartIn = 'trip_start_in';
   static const offers = 'offers';
   static const offerAccepted = 'offer_accepted';
-  static const waitingOffers = 'waiting_offers';
   static const chooseOffer = 'choose_offer';
   static const newRequest = "new_request";
   static const oldRequest = "old_request";
@@ -100,8 +99,6 @@ class AppStrings {
   static const ok = "ok";
   static const driverDetails = 'driver_details';
   static const driverCall = 'driver_call';
-  static const driverCancelled = 'driver_cancelled';
-  static const passengerCancelled = 'passenger_cancelled';
   static const cancel = "cancel";
   static const cancelRequest = "cancel_request";
   static const cancelTripConfirmation = "cancel_trip_confirmation";
@@ -111,6 +108,7 @@ class AppStrings {
   static const no = "no";
   static const confirmation = "confirmation";
   static const confirm = "confirm";
+  static const tripPaidConfirmed = "trip_paid_confirmed";
   static const sendRequest = "send_request";
   static const distance = "distance";
   static const km = "km";
@@ -144,7 +142,6 @@ class AppStrings {
   static const home = "home";
   static const notifications = "notification";
   static const search = "search";
-  static const tripFinished = "trip_finished";
   static const saveTrip = "save_trip";
   static const settings = "settings";
   static const services = "services";
@@ -221,6 +218,17 @@ class AppStrings {
   static const sofaSet = "sofa_set";
   static const goodsWeight = "goods_weight";
   static const tankWeight = "tank_weight";
+
+  //Trip Status Strings
+  static const tripStatusSUBMITTEDorEVALUATED =
+      'trip_status_submitted_evaluated';
+  static const tripStatusPAYMENT = "trip_status_payment";
+  static const tripStatusWAITTAKEOFF = "trip_status_wait_takeoff";
+  static const tripStatusTAKEOFF = "trip_status_takeoff";
+  static const tripStatusEXECUTED = "trip_status_executed";
+  static const tripStatusCOMLETED = "trip_status_completed";
+  static const tripCancelledByDriver = 'trip_status_driver_cancelled';
+  static const tripCancelledByPassneger = 'trip_status_passenger_cancelled';
 
   //Freezers strings
   static const cartons = "cartons";

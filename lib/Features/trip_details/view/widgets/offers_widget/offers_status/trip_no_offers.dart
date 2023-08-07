@@ -19,7 +19,7 @@ class TripNoOffers extends StatelessWidget {
           child: Image.asset(ImageAssets.driverWaiting),
         ),
         Text(
-          AppStrings.waitingOffers.tr(),
+          AppStrings.tripStatusSUBMITTEDorEVALUATED.tr(),
           style: getBoldStyle(
             color: ColorManager.black,
             fontSize: 18,

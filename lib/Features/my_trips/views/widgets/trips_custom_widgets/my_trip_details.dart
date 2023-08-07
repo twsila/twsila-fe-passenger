@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
-import 'package:taxi_for_you/Features/trip_details/view/widgets/trip_details_widget/trips_details_widget_viewmodel.dart';
-import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
+import 'package:taxi_for_you/core/utils/helpers/date_helper.dart';
+import 'package:taxi_for_you/core/utils/helpers/trip_helper.dart';
 
 import '../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../core/utils/resources/strings_manager.dart';
@@ -17,18 +17,16 @@ class MyTripDetails extends StatefulWidget {
 }
 
 class _MyTripDetailsState extends State<MyTripDetails> {
-  final TripsDetailsWidgetViewModel _viewModel = TripsDetailsWidgetViewModel();
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(AppStrings.sendIn.tr() +
-            context.formatDateTime(
+            DateHelper.formatDateTime(
                 dateTime: DateTime.tryParse(widget.trip.creationDate!))),
         Text(
-          _viewModel.getTitle(widget.trip.tripType!),
+          TripHelper.getTripTitle(widget.trip.tripType!),
           style: getBoldStyle(
             color: ColorManager.primaryTextColor,
             fontSize: 24,
