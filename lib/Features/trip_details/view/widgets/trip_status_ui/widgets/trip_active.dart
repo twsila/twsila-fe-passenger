@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/track_trip_button.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/utils/helpers/trip_helper.dart';
 
@@ -39,6 +40,7 @@ class TripActive extends StatelessWidget {
             ),
           ),
           TripDetailsWidget(trip: transportationBaseModel),
+          TrackTripButton(tripId: transportationBaseModel.tripId!),
           const SizedBox(height: 16),
           MoreDetailsWidget(
             transportationBaseModel: transportationBaseModel,

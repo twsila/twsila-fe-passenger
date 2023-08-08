@@ -6,7 +6,6 @@ import 'package:taxi_for_you/Features/transportation_requests/view/transport_req
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/custom_widgets/transportation_top_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/trip_details_screen.dart';
 
-import '../../../../core/utils/resources/routes_manager.dart';
 import '../../../../core/utils/resources/strings_manager.dart';
 import '../../common/state_renderer/dialogs.dart';
 import '../../common/widgets/custom_scaffold.dart';

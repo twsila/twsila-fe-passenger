@@ -16,6 +16,7 @@ class TransportationBaseModel {
   String? date;
   String? stringDate;
   String? notes;
+  String? cancelledBy;
   double? paymentValue;
   List<XFile>? images;
   AcceptedOffer? acceptedOffer;
@@ -31,6 +32,7 @@ class TransportationBaseModel {
     tripStatus = json['tripStatus'];
     creationDate = json['creationDate'];
     stringDate = json['stringDate'];
+    cancelledBy = json['cancelledByEnum'];
     date = json['date'];
     notes = json['notes'];
     paymentValue = (json['clientOffer'] != null)
@@ -63,6 +65,7 @@ class TransportationBaseModel {
     if (stringDate != null) data['stringDate'] = stringDate;
     if (date != null) data['date'] = date;
     if (notes != null) data['notes'] = notes;
+    if (cancelledBy != null) data['cancelledByEnum'] = cancelledBy;
     if (paymentValue != null) data['clientOffer'] = paymentValue.toString();
     if (pickupLocation.latitude != null && pickupLocation.longitude != null) {
       data['pickupLocation'] = json.encode(pickupLocation.toJson());

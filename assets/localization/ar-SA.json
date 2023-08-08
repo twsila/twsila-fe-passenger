@@ -271,5 +271,6 @@
   "trip_status_takeoff": "لقد وصل الكابتن الي نقطة البداية",
   "trip_status_executed": "الرحلة بدأت, في الطريق الي نقطة التوصيل. متوقع الوصول الساعة ",
   "trip_status_driver_cancelled": "الكابتن ألغي الطلب",
-  "trip_status_passenger_cancelled": "تم إلغاء الطلب من قبلكم"
+  "trip_status_passenger_cancelled": "تم إلغاء الطلب من قبلكم",
+  "trip_track": "إعرض مسار الرحلة"
 }

@@ -21,6 +21,8 @@ import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
 import '../../common/widgets/custom_text_button.dart';
+import '../../my_trips/bloc/my_trips_bloc.dart';
+import '../../my_trips/bloc/my_trips_event.dart';
 
 class TripDetailsScreen extends StatefulWidget {
   final int tripId;
@@ -99,6 +101,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                     if (state is AcceptOfferSuccessfully) {
                       ShowDialogHelper.showSuccessMessage(
                           AppStrings.offerAccepted.tr(), context);
+                      BlocProvider.of<MyTripsBloc>(context).add(
+                        GetUserTrips(tripModelType: 5),
+                      );
                       BlocProvider.of<TripDetailsBloc>(context)
                           .add(GetTripDetailsRequest(tripId: widget.tripId));
                     }
@@ -112,8 +117,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                     if (state is CancelTripSuccessfully) {
                       ShowDialogHelper.showSuccessMessage(
                           AppStrings.cancelTripSuccessfully.tr(), context);
-                      BlocProvider.of<TripDetailsBloc>(context)
-                          .add(GetTripDetailsRequest(tripId: widget.tripId));
+                      BlocProvider.of<MyTripsBloc>(context).add(
+                        GetUserTrips(tripModelType: 5),
+                      );
                       Navigator.pop(context);
                     }
                     if (state is TripDetailsFailed) {

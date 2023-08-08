@@ -267,5 +267,6 @@
   "trip_status_takeoff": "Captain reached to the pickup location",
   "trip_status_executed": "Trip started, on it's way to destination location, expected to reach at ",
   "trip_status_driver_cancelled": "Captain cancelled request",
-  "trip_status_passenger_cancelled": "Request has been cancelled by you"
+  "trip_status_passenger_cancelled": "Request has been cancelled by you",
+  "trip_track": "Show trip path"
 }

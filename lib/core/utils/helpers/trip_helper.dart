@@ -52,15 +52,13 @@ class TripHelper {
     }
     //CANCELLED BY PASSENGER
     else if (transportationBaseModel.tripStatus ==
-            TripStatusConstants.cancelled ||
-        transportationBaseModel.tripStatus ==
-            TripStatusConstants.cancelledByPassenger) {
-      return AppStrings.tripCancelledByPassneger.tr();
-    }
-    //CANCELLED BY DRIVER
-    else if (transportationBaseModel.tripStatus ==
         TripStatusConstants.cancelled) {
-      return AppStrings.tripCancelledByDriver.tr();
+      if (transportationBaseModel.cancelledBy != null &&
+          transportationBaseModel.cancelledBy ==
+              TripStatusConstants.cancelledByDriver) {
+        return AppStrings.tripCancelledByDriver.tr();
+      }
+      return AppStrings.tripCancelledByPassneger.tr();
     }
     //COMPLETED
     else if (transportationBaseModel.tripStatus ==

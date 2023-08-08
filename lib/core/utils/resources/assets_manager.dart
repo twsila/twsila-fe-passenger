@@ -42,6 +42,7 @@ class ImageAssets {
   static const String tripMarked = "$imagePath/trip_marked.png";
   static const String tripCancel = "$imagePath/trip_cancel.png";
   static const String tripRoad = "$imagePath/trip_road.png";
+  static const String tripTrack = "$imagePath/trip_track.png";
 }
 
 class JsonAssets {

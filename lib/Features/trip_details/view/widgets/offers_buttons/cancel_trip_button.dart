@@ -10,15 +10,9 @@ import '../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../common/widgets/custom_text_button.dart';
 
-class CancelTripButton extends StatefulWidget {
+class CancelTripButton extends StatelessWidget {
   final int tripId;
   const CancelTripButton({Key? key, required this.tripId}) : super(key: key);
-
-  @override
-  State<CancelTripButton> createState() => _CancelTripButtonState();
-}
-
-class _CancelTripButtonState extends State<CancelTripButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +31,7 @@ class _CancelTripButtonState extends State<CancelTripButton> {
               context,
               () => Navigator.pop(context), () {
             BlocProvider.of<TripDetailsBloc>(context).add(
-              CancelTripRequest(tripId: widget.tripId),
+              CancelTripRequest(tripId: tripId),
             );
             Navigator.pop(context);
           });

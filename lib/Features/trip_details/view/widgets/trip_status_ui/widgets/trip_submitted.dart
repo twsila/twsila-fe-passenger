@@ -18,18 +18,20 @@ class TripSubmitted extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(16),
-      child: Column(children: [
-        TripDetailsWidget(trip: transportationBaseModel),
-        const SizedBox(height: 16),
-        MoreDetailsWidget(
-          transportationBaseModel: transportationBaseModel,
-        ),
-        OffersWidget(
-          transportationBaseModel: transportationBaseModel,
-        ),
-        NeedHelpButton(tripId: transportationBaseModel.tripId!),
-        CancelTripButton(tripId: transportationBaseModel.tripId!),
-      ]),
+      child: Column(
+        children: [
+          TripDetailsWidget(trip: transportationBaseModel),
+          const SizedBox(height: 16),
+          MoreDetailsWidget(
+            transportationBaseModel: transportationBaseModel,
+          ),
+          OffersWidget(
+            transportationBaseModel: transportationBaseModel,
+          ),
+          NeedHelpButton(tripId: transportationBaseModel.tripId!),
+          CancelTripButton(tripId: transportationBaseModel.tripId!),
+        ],
+      ),
     );
   }
 }
