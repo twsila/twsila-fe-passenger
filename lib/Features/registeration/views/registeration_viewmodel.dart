@@ -17,10 +17,33 @@ class RegisterationViewModel extends BaseViewModel {
     GenderModel(value: 'F', name: AppStrings.female.tr()),
   ];
   var user = UserModel();
+  bool isEdit = false;
+  bool isValid = false;
+  late ValueNotifier notifier;
 
   // inputs
   @override
   void start() {}
+
+  setArguments(Map arguments) {
+    if (arguments["mobile"] != null) {
+      mobileNumberController.text = arguments["mobile"];
+      user.mobileNumber = arguments["mobile"];
+      user.gender = genderTypes[0].value;
+    }
+    if (arguments["user"] != null) {
+      user = arguments["user"];
+      notifier = arguments["notifier"];
+      mobileNumberController.text = user.mobileNumber!;
+      firstNameController.text = user.firstName!;
+      lastNameController.text = user.lastName!;
+      emailController.text = user.email!;
+      isValid = true;
+    }
+    if (arguments["isEdit"] != null) {
+      isEdit = arguments["isEdit"];
+    }
+  }
 
   @override
   void dispose() {

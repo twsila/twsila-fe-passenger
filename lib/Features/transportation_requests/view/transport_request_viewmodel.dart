@@ -23,6 +23,7 @@ import 'package:taxi_for_you/Features/transportation_requests/view/widgets/trans
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/models/water_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/views/water_first_view.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/views/water_viewmodel.dart';
+import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
 import '../../../../app/app_prefs.dart';
@@ -88,7 +89,7 @@ class TransportRequestViewModel {
     }, () async {
       FocusScope.of(context).unfocus();
       inspect(transportationBaseModel);
-      viewModel.sendRequest(transportationBaseModel, 'DRAFT');
+      viewModel.sendRequest(transportationBaseModel, TripStatusConstants.draft);
       BlocProvider.of<TransportationBloc>(context).add(
         SendTransportationRequest(
           endPoint: viewModel.endPoint,

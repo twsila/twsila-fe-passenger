@@ -8,6 +8,7 @@ import 'package:taxi_for_you/Features/registeration/bloc/registeration_event.dar
 import 'package:taxi_for_you/Features/registeration/bloc/registeration_state.dart';
 import 'package:taxi_for_you/Features/registeration/views/registeration_viewmodel.dart';
 import 'package:taxi_for_you/Features/registeration/views/widgets/gender_widget.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
 
 import '../../../app/di.dart';
 import '../../../core/utils/resources/color_manager.dart';
@@ -32,37 +33,13 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   bool _isInit = true;
   bool displayLoadingIndicator = false;
-  bool _isValid = false;
   final RegisterationViewModel _viewModel = instance<RegisterationViewModel>();
+  final AppPreferences _appPrefs = instance<AppPreferences>();
   final _formKey = GlobalKey<FormState>();
 
   _bind() {
-    _viewModel.mobileNumberController.text =
-        ModalRoute.of(context)!.settings.arguments as String;
-    _viewModel.user.mobileNumber =
-        ModalRoute.of(context)!.settings.arguments as String;
-    _viewModel.user.gender = _viewModel.genderTypes[0].value;
-    // _registerViewModel.start();
-    // // _registerViewModel.setCountryCode(_loginViewModel.loginObject.countryCode);
-    // // _registerViewModel.setMobileNumber(_loginViewModel.loginObject.phoneNumber);
-    // _userNameEditingController.addListener(() {
-    //   _registerViewModel.setUserName(_userNameEditingController.text);
-    // });
-    // _emailEditingController.addListener(() {
-    //   _registerViewModel.setEmail(_emailEditingController.text);
-    // });
-    // _registerViewModel.isUserRegisteredInSuccessfullyStreamController.stream
-    //     .listen((isLoggedIn) {
-    //   if (isLoggedIn) {
-    //     // navigate to main screen
-    //     SchedulerBinding.instance.addPostFrameCallback((_) {
-    //       _appPreferences.setUserLoggedIn();
-    //       // _appPreferences
-    //       //     .setUserDevices(_loginViewModel.loginObject.phoneNumber);
-    //       Navigator.of(context).pushReplacementNamed(Routes.categoriesRoute);
-    //     });
-    //   }
-    // });
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    _viewModel.setArguments(arguments);
   }
 
   @override
@@ -94,7 +71,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   checkValidations() {
     setState(() {
-      _isValid = _formKey.currentState != null &&
+      _viewModel.isValid = _formKey.currentState != null &&
           _formKey.currentState!.validate() &&
           _viewModel.user.dateOfBirth != null;
     });
@@ -119,6 +96,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 AppStrings.registerSuccess.tr(), context);
             BlocProvider.of<LoginBloc>(context)
                 .add(LoginUser(mobileNumber: _viewModel.user.mobileNumber!));
+          } else if (state is EditUserFailed) {
+            ShowDialogHelper.showErrorMessage(
+                state.baseResponse.errorMessage!, context);
+          } else if (state is EditUserSuccessfully) {
+            _viewModel.notifier.value = !_viewModel.notifier.value;
+            ShowDialogHelper.showSuccessMessage(
+                AppStrings.editSuccess.tr(), context);
+            Navigator.pop(context);
           }
         }
       },
@@ -152,7 +137,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        AppStrings.continueRegistration.tr(),
+                        _viewModel.isEdit
+                            ? AppStrings.editProfile.tr()
+                            : AppStrings.continueRegistration.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
@@ -233,6 +220,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               child: CustomDatePickerWidget(
                                 mainColor: ColorManager.lightGrey,
                                 hintText: AppStrings.birthdate.tr(),
+                                initialDate: _viewModel.user.dateOfBirth != null
+                                    ? DateFormat('dd MMM yyyy',
+                                            _appPrefs.getAppLanguage())
+                                        .format(DateFormat("dd/MM/yyyy").parse(
+                                            _viewModel.user.dateOfBirth!))
+                                    : null,
                                 isDateOnly: true,
                                 onSelectDate: (String date, DateTime dateTime) {
                                   String stringDate =
@@ -247,6 +240,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Container(
                               margin: const EdgeInsets.symmetric(vertical: 8),
                               child: GenderWidget(
+                                initialGender: _viewModel.user.gender,
                                 onSelectGender: (gender) {
                                   _viewModel.user.gender = gender.value;
                                   checkValidations();
@@ -271,12 +265,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 color: Colors.white,
                 child: CustomTextButton(
                   showIcon: false,
-                  text: AppStrings.save.tr(),
-                  onPressed: _isValid
+                  text: _viewModel.isEdit
+                      ? AppStrings.edit.tr()
+                      : AppStrings.save.tr(),
+                  onPressed: _viewModel.isValid
                       ? () {
                           FocusScope.of(context).unfocus();
-                          BlocProvider.of<RegistrationBloc>(context).add(
-                              RegistrationUser(userModel: _viewModel.user));
+                          _viewModel.isEdit
+                              ? BlocProvider.of<RegistrationBloc>(context)
+                                  .add(EditUser(userModel: _viewModel.user))
+                              : BlocProvider.of<RegistrationBloc>(context).add(
+                                  RegistrationUser(userModel: _viewModel.user));
                         }
                       : null,
                 ),

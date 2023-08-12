@@ -29,3 +29,21 @@ class RegistrationFailed extends RegistrationStates {
   @override
   List<Object> get props => [baseResponse];
 }
+
+class EditUserSuccessfully extends RegistrationStates {
+  final UserModel _userModel;
+
+  UserModel get userModel => _userModel;
+
+  EditUserSuccessfully(this._userModel);
+  @override
+  List<Object> get props => [userModel];
+}
+
+class EditUserFailed extends RegistrationStates {
+  final BaseResponse baseResponse;
+
+  EditUserFailed({required this.baseResponse});
+  @override
+  List<Object> get props => [baseResponse];
+}

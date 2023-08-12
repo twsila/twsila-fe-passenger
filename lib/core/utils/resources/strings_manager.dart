@@ -100,6 +100,7 @@ class AppStrings {
   static const ok = "ok";
   static const driverDetails = 'driver_details';
   static const driverCall = 'driver_call';
+  static const searchAnotherCaptain = "search_another_captain";
   static const cancel = "cancel";
   static const cancelRequest = "cancel_request";
   static const cancelTripConfirmation = "cancel_trip_confirmation";
@@ -110,6 +111,8 @@ class AppStrings {
   static const confirmation = "confirmation";
   static const confirm = "confirm";
   static const tripPaidConfirmed = "trip_paid_confirmed";
+  static const tripRefunded = "trip_refunded";
+  static const refundAmount = "refund_amount";
   static const sendRequest = "send_request";
   static const distance = "distance";
   static const km = "km";
@@ -136,6 +139,7 @@ class AppStrings {
   static const alreadyHaveAccount = "already_have_account";
   static const register = "register";
   static const registerSuccess = "register_success";
+  static const editSuccess = "edit_success";
   static const phoneNumberHint = "phone_number_hint";
   static const profilePicture = "upload_profile_picture";
   static const photoGallery = "photo_from_galley";
@@ -186,8 +190,10 @@ class AppStrings {
   static const myTrips = "my_trips";
   static const requestService = "request_service";
   static const profile = "profile";
+  static const edit = "edit";
   static const editProfile = "edit_profile";
   static const walletAndPayments = "wallets_payments";
+  static const toYourWallet = "to_your_wallet";
   static const inviteAndWin = "invite_and_win";
   static const getHelp = "get_help";
   static const needHelp = 'need_help';

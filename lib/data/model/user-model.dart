@@ -37,7 +37,7 @@ class UserModel {
     if (json['userDevice'] != null) UserDevice.fromJson(json['userDevice']);
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(bool isCaching) {
     Map<String, dynamic> data = <String, dynamic>{};
     data['passengerId'] = userid;
     data['firstName'] = firstName;
@@ -46,7 +46,7 @@ class UserModel {
     data['mobile'] = mobileNumber;
     data['dateOfBirth'] = dateOfBirth;
     data['gender'] = gender;
-    data['token'] = token;
+    if (isCaching) data['token'] = token;
     if (userDevice != null) data['userDevice'] = userDevice!.toJson();
     return data;
   }

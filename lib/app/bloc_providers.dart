@@ -32,6 +32,12 @@ blocProviders(BuildContext context) {
       value: LoginBloc(instance<LoginRepo>(), instance<AppPreferences>()),
     ),
     BlocProvider.value(
+      value: RegistrationBloc(
+        instance<RegistrationRepo>(),
+        instance<AppPreferences>(),
+      ),
+    ),
+    BlocProvider.value(
       value: HomeBloc(instance<HomeRepo>(), instance<AppPreferences>()),
     ),
     BlocProvider.value(
@@ -40,7 +46,6 @@ blocProviders(BuildContext context) {
     ),
     BlocProvider.value(value: TripDetailsBloc(instance<TripDetailsRepo>())),
     BlocProvider.value(value: DraftTripBloc(instance<DraftTripRepo>())),
-    BlocProvider.value(value: RegistrationBloc(instance<RegistrationRepo>())),
     BlocProvider.value(value: MyTripsBloc(instance<MyTripsRepo>())),
     BlocProvider.value(value: LookupsBloc(instance<LookupsRepo>())),
     BlocProvider.value(value: OtpBloc(instance<OtpRepo>())),

@@ -11,6 +11,7 @@ class CustomTextButton extends StatefulWidget {
   final String text;
   final Color? color;
   final Color? textColor;
+  final Color? iconColor;
   final double? height;
   final double? fontSize;
   final bool? hasBorder;
@@ -27,6 +28,7 @@ class CustomTextButton extends StatefulWidget {
     this.showIcon = true,
     this.showShadow = true,
     this.textColor,
+    this.iconColor,
     this.fontSize,
     this.iconData,
     this.imageData,
@@ -83,16 +85,16 @@ class _CustomTextButtonState extends State<CustomTextButton> {
                       : widget.iconData != null
                           ? Icon(
                               widget.iconData,
-                              color: Colors.white,
+                              color: widget.iconColor ?? Colors.white,
                             )
                           : Transform.rotate(
                               angle: appPreferences.getAppLanguage() ==
                                       LanguageType.ENGLISH.getValue()
                                   ? 0
                                   : math.pi,
-                              child: const Icon(
+                              child: Icon(
                                 Icons.arrow_right_alt,
-                                color: Colors.white,
+                                color: widget.iconColor ?? Colors.white,
                               ),
                             )
                 ],

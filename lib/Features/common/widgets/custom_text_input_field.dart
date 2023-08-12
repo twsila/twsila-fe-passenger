@@ -40,6 +40,7 @@ class CustomTextInputField extends StatefulWidget {
   final bool obscureText;
   final bool showLabelText;
   final String? labelText;
+  final String? initialValue;
   final Color fillColor;
   final String? helperText;
   final String? customSpecialCharachterMessage;
@@ -66,6 +67,7 @@ class CustomTextInputField extends StatefulWidget {
     this.isRequired = false,
     this.autoFocus = false,
     this.textColor,
+    this.initialValue,
     this.hintTextColor,
     this.obscureText = false,
     this.isKeyboardDigitsOnly = false,
@@ -121,7 +123,6 @@ class CustomTextInputField extends StatefulWidget {
 class _CustomTextInputFieldState extends State<CustomTextInputField> {
   FocusNode? _myFocusNode;
   Key? _basicInputKey;
-  TextEditingController? _textController;
 
   @override
   void initState() {
@@ -129,9 +130,6 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
         ? Key('basic_input')
         : widget.basicInputKey;
     _myFocusNode = (widget.focusNode == null) ? FocusNode() : widget.focusNode;
-    _textController = (widget.controller == null)
-        ? TextEditingController()
-        : widget.controller;
     super.initState();
   }
 
@@ -180,13 +178,14 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
         obscureText: widget.obscureText,
         textAlign: widget.textAlign ?? TextAlign.start,
         maxLength: widget.maxLength,
+        initialValue: widget.initialValue,
         maxLines: widget.multiLines ? null : 1,
         cursorColor: widget.hintTextColor ?? ColorManager.hintTextColor,
         key: _basicInputKey,
         textInputAction: widget.textInputAction,
         enabled: widget.enabled,
         focusNode: _myFocusNode,
-        controller: _textController,
+        controller: widget.controller,
         keyboardType: widget.keyboardType,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         autocorrect: false,

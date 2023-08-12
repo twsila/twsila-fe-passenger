@@ -144,7 +144,7 @@ class AppPreferences {
 
   //login
   Future<void> setUserLoggedIn(UserModel userModel) async {
-    String encodedJson = json.encode(userModel.toJson());
+    String encodedJson = json.encode(userModel.toJson(true));
     _sharedPreferences.setString(USER_MODEL, encodedJson);
   }
 

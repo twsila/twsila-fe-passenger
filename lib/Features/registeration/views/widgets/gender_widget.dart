@@ -5,8 +5,12 @@ import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 
 class GenderWidget extends StatefulWidget {
   final Function(GenderModel) onSelectGender;
-  const GenderWidget({Key? key, required this.onSelectGender})
-      : super(key: key);
+  final String? initialGender;
+  const GenderWidget({
+    Key? key,
+    required this.onSelectGender,
+    this.initialGender,
+  }) : super(key: key);
 
   @override
   State<GenderWidget> createState() => _GenderWidgetState();
@@ -18,7 +22,13 @@ class _GenderWidgetState extends State<GenderWidget> {
 
   @override
   initState() {
-    _selectedGender = _viewModel.genderTypes[0];
+    if (widget.initialGender != null) {
+      _selectedGender = _viewModel.genderTypes.singleWhere(
+        (element) => element.value == widget.initialGender,
+      );
+    } else {
+      _selectedGender = _viewModel.genderTypes[0];
+    }
     super.initState();
   }
 

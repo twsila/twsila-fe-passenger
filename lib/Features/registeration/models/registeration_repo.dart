@@ -13,7 +13,22 @@ class RegistrationRepo {
   Future<dynamic> registrationUser(UserModel userModel) async {
     RequestModel requestModel = RequestModel(
       endPoint: EndPointsConstants.register,
-      reqBody: userModel.toJson(),
+      reqBody: userModel.toJson(false),
+      requestType: NETWORK_REQUEST_TYPE.POST,
+    );
+
+    try {
+      dynamic response = await _baseRequest.sendRequest(requestModel);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> editUser(UserModel userModel) async {
+    RequestModel requestModel = RequestModel(
+      endPoint: EndPointsConstants.editProfile,
+      reqBody: userModel.toJson(false),
       requestType: NETWORK_REQUEST_TYPE.POST,
     );
 

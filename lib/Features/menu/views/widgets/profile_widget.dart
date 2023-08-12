@@ -5,6 +5,7 @@ import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 
+import '../../../../core/utils/resources/routes_manager.dart';
 import '../../../../data/model/user-model.dart';
 
 class CustomProfileWidget extends StatefulWidget {
@@ -17,6 +18,7 @@ class CustomProfileWidget extends StatefulWidget {
 }
 
 class _CustomProfileWidgetState extends State<CustomProfileWidget> {
+  ValueNotifier notifier = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,28 +38,45 @@ class _CustomProfileWidgetState extends State<CustomProfileWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                (widget.userModel.firstName ?? '') +
-                    ' ' +
-                    (widget.userModel.lastName ?? ''),
-                style: getBoldStyle(
-                    color: ColorManager.primaryTextColor, fontSize: 14),
-              ),
+              ValueListenableBuilder(
+                  valueListenable: notifier,
+                  builder: (context, value, _) {
+                    return Text(
+                      (widget.userModel.firstName ?? '') +
+                          ' ' +
+                          (widget.userModel.lastName ?? ''),
+                      style: getBoldStyle(
+                          color: ColorManager.primaryTextColor, fontSize: 14),
+                    );
+                  }),
               Text(
                 (widget.userModel.mobileNumber ?? ''),
                 style: getBoldStyle(
                     color: ColorManager.bottomNavUnselected, fontSize: 14),
               ),
-              Row(
-                children: [
-                  Text(
-                    AppStrings.editProfile.tr(),
-                    style:
-                        getBoldStyle(color: ColorManager.primary, fontSize: 14),
-                  ),
-                  const SizedBox(width: 4),
-                  Image.asset(ImageAssets.edit),
-                ],
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.registerRoute,
+                    arguments: {
+                      "user": widget.userModel,
+                      "isEdit": true,
+                      "notifier": notifier,
+                    },
+                  );
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      AppStrings.editProfile.tr(),
+                      style: getBoldStyle(
+                          color: ColorManager.primary, fontSize: 14),
+                    ),
+                    const SizedBox(width: 4),
+                    Image.asset(ImageAssets.edit),
+                  ],
+                ),
               )
             ],
           )

@@ -160,7 +160,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                         Navigator.pushNamed(
                           context,
                           Routes.registerRoute,
-                          arguments: _viewModel.mobileNumber,
+                          arguments: {"mobile": _viewModel.mobileNumber},
                         );
                       }
                     },

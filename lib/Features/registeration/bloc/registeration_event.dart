@@ -11,3 +11,9 @@ class RegistrationUser extends RegistrationEvent {
 
   RegistrationUser({required this.userModel});
 }
+
+class EditUser extends RegistrationEvent {
+  final UserModel userModel;
+
+  EditUser({required this.userModel});
+}

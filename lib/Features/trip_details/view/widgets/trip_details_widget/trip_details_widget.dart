@@ -65,22 +65,43 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
                   fontSize: 18,
                 ),
               )
-            : Row(
-                children: [
-                  Image.asset(ImageAssets.tripMarked),
-                  const SizedBox(width: 16),
-                  Text(
-                    AppStrings.tripPaidConfirmed.tr() +
-                        widget.trip.paymentValue.toString() +
-                        ' ' +
-                        (appPreferences.getCurrentCurrnecy()),
-                    style: getMediumStyle(
-                      color: ColorManager.green,
-                      fontSize: 18,
-                    ),
-                  )
-                ],
-              ),
+            : widget.trip.tripStatus == TripStatusConstants.cancelled
+                ? widget.trip.cancelledBy ==
+                        TripStatusConstants.cancelledByPassenger
+                    ? const SizedBox()
+                    : Row(
+                        children: [
+                          Image.asset(ImageAssets.tripMarked),
+                          const SizedBox(width: 16),
+                          Text(
+                            AppStrings.tripRefunded.tr() +
+                                widget.trip.paymentValue.toString() +
+                                ' ' +
+                                (appPreferences.getCurrentCurrnecy()) +
+                                AppStrings.toYourWallet.tr(),
+                            style: getMediumStyle(
+                              color: ColorManager.green,
+                              fontSize: 18,
+                            ),
+                          )
+                        ],
+                      )
+                : Row(
+                    children: [
+                      Image.asset(ImageAssets.tripMarked),
+                      const SizedBox(width: 16),
+                      Text(
+                        AppStrings.tripPaidConfirmed.tr() +
+                            widget.trip.paymentValue.toString() +
+                            ' ' +
+                            (appPreferences.getCurrentCurrnecy()),
+                        style: getMediumStyle(
+                          color: ColorManager.green,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
         const SizedBox(height: 16),
         Row(
           children: [
