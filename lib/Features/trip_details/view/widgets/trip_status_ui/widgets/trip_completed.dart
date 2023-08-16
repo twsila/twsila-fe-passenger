@@ -20,16 +20,17 @@ class TripCompleted extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 50,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           color: ColorManager.green,
           child: Row(
             children: [
               Image.asset(ImageAssets.tripFinished),
               const SizedBox(width: 16),
-              Text(
-                AppStrings.tripStatusCOMLETED.tr(),
-                style: getMediumStyle(color: Colors.white, fontSize: 16),
+              Expanded(
+                child: Text(
+                  AppStrings.tripStatusCOMLETED.tr(),
+                  style: getMediumStyle(color: Colors.white, fontSize: 16),
+                ),
               )
             ],
           ),

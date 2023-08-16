@@ -17,7 +17,12 @@ class TripDetailsViewModel extends BaseViewModel {
     cancelTimer();
   }
 
+  bool timerIsActive() {
+    return (_timer != null && _timer!.isActive);
+  }
+
   setTimer(Function function) {
+    if (timerIsActive()) return;
     _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       function();
     });

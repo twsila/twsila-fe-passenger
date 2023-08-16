@@ -20,40 +20,45 @@ class TripActive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Container(
-            height: 50,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            color: ColorManager.primaryTextColor,
-            child: Row(
-              children: [
-                Image.asset(ImageAssets.tripRoad),
-                const SizedBox(width: 16),
-                Text(
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          color: ColorManager.primaryTextColor,
+          child: Row(
+            children: [
+              Image.asset(ImageAssets.tripRoad),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
                   TripHelper.getTripText(transportationBaseModel),
                   style: getMediumStyle(color: Colors.white, fontSize: 16),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
-          TripDetailsWidget(trip: transportationBaseModel),
-          TrackTripButton(tripId: transportationBaseModel.tripId!),
-          const SizedBox(height: 16),
-          MoreDetailsWidget(
-            transportationBaseModel: transportationBaseModel,
+        ),
+        Container(
+          margin: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              TripDetailsWidget(trip: transportationBaseModel),
+              TrackTripButton(tripId: transportationBaseModel.tripId!),
+              const SizedBox(height: 16),
+              MoreDetailsWidget(
+                transportationBaseModel: transportationBaseModel,
+              ),
+              OffersWidget(
+                transportationBaseModel: transportationBaseModel,
+              ),
+              NeedHelpButton(tripId: transportationBaseModel.tripId!),
+              if (transportationBaseModel.tripStatus ==
+                  TripStatusConstants.waitForTakeOff)
+                CancelTripButton(tripId: transportationBaseModel.tripId!),
+            ],
           ),
-          OffersWidget(
-            transportationBaseModel: transportationBaseModel,
-          ),
-          NeedHelpButton(tripId: transportationBaseModel.tripId!),
-          if (transportationBaseModel.tripStatus ==
-              TripStatusConstants.waitForTakeOff)
-            CancelTripButton(tripId: transportationBaseModel.tripId!),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

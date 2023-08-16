@@ -52,8 +52,7 @@ class _TripCancelledState extends State<TripCancelled> {
       return Column(
         children: [
           Container(
-            height: 50,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             color: Colors.red,
             child: Row(
               children: [
@@ -62,9 +61,11 @@ class _TripCancelledState extends State<TripCancelled> {
                   color: Colors.white,
                 ),
                 const SizedBox(width: 16),
-                Text(
-                  TripHelper.getTripText(widget.transportationBaseModel),
-                  style: getMediumStyle(color: Colors.white, fontSize: 16),
+                Expanded(
+                  child: Text(
+                    TripHelper.getTripText(widget.transportationBaseModel),
+                    style: getMediumStyle(color: Colors.white, fontSize: 16),
+                  ),
                 )
               ],
             ),

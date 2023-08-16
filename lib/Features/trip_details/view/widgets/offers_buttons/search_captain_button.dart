@@ -25,18 +25,18 @@ class SearchCaptainButton extends StatelessWidget {
       fontSize: 12,
       showShadow: false,
       onPressed: () {
-        // sendTripRequestViewModel.sendRequest(
-        //   transportationBaseModel,
-        //   TripStatusConstants.submitted,
-        // );
-        // BlocProvider.of<TransportationBloc>(context).add(
-        //   SendTransportationRequest(
-        //     endPoint: sendTripRequestViewModel.endPoint,
-        //     transportationBaseModel: transportationBaseModel,
-        //     files: transportationBaseModel.images,
-        //     body: sendTripRequestViewModel.jsonBody,
-        //   ),
-        // );
+        sendTripRequestViewModel.sendRequest(
+          transportationBaseModel,
+          TripStatusConstants.submitted,
+        );
+        BlocProvider.of<TransportationBloc>(context).add(
+          SendTransportationRequest(
+            endPoint: sendTripRequestViewModel.endPoint,
+            transportationBaseModel: transportationBaseModel,
+            files: transportationBaseModel.images,
+            body: sendTripRequestViewModel.jsonBody,
+          ),
+        );
       },
     );
   }

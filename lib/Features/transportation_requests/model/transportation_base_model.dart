@@ -60,7 +60,7 @@ class TransportationBaseModel {
 
   Map<String, dynamic> toJSON() {
     Map<String, dynamic> data = <String, dynamic>{};
-    if (tripId != null) data['id'] = tripId.toString();
+    // if (tripId != null) data['id'] = tripId.toString();
     if (creationDate != null) data['creationDate'] = creationDate;
     if (stringDate != null) data['stringDate'] = stringDate;
     if (date != null) data['date'] = date;

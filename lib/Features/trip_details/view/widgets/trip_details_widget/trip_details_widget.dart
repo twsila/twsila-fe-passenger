@@ -78,6 +78,7 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
                                 widget.trip.paymentValue.toString() +
                                 ' ' +
                                 (appPreferences.getCurrentCurrnecy()) +
+                                ' ' +
                                 AppStrings.toYourWallet.tr(),
                             style: getMediumStyle(
                               color: ColorManager.green,

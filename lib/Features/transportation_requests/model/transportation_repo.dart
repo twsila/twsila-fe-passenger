@@ -24,7 +24,7 @@ class TransportationRepo {
     );
     try {
       UserModel? userModel = getUserData();
-      body['Passenger.id'] = userModel!.userid.toString();
+      body['Passenger.passengerId'] = userModel!.userid.toString();
       dynamic response =
           await _baseRequest.sendMultiPartRequest(requestModel, files, body);
       return response;

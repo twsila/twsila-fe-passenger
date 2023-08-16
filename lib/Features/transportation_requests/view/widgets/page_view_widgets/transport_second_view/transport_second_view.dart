@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_second_view/widgets/second_view_location/second_view_location.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_second_view/widgets/second_view_time/second_view_time.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/di.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
@@ -24,6 +26,7 @@ class TransportSecondView extends StatefulWidget {
 }
 
 class _TransportSecondViewState extends State<TransportSecondView> {
+  final AppPreferences _appPrefs = instance();
   @override
   void initState() {
     widget.viewModel.secondScreenValid.value =
@@ -42,7 +45,12 @@ class _TransportSecondViewState extends State<TransportSecondView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SecondViewTime(
-                  date: widget.transportationBaseModel.stringDate,
+                  date: widget.transportationBaseModel.date != null
+                      ? DateFormat('dd MMM yyyy/ hh:mm a',
+                              _appPrefs.getAppLanguage())
+                          .format(DateFormat('dd/MM/yyyy hh:mm:ss')
+                              .parse(widget.transportationBaseModel.date!))
+                      : widget.transportationBaseModel.stringDate,
                   onSelectDate: (date, stringDate) {
                     Future.delayed(Duration.zero, () {
                       if (mounted) {
