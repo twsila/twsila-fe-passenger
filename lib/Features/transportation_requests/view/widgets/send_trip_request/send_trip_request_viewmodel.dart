@@ -1,3 +1,5 @@
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/model/persons_model.dart';
+
 import '../../../../../../app/constants.dart';
 import '../../../model/transportation_base_model.dart';
 import '../transportation_widgets/car_aid/models/car-aid-model.dart';
@@ -15,7 +17,11 @@ class SendTripRequestViewModel {
       TransportationBaseModel transportationBaseModel, String tripStatus) {
     transportationBaseModel.tripStatus = tripStatus;
     var dynamicType = transportationBaseModel;
-    if (dynamicType is FurnitureModel) {
+    if (dynamicType is PersonsModel) {
+      endPoint = EndPointsConstants.sendPersonRequest;
+      jsonBody = dynamicType.toPersonsJson();
+      return;
+    } else if (dynamicType is FurnitureModel) {
       endPoint = EndPointsConstants.sendFurnitureRequest;
       jsonBody = dynamicType.toFurnitureJson();
       return;

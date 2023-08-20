@@ -18,6 +18,7 @@ class AppStrings {
   static const next = "next";
   static const from = "from";
   static const to = "to";
+  static const needLady = "need_lady";
   static const tapToReload = 'tap_to_reload';
   static const onBudget = "on_budget";
   static const continueRequest = "continue_request";
@@ -74,6 +75,7 @@ class AppStrings {
   static const cisternsTransportation = "transport_cisterns";
   static const waterTankTransportation = "transport_water_tank";
   static const goodsTransportation = "transport_goods";
+  static const personsTransportation = "transport_persons";
   static const furnitureTransportation = "transport_furniture";
   static const transporationItems = "transporation_items";
   static const waterTankSize = "water_tank_size";
@@ -81,7 +83,6 @@ class AppStrings {
   static const cisternsType = "cisterns_type";
   static const extraServices = "extra_services";
   static const materialTypes = "material_type";
-  static const selectPackagingTypes = "packaging_type";
   static const goods = "goods";
   static const other = "other";
   static const freezers = "freezers";
@@ -166,7 +167,6 @@ class AppStrings {
   static const sendOtpAgainHint = "send_otp_again_hint";
   static const tripConfirmation = "trip_confirmation";
   static const tripConfirmationSucceeded = "trip_confirmation_succeeded";
-  static const selectDate = "select_date";
   static const scheduleAppoinment = "scheduling_appointments";
   static const sourcePoint = "source_point";
   static const destinationPoint = "destination_point";
@@ -202,6 +202,10 @@ class AppStrings {
   static const scheduledTime = "scheduled_time";
   static const specifiedTime = "specified_time";
   static const determinateLocation = "determinate_location";
+  static const selectPackagingTypes = "packaging_type";
+  static const selectDate = "select_date";
+  static const selectVehicleType = "select_vehicle_type";
+  static const selectNumOfPassengers = "select_number_of_passengers";
   static const selectStartPoint = "select_start_point";
   static const selectDeliveryPoint = "select_delivery_point";
   static const selectLocationOnMap = "select_location_on_map";

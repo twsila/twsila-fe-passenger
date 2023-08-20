@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
 import '../../../../../../../core/utils/helpers/double_prase.dart';
 import '../../../../../model/transportation_base_model.dart';
 

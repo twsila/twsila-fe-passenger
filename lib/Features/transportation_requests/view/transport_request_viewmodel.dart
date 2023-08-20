@@ -20,6 +20,9 @@ import 'package:taxi_for_you/Features/transportation_requests/view/widgets/trans
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/views/goods_first_view.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/views/goods_viewmodel.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/model/persons_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/views/persons_first_view.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/views/persons_viewmodel.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/models/water_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/views/water_first_view.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/views/water_viewmodel.dart';
@@ -42,6 +45,7 @@ class TransportRequestViewModel {
   bool displayLoadingIndicator = false;
 
   //ViewModels
+  final PersonsViewModel personsViewModel = PersonsViewModel();
   final FurnitureViewModel furnitureViewModel = FurnitureViewModel();
   final GoodsViewModel goodsViewModel = GoodsViewModel();
   final FreezersViewModel freezersViewModel = FreezersViewModel();
@@ -103,7 +107,15 @@ class TransportRequestViewModel {
   }
 
   checkScreen() {
-    if (transportationBaseModel is FurnitureModel) {
+    if (transportationBaseModel is PersonsModel) {
+      screens.insert(
+        0,
+        PersonsFirstView(
+          personsModel: transportationBaseModel as PersonsModel,
+          viewModel: this,
+        ),
+      );
+    } else if (transportationBaseModel is FurnitureModel) {
       screens.insert(
         0,
         FurnitureFirstView(
@@ -163,7 +175,9 @@ class TransportRequestViewModel {
 
   TransportationBaseModel copyWith() {
     var dynamicType = transportationBaseModel;
-    if (dynamicType is FurnitureModel) {
+    if (dynamicType is PersonsModel) {
+      return dynamicType.copyWith(dynamicType);
+    } else if (dynamicType is FurnitureModel) {
       return dynamicType.copyWith(dynamicType);
     } else if (dynamicType is GoodsModel) {
       return dynamicType.copyWith(dynamicType);
@@ -180,7 +194,9 @@ class TransportRequestViewModel {
   }
 
   String stringModel(TransportationBaseModel transportationBaseModel) {
-    if (transportationBaseModel is FurnitureModel) {
+    if (transportationBaseModel is PersonsModel) {
+      return transportationBaseModel.toPersonsJson().toString();
+    } else if (transportationBaseModel is FurnitureModel) {
       return transportationBaseModel.toFurnitureJson().toString();
     } else if (transportationBaseModel is GoodsModel) {
       return transportationBaseModel.toGoodsJson().toString();

@@ -80,7 +80,11 @@ class TripHelper {
   }
 
   static String getTripTitle(String tripType) {
-    if (tripType == TripTypeConstants.furnitureType) {
+    if (tripType == TripTypeConstants.personType) {
+      return AppStrings.request.tr() +
+          ' ' +
+          AppStrings.personsTransportation.tr();
+    } else if (tripType == TripTypeConstants.furnitureType) {
       return AppStrings.request.tr() +
           ' ' +
           AppStrings.furnitureTransportation.tr();
@@ -111,6 +115,8 @@ class TripHelper {
 
   static String getIconName(String tripType) {
     switch (tripType) {
+      case TripTypeConstants.personType:
+        return ImageAssets.carPersons;
       case TripTypeConstants.furnitureType:
         return ImageAssets.carFurniture;
       case TripTypeConstants.frozenType:

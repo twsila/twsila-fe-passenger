@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/transport_request_viewmodel.dart';
+import 'package:taxi_for_you/core/utils/helpers/trip_helper.dart';
 
 import '../../../../../app/constants.dart';
 import '../../../../../core/utils/resources/assets_manager.dart';
@@ -23,54 +24,6 @@ class TransportationTopWidget extends StatefulWidget {
 }
 
 class _TransportationTopWidgetState extends State<TransportationTopWidget> {
-  String getString(String tripType) {
-    if (tripType == TripTypeConstants.furnitureType) {
-      return AppStrings.request.tr() +
-          ' ' +
-          AppStrings.furnitureTransportation.tr();
-    } else if (tripType == TripTypeConstants.goodsType) {
-      return AppStrings.request.tr() +
-          ' ' +
-          AppStrings.goodsTransportation.tr();
-    } else if (tripType == TripTypeConstants.carAidType) {
-      return AppStrings.request.tr() +
-          ' ' +
-          AppStrings.carAidTransportation.tr();
-    } else if (tripType == TripTypeConstants.frozenType) {
-      return AppStrings.request.tr() +
-          ' ' +
-          AppStrings.freezerTransportation.tr();
-    } else if (tripType == TripTypeConstants.drinkWaterType) {
-      return AppStrings.requestWhite.tr() +
-          ' ' +
-          AppStrings.waterTankTransportation.tr();
-    } else if (tripType == TripTypeConstants.otherTankType) {
-      return AppStrings.request.tr() +
-          ' ' +
-          AppStrings.cisternsTransportation.tr();
-    } else {
-      return '';
-    }
-  }
-
-  getImagePath(String tripType) {
-    if (tripType == TripTypeConstants.furnitureType) {
-      return ImageAssets.carFurniture;
-    } else if (tripType == TripTypeConstants.goodsType) {
-      return ImageAssets.carGoods;
-    } else if (tripType == TripTypeConstants.carAidType) {
-      return ImageAssets.carAid;
-    } else if (tripType == TripTypeConstants.frozenType) {
-      return ImageAssets.carfrozen;
-    } else if (tripType == TripTypeConstants.drinkWaterType) {
-      return ImageAssets.carDrinkWater;
-    } else if (tripType == TripTypeConstants.otherTankType) {
-      return ImageAssets.carCisterns;
-    } else {
-      return '';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -95,7 +48,7 @@ class _TransportationTopWidgetState extends State<TransportationTopWidget> {
                         );
                       },
                     ),
-              Image.asset(getImagePath(
+              Image.asset(TripHelper.getIconName(
                   widget.transportViewModel.transportationBaseModel.tripType!)),
             ],
           ),
@@ -109,7 +62,7 @@ class _TransportationTopWidgetState extends State<TransportationTopWidget> {
             ),
           ),
           Text(
-            getString(
+            TripHelper.getTripTitle(
                 widget.transportViewModel.transportationBaseModel.tripType!),
             style: getBoldStyle(
               color: ColorManager.primaryTextColor,

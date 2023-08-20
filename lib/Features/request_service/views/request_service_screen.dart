@@ -7,13 +7,11 @@ import 'package:taxi_for_you/Features/request_service/bloc/draft_trip_state.dart
 import 'package:taxi_for_you/Features/request_service/views/request_service_viewmodel.dart';
 import 'package:taxi_for_you/Features/request_service/views/widget/about_tawsela_widget.dart';
 import 'package:taxi_for_you/Features/request_service/views/widget/old_trip_widget.dart';
+import 'package:taxi_for_you/Features/request_service/views/widget/people_transportation/people_transportation_widget.dart';
 import 'package:taxi_for_you/Features/request_service/views/widget/service_transportation_widget.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
-
-import '../../../app/global_variables.dart';
 import '../../../core/utils/resources/strings_manager.dart';
-import '../../people_transportation/views/widgets/people_transportation_widget.dart';
 import '../bloc/draft_trip_bloc.dart';
 import '../bloc/draft_trip_event.dart';
 
