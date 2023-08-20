@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
+import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/car_aid/models/car-aid-model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/cisterns/models/cisterns_model.dart';
@@ -48,6 +49,10 @@ class AppPreferences {
       // return default lang
       return LanguageType.ENGLISH.getValue();
     }
+  }
+
+  LookupsModel getLookupsInstance() {
+    return instance.get<LookupsModel>(instanceName: GetItInstanceNames.lookups);
   }
 
   List<CountryModel> getCountries() {

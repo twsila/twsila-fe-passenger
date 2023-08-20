@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:taxi_for_you/Features/lookups/bloc/lookups_event.dart';
 import 'package:taxi_for_you/Features/lookups/bloc/lookups_state.dart';
+import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 import 'package:taxi_for_you/Features/lookups/model/lookups_repo.dart';
 
 import '../../../../core/network/base_response.dart';
@@ -18,6 +19,8 @@ class LookupsBloc extends Bloc<LookupsEvent, LookupsStates> {
 
     try {
       BaseResponse baseResponse = await lookupsRepo.getLookups();
+
+      LookupsModel.saveLookups(baseResponse.result);
 
       emit(LookupsSuccessfully());
     } catch (e) {

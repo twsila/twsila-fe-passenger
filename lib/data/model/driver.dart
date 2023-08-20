@@ -9,7 +9,7 @@ class DriverModel {
   final String driverServiceType;
   final String plateNumber;
   final double rating;
-  final VehicleType vehicleType;
+  final DriverVehicleType vehicleType;
   final CarModel carModel;
   final CarManufacturerType carManufacturerType;
   final bool canTransportFurniture;
@@ -60,7 +60,7 @@ class DriverModel {
         driverServiceType: json['driverServiceType'],
         plateNumber: json['plateNumber'],
         rating: json['rating'],
-        vehicleType: VehicleType.fromJson(json['vehicleType']),
+        vehicleType: DriverVehicleType.fromJson(json['vehicleType']),
         carModel: CarModel.fromJson(json['carModel']),
         carManufacturerType:
             CarManufacturerType.fromJson(json['carManufacturerType']),
@@ -77,20 +77,21 @@ class DriverModel {
       );
 }
 
-class VehicleType {
+class DriverVehicleType {
   final int vehicleId;
   final String? vehicleType;
   final String? driverServiceType;
   final List<int>? numberOfPassengers;
 
-  VehicleType({
+  DriverVehicleType({
     required this.vehicleId,
     this.vehicleType,
     this.driverServiceType,
     this.numberOfPassengers,
   });
 
-  factory VehicleType.fromJson(Map<String, dynamic> json) => VehicleType(
+  factory DriverVehicleType.fromJson(Map<String, dynamic> json) =>
+      DriverVehicleType(
         vehicleId: json['id'],
         vehicleType: json['vehicleType'],
         driverServiceType: json['driverServiceType'],

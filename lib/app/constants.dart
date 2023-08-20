@@ -64,3 +64,7 @@ class EndPointsConstants {
   static const String sendWaterRequest = 'trips/insert-water-tank-trip';
   static const String sendCisternsRequest = 'trips/insert-other-tank-trip';
 }
+
+class GetItInstanceNames {
+  static const String lookups = "lookups";
+}
