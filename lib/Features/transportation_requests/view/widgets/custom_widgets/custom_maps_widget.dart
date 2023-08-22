@@ -9,6 +9,7 @@ import 'package:location_geocoder/location_geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_circular_indicator.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/app/di.dart';
@@ -152,16 +153,10 @@ class _CustomMapsWidgetState extends State<CustomMapsWidget> {
                     ],
                   ),
                   child: _isAddressLoading
-                      ? Padding(
-                          padding: const EdgeInsets.all(32.0),
+                      ? const Padding(
+                          padding: EdgeInsets.all(32.0),
                           child: Center(
-                            child: SizedBox(
-                              height: 32,
-                              width: 32,
-                              child: CircularProgressIndicator(
-                                color: ColorManager.primary,
-                              ),
-                            ),
+                            child: CustomCircularProgressIndicator(),
                           ),
                         )
                       : Column(
@@ -198,14 +193,6 @@ class _CustomMapsWidgetState extends State<CustomMapsWidget> {
               ),
             ],
           )
-        : Center(
-            child: SizedBox(
-              height: 32,
-              width: 32,
-              child: CircularProgressIndicator(
-                color: ColorManager.primary,
-              ),
-            ),
-          );
+        : const Center(child: CustomCircularProgressIndicator());
   }
 }

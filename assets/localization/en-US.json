@@ -256,6 +256,8 @@
   "scheduled_time": "Scheduled",
   "specified_time": "At a specified time",
   "determinate_location": "Determine the starting and delivery location",
+  "vehicle_type": "Vehicle type",
+  "number_of_passengers": "Number of passengers",
   "select_date": "Select Date",
   "select_vehicle_type": "Select vehicle type",
   "select_number_of_passengers": "Select number of passengers",
@@ -278,5 +280,6 @@
   "trip_confirmation": "Trip Confirmation",
   "trip_confirmation_succeeded": "Request sent successfully",
   "trip_paid_confirmed": "Request confirmed and paid ",
-  "trip_refunded": "Done refunding "
+  "trip_refunded": "Done refunding ",
+  "trip_date": "Trip Date"
 }

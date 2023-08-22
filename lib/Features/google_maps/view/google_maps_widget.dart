@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import '../../../core/utils/location/map_provider.dart';
 import '../../common/state_renderer/dialogs.dart';
+import '../../common/widgets/custom_circular_indicator.dart';
 import '../bloc/maps_bloc.dart';
 import '../bloc/maps_events.dart';
 import '../bloc/maps_state.dart';
@@ -117,14 +118,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                         }),
                         builder: ((context, state) {
                           if (state is CurrentLocationIsLoading) {
-                            return SizedBox(
-                              height: 32,
-                              width: 32,
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                backgroundColor: ColorManager.primary,
-                              ),
-                            );
+                            return const CustomCircularProgressIndicator();
                           }
                           return Container(
                             width: 32,

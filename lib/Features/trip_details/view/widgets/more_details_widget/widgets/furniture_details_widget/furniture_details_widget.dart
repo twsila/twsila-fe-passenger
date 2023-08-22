@@ -17,7 +17,6 @@ class FurnitureDetailsWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Divider(color: ColorManager.grey1),
         FurnitureTransportItems(
           furnitureItems: furnitureModel.furnitureItems,
         ),

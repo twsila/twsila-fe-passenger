@@ -18,7 +18,6 @@ class CisternsDetailsWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Divider(color: ColorManager.grey1),
         ItemWidget(
           title: AppStrings.cisternsType.tr(),
           text: cisternsModel.cisternsType ?? AppStrings.unknown.tr(),

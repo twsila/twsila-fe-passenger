@@ -119,12 +119,6 @@
   "transport_stuff": "نقل بضائع و أثاث و مجمدات و سيارات و مياه",
   "transport_humans": "نقل أفراد/ركاب",
   "choose_wrong_vehicle_caution": "تحذير: إختيار حجم السيارة الخاطئة قد يؤدي إلى تأخير رحلتك أو عدم إكتمالها",
-  "vehicle_type": {
-    "large_vehicle_closed": "سيارة نقل كبيرة مغلقة",
-    "large_vehicle_opened": "سيارة نقل كبيرة مفتوحة",
-    "one_cabin_car": "ربع نقل كابينة واحدة",
-    "two_cabin_car": "ربع نقل كابينتان"
-  },
   "change_language_to": "Change language to English",
   "would_you_like_to_transport": "هل ترغب في نقل",
   "schedule_request": "جدولة طلبك",
@@ -260,6 +254,8 @@
   "scheduled_time": "مجدولة",
   "specified_time": "في معاد محدد",
   "determinate_location": "حدد مكان البداية والتوصيل",
+  "vehicle_type": "نوع المركبة",
+  "number_of_passengers": "عدد الركاب",
   "select_date": "أختر معاد",
   "select_vehicle_type": "إختر نوع المركبة",
   "select_number_of_passengers": "إختر عدد الركاب",
@@ -282,5 +278,6 @@
   "trip_confirmation": "تأكيد بيانات الرحلة",
   "trip_confirmation_succeeded": "تم ارسال الطلب بنجاح",
   "trip_paid_confirmed": "تم تأكيد الطلب و دفع ",
-  "trip_refunded": "تم ارجاع "
+  "trip_refunded": "تم ارجاع ",
+  "trip_date": "معاد الرحلة"
 }

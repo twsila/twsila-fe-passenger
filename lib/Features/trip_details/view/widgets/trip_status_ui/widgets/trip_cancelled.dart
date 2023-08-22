@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_circular_indicator.dart';
 import 'package:taxi_for_you/Features/transportation_requests/bloc/transportation_bloc.dart';
 import 'package:taxi_for_you/Features/transportation_requests/bloc/transportation_state.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/need_help_button.dart';
@@ -80,15 +81,8 @@ class _TripCancelledState extends State<TripCancelled> {
                   children: [
                     Expanded(
                       child: isNewCaptainLoading
-                          ? Center(
-                              child: SizedBox(
-                                height: 32,
-                                width: 32,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  backgroundColor: ColorManager.primary,
-                                ),
-                              ),
+                          ? const Center(
+                              child: CustomCircularProgressIndicator(),
                             )
                           : SearchCaptainButton(
                               transportationBaseModel:

@@ -189,6 +189,8 @@ class AppStrings {
   static const gender = "gender";
   static const myTrips = "my_trips";
   static const requestService = "request_service";
+  static const vehicleType = "vehicle_type";
+  static const numOfPassengers = "number_of_passengers";
   static const profile = "profile";
   static const edit = "edit";
   static const editProfile = "edit_profile";
@@ -229,6 +231,7 @@ class AppStrings {
   static const sofaSet = "sofa_set";
   static const goodsWeight = "goods_weight";
   static const tankWeight = "tank_weight";
+  static const tripDate = "trip_date";
 
   //Trip Status Strings
   static const tripStatusSUBMITTEDorEVALUATED =

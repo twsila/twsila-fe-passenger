@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/widgets/goods_details_widget/widgets/goods_extra_services.dart';
 
-import '../../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../../core/utils/resources/strings_manager.dart';
-import '../../../../../../../core/utils/resources/styles_manager.dart';
 import '../../item_widget.dart';
 
 class GoodsDetailsWidget extends StatelessWidget {
@@ -20,7 +18,6 @@ class GoodsDetailsWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Divider(color: ColorManager.grey1),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

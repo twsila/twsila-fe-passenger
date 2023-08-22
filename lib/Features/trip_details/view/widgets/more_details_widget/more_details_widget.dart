@@ -1,14 +1,20 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/cisterns/models/cisterns_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/freezers/models/freezers-model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/furniture/models/furniture_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/model/persons_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/models/water_model.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/item_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/widgets/cisterns_details_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/widgets/frozen_details_widget/frozen_details_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/widgets/furniture_details_widget/furniture_details_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/widgets/goods_details_widget/goods_details_widget.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/widgets/person_details_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/widgets/water_details_widget.dart';
+import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
+import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
 import '../../../../../core/utils/resources/color_manager.dart';
 import '../../../../transportation_requests/model/transportation_base_model.dart';
@@ -30,6 +36,13 @@ class _MoreDetailsWidgetState extends State<MoreDetailsWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Divider(color: ColorManager.grey1),
+        if (widget.transportationBaseModel.date != null)
+          ItemWidget(
+            title: AppStrings.tripDate.tr(),
+            text:
+                widget.transportationBaseModel.date!.formatStringToDateString(),
+          ),
         if (widget.transportationBaseModel is FurnitureModel)
           FurnitureDetailsWidget(
             furnitureModel: widget.transportationBaseModel as FurnitureModel,
@@ -49,6 +62,10 @@ class _MoreDetailsWidgetState extends State<MoreDetailsWidget> {
         if (widget.transportationBaseModel is CisternsModel)
           CisternsDetailsWidget(
             cisternsModel: widget.transportationBaseModel as CisternsModel,
+          ),
+        if (widget.transportationBaseModel is PersonsModel)
+          PersonDetailsWidget(
+            personsModel: widget.transportationBaseModel as PersonsModel,
           ),
         Divider(color: ColorManager.grey1),
       ],

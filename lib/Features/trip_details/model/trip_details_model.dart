@@ -4,6 +4,7 @@ import 'package:taxi_for_you/Features/transportation_requests/view/widgets/trans
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/freezers/models/freezers-model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/furniture/models/furniture_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/model/persons_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/models/water_model.dart';
 import 'package:taxi_for_you/app/constants.dart';
 
@@ -29,7 +30,7 @@ class TripDetailsModel {
     } else if (tripType == TripTypeConstants.otherTankType) {
       details = CisternsModel.fromJson(json);
     } else if (tripType == TripTypeConstants.personType) {
-      details = CisternsModel.fromJson(json);
+      details = PersonsModel.fromJson(json);
     }
 
     return TripDetailsModel(tripDetails: details);

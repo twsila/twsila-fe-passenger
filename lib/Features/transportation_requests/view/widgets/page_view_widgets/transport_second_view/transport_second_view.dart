@@ -4,6 +4,7 @@ import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_second_view/widgets/second_view_time/second_view_time.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
+import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
@@ -46,10 +47,8 @@ class _TransportSecondViewState extends State<TransportSecondView> {
               children: [
                 SecondViewTime(
                   date: widget.transportationBaseModel.date != null
-                      ? DateFormat('dd MMM yyyy/ hh:mm a',
-                              _appPrefs.getAppLanguage())
-                          .format(DateFormat('dd/MM/yyyy hh:mm:ss')
-                              .parse(widget.transportationBaseModel.date!))
+                      ? widget.transportationBaseModel.date!
+                          .formatStringToDateString()
                       : widget.transportationBaseModel.stringDate,
                   onSelectDate: (date, stringDate) {
                     Future.delayed(Duration.zero, () {

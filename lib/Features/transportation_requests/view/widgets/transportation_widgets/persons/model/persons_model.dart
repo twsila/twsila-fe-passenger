@@ -9,10 +9,15 @@ class PersonsModel extends TransportationBaseModel {
 
   PersonsModel.fromJson(Map<String, dynamic> json) {
     fromJSON(json);
-    isWoman =
-        json['isWoman'] is String ? json['isWoman'] == 'true' : json['isWoman'];
+    isWoman = json['isWoman'] == null
+        ? false
+        : json['isWoman'] is String
+            ? json['isWoman'] == 'true'
+            : json['isWoman'];
     vehicleType = json['vehicleType'];
-    numberOfPassengers = json['numberOfPassengers'];
+    numberOfPassengers = json['numberOfPassengers'] is String
+        ? int.parse(json['numberOfPassengers'])
+        : json['numberOfPassengers'];
   }
 
   Map<String, dynamic> toPersonsJson() {

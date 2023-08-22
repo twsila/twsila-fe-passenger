@@ -18,7 +18,6 @@ class WaterDetailsWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Divider(color: ColorManager.grey1),
         ItemWidget(
           title: AppStrings.waterTankSize.tr(),
           text: (waterModel.tankDetails ?? AppStrings.unknown.tr()).toString(),

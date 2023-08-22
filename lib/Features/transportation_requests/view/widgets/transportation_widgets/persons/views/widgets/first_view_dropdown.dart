@@ -19,6 +19,16 @@ class PersonDropdownView extends StatefulWidget {
 
 class _PersonDropdownViewState extends State<PersonDropdownView> {
   @override
+  void initState() {
+    if (widget.personsViewModel.personsModel.vehicleType != null) {
+      widget.personsViewModel.selectedVehicleType =
+          widget.personsViewModel.vehicleTypes.singleWhere((element) =>
+              element.id == widget.personsViewModel.personsModel.vehicleType);
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
