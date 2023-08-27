@@ -33,24 +33,28 @@ class _MyTripDetailsState extends State<MyTripDetails> {
           ),
         ),
         const SizedBox(height: 8),
-        Text(
-          AppStrings.from.tr() +
-              ': ' +
-              (widget.trip.pickupLocation.locationName ?? ''),
-          style: getBoldStyle(
-            color: ColorManager.primaryTextColor,
-            fontSize: 14,
+        if (widget.trip.pickupLocation.locationName != null &&
+            widget.trip.pickupLocation.locationName != '')
+          Text(
+            AppStrings.from.tr() +
+                ': ' +
+                (widget.trip.pickupLocation.locationName ?? ''),
+            style: getBoldStyle(
+              color: ColorManager.primaryTextColor,
+              fontSize: 14,
+            ),
           ),
-        ),
-        Text(
-          AppStrings.to.tr() +
-              ': ' +
-              (widget.trip.destinationLocation.locationName ?? ''),
-          style: getBoldStyle(
-            color: ColorManager.primaryTextColor,
-            fontSize: 14,
+        if (widget.trip.destinationLocation.locationName != null &&
+            widget.trip.destinationLocation.locationName != '')
+          Text(
+            AppStrings.to.tr() +
+                ': ' +
+                (widget.trip.destinationLocation.locationName ?? ''),
+            style: getBoldStyle(
+              color: ColorManager.primaryTextColor,
+              fontSize: 14,
+            ),
           ),
-        ),
       ],
     );
   }

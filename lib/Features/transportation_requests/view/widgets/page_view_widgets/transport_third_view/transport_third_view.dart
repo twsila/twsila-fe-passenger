@@ -77,14 +77,9 @@ class _TransportThirdViewState extends State<TransportThirdView> {
                 )
               ],
             ),
-            child: ValueListenableBuilder(
-                valueListenable: widget.viewModel.thirdScreenValid,
-                builder: (BuildContext context, bool value, _) {
-                  return SendTripRequestButton(
-                    transportationBaseModel: widget.transportationBaseModel,
-                    value: value,
-                  );
-                }),
+            child: SendTripRequestButton(
+              transportationBaseModel: widget.transportationBaseModel,
+            ),
           ),
         ),
       ],

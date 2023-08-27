@@ -20,11 +20,13 @@ import '../model/transportation_base_model.dart';
 class TransportRequestScreen extends StatefulWidget {
   final TransportationBaseModel transportationBaseModel;
   final bool hasImages;
+  final bool hasSourceLocation;
 
   const TransportRequestScreen({
     Key? key,
     required this.transportationBaseModel,
     this.hasImages = true,
+    this.hasSourceLocation = true,
   }) : super(key: key);
 
   @override
@@ -37,7 +39,11 @@ class _TransportRequestScreenState extends State<TransportRequestScreen> {
   @override
   void initState() {
     _viewModel.context = context;
-    _viewModel.start(widget.transportationBaseModel, widget.hasImages);
+    _viewModel.start(
+      widget.transportationBaseModel,
+      widget.hasImages,
+      widget.hasSourceLocation,
+    );
     super.initState();
   }
 

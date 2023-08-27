@@ -73,7 +73,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 child: const Divider(),
               ),
               MenuWidget(
-                menuImage: ImageAssets.getHelp,
+                menuImage: ImageAssets.callCenter,
                 menuLabel: AppStrings.getHelp.tr(),
                 onPressed: () {},
               ),

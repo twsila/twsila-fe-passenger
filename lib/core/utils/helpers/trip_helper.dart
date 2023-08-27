@@ -11,10 +11,13 @@ import '../resources/strings_manager.dart';
 
 class TripHelper {
   static String getTripText(TransportationBaseModel transportationBaseModel) {
-    //SUBMITTED OR EVALUATION
-    if (transportationBaseModel.tripStatus == TripStatusConstants.submitted ||
-        transportationBaseModel.tripStatus == TripStatusConstants.evaluation) {
-      return AppStrings.tripStatusSUBMITTEDorEVALUATED.tr();
+    //SUBMITTED
+    if (transportationBaseModel.tripStatus == TripStatusConstants.submitted) {
+      return AppStrings.tripStatusSUBMITTED.tr();
+    }
+    //EVALUATED
+    if (transportationBaseModel.tripStatus == TripStatusConstants.evaluation) {
+      return AppStrings.tripStatusEVALUATED.tr();
     }
     //PAYMENT
     else if (transportationBaseModel.tripStatus ==

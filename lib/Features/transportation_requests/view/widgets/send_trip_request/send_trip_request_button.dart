@@ -15,33 +15,29 @@ import '../../../bloc/transportation_event.dart';
 class SendTripRequestButton extends StatelessWidget {
   final SendTripRequestViewModel viewModel = SendTripRequestViewModel();
   final TransportationBaseModel transportationBaseModel;
-  final bool value;
   SendTripRequestButton({
     Key? key,
     required this.transportationBaseModel,
-    required this.value,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomTextButton(
       text: AppStrings.sendRequest.tr(),
-      onPressed: value
-          ? () {
-              FocusScope.of(context).unfocus();
-              inspect(transportationBaseModel);
-              viewModel.sendRequest(
-                  transportationBaseModel, TripStatusConstants.submitted);
-              BlocProvider.of<TransportationBloc>(context).add(
-                SendTransportationRequest(
-                  endPoint: viewModel.endPoint,
-                  transportationBaseModel: transportationBaseModel,
-                  files: transportationBaseModel.images,
-                  body: viewModel.jsonBody,
-                ),
-              );
-            }
-          : null,
+      onPressed: () {
+        FocusScope.of(context).unfocus();
+        inspect(transportationBaseModel);
+        viewModel.sendRequest(
+            transportationBaseModel, TripStatusConstants.submitted);
+        BlocProvider.of<TransportationBloc>(context).add(
+          SendTransportationRequest(
+            endPoint: viewModel.endPoint,
+            transportationBaseModel: transportationBaseModel,
+            files: transportationBaseModel.images,
+            body: viewModel.jsonBody,
+          ),
+        );
+      },
     );
   }
 }

@@ -125,12 +125,25 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                         builder: (context, child) {
                           return Theme(
                             data: Theme.of(context).copyWith(
-                                colorScheme: ColorScheme.fromSwatch(
-                              primarySwatch: Colors.indigo,
-                              accentColor: ColorManager.lightGrey,
-                              backgroundColor: Colors.lightBlue,
-                              cardColor: Colors.white,
-                            )),
+                              colorScheme: ColorScheme.light(
+                                primary: ColorManager
+                                    .primary, // header background color
+                                onPrimary: Colors.white, // header text color
+                                onSurface: MaterialStateColor.resolveWith(
+                                  (states) =>
+                                      states.contains(MaterialState.selected)
+                                          ? Colors.grey
+                                          : Colors.black,
+                                ),
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: ButtonStyle(
+                                  foregroundColor:
+                                      MaterialStateColor.resolveWith((states) =>
+                                          ColorManager.primaryTextColor),
+                                ),
+                              ),
+                            ),
                             child: child!,
                           );
                         });
@@ -150,13 +163,39 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                             : TimeOfDay.now(),
                         builder: (context, child) {
                           return Theme(
-                            data: Theme.of(context).copyWith(
-                                colorScheme: ColorScheme.fromSwatch(
-                              primarySwatch: Colors.indigo,
-                              accentColor: ColorManager.lightGrey,
-                              backgroundColor: Colors.lightBlue,
-                              cardColor: Colors.white,
-                            )),
+                            data: ThemeData.light().copyWith(
+                              timePickerTheme: TimePickerThemeData(
+                                helpTextStyle: const TextStyle(fontSize: 24),
+                                dayPeriodTextStyle:
+                                    const TextStyle(fontSize: 14),
+                                hourMinuteTextStyle:
+                                    const TextStyle(fontSize: 14),
+                                hourMinuteTextColor: ColorManager.white,
+                                hourMinuteColor: MaterialStateColor.resolveWith(
+                                  (states) =>
+                                      states.contains(MaterialState.selected)
+                                          ? ColorManager.primary
+                                          : Colors.grey.withOpacity(0.5),
+                                ),
+                                dayPeriodTextColor: Colors.white,
+                                dayPeriodColor: MaterialStateColor.resolveWith(
+                                  (states) =>
+                                      states.contains(MaterialState.selected)
+                                          ? ColorManager.primary
+                                          : Colors.grey.withOpacity(0.5),
+                                ),
+                                dialHandColor: ColorManager.primary,
+                                dialBackgroundColor:
+                                    Colors.grey.withOpacity(0.5),
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: ButtonStyle(
+                                  foregroundColor:
+                                      MaterialStateColor.resolveWith((states) =>
+                                          ColorManager.primaryTextColor),
+                                ),
+                              ),
+                            ),
                             child: child!,
                           );
                         });

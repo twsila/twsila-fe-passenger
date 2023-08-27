@@ -43,6 +43,7 @@ class TransportRequestViewModel {
   late TransportationBaseModel copyTripModel;
   late Map<String, dynamic> jsonBody;
   bool displayLoadingIndicator = false;
+  late bool hasSourceLocation;
 
   //ViewModels
   final PersonsViewModel personsViewModel = PersonsViewModel();
@@ -60,13 +61,19 @@ class TransportRequestViewModel {
   ValueNotifier<bool> secondScreenValid = ValueNotifier(false);
   ValueNotifier<bool> thirdScreenValid = ValueNotifier(false);
 
-  void start(TransportationBaseModel transportationBaseModel, bool hasImages) {
+  void start(
+    TransportationBaseModel transportationBaseModel,
+    bool hasImages,
+    bool hasSourceLocation,
+  ) {
     this.transportationBaseModel = transportationBaseModel;
+    this.hasSourceLocation = hasSourceLocation;
     copyTripModel = copyWith();
     screens = [
       TransportSecondView(
         transportationBaseModel: transportationBaseModel,
         viewModel: this,
+        hasSourceLocation: hasSourceLocation,
       ),
       TransportThirdView(
         transportationBaseModel: transportationBaseModel,
@@ -87,23 +94,30 @@ class TransportRequestViewModel {
       return;
     }
     ShowDialogHelper.showDialogPopupWithCancel(
-        AppStrings.confirmation.tr(), AppStrings.saveTrip.tr(), context, () {
-      Navigator.pop(context);
-      Navigator.pop(context);
-    }, () async {
-      FocusScope.of(context).unfocus();
-      inspect(transportationBaseModel);
-      viewModel.sendRequest(transportationBaseModel, TripStatusConstants.draft);
-      BlocProvider.of<TransportationBloc>(context).add(
-        SendTransportationRequest(
-          endPoint: viewModel.endPoint,
-          transportationBaseModel: transportationBaseModel,
-          files: transportationBaseModel.images,
-          body: viewModel.jsonBody,
-        ),
-      );
-      Navigator.pop(context);
-    });
+      AppStrings.confirmation.tr(),
+      AppStrings.saveTrip.tr(),
+      context,
+      () {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      },
+      () async {
+        FocusScope.of(context).unfocus();
+        inspect(transportationBaseModel);
+        viewModel.sendRequest(
+            transportationBaseModel, TripStatusConstants.draft);
+        BlocProvider.of<TransportationBloc>(context).add(
+          SendTransportationRequest(
+            endPoint: viewModel.endPoint,
+            transportationBaseModel: transportationBaseModel,
+            files: transportationBaseModel.images,
+            body: viewModel.jsonBody,
+          ),
+        );
+        Navigator.pop(context);
+      },
+      cancelText: AppStrings.no.tr(),
+    );
   }
 
   checkScreen() {
@@ -169,6 +183,9 @@ class TransportRequestViewModel {
   }
 
   bool validateSecondScreen() {
+    if (!hasSourceLocation) {
+      return transportationBaseModel.destinationLocation.locationName != null;
+    }
     return transportationBaseModel.pickupLocation.locationName != null &&
         transportationBaseModel.destinationLocation.locationName != null;
   }

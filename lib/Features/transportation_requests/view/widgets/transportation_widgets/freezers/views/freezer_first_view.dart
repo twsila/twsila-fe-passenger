@@ -6,6 +6,7 @@ import 'package:taxi_for_you/Features/transportation_requests/view/widgets/trans
 import '../../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../common/widgets/custom_text_button.dart';
+import '../../../../../../common/widgets/custom_text_input_field.dart';
 import '../../../../transport_request_viewmodel.dart';
 import '../models/freezers-model.dart';
 
@@ -44,7 +45,23 @@ class _FreezerFirstViewState extends State<FreezerFirstView> {
                 FreezerDropdownsView(
                   freezersViewModel: widget.viewModel.freezersViewModel,
                 ),
+                const SizedBox(height: 8),
+                CustomTextInputField(
+                  isTitleBold: true,
+                  showLabelText: true,
+                  labelText: AppStrings.goodsSize.tr(),
+                  isKeyboardDigitsOnly: true,
+                  keyboardType: TextInputType.number,
+                  hintText: AppStrings.goodsWeightHint.tr(),
+                  onChanged: (value) {
+                    widget.viewModel.freezersViewModel.freezersModel
+                        .payloadWeight = int.parse(value).toDouble();
+                    widget.viewModel.freezersViewModel.validateFirstScreen();
+                  },
+                ),
                 const SizedBox(height: 16),
+                Divider(color: ColorManager.grey),
+                const SizedBox(height: 8),
                 FreezerBooleanView(
                   freezersViewModel: widget.viewModel.freezersViewModel,
                 ),

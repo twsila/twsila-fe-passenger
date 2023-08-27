@@ -26,6 +26,7 @@ class FreezersViewModel {
 
   validateFirstScreen() {
     firstScreenValid.value = freezersModel.frozenMaterial != null &&
-        freezersModel.shippedType != null;
+        freezersModel.shippedType != null &&
+        freezersModel.payloadWeight != null;
   }
 }

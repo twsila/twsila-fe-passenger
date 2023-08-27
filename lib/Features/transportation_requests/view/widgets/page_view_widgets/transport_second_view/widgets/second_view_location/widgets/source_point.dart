@@ -33,6 +33,7 @@ class _SourcePointWidgetState extends State<SourcePointWidget> {
           customWidget: CustomSearchBottomsheet(
             title: AppStrings.selectStartPoint.tr(),
             onSelectPlace: widget.onSelectPlace,
+            showCurrentLocation: true,
           ),
         );
       },

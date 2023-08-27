@@ -15,11 +15,13 @@ import '../../../transport_request_viewmodel.dart';
 class TransportSecondView extends StatefulWidget {
   final TransportationBaseModel transportationBaseModel;
   final TransportRequestViewModel viewModel;
+  final bool hasSourceLocation;
 
   const TransportSecondView({
     Key? key,
     required this.transportationBaseModel,
     required this.viewModel,
+    required this.hasSourceLocation,
   }) : super(key: key);
 
   @override
@@ -27,7 +29,6 @@ class TransportSecondView extends StatefulWidget {
 }
 
 class _TransportSecondViewState extends State<TransportSecondView> {
-  final AppPreferences _appPrefs = instance();
   @override
   void initState() {
     widget.viewModel.secondScreenValid.value =
@@ -95,6 +96,7 @@ class _TransportSecondViewState extends State<TransportSecondView> {
                       .transportationBaseModel.pickupLocation.locationName,
                   destinLocationString: widget
                       .transportationBaseModel.destinationLocation.locationName,
+                  hasSourceLocation: widget.hasSourceLocation,
                 ),
                 const SizedBox(
                   height: 64,

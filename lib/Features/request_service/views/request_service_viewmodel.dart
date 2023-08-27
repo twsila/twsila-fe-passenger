@@ -118,6 +118,7 @@ class RequestServiceViewModel extends BaseViewModel {
               MaterialPageRoute(
                 builder: (context) => TransportRequestScreen(
                   hasImages: false,
+                  hasSourceLocation: false,
                   transportationBaseModel: waterModel,
                 ),
               ),
@@ -136,6 +137,8 @@ class RequestServiceViewModel extends BaseViewModel {
               MaterialPageRoute(
                 builder: (context) => TransportRequestScreen(
                   transportationBaseModel: cisternsModel,
+                  hasImages: false,
+                  hasSourceLocation: false,
                 ),
               ),
             );

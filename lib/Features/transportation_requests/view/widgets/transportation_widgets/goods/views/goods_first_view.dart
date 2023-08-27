@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_text_input_field.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/models/goods_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/views/widgets/first_view_booleans.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/views/widgets/first_view_dropdowns.dart';
@@ -46,30 +47,20 @@ class _GoodsFirstViewState extends State<GoodsFirstView> {
                   goodsViewModel: widget.viewModel.goodsViewModel,
                 ),
                 const SizedBox(height: 16),
-                CustomCounterWidget(
-                  text: AppStrings.goodsSize.tr(),
-                  value:
-                      widget.viewModel.goodsViewModel.goodsModel.payloadWeight,
-                  onPlusPressed: () {
-                    setState(() {
-                      widget.viewModel.goodsViewModel.goodsModel.payloadWeight =
-                          (widget.viewModel.goodsViewModel.goodsModel
-                                      .payloadWeight ??
-                                  0) +
-                              1;
-                    });
-                    widget.viewModel.goodsViewModel.validateFirstScreen();
-                  },
-                  onMinusPressed: () {
-                    setState(() {
-                      widget.viewModel.goodsViewModel.goodsModel.payloadWeight =
-                          widget.viewModel.goodsViewModel.goodsModel
-                                  .payloadWeight! -
-                              1;
-                    });
+                CustomTextInputField(
+                  isTitleBold: true,
+                  showLabelText: true,
+                  labelText: AppStrings.goodsSize.tr(),
+                  isKeyboardDigitsOnly: true,
+                  keyboardType: TextInputType.number,
+                  hintText: AppStrings.goodsWeightHint.tr(),
+                  onChanged: (value) {
+                    widget.viewModel.goodsViewModel.goodsModel.payloadWeight =
+                        int.parse(value).toDouble();
                     widget.viewModel.goodsViewModel.validateFirstScreen();
                   },
                 ),
+                const SizedBox(height: 16),
                 Divider(color: ColorManager.grey),
                 const SizedBox(height: 8),
                 GoodsFirstViewBooleans(

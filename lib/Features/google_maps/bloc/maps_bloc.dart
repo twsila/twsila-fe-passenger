@@ -9,11 +9,11 @@ class MapsBloc extends Bloc<MapsEvents, MapsState> {
   MapsRepo mapsRepo = MapsRepo();
 
   MapsBloc(this.mapsRepo) : super(CurrentLocationIsNotLoading()) {
-    on<GetCurrentLocation>(_getCurrentLocation);
+    on<GetCurrentLocationEvent>(_getCurrentLocation);
   }
 
   void _getCurrentLocation(
-      GetCurrentLocation event, Emitter<MapsState> emit) async {
+      GetCurrentLocationEvent event, Emitter<MapsState> emit) async {
     emit(CurrentLocationIsLoading());
 
     try {

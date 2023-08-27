@@ -230,12 +230,13 @@ class AppStrings {
   static const wrapping = "wrapping";
   static const sofaSet = "sofa_set";
   static const goodsWeight = "goods_weight";
+  static const goodsWeightHint = "goods_weight_hint";
   static const tankWeight = "tank_weight";
   static const tripDate = "trip_date";
 
   //Trip Status Strings
-  static const tripStatusSUBMITTEDorEVALUATED =
-      'trip_status_submitted_evaluated';
+  static const tripStatusSUBMITTED = 'trip_status_submitted';
+  static const tripStatusEVALUATED = 'trip_status_evaluated';
   static const tripStatusPAYMENT = "trip_status_payment";
   static const tripStatusWAITTAKEOFF = "trip_status_wait_takeoff";
   static const tripStatusTAKEOFF = "trip_status_takeoff";

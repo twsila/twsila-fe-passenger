@@ -55,16 +55,19 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
         (widget.trip.tripStatus == TripStatusConstants.submitted ||
                 widget.trip.tripStatus == TripStatusConstants.evaluation ||
                 widget.trip.tripStatus == TripStatusConstants.payment)
-            ? Text(
-                AppStrings.onBudget.tr() +
-                    widget.trip.paymentValue.toString() +
-                    ' ' +
-                    (appPreferences.getCurrentCurrnecy()),
-                style: getMediumStyle(
-                  color: ColorManager.primaryTextColor,
-                  fontSize: 18,
-                ),
-              )
+            ? widget.trip.acceptedOffer != null
+                ? Text(
+                    AppStrings.onBudget.tr() +
+                        widget.trip.acceptedOffer!.offer.driverOffer
+                            .toString() +
+                        ' ' +
+                        (appPreferences.getCurrentCurrnecy()),
+                    style: getMediumStyle(
+                      color: ColorManager.primaryTextColor,
+                      fontSize: 18,
+                    ),
+                  )
+                : const SizedBox()
             : widget.trip.tripStatus == TripStatusConstants.cancelled
                 ? widget.trip.cancelledBy ==
                         TripStatusConstants.cancelledByPassenger
@@ -104,30 +107,36 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
                     ],
                   ),
         const SizedBox(height: 16),
-        Row(
-          children: [
-            Image.asset(ImageAssets.pin),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Text(
-                AppStrings.from.tr() +
-                    (widget.trip.pickupLocation.locationName ?? ''),
-                style: getMediumStyle(
-                  color: ColorManager.primaryTextColor,
-                  fontSize: 14,
-                ),
+        if (widget.trip.pickupLocation.locationName != "")
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Image.asset(ImageAssets.pin),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      AppStrings.from.tr() +
+                          (widget.trip.pickupLocation.locationName ?? ''),
+                      style: getMediumStyle(
+                        color: ColorManager.primaryTextColor,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-        Container(
-          margin: const EdgeInsets.all(5),
-          height: 33,
-          width: 3,
-          child: CustomPaint(
-              size: const Size(1, double.infinity),
-              painter: DashedLineVerticalPainter()),
-        ),
+              Container(
+                margin: const EdgeInsets.all(5),
+                height: 33,
+                width: 3,
+                child: CustomPaint(
+                    size: const Size(1, double.infinity),
+                    painter: DashedLineVerticalPainter()),
+              ),
+            ],
+          ),
         Row(
           children: [
             Image.asset(ImageAssets.pin),

@@ -112,7 +112,10 @@ class ShowDialogHelper {
 
   static void showDialogPopupWithCancel(String title, String message,
       BuildContext context, Function cancelFunc, Function okFunc,
-      {String? okText, Widget? messageWidget, bool dismissible = true}) {
+      {String? okText,
+      String? cancelText,
+      Widget? messageWidget,
+      bool dismissible = true}) {
     showDialog(
       context: context,
       barrierDismissible: dismissible,
@@ -140,7 +143,7 @@ class ShowDialogHelper {
           actions: <Widget>[
             TextButton(
               child: Text(
-                AppStrings.cancel.tr(),
+                cancelText ?? AppStrings.cancel.tr(),
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               onPressed: () {

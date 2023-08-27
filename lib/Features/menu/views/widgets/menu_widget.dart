@@ -24,7 +24,11 @@ class MenuWidget extends StatelessWidget {
       onTap: () => onPressed(),
       child: Row(
         children: [
-          Image.asset(menuImage),
+          SizedBox(
+            height: 40,
+            width: 40,
+            child: Image.asset(menuImage),
+          ),
           const SizedBox(width: 16),
           Expanded(
             child: Row(

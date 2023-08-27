@@ -5,4 +5,4 @@ class MapsEvents extends Equatable {
   List<Object> get props => [];
 }
 
-class GetCurrentLocation extends MapsEvents {}
+class GetCurrentLocationEvent extends MapsEvents {}

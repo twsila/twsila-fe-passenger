@@ -14,11 +14,13 @@ class SecondViewLocation extends StatefulWidget {
       onSelectDestinPlace;
   final String? pickupLocationName;
   final String? destinLocationString;
+  final bool hasSourceLocation;
 
   const SecondViewLocation({
     Key? key,
     required this.onSelectSourcePlace,
     required this.onSelectDestinPlace,
+    required this.hasSourceLocation,
     this.pickupLocationName,
     this.destinLocationString,
   }) : super(key: key);
@@ -40,10 +42,11 @@ class _SecondViewLocationState extends State<SecondViewLocation> {
           ),
         ),
         const SizedBox(height: 16),
-        SourcePointWidget(
-          onSelectPlace: widget.onSelectSourcePlace,
-          pickupLocationName: widget.pickupLocationName,
-        ),
+        if (widget.hasSourceLocation)
+          SourcePointWidget(
+            onSelectPlace: widget.onSelectSourcePlace,
+            pickupLocationName: widget.pickupLocationName,
+          ),
         const SizedBox(height: 16),
         DestinationPointWidget(
           onSelectDestinPlace: widget.onSelectDestinPlace,

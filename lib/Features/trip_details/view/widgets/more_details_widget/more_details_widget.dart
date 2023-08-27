@@ -37,12 +37,12 @@ class _MoreDetailsWidgetState extends State<MoreDetailsWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Divider(color: ColorManager.grey1),
-        if (widget.transportationBaseModel.date != null)
-          ItemWidget(
-            title: AppStrings.tripDate.tr(),
-            text:
-                widget.transportationBaseModel.date!.formatStringToDateString(),
-          ),
+        ItemWidget(
+          title: AppStrings.tripDate.tr(),
+          text: widget.transportationBaseModel.date != null
+              ? widget.transportationBaseModel.date!.formatStringToDateString()
+              : AppStrings.fastestTime.tr(),
+        ),
         if (widget.transportationBaseModel is FurnitureModel)
           FurnitureDetailsWidget(
             furnitureModel: widget.transportationBaseModel as FurnitureModel,
