@@ -21,8 +21,8 @@ import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
 import '../../common/widgets/custom_text_button.dart';
-import '../../my_trips/bloc/my_trips_bloc.dart';
-import '../../my_trips/bloc/my_trips_event.dart';
+import '../../home_features/my_trips/bloc/my_trips_bloc.dart';
+import '../../home_features/my_trips/bloc/my_trips_event.dart';
 
 class TripDetailsScreen extends StatefulWidget {
   final int tripId;

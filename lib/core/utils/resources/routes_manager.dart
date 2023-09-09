@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/home/views/home_screen.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_screen.dart';
+import '../../../Features/home_features/home/views/home_screen.dart';
 import '../../../Features/registeration/views/registeration_screen.dart';
 import '../../../app/di.dart';
 import 'package:easy_localization/easy_localization.dart';
