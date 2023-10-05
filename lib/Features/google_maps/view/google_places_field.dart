@@ -61,7 +61,7 @@ class _GoogleMapsPlacesFieldState extends State<GoogleMapsPlacesField> {
             getPlaceDetailWithLatLng: (Prediction prediction) {
               widget.predictionCallback(prediction);
             },
-            itmClick: (Prediction prediction) {
+            itemClick: (Prediction prediction) {
               if (prediction.description != null) {
                 setState(() {
                   widget.controller.text = prediction.description!;
