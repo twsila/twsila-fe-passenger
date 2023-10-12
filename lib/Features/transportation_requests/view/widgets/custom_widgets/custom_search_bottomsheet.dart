@@ -9,8 +9,10 @@ import 'package:location_geocoder/geocoder.dart';
 import 'package:location_geocoder/location_geocoder.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_circular_indicator.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_close_button.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_text_button.dart';
 import 'package:taxi_for_you/Features/google_maps/bloc/maps_bloc.dart';
 import 'package:taxi_for_you/Features/google_maps/bloc/maps_events.dart';
+import 'package:taxi_for_you/Features/google_maps/model/location_model.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
@@ -45,6 +47,7 @@ class _CustomSearchBottomsheetState extends State<CustomSearchBottomsheet> {
   late final LocatitonGeocoder geocoder;
   bool getLocationFromMap = false;
   bool _isAddressLoading = false;
+  LocationModel? locationModel;
 
   @override
   void initState() {
@@ -111,11 +114,13 @@ class _CustomSearchBottomsheetState extends State<CustomSearchBottomsheet> {
           addresses.first.adminArea ??
           addresses.first.locality ??
           '';
-      widget.onSelectPlace(
-        location.latitude.toString(),
-        location.longitude.toString(),
-        _searchController.text,
-      );
+      setState(() {
+        locationModel = LocationModel(
+          locationName: _searchController.text,
+          latitude: location.latitude,
+          longitude: location.longitude,
+        );
+      });
     } catch (e) {
       ShowDialogHelper.showErrorMessage(e.toString(), context);
     }
@@ -163,14 +168,17 @@ class _CustomSearchBottomsheetState extends State<CustomSearchBottomsheet> {
                               focusNode: FocusNode(debugLabel: 'source_node'),
                               hintText: widget.title,
                               predictionCallback: (prediction) {
-                                if (prediction != null) {
-                                  widget.onSelectPlace(
-                                    prediction.lat!,
-                                    prediction.lng!,
-                                    prediction.description!,
-                                  );
-                                  Navigator.pop(context);
-                                } else {}
+                                setState(() {
+                                  if (prediction != null) {
+                                    locationModel = LocationModel(
+                                      locationName: prediction.description!,
+                                      latitude: double.parse(prediction.lat!),
+                                      longitude: double.parse(prediction.lng!),
+                                    );
+                                  } else {
+                                    locationModel = null;
+                                  }
+                                });
                               },
                             ),
                       const SizedBox(height: 16),
@@ -198,6 +206,22 @@ class _CustomSearchBottomsheetState extends State<CustomSearchBottomsheet> {
                     ],
                   ),
                 ),
+                Container(
+                  margin: const EdgeInsets.all(32),
+                  child: CustomTextButton(
+                    text: AppStrings.save.tr(),
+                    onPressed: locationModel == null
+                        ? null
+                        : () {
+                            widget.onSelectPlace(
+                              locationModel!.latitude.toString(),
+                              locationModel!.longitude.toString(),
+                              locationModel!.locationName,
+                            );
+                            Navigator.pop(context);
+                          },
+                  ),
+                )
               ],
             )
           : ClipRRect(

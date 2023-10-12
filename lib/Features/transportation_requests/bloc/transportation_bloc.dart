@@ -24,21 +24,19 @@ class TransportationBloc
     try {
       BaseResponse baseResponse =
           await (transportationRepo.sendTransportationRequest(
-        event.endPoint,
         event.files,
         event.body,
       ));
 
-      int tripId = baseResponse.result;
+      int tripId = baseResponse.result["id"];
       var body = event.body;
       body['tripId'] = tripId;
-      body['tripEndPoint'] = event.endPoint;
+      body['tripType'] = event.transportationBaseModel.tripType;
 
       emit(TransportationRequestSuccessfully(
         tripId: tripId,
         transportationBaseModel: event.transportationBaseModel,
         body: body,
-        endPoint: event.endPoint,
       ));
     } catch (e) {
       if (e is PlatformException) {

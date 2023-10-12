@@ -71,6 +71,8 @@ class _GoogleMapsPlacesFieldState extends State<GoogleMapsPlacesField> {
                 FocusScope.of(context).unfocus();
               }
             },
+            isCrossBtnShown: false,
+            boxDecoration: const BoxDecoration(),
             inputDecoration: InputDecoration(
               contentPadding: const EdgeInsets.only(left: 8, right: 8),
               hintText: widget.hintText ?? "Search your location..",

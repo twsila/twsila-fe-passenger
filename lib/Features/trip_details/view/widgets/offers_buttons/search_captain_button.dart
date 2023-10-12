@@ -31,7 +31,6 @@ class SearchCaptainButton extends StatelessWidget {
         );
         BlocProvider.of<TransportationBloc>(context).add(
           SendTransportationRequest(
-            endPoint: sendTripRequestViewModel.endPoint,
             transportationBaseModel: transportationBaseModel,
             files: transportationBaseModel.images,
             body: sendTripRequestViewModel.jsonBody,

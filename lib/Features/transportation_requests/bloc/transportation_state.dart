@@ -16,13 +16,11 @@ class TransportationRequestSuccessfully extends TransportationRequestStates {
   final int tripId;
   final TransportationBaseModel transportationBaseModel;
   final Map<String, dynamic> body;
-  final String endPoint;
 
   TransportationRequestSuccessfully({
     required this.tripId,
     required this.transportationBaseModel,
     required this.body,
-    required this.endPoint,
   });
 }
 

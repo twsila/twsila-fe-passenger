@@ -8,13 +8,11 @@ class TransportationEvent extends Equatable {
 }
 
 class SendTransportationRequest extends TransportationEvent {
-  final String endPoint;
   final TransportationBaseModel transportationBaseModel;
   final Map<String, dynamic> body;
   final List<XFile>? files;
 
   SendTransportationRequest({
-    required this.endPoint,
     required this.transportationBaseModel,
     required this.body,
     this.files,

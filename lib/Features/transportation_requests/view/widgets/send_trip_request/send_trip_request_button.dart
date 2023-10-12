@@ -31,7 +31,6 @@ class SendTripRequestButton extends StatelessWidget {
             transportationBaseModel, TripStatusConstants.submitted);
         BlocProvider.of<TransportationBloc>(context).add(
           SendTransportationRequest(
-            endPoint: viewModel.endPoint,
             transportationBaseModel: transportationBaseModel,
             files: transportationBaseModel.images,
             body: viewModel.jsonBody,

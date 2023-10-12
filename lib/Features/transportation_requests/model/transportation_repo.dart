@@ -1,5 +1,6 @@
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/network/base_request_interface.dart';
 import 'package:taxi_for_you/data/model/request-model.dart';
@@ -13,12 +14,11 @@ class TransportationRepo {
   TransportationRepo(this._baseRequest);
 
   Future<dynamic> sendTransportationRequest(
-    String endPoint,
     List<XFile>? files,
     Map<String, dynamic> body,
   ) async {
     RequestModel requestModel = RequestModel(
-      endPoint: endPoint,
+      endPoint: EndPointsConstants.sendTripRequest,
       reqBody: body,
       requestType: NETWORK_REQUEST_TYPE.POST,
     );

@@ -178,6 +178,7 @@ class HttpBaseRequest extends BaseRequestInterface {
 
     switch (response.statusCode) {
       case 200:
+      case 201:
         return baseResponse;
       default:
         throw PlatformException(

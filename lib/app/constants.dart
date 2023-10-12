@@ -46,10 +46,10 @@ class TripStatusConstants {
 
 class EndPointsConstants {
   static const String lookups = 'lookups';
-  static const String login = "passenger/login";
-  static const String logout = "passenger/logout";
-  static const String register = "passenger/register-passenger";
-  static const String editProfile = "passenger/update-my-profile";
+  static const String login = "passengers/login";
+  static const String logout = "passengers/logout";
+  static const String register = "passengers/register-passenger";
+  static const String editProfile = "passengers/update-my-profile";
   static const String generateOtp = "otp/generate";
   static const String validateOtp = "otp/validate";
   static const String tripDetails = "passengers/trips/details";
@@ -57,13 +57,7 @@ class EndPointsConstants {
   static const String userTrips = "passengers/offers/select-trip";
   static const String acceptOffer = "passengers/offers/accept";
   static const String cancelTrip = "passengers/trips/cancel";
-  static const String sendPersonRequest = 'trips/insert-person-trip';
-  static const String sendFurnitureRequest = 'trips/insert-furniture-trip';
-  static const String sendGoodsRequest = 'trips/insert-goods-trip';
-  static const String sendCarAidRequest = 'trips/insert-car-aid-trip';
-  static const String sendFreezersRequest = 'trips/insert-frozen-trip';
-  static const String sendWaterRequest = 'trips/insert-water-tank-trip';
-  static const String sendCisternsRequest = 'trips/insert-other-tank-trip';
+  static const String sendTripRequest = 'trips/insert';
 }
 
 class GetItInstanceNames {
