@@ -10,11 +10,13 @@ import '../../bloc/otp_event.dart';
 
 class CustomTimerWidget extends StatefulWidget {
   final String mobileNumber;
+  final String? appSignature;
   final bool? doneSending;
   CustomTimerWidget({
     Key? key,
     required this.mobileNumber,
     required this.doneSending,
+    required this.appSignature,
   }) : super(key: key);
 
   @override
@@ -54,8 +56,10 @@ class _CustomTimerWidgetState extends State<CustomTimerWidget> {
                       setState(() {
                         timeFinished = false;
                       });
-                      BlocProvider.of<OtpBloc>(context).add(
-                          GenerateOtpEvent(mobileNumber: widget.mobileNumber));
+                      BlocProvider.of<OtpBloc>(context).add(GenerateOtpEvent(
+                        mobileNumber: widget.mobileNumber,
+                        appSignature: widget.appSignature,
+                      ));
                     },
                     child: Row(
                       children: [

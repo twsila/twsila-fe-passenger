@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
@@ -30,6 +31,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   bool displayLoadingIndicator = false;
   bool? doneSending;
   String? userOtp;
+  String? appSignature;
   final VerifyOTPViewModel _viewModel = VerifyOTPViewModel();
 
   @override
@@ -39,12 +41,15 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (_isInit) {
       _viewModel.mobileNumber =
           ModalRoute.of(context)!.settings.arguments as String;
-      BlocProvider.of<OtpBloc>(context)
-          .add(GenerateOtpEvent(mobileNumber: _viewModel.mobileNumber));
+      appSignature = await SmsAutoFill().getAppSignature;
+      BlocProvider.of<OtpBloc>(context).add(GenerateOtpEvent(
+        mobileNumber: _viewModel.mobileNumber,
+        appSignature: appSignature,
+      ));
       _isInit = false;
     }
     super.didChangeDependencies();
@@ -113,21 +118,25 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                     child: CustomVerificationCodeWidget(
                       autoFocus: false,
                       controller: _viewModel.mobileController,
-                      onCodeSubmitted: (code) {
-                        BlocProvider.of<OtpBloc>(context).add(
-                          ValidateOtpEvent(
-                            otp: userOtp!,
-                            generatedOtp: code,
-                            mobileNumber: _viewModel.mobileNumber,
-                          ),
-                        );
+                      onCodeSubmitted: (code) {},
+                      onCodeChanged: (code) {
+                        if (code.length == 6) {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          BlocProvider.of<OtpBloc>(context).add(
+                            ValidateOtpEvent(
+                              otp: userOtp!,
+                              generatedOtp: code,
+                              mobileNumber: _viewModel.mobileNumber,
+                            ),
+                          );
+                        }
                       },
-                      onCodeChanged: (code) {},
                     ),
                   ),
                   CustomTimerWidget(
                     mobileNumber: _viewModel.mobileNumber,
                     doneSending: doneSending,
+                    appSignature: appSignature,
                   ),
                   BlocListener<LoginBloc, LoginStates>(
                     listener: (context, state) {

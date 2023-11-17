@@ -7,8 +7,9 @@ class OtpEvents extends Equatable {
 
 class GenerateOtpEvent extends OtpEvents {
   final String mobileNumber;
+  final String? appSignature;
 
-  GenerateOtpEvent({required this.mobileNumber});
+  GenerateOtpEvent({required this.mobileNumber, required this.appSignature});
 }
 
 class ValidateOtpEvent extends OtpEvents {

@@ -58,22 +58,22 @@ class _CustomVerificationCodeWidgetState
     SmsAutoFill().listenForCode;
   }
 
-  KeyboardActionsConfig _buildKeyboardActionsConfig(BuildContext context) {
-    return KeyboardActionsConfig(
-      keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
-      defaultDoneWidget:
-          Text(AppStrings.verify.tr(), style: const TextStyle(fontSize: 8)),
-      keyboardBarColor: ColorManager.lightGrey,
-      actions: [
-        KeyboardActionsItem(
-          focusNode: _codeFocus,
-          onTapAction: () {
-            widget.onCodeSubmitted(codeValue);
-          },
-        ),
-      ],
-    );
-  }
+  // KeyboardActionsConfig _buildKeyboardActionsConfig(BuildContext context) {
+  //   return KeyboardActionsConfig(
+  //     keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
+  //     defaultDoneWidget:
+  //         Text(AppStrings.verify.tr(), style: const TextStyle(fontSize: 11)),
+  //     keyboardBarColor: ColorManager.lightGrey,
+  //     actions: [
+  //       KeyboardActionsItem(
+  //         focusNode: _codeFocus,
+  //         onTapAction: () {
+  //           widget.onCodeSubmitted(codeValue);
+  //         },
+  //       ),
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -83,39 +83,35 @@ class _CustomVerificationCodeWidgetState
         children: [
           SizedBox(
             height: 55,
-            child: KeyboardActions(
-              config: _buildKeyboardActionsConfig(context),
-              child: PinFieldAutoFill(
-                focusNode: _codeFocus,
-                decoration: BoxLooseDecoration(
-                  bgColorBuilder: FixedColorBuilder(ColorManager.lightGrey),
-                  obscureStyle: ObscureStyle(
-                    isTextObscure: _isHidden,
-                    obscureText: '⬤',
-                  ),
-                  textStyle: Theme.of(context).textTheme.labelLarge,
-                  strokeColorBuilder:
-                      const FixedColorBuilder(Colors.transparent),
-                  radius: const Radius.circular(5),
-                  strokeWidth: 2,
-                  gapSpace: 5,
+            child: PinFieldAutoFill(
+              focusNode: _codeFocus,
+              decoration: BoxLooseDecoration(
+                bgColorBuilder: FixedColorBuilder(ColorManager.lightGrey),
+                obscureStyle: ObscureStyle(
+                  isTextObscure: _isHidden,
+                  obscureText: '⬤',
                 ),
-                autoFocus: widget.autoFocus,
-                currentCode: codeValue,
-                enableInteractiveSelection: false,
-                controller: widget.controller,
-                codeLength: widget.otpLength,
-                onCodeSubmitted: (code) {
-                  codeValue = code;
-                  widget.onCodeSubmitted(code);
-                },
-                onCodeChanged: (code) {
-                  setState(() {
-                    codeValue = code.toString();
-                    widget.onCodeChanged(codeValue);
-                  });
-                },
+                textStyle: Theme.of(context).textTheme.labelLarge,
+                strokeColorBuilder: const FixedColorBuilder(Colors.transparent),
+                radius: const Radius.circular(5),
+                strokeWidth: 2,
+                gapSpace: 5,
               ),
+              autoFocus: widget.autoFocus,
+              currentCode: codeValue,
+              enableInteractiveSelection: false,
+              controller: widget.controller,
+              codeLength: widget.otpLength,
+              onCodeSubmitted: (code) {
+                codeValue = code;
+                widget.onCodeSubmitted(code);
+              },
+              onCodeChanged: (code) {
+                setState(() {
+                  codeValue = code.toString();
+                  widget.onCodeChanged(codeValue);
+                });
+              },
             ),
           ),
           const SizedBox(height: 24),

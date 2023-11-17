@@ -19,7 +19,8 @@ class OtpBloc extends Bloc<OtpEvents, OtpStates> {
     emit(GenerateOtpIsLoading());
 
     try {
-      BaseResponse response = await (otpRepo.generateOtp(event.mobileNumber));
+      BaseResponse response =
+          await (otpRepo.generateOtp(event.mobileNumber, event.appSignature));
       if (response.result != null &&
           response.success != null &&
           response.success!) {

@@ -9,8 +9,11 @@ class OtpRepo {
 
   OtpRepo(this._baseRequest);
 
-  Future<dynamic> generateOtp(String mobileNumber) async {
-    var body = {"mobile": mobileNumber};
+  Future<dynamic> generateOtp(String mobileNumber, String? appSignature) async {
+    var body = {
+      "mobile": mobileNumber,
+      "appSignature": appSignature,
+    };
     RequestModel requestModel = RequestModel(
       endPoint: EndPointsConstants.generateOtp,
       reqBody: body,

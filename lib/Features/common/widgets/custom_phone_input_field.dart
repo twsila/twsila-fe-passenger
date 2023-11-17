@@ -64,13 +64,13 @@ class _CustomPhoneInputFieldState extends State<CustomPhoneInputField> {
         _selectedCountry = appPreferences.getUserSelectedCountry();
       } else {
         autoFocus = false;
-        Future.delayed(
-          Duration.zero,
-          () => ShowDialogHelper.showErrorMessage(
-            AppStrings.notSupportedCountry.tr(),
-            context,
-          ),
-        );
+        // Future.delayed(
+        //   Duration.zero,
+        //   () => ShowDialogHelper.showErrorMessage(
+        //     AppStrings.notSupportedCountry.tr(),
+        //     context,
+        //   ),
+        // );
         _selectedCountry = countries[0];
       }
     }
