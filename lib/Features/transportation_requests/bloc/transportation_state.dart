@@ -15,12 +15,10 @@ class TransportationRequestIsLoading extends TransportationRequestStates {}
 class TransportationRequestSuccessfully extends TransportationRequestStates {
   final int tripId;
   final TransportationBaseModel transportationBaseModel;
-  final Map<String, dynamic> body;
 
   TransportationRequestSuccessfully({
     required this.tripId,
     required this.transportationBaseModel,
-    required this.body,
   });
 }
 

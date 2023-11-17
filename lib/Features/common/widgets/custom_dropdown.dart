@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 
 class CustomDropDown extends StatefulWidget {
   final String? title;
-  final List<String> stringsArr;
-  final Function(String?) onChanged;
+  final Function(LookupItem?) onChanged;
   final String? hintText;
   final IconData? iconData;
   final String? intialValue;
+  final String lookupKey;
   final bool isValid;
   final String? errorMessage;
   final Color? backgroundColor;
@@ -19,8 +22,8 @@ class CustomDropDown extends StatefulWidget {
 
   CustomDropDown(
       {this.title,
-      required this.stringsArr,
       required this.onChanged,
+      required this.lookupKey,
       this.isValid = true,
       this.intialValue,
       this.hintText,
@@ -37,13 +40,21 @@ class CustomDropDown extends StatefulWidget {
 }
 
 class _CustomDropDownState extends State<CustomDropDown> {
+  final AppPreferences appPreferences = instance();
   bool _isInit = true;
-  String? _selectedValue;
+  LookupItem? _selectedValue;
+  List<LookupItem> items = [];
 
   @override
   void initState() {
     if (_isInit) {
-      _selectedValue = widget.intialValue;
+      items = appPreferences.getLookupByKey(widget.lookupKey);
+      if (widget.intialValue != null) {
+        _selectedValue = appPreferences.getLookupIndex(
+            widget.lookupKey, widget.intialValue!);
+        Future.delayed(Duration.zero, () => widget.onChanged(_selectedValue));
+      }
+
       _isInit = false;
     }
     super.initState();
@@ -63,18 +74,18 @@ class _CustomDropDownState extends State<CustomDropDown> {
         Wrap(
           runSpacing: 8,
           children: List.generate(
-            widget.stringsArr.length,
+            items.length,
             (index) => GestureDetector(
               onTap: () {
                 setState(() {
-                  _selectedValue = widget.stringsArr[index];
+                  _selectedValue = items[index];
                 });
                 widget.onChanged(_selectedValue);
               },
               child: Container(
                 margin: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: widget.stringsArr[index] == _selectedValue
+                  color: items[index] == _selectedValue
                       ? ColorManager.secondaryLightColor
                       : Colors.transparent,
                   border: Border.all(
@@ -88,7 +99,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
                   child: Text(
-                    widget.stringsArr[index],
+                    items[index].value.replaceAll('_', ' '),
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           color: ColorManager.secondaryColor,
                           fontSize: 16,

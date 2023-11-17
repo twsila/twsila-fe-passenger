@@ -46,9 +46,11 @@ class TripStatusConstants {
 
 class EndPointsConstants {
   static const String lookups = 'lookups';
+  static const String lookupsByKey = 'lookups/by-key';
+  static const String lookupCountries = 'lookups/country';
   static const String login = "passengers/login";
   static const String logout = "passengers/logout";
-  static const String register = "passengers/register-passenger";
+  static const String register = "passengers/register";
   static const String editProfile = "passengers/update-my-profile";
   static const String generateOtp = "otp/generate";
   static const String validateOtp = "otp/validate";
@@ -62,4 +64,5 @@ class EndPointsConstants {
 
 class GetItInstanceNames {
   static const String lookups = "lookups";
+  static const String vehicleTypes = "vehicleTypes";
 }

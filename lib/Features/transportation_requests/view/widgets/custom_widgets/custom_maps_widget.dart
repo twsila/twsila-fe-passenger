@@ -59,7 +59,7 @@ class _CustomMapsWidgetState extends State<CustomMapsWidget> {
 
   void getLocation() async {
     try {
-      await UserCurrentLocation().checkLocationPermission();
+      await UserLocationService().checkLocationPermission();
       var position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       setState(() {

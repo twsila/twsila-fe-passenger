@@ -22,4 +22,32 @@ class LookupsRepo {
       rethrow;
     }
   }
+
+  Future<dynamic> getLookupsByKey(String key) async {
+    try {
+      RequestModel requestModel = RequestModel(
+        endPoint: EndPointsConstants.lookupsByKey,
+        reqBody: {"lookupKey": key},
+        requestType: NETWORK_REQUEST_TYPE.POST,
+      );
+      dynamic response = await _baseRequest.sendRequest(requestModel);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> getCountriesLookups() async {
+    try {
+      RequestModel requestModel = RequestModel(
+        endPoint: EndPointsConstants.lookupCountries,
+        reqBody: {},
+        requestType: NETWORK_REQUEST_TYPE.GET,
+      );
+      dynamic response = await _baseRequest.sendRequest(requestModel);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

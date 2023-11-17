@@ -7,6 +7,7 @@ import 'package:taxi_for_you/Features/login/bloc/login_state.dart';
 import 'package:taxi_for_you/Features/lookups/bloc/lookups_bloc.dart';
 import 'package:taxi_for_you/Features/lookups/bloc/lookups_event.dart';
 import 'package:taxi_for_you/Features/lookups/bloc/lookups_state.dart';
+import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 import 'package:taxi_for_you/core/utils/location/user_current_location.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import '../../app/app_prefs.dart';
@@ -40,8 +41,7 @@ class _SplashViewState extends State<SplashView> {
 
   start() async {
     user = _appPreferences.getUserData();
-    setCountry();
-    UserCurrentLocation().checkLocationPermission();
+    UserLocationService().checkLocationPermission();
     await FirebaseMessagingHelper().configure();
     if (user != null) {
       refreshToken();
@@ -57,6 +57,9 @@ class _SplashViewState extends State<SplashView> {
 
   getLookups() {
     BlocProvider.of<LookupsBloc>(context).add(GetLookups());
+    BlocProvider.of<LookupsBloc>(context).add(GetCountriesLookup());
+    BlocProvider.of<LookupsBloc>(context)
+        .add(GetLookupsByKey(lookupKey: LookupConstants.vehicleEntity));
   }
 
   setCountry() {
@@ -105,6 +108,25 @@ class _SplashViewState extends State<SplashView> {
                 }
                 return const SizedBox();
               }),
+            ),
+            BlocListener<LookupsBloc, LookupsStates>(
+              listener: ((context, state) {
+                if (state is LookupCountiresFailed) {
+                  print("Couldn't Load Countries");
+                  setCountry();
+                } else if (state is LookupCountiresSuccessfully) {
+                  setCountry();
+                }
+              }),
+              child: const SizedBox(),
+            ),
+            BlocListener<LookupsBloc, LookupsStates>(
+              listener: ((context, state) {
+                if (state is LookupCountiresFailed) {
+                  print("Couldn't Load Vehicles");
+                }
+              }),
+              child: const SizedBox(),
             ),
             BlocConsumer<LookupsBloc, LookupsStates>(
               listener: ((context, state) {

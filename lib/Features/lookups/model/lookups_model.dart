@@ -1,32 +1,91 @@
-import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 
-import '../../../core/utils/resources/langauge_manager.dart';
-import 'models/vehicle_type.dart';
-
 class LookupsModel {
-  final List<VehicleType> vehicleTypes;
+  final List<LookupModel> lookupModel;
 
   LookupsModel({
-    required this.vehicleTypes,
+    required this.lookupModel,
   });
 
-  static saveLookups(Map<String, dynamic> json) {
-    final AppPreferences appPreferences = instance<AppPreferences>();
-    bool isEnglish =
-        appPreferences.getAppLanguage() == LanguageType.ENGLISH.getValue();
-
-    var vehicleTypeJson =
-        isEnglish ? json['VehicleType'] : json['VehicleTypeAR'];
-
+  static saveLookups(List<dynamic> json) {
     LookupsModel lookupsModel = LookupsModel(
-      vehicleTypes: List<VehicleType>.from(
-        vehicleTypeJson.map(
-          (x) => VehicleType.fromJson(x),
-        ),
-      ),
+      lookupModel:
+          List<LookupModel>.from(json.map((x) => LookupModel.fromJson(x))),
     );
 
     initLookupsModule(lookupsModel);
   }
+}
+
+class LookupModel {
+  final int id;
+  final String lookupKey;
+  final List<LookupItem> lookupJson;
+  final String language;
+
+  LookupModel({
+    required this.id,
+    required this.lookupKey,
+    required this.lookupJson,
+    required this.language,
+  });
+
+  factory LookupModel.fromJson(Map<String, dynamic> json) {
+    return LookupModel(
+      id: json['id'],
+      lookupKey: json['lookupKey'],
+      lookupJson: json['lookupJson']
+          .map<LookupItem>((e) => LookupItem.fromJson(e))
+          .toList(),
+      language: json['language'],
+    );
+  }
+}
+
+class LookupItem {
+  final int id;
+  final String value;
+
+  LookupItem({
+    required this.id,
+    required this.value,
+  });
+
+  factory LookupItem.fromJson(Map<String, dynamic> json) {
+    return LookupItem(
+      id: json['id'],
+      value: json['value'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id.toString();
+    data['value'] = value;
+    return data;
+  }
+}
+
+class LookupConstants {
+  static const String acceptanceType = 'AcceptanceType';
+  static const String driverServiceType = 'DriverServiceType';
+  static const String notificationType = 'NotificationType';
+  static const String registrationStatus = 'RegistrationStatus';
+  static const String shippingType = 'ShippingType';
+  static const String submitStatus = 'SubmitStatus';
+  static const String tripStatus = 'TripStatus';
+  static const String tankType = 'TankType';
+  static const String tripModelType = 'TripModelType';
+  static const String serviceType = 'ServiceType';
+  static const String cancelledByEnum = 'CancelledByEnum';
+  static const String vehicleType = 'VehicleType';
+  static const String vehicleEntity = 'VehicleEntity';
+  static const String bus = 'Bus';
+  static const String sedan = 'Sedan';
+  static const String packingType = 'PackingType';
+  static const String materialType = 'MaterialType';
+  static const String tankDetails = 'TankDetails';
+  static const String frozenType = 'FrozenType';
+  static const String driverStatus = 'DriverStatus';
+  static const String driverAcquisition = 'DriverAcquisition';
 }

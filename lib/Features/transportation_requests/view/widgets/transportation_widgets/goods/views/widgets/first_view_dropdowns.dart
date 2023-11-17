@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/goods/views/goods_viewmodel.dart';
 
 import '../../../../../../../../../../core/utils/resources/strings_manager.dart';
@@ -23,8 +24,10 @@ class _GoodsDropdownsViewState extends State<GoodsDropdownsView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomDropDown(
-          stringsArr: widget.goodsViewModel.materialTypes,
-          intialValue: widget.goodsViewModel.goodsModel.materialType,
+          lookupKey: LookupConstants.materialType,
+          intialValue: widget.goodsViewModel.goodsModel.materialDetails == null
+              ? null
+              : widget.goodsViewModel.goodsModel.materialDetails!.materialType,
           title: AppStrings.materialTypes.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
@@ -36,8 +39,10 @@ class _GoodsDropdownsViewState extends State<GoodsDropdownsView> {
         ),
         const SizedBox(height: 16),
         CustomDropDown(
-          stringsArr: widget.goodsViewModel.packagingTypes,
-          intialValue: widget.goodsViewModel.goodsModel.packagingType,
+          lookupKey: LookupConstants.packingType,
+          intialValue: widget.goodsViewModel.goodsModel.packingDetails == null
+              ? null
+              : widget.goodsViewModel.goodsModel.packingDetails!.packingType,
           title: AppStrings.selectPackagingTypes.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {

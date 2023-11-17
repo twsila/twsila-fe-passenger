@@ -7,7 +7,7 @@ class MapsRepo {
   Future<LocationModel> getUserCurrentLocation() async {
     try {
       LocationModel currentLocation =
-          await UserCurrentLocation().getCurrentLocation();
+          await UserLocationService().getCurrentLocation();
       return currentLocation;
     } catch (error) {
       if (error is PlatformException) {

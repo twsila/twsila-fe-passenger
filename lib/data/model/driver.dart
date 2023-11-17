@@ -6,10 +6,10 @@ class DriverModel {
   final String email;
   final String gender;
   final String dateOfBirth;
-  final String driverServiceType;
+  final String? driverServiceType;
   final String plateNumber;
   final double rating;
-  final DriverVehicleType vehicleType;
+  final DriverVehicleType? vehicleType;
   final CarModel carModel;
   final CarManufacturerType carManufacturerType;
   final bool canTransportFurniture;
@@ -60,7 +60,9 @@ class DriverModel {
         driverServiceType: json['driverServiceType'],
         plateNumber: json['plateNumber'],
         rating: json['rating'],
-        vehicleType: DriverVehicleType.fromJson(json['vehicleType']),
+        vehicleType: json['vehicleType'] == null
+            ? null
+            : DriverVehicleType.fromJson(json['vehicleType']),
         carModel: CarModel.fromJson(json['carModel']),
         carManufacturerType:
             CarManufacturerType.fromJson(json['carManufacturerType']),
@@ -81,13 +83,11 @@ class DriverVehicleType {
   final int vehicleId;
   final String? vehicleType;
   final String? driverServiceType;
-  final List<int>? numberOfPassengers;
 
   DriverVehicleType({
     required this.vehicleId,
     this.vehicleType,
     this.driverServiceType,
-    this.numberOfPassengers,
   });
 
   factory DriverVehicleType.fromJson(Map<String, dynamic> json) =>
@@ -95,10 +95,6 @@ class DriverVehicleType {
         vehicleId: json['id'],
         vehicleType: json['vehicleType'],
         driverServiceType: json['driverServiceType'],
-        numberOfPassengers: json['numberOfPassengers'] != null &&
-                json['numberOfPassengers'].isNotEmpty
-            ? json['numberOfPassengers']
-            : [],
       );
 }
 

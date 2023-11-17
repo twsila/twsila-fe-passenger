@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 
 import '../../../../../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../../common/widgets/custom_dropdown.dart';
@@ -23,8 +24,8 @@ class _FreezerDropdownsViewState extends State<FreezerDropdownsView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomDropDown(
-          stringsArr: widget.freezersViewModel.shippingTypes,
-          intialValue: widget.freezersViewModel.freezersModel.shippedType,
+          lookupKey: LookupConstants.shippingType,
+          intialValue: null,
           title: AppStrings.shippedTypes.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
@@ -36,8 +37,8 @@ class _FreezerDropdownsViewState extends State<FreezerDropdownsView> {
         ),
         const SizedBox(height: 16),
         CustomDropDown(
-          stringsArr: widget.freezersViewModel.materialsTobeShipped,
-          intialValue: widget.freezersViewModel.freezersModel.frozenMaterial,
+          lookupKey: LookupConstants.materialType,
+          intialValue: null,
           title: AppStrings.materialsTobeShipped.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {

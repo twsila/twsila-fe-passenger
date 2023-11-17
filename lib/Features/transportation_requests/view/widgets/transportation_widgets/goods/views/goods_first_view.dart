@@ -54,6 +54,13 @@ class _GoodsFirstViewState extends State<GoodsFirstView> {
                   isKeyboardDigitsOnly: true,
                   keyboardType: TextInputType.number,
                   hintText: AppStrings.goodsWeightHint.tr(),
+                  initialValue: widget.viewModel.goodsViewModel.goodsModel
+                              .payloadWeight !=
+                          null
+                      ? widget
+                          .viewModel.goodsViewModel.goodsModel.payloadWeight!
+                          .toString()
+                      : null,
                   onChanged: (value) {
                     widget.viewModel.goodsViewModel.goodsModel.payloadWeight =
                         int.parse(value).toDouble();

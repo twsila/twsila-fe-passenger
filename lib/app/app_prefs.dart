@@ -5,9 +5,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
 import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
+import 'package:taxi_for_you/Features/lookups/model/models/vehicle_type.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
@@ -32,6 +34,7 @@ const String PERSON_TRIP = "PERSON_TRIP";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
+  List<CountryModel> countries = [];
 
   AppPreferences(this._sharedPreferences);
 
@@ -45,28 +48,42 @@ class AppPreferences {
     }
   }
 
+  bool isEnglish() {
+    return getAppLanguage() == LanguageType.ENGLISH.getValue();
+  }
+
   LookupsModel getLookupsInstance() {
     return instance.get<LookupsModel>(instanceName: GetItInstanceNames.lookups);
   }
 
+  VehicleTypes getVehicleInstance() {
+    return instance.get<VehicleTypes>(
+        instanceName: GetItInstanceNames.vehicleTypes);
+  }
+
+  setCountries(List<CountryModel> countries) {
+    this.countries = countries;
+  }
+
   List<CountryModel> getCountries() {
-    List<CountryModel> countries = [
-      CountryModel(
-        countryID: '1',
-        countryName: AppStrings.saudi.tr(),
-        country: "SA",
-        countryCode: "+966",
-        imageURL: ImageAssets.saudiFlag,
-      ),
-      CountryModel(
-        countryID: '2',
-        countryName: AppStrings.egypt.tr(),
-        country: "EG",
-        countryCode: "+20",
-        imageURL: ImageAssets.egyptFlag,
-      ),
-    ];
-    return countries;
+    return countries.isNotEmpty
+        ? countries
+        : [
+            CountryModel(
+              countryID: 2,
+              countryName: AppStrings.saudi.tr(),
+              country: "SA",
+              countryCode: "+966",
+              imageURL: ImageAssets.saudiFlag,
+            ),
+            CountryModel(
+              countryID: 4,
+              countryName: AppStrings.egypt.tr(),
+              country: "EG",
+              countryCode: "+20",
+              imageURL: ImageAssets.egyptFlag,
+            ),
+          ];
   }
 
   Future<void> changeAppLanguage() async {
@@ -223,5 +240,35 @@ class AppPreferences {
     await removeFCMToken();
 
     Phoenix.rebirth(context);
+  }
+
+  List<LookupItem> getLookupByKey(String key) {
+    LookupsModel lookupsModel =
+        instance.get(instanceName: GetItInstanceNames.lookups);
+    LookupModel lookup = lookupsModel.lookupModel.singleWhere((element) =>
+        element.lookupKey == key && getAppLanguage() == element.language);
+
+    return lookup.lookupJson;
+  }
+
+  LookupItem getLookupIndex(String key, String value) {
+    LookupsModel lookupsModel =
+        instance.get(instanceName: GetItInstanceNames.lookups);
+
+    LookupModel lookupEnglish = lookupsModel.lookupModel.singleWhere(
+        (element) =>
+            element.lookupKey == key &&
+            LanguageType.ENGLISH.getValue() == element.language);
+
+    LookupModel lookupArabic = lookupsModel.lookupModel.singleWhere((element) =>
+        element.lookupKey == key &&
+        LanguageType.ARABIC.getValue() == element.language);
+
+    int index = lookupEnglish.lookupJson
+        .indexWhere((element) => element.value == value);
+
+    if (isEnglish()) return lookupEnglish.lookupJson[index];
+
+    return lookupArabic.lookupJson[index];
   }
 }

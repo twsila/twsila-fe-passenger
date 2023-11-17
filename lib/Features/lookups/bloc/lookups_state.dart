@@ -20,3 +20,13 @@ class LookupsFailed extends LookupsStates {
   @override
   List<Object> get props => [baseResponse];
 }
+
+class LookupCountiresSuccessfully extends LookupsStates {}
+
+class LookupCountiresFailed extends LookupsStates {
+  final BaseResponse baseResponse;
+
+  LookupCountiresFailed({required this.baseResponse});
+  @override
+  List<Object> get props => [baseResponse];
+}

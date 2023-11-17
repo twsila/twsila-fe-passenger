@@ -15,7 +15,7 @@ class TripDetailsModel {
 
   factory TripDetailsModel.fromJson(Map<String, dynamic> json) {
     var details;
-    String tripType = json['tripType'];
+    String tripType = json['serviceType'];
 
     if (tripType == TripTypeConstants.furnitureType) {
       details = FurnitureModel.fromJson(json);

@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/water_tank/models/water_model.dart';
 
-import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../item_widget.dart';
 
@@ -20,7 +19,9 @@ class WaterDetailsWidget extends StatelessWidget {
       children: [
         ItemWidget(
           title: AppStrings.waterTankSize.tr(),
-          text: (waterModel.tankDetails ?? AppStrings.unknown.tr()).toString(),
+          text: waterModel.tankDetails != null
+              ? waterModel.tankDetails!.value
+              : AppStrings.unknown.tr(),
         ),
       ],
     );

@@ -77,7 +77,7 @@ class _CustomSearchBottomsheetState extends State<CustomSearchBottomsheet> {
         _isAddressLoading = true;
       });
       var location;
-      await UserCurrentLocation().checkLocationPermission();
+      await UserLocationService().checkLocationPermission();
       var position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       setState(() {

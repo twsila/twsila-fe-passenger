@@ -1,10 +1,13 @@
+import 'dart:convert';
+
+import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 import 'package:taxi_for_you/core/utils/helpers/double_prase.dart';
 
 import '../../../../../model/transportation_base_model.dart';
 
 class FreezersModel extends TransportationBaseModel {
-  String? shippedType;
-  String? frozenMaterial;
+  LookupItem? shippedType;
+  LookupItem? frozenMaterial;
   double? payloadWeight;
   bool containsLoading = false;
   bool containsPacking = false;
@@ -14,15 +17,21 @@ class FreezersModel extends TransportationBaseModel {
 
   FreezersModel.fromJson(Map<String, dynamic> json) {
     fromJSON(json);
-    shippedType = json['shippingType'];
+    shippedType = json['shippingType'] != null
+        ? LookupItem(
+            id: -1,
+            value: json['shippingType'],
+          )
+        : null;
     if (json['payloadWeight'] != null) {
       payloadWeight = dynamicToDouble(json['payloadWeight']);
     }
-    frozenMaterial = json['frozenMaterial'] is String
-        ? json['frozenMaterial']
-        : json['frozenMaterial'] != null
-            ? json['frozenMaterial']['description']
-            : null;
+    frozenMaterial = json['frozenMaterial'] != null
+        ? LookupItem(
+            id: json['frozenMaterial']['id'],
+            value: json['frozenMaterial']['frozenType'],
+          )
+        : null;
     containsLoading = json['containsLoading'] is String
         ? json['containsLoading'] == "true"
         : json['containsLoading'];
@@ -37,8 +46,12 @@ class FreezersModel extends TransportationBaseModel {
   Map<String, dynamic> toFreezersJson() {
     Map<String, dynamic> data = <String, dynamic>{};
     data = toJSON();
-    if (shippedType != null) data['shippingType'] = 'DRY'; //TODO: TO BE FIXED
-    if (frozenMaterial != null) data['frozenMaterial'] = frozenMaterial;
+    if (shippedType != null) {
+      data['shippingType'] = shippedType!.id.toString();
+    }
+    if (frozenMaterial != null) {
+      data['frozenMaterial'] = frozenMaterial!.id.toString();
+    }
     if (payloadWeight != null) {
       data['payloadWeight'] = payloadWeight.toString();
     }

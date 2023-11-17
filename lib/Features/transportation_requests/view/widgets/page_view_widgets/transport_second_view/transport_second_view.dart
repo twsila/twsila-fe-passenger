@@ -5,6 +5,7 @@ import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
+import 'package:taxi_for_you/core/utils/location/user_current_location.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
@@ -29,6 +30,7 @@ class TransportSecondView extends StatefulWidget {
 }
 
 class _TransportSecondViewState extends State<TransportSecondView> {
+  final UserLocationService userLocationService = UserLocationService();
   @override
   void initState() {
     widget.viewModel.secondScreenValid.value =
@@ -68,7 +70,10 @@ class _TransportSecondViewState extends State<TransportSecondView> {
                   child: const Divider(),
                 ),
                 SecondViewLocation(
-                  onSelectSourcePlace: (lat, long, locationName) {
+                  onSelectSourcePlace: (lat, long, locationName) async {
+                    widget.transportationBaseModel.pickupLocation.cityName =
+                        await userLocationService.getCityNameFromLongLat(
+                            double.parse(long), double.parse(lat));
                     setState(() {
                       widget.transportationBaseModel.pickupLocation
                           .locationName = locationName;
@@ -76,11 +81,16 @@ class _TransportSecondViewState extends State<TransportSecondView> {
                           double.tryParse(lat);
                       widget.transportationBaseModel.pickupLocation.longitude =
                           double.tryParse(long);
+
                       widget.viewModel.secondScreenValid.value =
                           widget.viewModel.validateSecondScreen();
                     });
                   },
-                  onSelectDestinPlace: (lat, long, locationName) {
+                  onSelectDestinPlace: (lat, long, locationName) async {
+                    widget.transportationBaseModel.destinationLocation
+                            .cityName =
+                        await userLocationService.getCityNameFromLongLat(
+                            double.parse(long), double.parse(lat));
                     setState(() {
                       widget.transportationBaseModel.destinationLocation
                           .locationName = locationName;
@@ -88,6 +98,7 @@ class _TransportSecondViewState extends State<TransportSecondView> {
                           .latitude = double.tryParse(lat);
                       widget.transportationBaseModel.destinationLocation
                           .longitude = double.tryParse(long);
+
                       widget.viewModel.secondScreenValid.value =
                           widget.viewModel.validateSecondScreen();
                     });

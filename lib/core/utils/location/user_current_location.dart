@@ -9,7 +9,7 @@ import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import '../../../Features/google_maps/model/location_model.dart';
 import '../../../app/constants.dart';
 
-class UserCurrentLocation {
+class UserLocationService {
   final LocatitonGeocoder geocoder = LocatitonGeocoder(Platform.isIOS
       ? Constants.GOOGLE_API_KEY_IOS
       : Constants.GOOGLE_API_KEY_ANDROID);
@@ -57,5 +57,12 @@ class UserCurrentLocation {
       longitude: currentLocation.longitude,
     );
     return locationModel;
+  }
+
+  Future<String> getCityNameFromLongLat(
+      double longitude, double latitude) async {
+    final coordinates = Coordinates(latitude, longitude);
+    var address = await geocoder.findAddressesFromCoordinates(coordinates);
+    return address[0].locality ?? address[0].adminArea ?? '';
   }
 }

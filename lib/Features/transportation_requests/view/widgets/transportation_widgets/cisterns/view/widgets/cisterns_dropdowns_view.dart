@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 
 import '../../../../../../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../../common/widgets/custom_dropdown.dart';
@@ -29,8 +30,8 @@ class _CisternsDropdownsViewState extends State<CisternsDropdownsView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomDropDown(
-          stringsArr: widget.cisternsViewModel.cisternsTypes,
-          intialValue: widget.cisternsViewModel.cisternsModel.cisternsType,
+          lookupKey: LookupConstants.tankType,
+          intialValue: widget.cisternsViewModel.cisternsModel.cisternsString,
           title: AppStrings.cisternsType.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {

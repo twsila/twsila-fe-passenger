@@ -5,10 +5,12 @@ import 'package:taxi_for_you/Features/login/model/login_repo.dart';
 import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 import 'package:taxi_for_you/Features/lookups/model/lookups_repo.dart';
 import 'package:taxi_for_you/Features/home_features/my_trips/model/my_trips_repo.dart';
+import 'package:taxi_for_you/Features/lookups/model/models/vehicle_type.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
 import 'package:taxi_for_you/Features/otp/view/verify_otp_viewmodel.dart';
 import 'package:taxi_for_you/Features/registeration/models/registeration_repo.dart';
 import 'package:taxi_for_you/Features/home_features/request_service/model/draft_trip_repo.dart';
+import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/model/persons_model.dart';
 import 'package:taxi_for_you/Features/trip_details/model/trip_details_repo.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import '../Features/login/views/login_viewmodel.dart';
@@ -77,11 +79,20 @@ initVerifyOtpModule() {
 }
 
 initLookupsModule(LookupsModel lookupsModel) {
-  if (GetIt.instance
-      .isRegistered<LookupsModel>(instanceName: GetItInstanceNames.lookups)) {
-    GetIt.instance
-        .unregister<LookupsModel>(instanceName: GetItInstanceNames.lookups);
+  if (instance.isRegistered<LookupsModel>(
+      instanceName: GetItInstanceNames.lookups)) {
+    instance.unregister<LookupsModel>(instanceName: GetItInstanceNames.lookups);
   }
-  GetIt.instance.registerSingleton<LookupsModel>(lookupsModel,
+  instance.registerSingleton<LookupsModel>(lookupsModel,
       instanceName: GetItInstanceNames.lookups);
+}
+
+initVehicleModule(VehicleTypes vehicleTypes) {
+  if (instance.isRegistered<VehicleTypes>(
+      instanceName: GetItInstanceNames.vehicleTypes)) {
+    instance.unregister<VehicleTypes>(
+        instanceName: GetItInstanceNames.vehicleTypes);
+  }
+  instance.registerSingleton<VehicleTypes>(vehicleTypes,
+      instanceName: GetItInstanceNames.vehicleTypes);
 }

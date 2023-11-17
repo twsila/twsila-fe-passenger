@@ -3,6 +3,7 @@ import '../../../../../model/transportation_base_model.dart';
 class PersonsModel extends TransportationBaseModel {
   bool isWoman = false;
   String? vehicleType;
+  int? vehicleId;
   int? numberOfPassengers;
 
   PersonsModel();
@@ -24,7 +25,7 @@ class PersonsModel extends TransportationBaseModel {
     Map<String, dynamic> data = <String, dynamic>{};
     data = toJSON();
     if (vehicleType != null) {
-      data['vehicleType'] = vehicleType;
+      data['vehicleType'] = vehicleId.toString();
     }
     if (numberOfPassengers != null) {
       data['numberOfPassengers'] = numberOfPassengers.toString();

@@ -47,7 +47,9 @@ blocProviders(BuildContext context) {
     BlocProvider.value(value: TripDetailsBloc(instance<TripDetailsRepo>())),
     BlocProvider.value(value: DraftTripBloc(instance<DraftTripRepo>())),
     BlocProvider.value(value: MyTripsBloc(instance<MyTripsRepo>())),
-    BlocProvider.value(value: LookupsBloc(instance<LookupsRepo>())),
+    BlocProvider.value(
+        value:
+            LookupsBloc(instance<LookupsRepo>(), instance<AppPreferences>())),
     BlocProvider.value(value: OtpBloc(instance<OtpRepo>())),
     BlocProvider.value(value: MapsBloc(MapsRepo())),
     ChangeNotifierProvider(create: (_) => MapProvider()),

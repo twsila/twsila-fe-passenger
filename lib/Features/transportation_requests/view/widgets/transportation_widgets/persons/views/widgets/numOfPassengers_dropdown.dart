@@ -40,18 +40,19 @@ class _PersonsNumberOfPassengersDropdownState
               onTap: () {
                 setState(() {
                   widget.personsViewModel.personsModel.numberOfPassengers =
-                      widget.vehicleType.noOfPassengers[index];
+                      widget.vehicleType.noOfPassengers[index].noOfPassengers;
                   widget.personsViewModel.validateFirstScreen();
                 });
               },
               child: Container(
                 margin: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: widget.vehicleType.noOfPassengers[index] ==
-                          widget
-                              .personsViewModel.personsModel.numberOfPassengers
-                      ? ColorManager.secondaryLightColor
-                      : Colors.transparent,
+                  color:
+                      widget.vehicleType.noOfPassengers[index].noOfPassengers ==
+                              widget.personsViewModel.personsModel
+                                  .numberOfPassengers
+                          ? ColorManager.secondaryLightColor
+                          : Colors.transparent,
                   border: Border.all(
                     color: ColorManager.lightPrimary,
                   ),
@@ -63,7 +64,8 @@ class _PersonsNumberOfPassengersDropdownState
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
                   child: Text(
-                    widget.vehicleType.noOfPassengers[index].toString(),
+                    widget.vehicleType.noOfPassengers[index].noOfPassengers
+                        .toString(),
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           color: ColorManager.secondaryColor,
                           fontSize: 16,

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 
 import '../../../../../../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../../common/widgets/custom_dropdown.dart';
@@ -23,16 +24,14 @@ class _WaterDropdownViewState extends State<WaterDropdownView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomDropDown(
-          stringsArr: widget.waterTankViewModel.tankWeights,
-          intialValue:
-              widget.waterTankViewModel.waterModel.tankDetails.toString(),
+          lookupKey: LookupConstants.tankDetails,
+          intialValue: null,
           title: AppStrings.waterTankSize.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
             setState(() {
               if (value == null) return;
-              widget.waterTankViewModel.waterModel.tankDetails =
-                  int.parse(value);
+              widget.waterTankViewModel.waterModel.tankDetails = value;
               widget.waterTankViewModel.validateFirstScreen();
             });
           },

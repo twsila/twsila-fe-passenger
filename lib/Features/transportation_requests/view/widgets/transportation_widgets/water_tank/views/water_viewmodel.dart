@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/di.dart';
 
 import '../models/water_model.dart';
 
 class WaterTankViewModel {
+  final AppPreferences appPreferences = instance();
   WaterModel waterModel = WaterModel();
-  List<String> tankWeights = ["12000", "18000", "24000", "32000"];
   ValueNotifier<bool> firstScreenValid = ValueNotifier(false);
 
   start(WaterModel waterModel) {

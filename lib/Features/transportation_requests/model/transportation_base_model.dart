@@ -27,7 +27,7 @@ class TransportationBaseModel {
   fromJSON(Map<String, dynamic> json) {
     tripId = json['id'] is String ? int.parse(json['id']) : json['id'];
     tripEndPoint = json['tripEndPoint'];
-    tripType = json['tripType'];
+    tripType = json['serviceType'];
     tripNumber = json['tripNumber'];
     tripStatus = json['tripStatus'];
     creationDate = json['creationDate'];
@@ -74,7 +74,7 @@ class TransportationBaseModel {
         destinationLocation.longitude != null) {
       data['destination'] = json.encode(destinationLocation.toJson());
     }
-    if (tripType != null) data['tripType'] = tripType;
+    if (tripType != null) data['serviceType'] = tripType;
     if (tripNumber != null) data['tripNumber'] = tripNumber;
     if (tripStatus != null) data['tripStatus'] = tripStatus;
     return data;
@@ -85,6 +85,7 @@ class TransportationLocation {
   String? locationName;
   double? latitude;
   double? longitude;
+  String? cityName;
 
   TransportationLocation();
 
@@ -92,6 +93,7 @@ class TransportationLocation {
     locationName = json['locationName'];
     latitude = json['latitude'];
     longitude = json['longitude'];
+    cityName = json['cityName'];
   }
 
   Map<String, dynamic> toJson() {
@@ -100,6 +102,7 @@ class TransportationLocation {
     data['locationName'] = locationName;
     data['latitude'] = latitude;
     data['longitude'] = longitude;
+    data['cityName'] = cityName;
 
     return data;
   }

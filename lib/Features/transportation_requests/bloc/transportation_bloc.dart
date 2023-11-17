@@ -29,14 +29,10 @@ class TransportationBloc
       ));
 
       int tripId = baseResponse.result["id"];
-      var body = event.body;
-      body['tripId'] = tripId;
-      body['tripType'] = event.transportationBaseModel.tripType;
 
       emit(TransportationRequestSuccessfully(
         tripId: tripId,
         transportationBaseModel: event.transportationBaseModel,
-        body: body,
       ));
     } catch (e) {
       if (e is PlatformException) {

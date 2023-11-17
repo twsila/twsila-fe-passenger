@@ -61,7 +61,8 @@ class _CustomVerificationCodeWidgetState
   KeyboardActionsConfig _buildKeyboardActionsConfig(BuildContext context) {
     return KeyboardActionsConfig(
       keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
-      defaultDoneWidget: Text(AppStrings.verify.tr()),
+      defaultDoneWidget:
+          Text(AppStrings.verify.tr(), style: const TextStyle(fontSize: 8)),
       keyboardBarColor: ColorManager.lightGrey,
       actions: [
         KeyboardActionsItem(

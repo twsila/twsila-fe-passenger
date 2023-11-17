@@ -70,8 +70,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
           });
           userOtp = state.otp;
           ShowDialogHelper.showSuccessMessage(
-            AppStrings.codesent.tr() +
-                ', ${AppStrings.codeIs.tr()} ${state.otp}',
+            AppStrings.codesent.tr(),
             context,
             seconds: 5,
           );
@@ -93,14 +92,8 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                   .add(LoginUser(mobileNumber: _viewModel.mobileNumber)));
         }
         if (state is ValidateOtpFailed) {
-          // ShowDialogHelper.showErrorMessage(
-          //     AppStrings.validateFailed.tr(), context);
-          BlocProvider.of<LoginBloc>(context)
-              .add(LoginUser(mobileNumber: _viewModel.mobileNumber));
-          //TODO: REMOVE THIS CODE
-          // Future.delayed(
-          //     const Duration(seconds: 1),
-          //     () => );
+          ShowDialogHelper.showErrorMessage(
+              AppStrings.validateFailed.tr(), context);
         }
       },
       child: CustomScaffold(
@@ -121,26 +114,13 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                       autoFocus: false,
                       controller: _viewModel.mobileController,
                       onCodeSubmitted: (code) {
-                        if (userOtp != null) {
-                          BlocProvider.of<OtpBloc>(context).add(
-                            ValidateOtpEvent(
-                              otp: userOtp!,
-                              generatedOtp: code,
-                              mobileNumber: _viewModel.mobileNumber,
-                            ),
-                          );
-                        } else {
-                          //TODO:REMOVE THIS CODE
-                          BlocProvider.of<OtpBloc>(context).add(
-                            ValidateOtpEvent(
-                              otp: "",
-                              generatedOtp: code,
-                              mobileNumber: _viewModel.mobileNumber,
-                            ),
-                          );
-                          // ShowDialogHelper.showErrorMessage(
-                          //     AppStrings.codeSenderror.tr(), context);
-                        }
+                        BlocProvider.of<OtpBloc>(context).add(
+                          ValidateOtpEvent(
+                            otp: userOtp!,
+                            generatedOtp: code,
+                            mobileNumber: _viewModel.mobileNumber,
+                          ),
+                        );
                       },
                       onCodeChanged: (code) {},
                     ),

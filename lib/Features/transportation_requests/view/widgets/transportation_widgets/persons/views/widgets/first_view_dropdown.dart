@@ -23,7 +23,8 @@ class _PersonDropdownViewState extends State<PersonDropdownView> {
     if (widget.personsViewModel.personsModel.vehicleType != null) {
       widget.personsViewModel.selectedVehicleType =
           widget.personsViewModel.vehicleTypes.singleWhere((element) =>
-              element.id == widget.personsViewModel.personsModel.vehicleType);
+              element.vehicleType ==
+              widget.personsViewModel.personsModel.vehicleType);
     }
     super.initState();
   }
@@ -38,7 +39,9 @@ class _PersonDropdownViewState extends State<PersonDropdownView> {
           setVehicleType: (vehicleType) {
             setState(() {
               widget.personsViewModel.selectedVehicleType = vehicleType;
-              widget.personsViewModel.personsModel.vehicleType = vehicleType.id;
+              widget.personsViewModel.personsModel.vehicleType =
+                  vehicleType.vehicleType;
+              widget.personsViewModel.personsModel.vehicleId = vehicleType.id;
             });
           },
         ),

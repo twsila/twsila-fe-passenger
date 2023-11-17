@@ -5,7 +5,6 @@ import 'package:taxi_for_you/data/model/user-model.dart';
 
 import '../../../../../../../app/app_prefs.dart';
 import '../../../../../../../app/di.dart';
-import '../../../../../../lookups/model/lookups_model.dart';
 
 class PersonsViewModel {
   PersonsModel personsModel = PersonsModel();
@@ -21,8 +20,7 @@ class PersonsViewModel {
   }
 
   setModels() {
-    LookupsModel lookupsModel = appPreferences.getLookupsInstance();
-    vehicleTypes = lookupsModel.vehicleTypes;
+    vehicleTypes = appPreferences.getVehicleInstance().vehicleType;
     UserModel userModel = appPreferences.getUserData()!;
     gender = userModel.gender ?? "M";
   }

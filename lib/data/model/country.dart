@@ -1,5 +1,5 @@
 class CountryModel {
-  final String countryID;
+  final int countryID;
   final String countryName;
   final String country;
   final String countryCode;
