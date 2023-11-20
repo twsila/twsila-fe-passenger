@@ -24,7 +24,12 @@ class TripHelper {
         TripStatusConstants.payment) {
       return AppStrings.tripStatusPAYMENT.tr() +
           ' ' +
-          transportationBaseModel.paymentValue.toString();
+          (transportationBaseModel.acceptedOffer != null
+              ? transportationBaseModel.acceptedOffer!.offer.driverOffer != 0.0
+                  ? transportationBaseModel.acceptedOffer!.offer.driverOffer
+                      .toString()
+                  : transportationBaseModel.paymentValue.toString()
+              : transportationBaseModel.paymentValue.toString());
     }
     //WAIT_TAKE_OFF
     else if (transportationBaseModel.tripStatus ==

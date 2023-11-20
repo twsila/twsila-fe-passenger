@@ -58,8 +58,10 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
             ? widget.trip.acceptedOffer != null
                 ? Text(
                     AppStrings.onBudget.tr() +
-                        widget.trip.acceptedOffer!.offer.driverOffer
-                            .toString() +
+                        (widget.trip.acceptedOffer!.offer.driverOffer != 0.0
+                            ? widget.trip.acceptedOffer!.offer.driverOffer
+                                .toString()
+                            : widget.trip.paymentValue.toString()) +
                         ' ' +
                         (appPreferences.getCurrentCurrnecy()),
                     style: getMediumStyle(
