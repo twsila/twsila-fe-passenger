@@ -14,7 +14,6 @@ import '../../../core/utils/resources/strings_manager.dart';
 import 'custom_country_codes.dart';
 
 class CustomPhoneInputField extends StatefulWidget {
-  final CountryModel? selectedCountry;
   final TextEditingController fieldController;
   final validations;
   final Color? fillColor;
@@ -31,7 +30,6 @@ class CustomPhoneInputField extends StatefulWidget {
       {Key? key,
       required this.fieldController,
       this.autoFocus = false,
-      this.selectedCountry,
       this.validations,
       this.borderColor,
       this.fillColor,
@@ -57,23 +55,12 @@ class _CustomPhoneInputFieldState extends State<CustomPhoneInputField> {
   void initState() {
     countries = appPreferences.getCountries();
     autoFocus = widget.autoFocus;
-    if (widget.selectedCountry != null) {
-      _selectedCountry = widget.selectedCountry;
-    } else {
-      if (appPreferences.getUserSelectedCountry() != null) {
-        _selectedCountry = appPreferences.getUserSelectedCountry();
-      } else {
-        autoFocus = false;
-        // Future.delayed(
-        //   Duration.zero,
-        //   () => ShowDialogHelper.showErrorMessage(
-        //     AppStrings.notSupportedCountry.tr(),
-        //     context,
-        //   ),
-        // );
-        _selectedCountry = countries[0];
-      }
-    }
+
+    _selectedCountry = appPreferences.getUserCountry() != '' &&
+            appPreferences.getUserCountry() != null
+        ? countries.singleWhere(
+            (element) => element.countryCode == appPreferences.getUserCountry())
+        : countries[0];
 
     widget.onCountryChange(_selectedCountry!);
 

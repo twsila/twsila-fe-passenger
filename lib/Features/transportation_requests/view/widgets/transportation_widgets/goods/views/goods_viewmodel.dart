@@ -9,14 +9,18 @@ class GoodsViewModel {
   final AppPreferences appPreferences = instance();
   GoodsModel goodsModel = GoodsModel();
   ValueNotifier<bool> firstScreenValid = ValueNotifier(false);
+  List<LookupItem> materialTypes = [];
+  List<LookupItem> packingTypes = [];
 
   start(GoodsModel goodsModel) {
     this.goodsModel = goodsModel;
+    materialTypes = appPreferences.getLookupsInstance().materialTypes;
+    packingTypes = appPreferences.getLookupsInstance().packingTypes;
   }
 
   validateFirstScreen() {
     firstScreenValid.value = goodsModel.materialType != null &&
-        goodsModel.packagingType != null &&
+        goodsModel.packingType != null &&
         goodsModel.payloadWeight != null &&
         goodsModel.payloadWeight! > 0;
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:taxi_for_you/Features/login/views/login_viewmodel.dart';
 import 'package:taxi_for_you/Features/registeration/models/gender_model.dart';
+import 'package:taxi_for_you/app/di.dart';
 
 import '../../base/baseviewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -23,7 +25,10 @@ class RegisterationViewModel extends BaseViewModel {
 
   // inputs
   @override
-  void start() {}
+  void start() {
+    final LoginViewModel _viewModel = instance<LoginViewModel>();
+    user.countryCode = _viewModel.country;
+  }
 
   setArguments(Map arguments) {
     if (arguments["mobile"] != null) {

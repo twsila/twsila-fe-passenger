@@ -7,10 +7,4 @@ class LookupsEvent extends Equatable {
 
 class GetLookups extends LookupsEvent {}
 
-class GetLookupsByKey extends LookupsEvent {
-  final String lookupKey;
-
-  GetLookupsByKey({required this.lookupKey});
-}
-
 class GetCountriesLookup extends LookupsEvent {}

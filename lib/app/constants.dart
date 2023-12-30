@@ -48,8 +48,9 @@ class EndPointsConstants {
   static const String lookups = 'lookups';
   static const String lookupsByKey = 'lookups/by-key';
   static const String lookupCountries = 'lookups/country';
-  static const String login = "passengers/login";
-  static const String logout = "passengers/logout";
+  static const String login = "api/v1/auth/login";
+  static const String refreshToken = "/api/v1/auth/refresh-token";
+  static const String logout = "/api/v1/auth/logout";
   static const String register = "passengers/register";
   static const String editProfile = "passengers/update-my-profile";
   static const String generateOtp = "otp/generate";

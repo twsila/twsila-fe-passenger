@@ -4,8 +4,8 @@ import 'package:taxi_for_you/Features/lookups/bloc/lookups_event.dart';
 import 'package:taxi_for_you/Features/lookups/bloc/lookups_state.dart';
 import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 import 'package:taxi_for_you/Features/lookups/model/lookups_repo.dart';
-import 'package:taxi_for_you/Features/lookups/model/models/vehicle_type.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/data/model/country.dart';
 
 import '../../../../core/network/base_response.dart';
@@ -17,7 +17,6 @@ class LookupsBloc extends Bloc<LookupsEvent, LookupsStates> {
   LookupsBloc(this.lookupsRepo, this.appPreferences)
       : super(LookupsIsNotLoading()) {
     on<GetLookups>(_getLookups);
-    on<GetLookupsByKey>(_getLookupsByKey);
     on<GetCountriesLookup>(_getCountriesLookups);
   }
 
@@ -27,31 +26,9 @@ class LookupsBloc extends Bloc<LookupsEvent, LookupsStates> {
     try {
       BaseResponse baseResponse = await lookupsRepo.getLookups();
 
-      LookupsModel.saveLookups(baseResponse.result);
+      LookupModel lookupModel = LookupModel.fromJson(baseResponse.result);
 
-      emit(LookupsSuccessfully());
-    } catch (e) {
-      if (e is PlatformException) {
-        if (e.message != null) {
-          emit(LookupsFailed(
-              baseResponse: BaseResponse(errorMessage: e.message)));
-        }
-      } else {
-        var response = BaseResponse(errorMessage: e.toString());
-        emit(LookupsFailed(baseResponse: response));
-      }
-    }
-  }
-
-  void _getLookupsByKey(
-      GetLookupsByKey event, Emitter<LookupsStates> emit) async {
-    emit(LookupsIsLoading());
-
-    try {
-      BaseResponse baseResponse =
-          await lookupsRepo.getLookupsByKey(event.lookupKey);
-
-      VehicleTypes.saveVehicle(baseResponse.result);
+      initLookupsModule(lookupModel);
 
       emit(LookupsSuccessfully());
     } catch (e) {

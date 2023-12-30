@@ -19,8 +19,8 @@ class WaterDetailsWidget extends StatelessWidget {
       children: [
         ItemWidget(
           title: AppStrings.waterTankSize.tr(),
-          text: waterModel.tankDetails != null
-              ? waterModel.tankDetails!.value
+          text: waterModel.tankType != null
+              ? waterModel.tankType!.value
               : AppStrings.unknown.tr(),
         ),
       ],

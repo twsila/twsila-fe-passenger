@@ -12,6 +12,7 @@ import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/network/base_request_interface.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
+import 'package:taxi_for_you/data/model/auth.dart';
 import 'package:taxi_for_you/data/model/request-model.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
 
@@ -34,7 +35,7 @@ class HttpBaseRequest extends BaseRequestInterface {
 
     Uri uri = Uri.parse(Constants.baseUrl + requestModel.endPoint);
 
-    var headers = checkHeaders();
+    var headers = requestModel.headers ?? checkHeaders();
 
     var requestEncoded = json.encode(requestModel.reqBody);
     printFunction(requestModel, headers);
@@ -214,20 +215,21 @@ class HttpBaseRequest extends BaseRequestInterface {
 
   Map<String, String> checkHeaders({bool isMultiPart = false}) {
     Map<String, String> headers = {};
-    UserModel? userModel = appPreferences.getUserData();
+    AuthModel? authModel = appPreferences.getAuthModel();
 
-    if (userModel != null && userModel.token != null) {
+    if (authModel != null) {
       headers = {
-        'Authorization': 'Bearer ${userModel.token}',
+        'Authorization': 'Bearer ${authModel.accesstoken}',
         "Accept": "*/*",
+        "User-Type": "PASSENGER",
         'Accept-Language': appPreferences.getAppLanguage(),
         "Content-Type":
             isMultiPart ? "multipart/form-data" : "application/json",
       };
     } else {
       headers = {
-        'Authorization': Constants.constAuth,
         "Accept": "*/*",
+        "User-Type": "PASSENGER",
         'Accept-Language': appPreferences.getAppLanguage(),
         "Content-Type":
             isMultiPart ? "multipart/form-data" : "application/json",

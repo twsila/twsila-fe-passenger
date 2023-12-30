@@ -24,8 +24,8 @@ class _FreezerDropdownsViewState extends State<FreezerDropdownsView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomDropDown(
-          lookupKey: LookupConstants.shippingType,
-          intialValue: null,
+          items: widget.freezersViewModel.shippingTypes,
+          intialValue: widget.freezersViewModel.freezersModel.shippedType,
           title: AppStrings.shippedTypes.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
@@ -37,13 +37,13 @@ class _FreezerDropdownsViewState extends State<FreezerDropdownsView> {
         ),
         const SizedBox(height: 16),
         CustomDropDown(
-          lookupKey: LookupConstants.materialType,
-          intialValue: null,
+          items: widget.freezersViewModel.frozenTypes,
+          intialValue: widget.freezersViewModel.freezersModel.frozenType,
           title: AppStrings.materialsTobeShipped.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
             setState(() {
-              widget.freezersViewModel.freezersModel.frozenMaterial = value;
+              widget.freezersViewModel.freezersModel.frozenType = value;
               widget.freezersViewModel.validateFirstScreen();
             });
           },

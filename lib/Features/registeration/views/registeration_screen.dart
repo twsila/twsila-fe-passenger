@@ -39,6 +39,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   _bind() {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    _viewModel.start();
     _viewModel.setArguments(arguments);
   }
 

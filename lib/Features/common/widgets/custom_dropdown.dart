@@ -10,8 +10,7 @@ class CustomDropDown extends StatefulWidget {
   final Function(LookupItem?) onChanged;
   final String? hintText;
   final IconData? iconData;
-  final String? intialValue;
-  final String lookupKey;
+  final LookupItem? intialValue;
   final bool isValid;
   final String? errorMessage;
   final Color? backgroundColor;
@@ -19,21 +18,24 @@ class CustomDropDown extends StatefulWidget {
   final Color? textColor;
   final Color? hintTextColor;
   final bool? isTitleBold;
+  final List<LookupItem> items;
 
-  CustomDropDown(
-      {this.title,
-      required this.onChanged,
-      required this.lookupKey,
-      this.isValid = true,
-      this.intialValue,
-      this.hintText,
-      this.iconData,
-      this.backgroundColor,
-      this.errorMessage,
-      this.textColor,
-      this.borderColor,
-      this.hintTextColor,
-      this.isTitleBold = true});
+  const CustomDropDown({
+    Key? key,
+    this.title,
+    required this.onChanged,
+    required this.items,
+    this.isValid = true,
+    this.intialValue,
+    this.hintText,
+    this.iconData,
+    this.backgroundColor,
+    this.errorMessage,
+    this.textColor,
+    this.borderColor,
+    this.hintTextColor,
+    this.isTitleBold = true,
+  }) : super(key: key);
 
   @override
   _CustomDropDownState createState() => _CustomDropDownState();
@@ -43,21 +45,24 @@ class _CustomDropDownState extends State<CustomDropDown> {
   final AppPreferences appPreferences = instance();
   bool _isInit = true;
   LookupItem? _selectedValue;
-  List<LookupItem> items = [];
 
   @override
   void initState() {
     if (_isInit) {
-      items = appPreferences.getLookupByKey(widget.lookupKey);
       if (widget.intialValue != null) {
-        _selectedValue = appPreferences.getLookupIndex(
-            widget.lookupKey, widget.intialValue!);
-        Future.delayed(Duration.zero, () => widget.onChanged(_selectedValue));
+        _selectedValue = widget.intialValue!;
       }
 
       _isInit = false;
     }
     super.initState();
+  }
+
+  bool isChecked(int index) {
+    if (_selectedValue != null) {
+      return widget.items[index].id == _selectedValue!.id;
+    }
+    return false;
   }
 
   @override
@@ -74,18 +79,18 @@ class _CustomDropDownState extends State<CustomDropDown> {
         Wrap(
           runSpacing: 8,
           children: List.generate(
-            items.length,
+            widget.items.length,
             (index) => GestureDetector(
               onTap: () {
                 setState(() {
-                  _selectedValue = items[index];
+                  _selectedValue = widget.items[index];
                 });
                 widget.onChanged(_selectedValue);
               },
               child: Container(
                 margin: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: items[index] == _selectedValue
+                  color: isChecked(index)
                       ? ColorManager.secondaryLightColor
                       : Colors.transparent,
                   border: Border.all(
@@ -99,7 +104,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
                   child: Text(
-                    items[index].value.replaceAll('_', ' '),
+                    widget.items[index].value,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           color: ColorManager.secondaryColor,
                           fontSize: 16,

@@ -117,8 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fieldController: _viewModel.phoneController,
                               onCountryChange: (country) {
                                 _viewModel.countryCode = country.countryCode;
-                                Provider.of<MapProvider>(context, listen: false)
-                                    .setCountry(country, needsRebuild: false);
+                                _viewModel.country = country.country;
                               },
                             ),
                             const SizedBox(

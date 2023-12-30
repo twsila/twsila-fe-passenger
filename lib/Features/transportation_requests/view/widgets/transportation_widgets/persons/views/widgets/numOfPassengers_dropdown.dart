@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/lookups/model/models/vehicle_type.dart';
+import 'package:taxi_for_you/Features/lookups/model/vehicle_type.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/views/persons_viewmodel.dart';
 
 import '../../../../../../../../core/utils/resources/color_manager.dart';

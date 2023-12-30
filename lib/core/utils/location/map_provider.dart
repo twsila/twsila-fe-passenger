@@ -25,7 +25,6 @@ class MapProvider with ChangeNotifier {
 
   //Locations
   LocationModel? currentLocation;
-  List<String> countries = ['SA'];
   String? distance;
 
   //Marker
@@ -44,21 +43,6 @@ class MapProvider with ChangeNotifier {
 
   removeMarker(MarkerId markerId) {
     markers.removeWhere((element) => element.markerId == markerId);
-    notifyListeners();
-  }
-
-  Future setCountry(CountryModel? country, {bool needsRebuild = true}) async {
-    if (country == null) {
-      CountryModel? countryModel = await getCountryPhoneCode();
-
-      appPreferences.setUserSelectedCountry(countryModel);
-      countries = countryModel != null ? [countryModel.country] : [];
-    } else {
-      appPreferences.setUserSelectedCountry(country);
-      countries = [country.country];
-    }
-
-    if (!needsRebuild) return;
     notifyListeners();
   }
 

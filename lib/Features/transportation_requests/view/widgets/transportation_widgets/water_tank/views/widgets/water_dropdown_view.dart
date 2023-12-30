@@ -24,14 +24,14 @@ class _WaterDropdownViewState extends State<WaterDropdownView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomDropDown(
-          lookupKey: LookupConstants.tankDetails,
-          intialValue: null,
+          items: widget.waterTankViewModel.tankTypes,
+          intialValue: widget.waterTankViewModel.waterModel.tankType,
           title: AppStrings.waterTankSize.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
             setState(() {
               if (value == null) return;
-              widget.waterTankViewModel.waterModel.tankDetails = value;
+              widget.waterTankViewModel.waterModel.tankType = value;
               widget.waterTankViewModel.validateFirstScreen();
             });
           },

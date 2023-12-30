@@ -30,8 +30,8 @@ class _CisternsDropdownsViewState extends State<CisternsDropdownsView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomDropDown(
-          lookupKey: LookupConstants.tankType,
-          intialValue: widget.cisternsViewModel.cisternsModel.cisternsString,
+          items: widget.cisternsViewModel.tankTypes,
+          intialValue: widget.cisternsViewModel.cisternsModel.cisternsType,
           title: AppStrings.cisternsType.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {

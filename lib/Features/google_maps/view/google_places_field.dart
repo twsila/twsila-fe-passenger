@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:provider/provider.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
+import 'package:taxi_for_you/app/di.dart';
 
 import '../../../core/utils/location/map_provider.dart';
 import '../../../core/utils/resources/color_manager.dart';
@@ -30,6 +32,7 @@ class GoogleMapsPlacesField extends StatefulWidget {
 class _GoogleMapsPlacesFieldState extends State<GoogleMapsPlacesField> {
   Color fillColor = Colors.white70;
   late String googleApiKey;
+  final AppPreferences appPreferences = instance();
 
   @override
   void initState() {
@@ -56,7 +59,7 @@ class _GoogleMapsPlacesFieldState extends State<GoogleMapsPlacesField> {
                 .textTheme
                 .displayMedium!
                 .copyWith(color: ColorManager.black),
-            countries: mapProvider.countries,
+            countries: [appPreferences.getUserCountry() ?? 'SA'],
             isLatLngRequired: true,
             getPlaceDetailWithLatLng: (Prediction prediction) {
               widget.predictionCallback(prediction);

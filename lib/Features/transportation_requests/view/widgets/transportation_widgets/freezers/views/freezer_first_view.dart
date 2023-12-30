@@ -47,6 +47,13 @@ class _FreezerFirstViewState extends State<FreezerFirstView> {
                 ),
                 const SizedBox(height: 8),
                 CustomTextInputField(
+                  initialValue: widget.viewModel.freezersViewModel.freezersModel
+                              .payloadWeight !=
+                          null
+                      ? widget.viewModel.freezersViewModel.freezersModel
+                          .payloadWeight!
+                          .toString()
+                      : null,
                   isTitleBold: true,
                   showLabelText: true,
                   labelText: AppStrings.goodsSize.tr(),

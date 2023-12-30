@@ -7,7 +7,7 @@ import '../../../../../model/transportation_base_model.dart';
 
 class FreezersModel extends TransportationBaseModel {
   LookupItem? shippedType;
-  LookupItem? frozenMaterial;
+  LookupItem? frozenType;
   double? payloadWeight;
   bool containsLoading = false;
   bool containsPacking = false;
@@ -17,21 +17,15 @@ class FreezersModel extends TransportationBaseModel {
 
   FreezersModel.fromJson(Map<String, dynamic> json) {
     fromJSON(json);
-    shippedType = json['shippingType'] != null
-        ? LookupItem(
-            id: -1,
-            value: json['shippingType'],
-          )
-        : null;
+    if (json['shippingType'] != null) {
+      shippedType = LookupItem.fromJson(json['shippingType']);
+    }
+    if (json['frozenType'] != null) {
+      frozenType = LookupItem.fromJson(json['frozenType']);
+    }
     if (json['payloadWeight'] != null) {
       payloadWeight = dynamicToDouble(json['payloadWeight']);
     }
-    frozenMaterial = json['frozenMaterial'] != null
-        ? LookupItem(
-            id: json['frozenMaterial']['id'],
-            value: json['frozenMaterial']['frozenType'],
-          )
-        : null;
     containsLoading = json['containsLoading'] is String
         ? json['containsLoading'] == "true"
         : json['containsLoading'];
@@ -49,8 +43,26 @@ class FreezersModel extends TransportationBaseModel {
     if (shippedType != null) {
       data['shippingType'] = shippedType!.id.toString();
     }
-    if (frozenMaterial != null) {
-      data['frozenMaterial'] = frozenMaterial!.id.toString();
+    if (frozenType != null) {
+      data['frozenType'] = frozenType!.id.toString();
+    }
+    if (payloadWeight != null) {
+      data['payloadWeight'] = payloadWeight.toString();
+    }
+    data['containsLoading'] = containsLoading.toString();
+    data['containsPacking'] = containsPacking.toString();
+    data['containsLift'] = containsLift.toString();
+    return data;
+  }
+
+  Map<String, dynamic> toFreezersCopyJson() {
+    Map<String, dynamic> data = <String, dynamic>{};
+    data = toJSON();
+    if (shippedType != null) {
+      data['shippingType'] = shippedType!.toJson();
+    }
+    if (frozenType != null) {
+      data['frozenType'] = frozenType!.toJson();
     }
     if (payloadWeight != null) {
       data['payloadWeight'] = payloadWeight.toString();
@@ -62,6 +74,6 @@ class FreezersModel extends TransportationBaseModel {
   }
 
   FreezersModel copyWith(FreezersModel freezersModel) {
-    return FreezersModel.fromJson(freezersModel.toFreezersJson());
+    return FreezersModel.fromJson(freezersModel.toFreezersCopyJson());
   }
 }

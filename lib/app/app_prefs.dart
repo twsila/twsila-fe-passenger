@@ -5,24 +5,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi_for_you/Features/login/model/login_repo.dart';
 import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
-import 'package:taxi_for_you/Features/lookups/model/models/vehicle_type.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/app/di.dart';
-import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
+import 'package:taxi_for_you/data/model/auth.dart';
 import 'package:taxi_for_you/data/model/country.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
 import '../core/utils/resources/langauge_manager.dart';
-import 'package:collection/collection.dart';
 
 const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
 const String USER_MODEL = "USER_MODEL";
+const String AUTH_TOKEN = "AUTH";
 const String USER_FCM_TOKEN = "USER_FCM_TOKEN";
-const String USER_SELECTED_COUNTRY = "USER_SELECTED_COUNTRY";
 const String USER_MOBILE_NUMBER = "USER_MOBILE_NUMBER";
 const String FURNITURE_TRIP = "FURNITURE_TRIP";
 const String GOODS_TRIP = "GOODS_TRIP";
@@ -34,8 +31,7 @@ const String PERSON_TRIP = "PERSON_TRIP";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
-  List<CountryModel> countries = [];
-
+  List<CountryModel> _countries = [];
   AppPreferences(this._sharedPreferences);
 
   String getAppLanguage() {
@@ -52,38 +48,8 @@ class AppPreferences {
     return getAppLanguage() == LanguageType.ENGLISH.getValue();
   }
 
-  LookupsModel getLookupsInstance() {
-    return instance.get<LookupsModel>(instanceName: GetItInstanceNames.lookups);
-  }
-
-  VehicleTypes getVehicleInstance() {
-    return instance.get<VehicleTypes>(
-        instanceName: GetItInstanceNames.vehicleTypes);
-  }
-
-  setCountries(List<CountryModel> countries) {
-    this.countries = countries;
-  }
-
-  List<CountryModel> getCountries() {
-    return countries.isNotEmpty
-        ? countries
-        : [
-            CountryModel(
-              countryID: 2,
-              countryName: AppStrings.saudi.tr(),
-              country: "SA",
-              countryCode: "+966",
-              imageURL: ImageAssets.saudiFlag,
-            ),
-            CountryModel(
-              countryID: 4,
-              countryName: AppStrings.egypt.tr(),
-              country: "EG",
-              countryCode: "+20",
-              imageURL: ImageAssets.egyptFlag,
-            ),
-          ];
+  LookupModel getLookupsInstance() {
+    return instance.get<LookupModel>(instanceName: GetItInstanceNames.lookups);
   }
 
   Future<void> changeAppLanguage() async {
@@ -110,52 +76,26 @@ class AppPreferences {
     }
   }
 
-  //Selected country
-  setUserSelectedCountry(CountryModel? country) {
-    _sharedPreferences.setString(USER_SELECTED_COUNTRY, json.encode(country));
+  //User Country
+  setCountries(List<CountryModel> countries) {
+    _countries = countries;
   }
 
-  CountryModel? getUserSelectedCountry() {
-    try {
-      var country = _sharedPreferences.getString(USER_SELECTED_COUNTRY);
-      if (country != null) {
-        var countryModel = CountryModel.fromJson(const JsonDecoder().convert(
-            _sharedPreferences.getString(USER_SELECTED_COUNTRY) ?? ''));
-        return countryModel;
-      }
-      UserModel? user = getUserData();
-      if (user != null) {
-        if (user.mobileNumber!.contains('+20')) {
-          CountryModel? country = getCountries().singleWhereOrNull(
-            (element) => element.countryCode == '+20',
-          );
-          return country;
-        } else if (user.mobileNumber!.contains('+966')) {
-          CountryModel? country = getCountries().singleWhereOrNull(
-            (element) => element.countryCode == '+966',
-          );
-          return country;
-        }
-      }
-      return null;
-    } catch (error) {
+  List<CountryModel> getCountries() {
+    return _countries;
+  }
+
+  String? getUserCountry() {
+    UserModel? user = getUserData();
+    if (user != null) {
+      return user.countryCode;
+    } else {
       return null;
     }
   }
 
   String getCurrentCurrnecy() {
-    if (getUserSelectedCountry() == null) {
-      UserModel? user = getUserData();
-      if (user != null) {
-        if (user.mobileNumber!.contains('+20')) {
-          return AppStrings.egpCurrency.tr();
-        } else if (user.mobileNumber!.contains('+966')) {
-          return AppStrings.saudiCurrency.tr();
-        }
-      }
-      return AppStrings.saudiCurrency.tr();
-    }
-    return getUserSelectedCountry()!.country == "SA"
+    return getUserCountry() == "SA"
         ? AppStrings.saudiCurrency.tr()
         : AppStrings.egpCurrency.tr();
   }
@@ -184,13 +124,9 @@ class AppPreferences {
   }
 
   //login
-  Future<void> setUserLoggedIn(UserModel userModel) async {
-    String encodedJson = json.encode(userModel.toJson(true));
+  Future<void> setUserData(UserModel userModel) async {
+    String encodedJson = json.encode(userModel.toJson());
     _sharedPreferences.setString(USER_MODEL, encodedJson);
-  }
-
-  Future<bool> isUserLoggedIn() async {
-    return _sharedPreferences.getString(USER_MODEL) != null;
   }
 
   UserModel? getUserData() {
@@ -198,19 +134,35 @@ class AppPreferences {
     if (user != null) {
       Map<String, dynamic> decodedJson = json.decode(user);
 
-      return UserModel.fromJson(decodedJson);
+      return UserModel.fromCachedJson(decodedJson);
     }
     return null;
   }
 
-  Future<bool> refreshToken() async {
-    String? user = _sharedPreferences.getString(USER_MODEL);
-    if (user != null) {
-      Map<String, dynamic> decodedJson = json.decode(user);
+  setAuthToken(AuthModel authModel) {
+    String encodedJson = json.encode(authModel.toJson());
+    _sharedPreferences.setString(AUTH_TOKEN, encodedJson);
+  }
 
-      UserModel userModel = UserModel.fromJson(decodedJson);
+  AuthModel? getAuthModel() {
+    String? authModel = _sharedPreferences.getString(AUTH_TOKEN);
+    if (authModel != null) {
+      Map<String, dynamic> decodedJson = json.decode(authModel);
+
+      return AuthModel.fromJson(decodedJson);
+    }
+    return null;
+  }
+
+  Future<bool> isUserLoggedIn() async {
+    return _sharedPreferences.getString(AUTH_TOKEN) != null;
+  }
+
+  Future<bool> refreshToken() async {
+    AuthModel? authModel = getAuthModel();
+    if (authModel != null) {
       LoginRepo loginRepo = instance();
-      await loginRepo.loginUser(userModel.mobileNumber!);
+      await loginRepo.refreshToken(authModel);
       return true;
     }
     return false;
@@ -237,38 +189,9 @@ class AppPreferences {
     // clear cache of logged out user
     // _localDataSource.clearCache();
     _sharedPreferences.remove(USER_MODEL);
+    _sharedPreferences.remove(AUTH_TOKEN);
     await removeFCMToken();
 
     Phoenix.rebirth(context);
-  }
-
-  List<LookupItem> getLookupByKey(String key) {
-    LookupsModel lookupsModel =
-        instance.get(instanceName: GetItInstanceNames.lookups);
-    LookupModel lookup = lookupsModel.lookupModel.singleWhere((element) =>
-        element.lookupKey == key && getAppLanguage() == element.language);
-
-    return lookup.lookupJson;
-  }
-
-  LookupItem getLookupIndex(String key, String value) {
-    LookupsModel lookupsModel =
-        instance.get(instanceName: GetItInstanceNames.lookups);
-
-    LookupModel lookupEnglish = lookupsModel.lookupModel.singleWhere(
-        (element) =>
-            element.lookupKey == key &&
-            LanguageType.ENGLISH.getValue() == element.language);
-
-    LookupModel lookupArabic = lookupsModel.lookupModel.singleWhere((element) =>
-        element.lookupKey == key &&
-        LanguageType.ARABIC.getValue() == element.language);
-
-    int index = lookupEnglish.lookupJson
-        .indexWhere((element) => element.value == value);
-
-    if (isEnglish()) return lookupEnglish.lookupJson[index];
-
-    return lookupArabic.lookupJson[index];
   }
 }

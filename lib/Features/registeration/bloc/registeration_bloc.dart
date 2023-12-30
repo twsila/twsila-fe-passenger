@@ -32,7 +32,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationStates> {
           response.success != null &&
           response.success!) {
         dynamic results = response.result;
-        UserModel userModel = UserModel.fromJson(results);
+        UserModel userModel = UserModel.fromCachedJson(results);
 
         emit(RegistrationSuccessfully(userModel));
       } else {
@@ -57,8 +57,8 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationStates> {
           response.success != null &&
           response.success!) {
         dynamic results = response.result;
-        UserModel userModel = UserModel.fromJson(results);
-        await appPreferences.setUserLoggedIn(userModel);
+        UserModel userModel = UserModel.fromCachedJson(results);
+        await appPreferences.setUserData(userModel);
         emit(EditUserSuccessfully(userModel));
       } else {
         emit(EditUserFailed(baseResponse: response));

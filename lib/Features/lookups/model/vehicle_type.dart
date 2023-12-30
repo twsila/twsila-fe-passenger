@@ -1,29 +1,6 @@
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 
-class VehicleTypes {
-  static final AppPreferences appPreferences = instance();
-  final List<VehicleType> vehicleType;
-
-  VehicleTypes({
-    required this.vehicleType,
-  });
-
-  static saveVehicle(List<dynamic> json) {
-    VehicleTypes vehicleTypes = VehicleTypes(
-      vehicleType: List<VehicleType>.from(appPreferences.isEnglish()
-          ? json[0]['lookupJson'].map(
-              (x) => VehicleType.fromJson(x),
-            )
-          : json[1]['lookupJson'].map(
-              (x) => VehicleType.fromJson(x),
-            )),
-    );
-
-    initVehicleModule(vehicleTypes);
-  }
-}
-
 class VehicleType {
   final int id;
   final String vehicleType;
@@ -36,9 +13,12 @@ class VehicleType {
   });
 
   factory VehicleType.fromJson(Map<String, dynamic> json) {
+    final AppPreferences appPreferences = instance();
     return VehicleType(
       id: json["id"],
-      vehicleType: json["vehicleType"],
+      vehicleType: appPreferences.isEnglish()
+          ? json["vehicleType"]
+          : json["vehicleTypeAr"],
       noOfPassengers: json['numberOfPassengers'].isEmpty
           ? []
           : json['numberOfPassengers']

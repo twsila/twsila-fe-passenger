@@ -24,10 +24,8 @@ class _GoodsDropdownsViewState extends State<GoodsDropdownsView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomDropDown(
-          lookupKey: LookupConstants.materialType,
-          intialValue: widget.goodsViewModel.goodsModel.materialDetails == null
-              ? null
-              : widget.goodsViewModel.goodsModel.materialDetails!.materialType,
+          items: widget.goodsViewModel.materialTypes,
+          intialValue: widget.goodsViewModel.goodsModel.materialType,
           title: AppStrings.materialTypes.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
@@ -39,15 +37,13 @@ class _GoodsDropdownsViewState extends State<GoodsDropdownsView> {
         ),
         const SizedBox(height: 16),
         CustomDropDown(
-          lookupKey: LookupConstants.packingType,
-          intialValue: widget.goodsViewModel.goodsModel.packingDetails == null
-              ? null
-              : widget.goodsViewModel.goodsModel.packingDetails!.packingType,
+          items: widget.goodsViewModel.packingTypes,
+          intialValue: widget.goodsViewModel.goodsModel.packingType,
           title: AppStrings.selectPackagingTypes.tr(),
           errorMessage: AppStrings.dropdownError.tr(),
           onChanged: (value) {
             setState(() {
-              widget.goodsViewModel.goodsModel.packagingType = value;
+              widget.goodsViewModel.goodsModel.packingType = value;
               widget.goodsViewModel.validateFirstScreen();
             });
           },

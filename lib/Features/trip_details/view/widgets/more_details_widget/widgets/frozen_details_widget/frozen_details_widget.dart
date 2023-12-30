@@ -33,8 +33,8 @@ class FrozenDetailsWidget extends StatelessWidget {
             Expanded(
               child: ItemWidget(
                 title: AppStrings.materialsTobeShipped.tr(),
-                text: freezersModel.frozenMaterial != null
-                    ? freezersModel.frozenMaterial!.value
+                text: freezersModel.frozenType != null
+                    ? freezersModel.frozenType!.value
                     : AppStrings.unknown.tr(),
               ),
             ),

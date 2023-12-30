@@ -13,7 +13,7 @@ class RegistrationRepo {
   Future<dynamic> registrationUser(UserModel userModel) async {
     RequestModel requestModel = RequestModel(
       endPoint: EndPointsConstants.register,
-      reqBody: userModel.toJson(false),
+      reqBody: userModel.toJson(),
       requestType: NETWORK_REQUEST_TYPE.POST,
     );
 
@@ -28,7 +28,7 @@ class RegistrationRepo {
   Future<dynamic> editUser(UserModel userModel) async {
     RequestModel requestModel = RequestModel(
       endPoint: EndPointsConstants.editProfile,
-      reqBody: userModel.toJson(false),
+      reqBody: userModel.toJson(),
       requestType: NETWORK_REQUEST_TYPE.POST,
     );
 

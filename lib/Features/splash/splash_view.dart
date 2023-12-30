@@ -58,13 +58,6 @@ class _SplashViewState extends State<SplashView> {
   getLookups() {
     BlocProvider.of<LookupsBloc>(context).add(GetLookups());
     BlocProvider.of<LookupsBloc>(context).add(GetCountriesLookup());
-    BlocProvider.of<LookupsBloc>(context)
-        .add(GetLookupsByKey(lookupKey: LookupConstants.vehicleEntity));
-  }
-
-  setCountry() {
-    Provider.of<MapProvider>(context, listen: false)
-        .setCountry(null, needsRebuild: false);
   }
 
   _goNext() {
@@ -108,25 +101,6 @@ class _SplashViewState extends State<SplashView> {
                 }
                 return const SizedBox();
               }),
-            ),
-            BlocListener<LookupsBloc, LookupsStates>(
-              listener: ((context, state) {
-                if (state is LookupCountiresFailed) {
-                  print("Couldn't Load Countries");
-                  setCountry();
-                } else if (state is LookupCountiresSuccessfully) {
-                  setCountry();
-                }
-              }),
-              child: const SizedBox(),
-            ),
-            BlocListener<LookupsBloc, LookupsStates>(
-              listener: ((context, state) {
-                if (state is LookupCountiresFailed) {
-                  print("Couldn't Load Vehicles");
-                }
-              }),
-              child: const SizedBox(),
             ),
             BlocConsumer<LookupsBloc, LookupsStates>(
               listener: ((context, state) {

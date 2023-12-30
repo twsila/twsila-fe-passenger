@@ -25,18 +25,16 @@ class GoodsDetailsWidget extends StatelessWidget {
             Expanded(
               child: ItemWidget(
                 title: AppStrings.materialTypes.tr(),
-                text: goodsModel.materialDetails != null
-                    ? goodsModel.materialDetails!.materialType ??
-                        AppStrings.unknown.tr()
+                text: goodsModel.materialType != null
+                    ? goodsModel.materialType!.value
                     : AppStrings.unknown.tr(),
               ),
             ),
             Expanded(
               child: ItemWidget(
                 title: AppStrings.selectPackagingTypes.tr(),
-                text: goodsModel.packingDetails != null
-                    ? goodsModel.packingDetails!.packingType ??
-                        AppStrings.unknown.tr()
+                text: goodsModel.packingType != null
+                    ? goodsModel.packingType!.value
                     : AppStrings.unknown.tr(),
               ),
             ),
