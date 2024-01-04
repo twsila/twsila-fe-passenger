@@ -42,12 +42,9 @@ class _CustomCheckboxDateTimeNowState extends State<CustomCheckboxDateTimeNow> {
   }
 
   String convertDate() {
-    String dateFormatted =
-        DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
-            .format(dateTime);
+    String dateFormatted = DateFormat(dateFormatterString).format(dateTime);
     widget.onSelectDate(dateFormatted, null);
-    return DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
-        .format(dateTime);
+    return DateFormat(dateFormatterString).format(dateTime);
   }
 
   @override

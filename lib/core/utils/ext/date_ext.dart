@@ -5,8 +5,12 @@ import 'package:taxi_for_you/app/di.dart';
 extension DateFormatString on String {
   String formatStringToDateString() {
     final AppPreferences _appPrefs = instance<AppPreferences>();
-    return DateFormat('dd MMM yyyy/ hh:mm a', _appPrefs.getAppLanguage())
-        .format(DateFormat('dd/MM/yyyy hh:mm:ss', _appPrefs.getAppLanguage())
-            .parse(this));
+    try {
+      return DateFormat('dd MMM yyyy/ hh:mm a', _appPrefs.getAppLanguage())
+          .format(DateFormat('dd/MM/yyyy hh:mm:ss a').parse(this));
+    } catch (e) {
+      return DateFormat('dd MMM yyyy/ hh:mm a', _appPrefs.getAppLanguage())
+          .format(DateFormat('dd/MM/yyyy hh:mm:ss').parse(this));
+    }
   }
 }

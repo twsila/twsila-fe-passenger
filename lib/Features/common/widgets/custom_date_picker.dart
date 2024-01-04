@@ -89,8 +89,7 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
         DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
             .format(dateTime);
     widget.onSelectDate(dateFormatted, dateTime);
-    return DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
-        .format(dateTime);
+    return DateFormat(dateFormatterString).format(dateTime);
   }
 
   @override

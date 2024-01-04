@@ -127,10 +127,9 @@ class _SecondViewTimeState extends State<SecondViewTime> {
               const SizedBox(height: 16),
               CustomDatePickerWidget(
                 onSelectDate: (date, dateTime) {
-                  String? stringDate = DateFormat(
-                          'dd/MM/yyyy hh:mm:ss', _appPrefs.getAppLanguage())
-                      .format(dateTime);
-                  widget.onSelectDate(stringDate, date);
+                  String? stringDate =
+                      DateFormat('dd/MM/yyyy hh:mm:ss a').format(dateTime);
+                  widget.onSelectDate(date, stringDate);
                 },
                 firstDate: DateTime.now(),
                 initialDate: widget.date,

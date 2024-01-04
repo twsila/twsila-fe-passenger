@@ -53,7 +53,7 @@ class _TransportSecondViewState extends State<TransportSecondView> {
                       ? widget.transportationBaseModel.date!
                           .formatStringToDateString()
                       : widget.transportationBaseModel.stringDate,
-                  onSelectDate: (date, stringDate) {
+                  onSelectDate: (stringDate, date) {
                     Future.delayed(Duration.zero, () {
                       if (mounted) {
                         setState(() {

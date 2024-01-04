@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
-import 'package:taxi_for_you/core/utils/helpers/date_helper.dart';
+import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
 
 import '../../../app/constants.dart';
 import '../resources/assets_manager.dart';
@@ -35,12 +35,9 @@ class TripHelper {
     else if (transportationBaseModel.tripStatus ==
         TripStatusConstants.waitForTakeOff) {
       return AppStrings.tripStatusWAITTAKEOFF.tr() +
-          DateHelper.formatDateTime(
-            dateTime: DateTime.tryParse(
-              transportationBaseModel.date ??
-                  transportationBaseModel.creationDate!,
-            ),
-          );
+          (transportationBaseModel.date ??
+                  transportationBaseModel.creationDate!)
+              .formatStringToDateString();
     }
     //TAKE_OFF
     else if (transportationBaseModel.tripStatus ==
@@ -51,12 +48,9 @@ class TripHelper {
     else if (transportationBaseModel.tripStatus ==
         TripStatusConstants.executed) {
       return AppStrings.tripStatusEXECUTED.tr() +
-          DateHelper.formatDateTime(
-            dateTime: DateTime.tryParse(
-              transportationBaseModel.date ??
-                  transportationBaseModel.creationDate!,
-            ),
-          );
+          (transportationBaseModel.date ??
+                  transportationBaseModel.creationDate!)
+              .formatStringToDateString();
     }
     //CANCELLED BY PASSENGER
     else if (transportationBaseModel.tripStatus ==

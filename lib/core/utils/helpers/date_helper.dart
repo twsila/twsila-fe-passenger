@@ -9,8 +9,7 @@ class DateHelper {
     DateTime? dateTime,
   }) {
     final AppPreferences _appPrefs = instance();
-    return DateFormat(pattern, _appPrefs.getAppLanguage())
-        .format(dateTime ?? DateTime.now());
+    return DateFormat(pattern).format(dateTime ?? DateTime.now());
   }
 
   static String currentDateTimeString({String pattern = 'dd/MM/yyyy hh:mm a'}) {
