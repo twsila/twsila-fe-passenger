@@ -38,6 +38,7 @@ class _TripAllOfferState extends State<TripAllOffer> {
           itemCount: widget.transportationBaseModel.offers!.length,
           itemBuilder: (context, index) {
             return SingleOfferWidget(
+                tripDetails: widget.transportationBaseModel,
                 offer: widget.transportationBaseModel.offers![index]);
           },
         )

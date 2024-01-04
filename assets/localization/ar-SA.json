@@ -212,6 +212,8 @@
   "saudi_currency": "ريال سعودي",
   "egyptian_currency": "جنيه مصري",
   "i_want_to_pay": "اود دفع",
+  "pay": "دفع",
+  "go_pay": "التوجه للدفع",
   "payment_note": "ملاحظة: السعر لا يشمل ضريبة القيمة المضافة 15%",
   "payment_value": "القيمة المدفوعة:",
   "enter_amount": "ادخل المبلغ",
@@ -263,6 +265,7 @@
   "select_start_point": "حدد نقطة البداية",
   "select_delivery_point": "حدد نقطة التوصيل",
   "select_location_on_map": "حدد الموقع علي الخريطة ",
+  "select_or_enter_map": "اضغط علي الخريطة او ادخل النقط لتغيير الموقع",
   "distance": "المسافة: ",
   "km": "كم",
   "no_internet_error": "لا يوجد اتصال بالانترنت",
@@ -281,5 +284,10 @@
   "trip_confirmation_succeeded": "تم ارسال الطلب بنجاح",
   "trip_paid_confirmed": "تم تأكيد الطلب و دفع ",
   "trip_refunded": "تم ارجاع ",
-  "trip_date": "معاد الرحلة"
+  "trip_date": "معاد الرحلة",
+  "enter_card_details": "أدخل بيانات الكارت",
+  "card_number": "رقم الكارت",
+  "card_holder_name": "اسم حامل الكارت",
+  "expiry_date": "تاريخ انتهاء الكارت",
+  "cvv": "CVV"
 }

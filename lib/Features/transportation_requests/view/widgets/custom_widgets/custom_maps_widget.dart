@@ -10,9 +10,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_circular_indicator.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_text_input_field.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_text_outlined_button.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/app/di.dart';
+import 'package:taxi_for_you/core/utils/helpers/debouncer_helper.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 
 import '../../../../../core/utils/location/user_current_location.dart';
@@ -35,6 +38,9 @@ class CustomMapsWidget extends StatefulWidget {
 }
 
 class _CustomMapsWidgetState extends State<CustomMapsWidget> {
+  final _debouncer = Debouncer(milliseconds: 500);
+  final TextEditingController _longitudeController = TextEditingController();
+  final TextEditingController _latitudeController = TextEditingController();
   final _appPrefs = instance<AppPreferences>();
   late final LocatitonGeocoder geocoder;
   final Completer<GoogleMapController> _controller =
@@ -89,7 +95,7 @@ class _CustomMapsWidgetState extends State<CustomMapsWidget> {
     }
   }
 
-  void getAddress(LatLng location) async {
+  Future getAddress(LatLng location) async {
     final coordinates = Coordinates(location.latitude, location.longitude);
     setState(() {
       _isAddressLoading = true;
@@ -112,11 +118,36 @@ class _CustomMapsWidgetState extends State<CustomMapsWidget> {
     });
   }
 
+  longLatChanged() {
+    _debouncer.run(() async {
+      if (_longitudeController.text != '' && _latitudeController.text != '') {
+        final GoogleMapController controller = await _controller.future;
+        setState(() {
+          location = LatLng(double.parse(_latitudeController.text),
+              double.parse(_longitudeController.text));
+          getAddress(location!);
+          _position = CameraPosition(
+            target: location!,
+            zoom: 16.5,
+          );
+          _marker = Marker(
+              markerId: const MarkerId('sourceMarker'), position: location!);
+          controller
+              .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+            target: location!,
+            zoom: 16.5,
+          )));
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_position == null) getLocation();
     return _position != null
         ? Stack(
+            alignment: Alignment.center,
             children: [
               GoogleMap(
                 onMapCreated: (GoogleMapController controller) async {
@@ -130,10 +161,37 @@ class _CustomMapsWidgetState extends State<CustomMapsWidget> {
                   setState(() {
                     location = latlng;
                     getAddress(latlng);
+                    _latitudeController.text = location!.latitude.toString();
+                    _longitudeController.text = location!.longitude.toString();
                   });
                 },
                 initialCameraPosition: _position!,
                 markers: _marker == null ? {} : {_marker!},
+              ),
+              Positioned(
+                top: 16,
+                left: 8,
+                right: 8,
+                child: !_isAddressLoading
+                    ? Center(
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 10.0,
+                                  spreadRadius: 1,
+                                  offset: Offset(0.0, 1.0),
+                                )
+                              ]),
+                          child: Text(address ?? widget.title),
+                        ),
+                      )
+                    : const SizedBox(),
               ),
               Positioned(
                 bottom: 0,
@@ -162,7 +220,38 @@ class _CustomMapsWidgetState extends State<CustomMapsWidget> {
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(address ?? widget.title),
+                            Text(
+                              AppStrings.selectOrEnterMap.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium!
+                                  .copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: CustomTextInputField(
+                                    controller: _longitudeController,
+                                    hintText: "Longitude",
+                                    borderColor: ColorManager.grey,
+                                    onChanged: (value) => longLatChanged(),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: CustomTextInputField(
+                                    controller: _latitudeController,
+                                    hintText: "Latitude",
+                                    borderColor: ColorManager.grey,
+                                    onChanged: (value) => longLatChanged(),
+                                  ),
+                                ),
+                              ],
+                            ),
                             const SizedBox(height: 16),
                             CustomTextButton(
                               text: AppStrings.confirm.tr(),

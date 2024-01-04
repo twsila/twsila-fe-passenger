@@ -61,6 +61,7 @@ class EndPointsConstants {
   static const String acceptOffer = "passengers/offers/accept";
   static const String cancelTrip = "passengers/trips/cancel";
   static const String sendTripRequest = 'trips/insert';
+  static const String changeStatus = "passengers/trips/change-status";
 }
 
 class GetItInstanceNames {

@@ -10,6 +10,10 @@ class ImageAssets {
   static const String how = "$imagePath/how.png";
   static const String car = "$imagePath/car.png";
   static const String callCenter = "$imagePath/call-center.png";
+  static const String calendar = "$imagePath/calendar.png";
+  static const String info = "$imagePath/info.png";
+  static const String visa = "$imagePath/visa.png";
+  static const String masterCard = "$imagePath/master-card.png";
   static const String thunder = "$imagePath/thunder.png";
   static const String driverWaiting = "$imagePath/driver-waiting.gif";
   static const String pin = "$imagePath/pin.png";

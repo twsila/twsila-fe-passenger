@@ -180,6 +180,8 @@ class AppStrings {
   static const saudiCurrency = "saudi_currency";
   static const egpCurrency = "egyptian_currency";
   static const iWantToPay = "i_want_to_pay";
+  static const pay = "pay";
+  static const goPay = "go_pay";
   static const paymentNote = "payment_note";
   static const paymentValue = "payment_value";
   static const enterAmount = "enter_amount";
@@ -211,6 +213,7 @@ class AppStrings {
   static const selectStartPoint = "select_start_point";
   static const selectDeliveryPoint = "select_delivery_point";
   static const selectLocationOnMap = "select_location_on_map";
+  static const selectOrEnterMap = "select_or_enter_map";
   static const unknown = 'unknown';
 
   //Furniture strings
@@ -256,6 +259,13 @@ class AppStrings {
   static const vegetables = "vegetables";
   static const foodStuffs = "food_stuffs";
   static const flowers_plants = "flowers_plants";
+
+  //Payment Strings
+  static const enterCardDetails = "enter_card_details";
+  static const cardNumber = "card_number";
+  static const cardHolderName = "card_holder_name";
+  static const cardExpiryDate = "expiry_date";
+  static const cvv = "cvv";
 
   //Location Errors
   static const locationDisabled = "location_disabled";

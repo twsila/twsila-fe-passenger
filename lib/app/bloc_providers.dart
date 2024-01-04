@@ -10,6 +10,8 @@ import 'package:taxi_for_you/Features/home_features/my_trips/bloc/my_trips_bloc.
 import 'package:taxi_for_you/Features/home_features/my_trips/model/my_trips_repo.dart';
 import 'package:taxi_for_you/Features/otp/bloc/otp_bloc.dart';
 import 'package:taxi_for_you/Features/otp/model/otp_repo.dart';
+import 'package:taxi_for_you/Features/payment/bloc/payment_bloc.dart';
+import 'package:taxi_for_you/Features/payment/model/payment_repo.dart';
 import 'package:taxi_for_you/Features/registeration/bloc/registeration_bloc.dart';
 import 'package:taxi_for_you/Features/registeration/models/registeration_repo.dart';
 import 'package:taxi_for_you/Features/home_features/request_service/bloc/draft_trip_bloc.dart';
@@ -45,6 +47,7 @@ blocProviders(BuildContext context) {
           instance<TransportationRepo>(), instance<AppPreferences>()),
     ),
     BlocProvider.value(value: TripDetailsBloc(instance<TripDetailsRepo>())),
+    BlocProvider.value(value: PaymentBloc(instance<PaymentRepo>())),
     BlocProvider.value(value: DraftTripBloc(instance<DraftTripRepo>())),
     BlocProvider.value(value: MyTripsBloc(instance<MyTripsRepo>())),
     BlocProvider.value(

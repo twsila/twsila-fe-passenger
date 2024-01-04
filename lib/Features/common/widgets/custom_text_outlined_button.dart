@@ -6,38 +6,52 @@ class CustomTextOutlinedButton extends StatelessWidget {
   final Function() onPressed;
   final String text;
   final Color? backgroundColor;
+  final Color? textColor;
   final double? height;
+  final double? width;
+  final double? fontSize;
   const CustomTextOutlinedButton({
     Key? key,
     this.backgroundColor,
+    this.textColor,
     this.height,
+    this.width,
+    this.fontSize,
     required this.onPressed,
     required this.text,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return GestureDetector(
+      onTap: onPressed,
       child: Container(
         decoration: BoxDecoration(
-          color: backgroundColor ?? Colors.white,
-          border: Border.all(
-            color: ColorManager.primary,
-          ),
+          color: backgroundColor ?? ColorManager.accentColor,
+          boxShadow: [
+            BoxShadow(
+              color: ColorManager.grey.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 2),
+            )
+          ],
           borderRadius: const BorderRadius.all(
             Radius.circular(8),
           ),
         ),
-        padding: const EdgeInsets.all(16),
-        height: height,
+        padding: const EdgeInsets.all(8),
+        height: height ?? 55,
+        width: width,
         child: Center(
           child: Text(
             text,
-            style: getMediumStyle(color: ColorManager.primary, fontSize: 22),
+            style: getMediumStyle(
+                color: textColor ?? ColorManager.primary,
+                fontSize: fontSize ?? 18),
           ),
         ),
       ),
-      onPressed: onPressed,
     );
   }
 }

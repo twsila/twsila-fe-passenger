@@ -97,7 +97,8 @@ class _TransportRequestScreenState extends State<TransportRequestScreen> {
             }
             if (state is TransportationRequestFailed) {
               ShowDialogHelper.showErrorMessage(
-                state.baseResponse.errorMessage ?? 'Something went wrong',
+                state.baseResponse.errorMessage ??
+                    AppStrings.somethingWentWrong.tr(),
                 context,
               );
             }

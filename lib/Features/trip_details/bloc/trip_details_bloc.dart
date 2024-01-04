@@ -45,7 +45,7 @@ class TripDetailsBloc extends Bloc<TripDetailsEvent, TripDetailsStates> {
 
   void _acceptOffer(
       AcceptOfferRequest event, Emitter<TripDetailsStates> emit) async {
-    emit(TripDetailsIsLoading());
+    emit(AcceptOfferIsLoading());
 
     try {
       await tripDetailsRepo.acceptOfferRequest(event.offerId);

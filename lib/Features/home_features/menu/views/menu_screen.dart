@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/common/widgets/custom_bottom_sheet.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 import 'package:taxi_for_you/Features/home_features/menu/views/menu_viewmodel.dart';
 import 'package:taxi_for_you/Features/home_features/menu/views/widgets/menu_widget.dart';
 import 'package:taxi_for_you/Features/home_features/menu/views/widgets/profile_widget.dart';
+import 'package:taxi_for_you/Features/payment/views/payment_screen/payment_screen.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 
 import '../../../../core/utils/resources/color_manager.dart';

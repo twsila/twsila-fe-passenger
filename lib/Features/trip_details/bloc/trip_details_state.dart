@@ -12,6 +12,8 @@ class TripDetailsIsNotLoading extends TripDetailsStates {}
 
 class TripDetailsIsLoading extends TripDetailsStates {}
 
+class AcceptOfferIsLoading extends TripDetailsStates {}
+
 class TripDetailsSuccessfully extends TripDetailsStates {
   final TripDetailsModel tripDetailsModel;
 

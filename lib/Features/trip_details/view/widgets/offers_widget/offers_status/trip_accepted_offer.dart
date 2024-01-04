@@ -12,18 +12,18 @@ import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../core/utils/resources/styles_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
 
-class TripAccepterdOffer extends StatefulWidget {
+class TripAcceptedOffer extends StatefulWidget {
   final TransportationBaseModel transportationBaseModel;
-  const TripAccepterdOffer({
+  const TripAcceptedOffer({
     Key? key,
     required this.transportationBaseModel,
   }) : super(key: key);
 
   @override
-  State<TripAccepterdOffer> createState() => _TripAccepterdOfferState();
+  State<TripAcceptedOffer> createState() => _TripAcceptedOfferState();
 }
 
-class _TripAccepterdOfferState extends State<TripAccepterdOffer> {
+class _TripAcceptedOfferState extends State<TripAcceptedOffer> {
   @override
   Widget build(BuildContext context) {
     return Column(

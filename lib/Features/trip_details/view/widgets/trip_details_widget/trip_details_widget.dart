@@ -98,7 +98,10 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
                       const SizedBox(width: 16),
                       Text(
                         AppStrings.tripPaidConfirmed.tr() +
-                            widget.trip.paymentValue.toString() +
+                            (widget.trip.acceptedOffer!.offer.driverOffer != 0.0
+                                ? widget.trip.acceptedOffer!.offer.driverOffer
+                                    .toString()
+                                : widget.trip.paymentValue.toString()) +
                             ' ' +
                             (appPreferences.getCurrentCurrnecy()),
                         style: getMediumStyle(

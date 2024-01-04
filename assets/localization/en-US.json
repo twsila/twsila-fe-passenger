@@ -214,6 +214,8 @@
   "saudi_currency": "SAR",
   "egyptian_currency": "EGP",
   "i_want_to_pay": "I want to pay",
+  "pay": "Pay",
+  "go_pay": "Go to pay",
   "payment_note": "Note: Price doesn't include VAT 15%",
   "payment_value": "Payment Value :",
   "enter_amount": "Enter amount",
@@ -265,6 +267,7 @@
   "select_start_point": "Select the start point",
   "select_delivery_point": "Select the delivery point",
   "select_location_on_map": "Select location on map",
+  "select_or_enter_map": "Tap map or enter Longlat to set new location",
   "distance": "Distance: ",
   "km": "KM",
   "no_internet_error": "No internet connection",
@@ -283,5 +286,10 @@
   "trip_confirmation_succeeded": "Request sent successfully",
   "trip_paid_confirmed": "Request confirmed and paid ",
   "trip_refunded": "Done refunding ",
-  "trip_date": "Trip Date"
+  "trip_date": "Trip Date",
+  "enter_card_details": "Enter Card Details",
+  "card_number": "Card Number",
+  "card_holder_name": "Card Holder Name",
+  "expiry_date": "Expiry Date",
+  "cvv": "CVV"
 }

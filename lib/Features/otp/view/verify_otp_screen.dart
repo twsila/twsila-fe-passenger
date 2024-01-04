@@ -74,8 +74,13 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
             doneSending = true;
           });
           userOtp = state.otp;
+          // ShowDialogHelper.showSuccessMessage(
+          //   AppStrings.codesent.tr(),
+          //   context,
+          //   seconds: 5,
+          // );
           ShowDialogHelper.showSuccessMessage(
-            AppStrings.codesent.tr(),
+            AppStrings.codeIs.tr() + ' ${state.otp}',
             context,
             seconds: 5,
           );

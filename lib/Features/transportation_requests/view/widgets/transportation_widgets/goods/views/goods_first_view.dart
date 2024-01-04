@@ -7,7 +7,6 @@ import 'package:taxi_for_you/Features/transportation_requests/view/widgets/trans
 
 import '../../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../../core/utils/resources/strings_manager.dart';
-import '../../../../../../common/widgets/custom_counter_widget.dart';
 import '../../../../../../common/widgets/custom_text_button.dart';
 import '../../../../transport_request_viewmodel.dart';
 
