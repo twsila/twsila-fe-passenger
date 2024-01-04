@@ -25,10 +25,7 @@ class RegisterationViewModel extends BaseViewModel {
 
   // inputs
   @override
-  void start() {
-    final LoginViewModel _viewModel = instance<LoginViewModel>();
-    user.countryCode = _viewModel.country;
-  }
+  void start() {}
 
   setArguments(Map arguments) {
     if (arguments["mobile"] != null) {

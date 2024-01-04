@@ -69,7 +69,18 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
                       fontSize: 18,
                     ),
                   )
-                : const SizedBox()
+                : widget.trip.paymentValue != 0.0
+                    ? Text(
+                        AppStrings.onBudget.tr() +
+                            widget.trip.paymentValue!.toInt().toString() +
+                            ' ' +
+                            (appPreferences.getCurrentCurrnecy()),
+                        style: getMediumStyle(
+                          color: ColorManager.primaryTextColor,
+                          fontSize: 18,
+                        ),
+                      )
+                    : const SizedBox()
             : widget.trip.tripStatus == TripStatusConstants.cancelled
                 ? widget.trip.cancelledBy ==
                         TripStatusConstants.cancelledByPassenger

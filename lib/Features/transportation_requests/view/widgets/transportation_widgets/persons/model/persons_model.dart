@@ -1,10 +1,11 @@
+import 'package:taxi_for_you/Features/lookups/model/vehicle_type.dart';
+
 import '../../../../../model/transportation_base_model.dart';
 
 class PersonsModel extends TransportationBaseModel {
   bool isWoman = false;
-  String? vehicleType;
-  int? vehicleId;
-  int? numberOfPassengers;
+  VehicleType? vehicleType;
+  int? numberOfPassengersId;
 
   PersonsModel();
 
@@ -15,20 +16,22 @@ class PersonsModel extends TransportationBaseModel {
         : json['isWoman'] is String
             ? json['isWoman'] == 'true'
             : json['isWoman'];
-    vehicleType = json['vehicleType'];
-    numberOfPassengers = json['numberOfPassengers'] is String
-        ? int.parse(json['numberOfPassengers'])
-        : json['numberOfPassengers'];
+    if (json['vehicleType'] != null) {
+      vehicleType = VehicleType.fromJson(json['vehicleType']);
+    }
+    if (json['numberOfPassengers'] != null) {
+      numberOfPassengersId = json['numberOfPassengers']['numberOfPassengers'];
+    }
   }
 
   Map<String, dynamic> toPersonsJson() {
     Map<String, dynamic> data = <String, dynamic>{};
     data = toJSON();
     if (vehicleType != null) {
-      data['vehicleType'] = vehicleId.toString();
+      data['vehicleType'] = vehicleType!.id.toString();
     }
-    if (numberOfPassengers != null) {
-      data['numberOfPassengers'] = numberOfPassengers.toString();
+    if (numberOfPassengersId != null) {
+      data['numberOfPassengers'] = numberOfPassengersId.toString();
     }
     data['isWoman'] = isWoman.toString();
     return data;
@@ -36,5 +39,17 @@ class PersonsModel extends TransportationBaseModel {
 
   PersonsModel copyWith(PersonsModel personsModel) {
     return PersonsModel.fromJson(personsModel.toPersonsJson());
+  }
+}
+
+class NumberOfPassengers {
+  int? id;
+  int? numberOfPassengers;
+
+  NumberOfPassengers();
+
+  NumberOfPassengers.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    numberOfPassengers = json['numberOfPassengers'];
   }
 }

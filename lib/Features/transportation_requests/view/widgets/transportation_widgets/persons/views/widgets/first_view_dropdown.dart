@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/views/persons_viewmodel.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/views/widgets/numOfPassengers_dropdown.dart';
@@ -23,8 +22,7 @@ class _PersonDropdownViewState extends State<PersonDropdownView> {
     if (widget.personsViewModel.personsModel.vehicleType != null) {
       widget.personsViewModel.selectedVehicleType =
           widget.personsViewModel.vehicleTypes.singleWhere((element) =>
-              element.vehicleType ==
-              widget.personsViewModel.personsModel.vehicleType);
+              element == widget.personsViewModel.personsModel.vehicleType);
     }
     super.initState();
   }
@@ -39,9 +37,7 @@ class _PersonDropdownViewState extends State<PersonDropdownView> {
           setVehicleType: (vehicleType) {
             setState(() {
               widget.personsViewModel.selectedVehicleType = vehicleType;
-              widget.personsViewModel.personsModel.vehicleType =
-                  vehicleType.vehicleType;
-              widget.personsViewModel.personsModel.vehicleId = vehicleType.id;
+              widget.personsViewModel.personsModel.vehicleType = vehicleType;
             });
           },
         ),

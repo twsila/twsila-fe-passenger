@@ -39,20 +39,19 @@ class _PersonsNumberOfPassengersDropdownState
             (index) => GestureDetector(
               onTap: () {
                 setState(() {
-                  widget.personsViewModel.personsModel.numberOfPassengers =
-                      widget.vehicleType.noOfPassengers[index].noOfPassengers;
+                  widget.personsViewModel.personsModel.numberOfPassengersId =
+                      widget.vehicleType.noOfPassengers[index].id;
                   widget.personsViewModel.validateFirstScreen();
                 });
               },
               child: Container(
                 margin: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color:
-                      widget.vehicleType.noOfPassengers[index].noOfPassengers ==
-                              widget.personsViewModel.personsModel
-                                  .numberOfPassengers
-                          ? ColorManager.secondaryLightColor
-                          : Colors.transparent,
+                  color: widget.vehicleType.noOfPassengers[index].id ==
+                          widget.personsViewModel.personsModel
+                              .numberOfPassengersId
+                      ? ColorManager.secondaryLightColor
+                      : Colors.transparent,
                   border: Border.all(
                     color: ColorManager.lightPrimary,
                   ),

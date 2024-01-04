@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_for_you/Features/registeration/bloc/registeration_bloc.dart';
+import 'package:taxi_for_you/Features/registeration/bloc/registeration_state.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
@@ -38,17 +41,20 @@ class _CustomProfileWidgetState extends State<CustomProfileWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ValueListenableBuilder(
-                  valueListenable: notifier,
-                  builder: (context, value, _) {
-                    return Text(
-                      (widget.userModel.firstName ?? '') +
-                          ' ' +
-                          (widget.userModel.lastName ?? ''),
-                      style: getBoldStyle(
-                          color: ColorManager.primaryTextColor, fontSize: 14),
-                    );
-                  }),
+              BlocConsumer<RegistrationBloc, RegistrationStates>(
+                  listener: ((context, state) {
+                if (state is EditUserSuccessfully) {
+                  setState(() {});
+                }
+              }), builder: ((context, state) {
+                return Text(
+                  (widget.userModel.firstName ?? '') +
+                      ' ' +
+                      (widget.userModel.lastName ?? ''),
+                  style: getBoldStyle(
+                      color: ColorManager.primaryTextColor, fontSize: 14),
+                );
+              })),
               Text(
                 (widget.userModel.mobileNumber ?? ''),
                 style: getBoldStyle(

@@ -9,6 +9,8 @@ import 'package:taxi_for_you/Features/home_features/request_service/views/widget
 import 'package:taxi_for_you/Features/home_features/request_service/views/widget/old_trip_widget.dart';
 import 'package:taxi_for_you/Features/home_features/request_service/views/widget/people_transportation/people_transportation_widget.dart';
 import 'package:taxi_for_you/Features/home_features/request_service/views/widget/service_transportation_widget.dart';
+import 'package:taxi_for_you/Features/registeration/bloc/registeration_bloc.dart';
+import 'package:taxi_for_you/Features/registeration/bloc/registeration_state.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 import '../../../../core/utils/resources/strings_manager.dart';
@@ -72,16 +74,28 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
                             fontSize: 16,
                           ),
                         ),
-                        Text(
-                          _viewModel.userModel.firstName! +
-                              ' ' +
-                              _viewModel.userModel.lastName!,
-                          style: getMediumStyle(
-                            color:
-                                ColorManager.primaryTextColor.withOpacity(0.5),
-                            fontSize: 16,
-                          ),
-                        ),
+                        BlocConsumer<RegistrationBloc, RegistrationStates>(
+                            listener: ((context, state) {
+                          if (state is EditUserSuccessfully) {
+                            setState(() {
+                              _viewModel.userModel.firstName =
+                                  state.userModel.firstName;
+                              _viewModel.userModel.lastName =
+                                  state.userModel.lastName;
+                            });
+                          }
+                        }), builder: ((context, state) {
+                          return Text(
+                            (_viewModel.userModel.firstName ?? '') +
+                                ' ' +
+                                (_viewModel.userModel.lastName ?? ''),
+                            style: getMediumStyle(
+                              color: ColorManager.primaryTextColor
+                                  .withOpacity(0.5),
+                              fontSize: 16,
+                            ),
+                          );
+                        })),
                       ],
                     ),
                     _viewModel.draftTrip != null

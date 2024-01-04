@@ -67,6 +67,13 @@ class _MoreDetailsWidgetState extends State<MoreDetailsWidget> {
           PersonDetailsWidget(
             personsModel: widget.transportationBaseModel as PersonsModel,
           ),
+        const SizedBox(height: 8),
+        widget.transportationBaseModel.notes != null
+            ? ItemWidget(
+                title: AppStrings.privateNotes.tr(),
+                text: widget.transportationBaseModel.notes!,
+              )
+            : const SizedBox(),
         Divider(color: ColorManager.grey1),
       ],
     );

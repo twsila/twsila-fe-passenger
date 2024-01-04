@@ -27,7 +27,7 @@ class PersonsViewModel {
 
   validateFirstScreen() {
     if (personsModel.vehicleType != null &&
-        personsModel.numberOfPassengers != null) {
+        personsModel.numberOfPassengersId != null) {
       firstScreenValid.value = true;
     } else {
       firstScreenValid.value = false;

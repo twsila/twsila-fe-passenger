@@ -19,7 +19,7 @@ class CisternsModel extends TransportationBaseModel {
     Map<String, dynamic> data = <String, dynamic>{};
     data = toJSON();
     if (cisternsType != null) {
-      data['tankType'] = cisternsType!.id;
+      data['tankType'] = cisternsType!.id.toString();
     }
     return data;
   }

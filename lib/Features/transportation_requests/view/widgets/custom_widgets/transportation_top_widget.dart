@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/transport_request_viewmodel.dart';
 import 'package:taxi_for_you/core/utils/helpers/trip_helper.dart';
 
-import '../../../../../app/constants.dart';
-import '../../../../../core/utils/resources/assets_manager.dart';
 import '../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../core/utils/resources/styles_manager.dart';

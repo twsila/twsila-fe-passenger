@@ -101,7 +101,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ShowDialogHelper.showErrorMessage(
                 state.baseResponse.errorMessage!, context);
           } else if (state is EditUserSuccessfully) {
-            _viewModel.notifier.value = !_viewModel.notifier.value;
             ShowDialogHelper.showSuccessMessage(
                 AppStrings.editSuccess.tr(), context);
             Navigator.pop(context);
