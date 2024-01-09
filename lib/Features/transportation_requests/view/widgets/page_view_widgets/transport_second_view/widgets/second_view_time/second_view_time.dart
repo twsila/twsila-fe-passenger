@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_date_picker.dart';
-import 'package:taxi_for_you/app/app_prefs.dart';
-import 'package:taxi_for_you/app/di.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
@@ -11,7 +9,7 @@ import '../../../../../../../../core/utils/resources/styles_manager.dart';
 
 class SecondViewTime extends StatefulWidget {
   final String? date;
-  final Function(String? date, String? formattedDate) onSelectDate;
+  final Function(String? date) onSelectDate;
 
   const SecondViewTime({
     Key? key,
@@ -24,7 +22,6 @@ class SecondViewTime extends StatefulWidget {
 
 class _SecondViewTimeState extends State<SecondViewTime> {
   bool isNow = true;
-  final _appPrefs = instance<AppPreferences>();
   final dateNow = DateTime.now();
   final timeNow = TimeOfDay.now();
   late DateTime dateTime;
@@ -54,7 +51,7 @@ class _SecondViewTimeState extends State<SecondViewTime> {
               child: GestureDetector(
                 onTap: () => setState(() {
                   isNow = true;
-                  widget.onSelectDate(null, null);
+                  widget.onSelectDate(null);
                 }),
                 child: Container(
                   padding:
@@ -89,7 +86,7 @@ class _SecondViewTimeState extends State<SecondViewTime> {
               child: GestureDetector(
                 onTap: () => setState(() {
                   isNow = false;
-                  widget.onSelectDate(null, null);
+                  widget.onSelectDate(null);
                 }),
                 child: Container(
                   padding:
@@ -126,10 +123,8 @@ class _SecondViewTimeState extends State<SecondViewTime> {
             children: [
               const SizedBox(height: 16),
               CustomDatePickerWidget(
-                onSelectDate: (date, dateTime) {
-                  String? stringDate =
-                      DateFormat('dd/MM/yyyy hh:mm:ss a').format(dateTime);
-                  widget.onSelectDate(date, stringDate);
+                onSelectDate: (date) {
+                  widget.onSelectDate(date);
                 },
                 firstDate: DateTime.now(),
                 initialDate: widget.date,

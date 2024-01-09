@@ -256,6 +256,7 @@
   "get_help": "Get help",
   "when_service": "When you need this service",
   "fastest_time": "As soon as possible",
+  "fast_time": "as soon as possible",
   "scheduled_time": "Scheduled",
   "specified_time": "At a specified time",
   "determinate_location": "Determine the starting and delivery location",

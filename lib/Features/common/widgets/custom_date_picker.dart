@@ -3,19 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
+import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/langauge_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 
 class CustomDatePickerWidget extends StatefulWidget {
-  final Function(String date, DateTime dateTime) onSelectDate;
+  final Function(String date) onSelectDate;
   final bool isDateOnly;
   final String? title;
   final String? hintText;
   final String? initialDate;
   final Color? mainColor;
   final DateTime? firstDate;
+  final DateTime? lastDate;
   const CustomDatePickerWidget({
     Key? key,
     required this.onSelectDate,
@@ -24,6 +26,7 @@ class CustomDatePickerWidget extends StatefulWidget {
     this.isDateOnly = false,
     this.mainColor,
     this.firstDate,
+    this.lastDate,
     this.initialDate,
   }) : super(key: key);
 
@@ -35,7 +38,7 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
   final _appPrefs = instance<AppPreferences>();
   final ValueNotifier<DateTime?> dateSub = ValueNotifier(null);
 
-  Widget buildDateTimePicker(String data) {
+  Widget buildDateTimePicker(String? data) {
     return Row(
       children: [
         if (widget.title != null)
@@ -65,10 +68,11 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
             ),
             title: Text(
               widget.initialDate != null
-                  ? widget.initialDate!
-                  : data != ''
-                      ? data
-                      : widget.hintText ?? AppStrings.selectDate.tr(),
+                  ? widget.initialDate!.getTimeStampFromDate(
+                      pattern: widget.isDateOnly
+                          ? 'dd MMM yyyy'
+                          : 'dd MMM yyyy/ hh:mm a')
+                  : widget.hintText ?? AppStrings.selectDate.tr(),
               textAlign: TextAlign.start,
               style: Theme.of(context)
                   .textTheme
@@ -81,15 +85,13 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
     );
   }
 
-  String convertDate(DateTime dateTime) {
-    String dateFormatterString =
-        widget.isDateOnly ? 'dd MMM yyyy' : 'dd MMM yyyy/ hh:mm a';
+  convertDate(DateTime? dateTime) {
+    if (dateTime == null) return;
+    DateTime dateFormatted =
+        widget.isDateOnly ? DateUtils.dateOnly(dateTime) : dateTime;
+    String timestamp = dateFormatted.millisecondsSinceEpoch.toString();
 
-    String dateFormatted =
-        DateFormat(dateFormatterString, _appPrefs.getAppLanguage())
-            .format(dateTime);
-    widget.onSelectDate(dateFormatted, dateTime);
-    return DateFormat(dateFormatterString).format(dateTime);
+    widget.onSelectDate(timestamp);
   }
 
   @override
@@ -109,15 +111,11 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                             : ARABIC_LOCAL,
                         context: context,
                         initialDate: widget.initialDate != null
-                            ? DateFormat(
-                                    widget.isDateOnly
-                                        ? 'dd MMM yyyy'
-                                        : 'dd MMM yyyy/ hh:mm a',
-                                    _appPrefs.getAppLanguage())
-                                .parse(widget.initialDate!)
-                            : DateTime.now(),
+                            ? DateTime.fromMillisecondsSinceEpoch(
+                                int.parse(widget.initialDate!))
+                            : widget.lastDate ?? DateTime.now(),
                         firstDate: widget.firstDate ?? DateTime(1940),
-                        lastDate: DateTime(2050),
+                        lastDate: widget.lastDate ?? DateTime(2050),
                         currentDate: DateTime.now(),
                         initialEntryMode: DatePickerEntryMode.calendar,
                         initialDatePickerMode: DatePickerMode.day,
@@ -153,12 +151,10 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                     final timeValue = await showTimePicker(
                         context: context,
                         initialTime: widget.initialDate != null
-                            ? TimeOfDay.fromDateTime(DateFormat(
-                                    widget.isDateOnly
-                                        ? 'dd MMM yyyy'
-                                        : 'dd MMM yyyy/ hh:mm a',
-                                    _appPrefs.getAppLanguage())
-                                .parse(widget.initialDate!))
+                            ? widget.initialDate!.getTimeStampFromTimeOfDay(
+                                pattern: widget.isDateOnly
+                                    ? 'dd MMM yyyy'
+                                    : 'dd MMM yyyy/ hh:mm a')
                             : TimeOfDay.now(),
                         builder: (context, child) {
                           return Theme(
@@ -207,8 +203,7 @@ class _CustomDatePickerWidgetState extends State<CustomDatePickerWidget> {
                     );
                     dateSub.value = dateTime;
                   },
-                  child: buildDateTimePicker(
-                      dateVal != null ? convertDate(dateVal) : ''));
+                  child: buildDateTimePicker(convertDate(dateVal)));
             }));
   }
 }

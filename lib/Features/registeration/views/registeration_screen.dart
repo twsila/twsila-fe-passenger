@@ -34,7 +34,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool _isInit = true;
   bool displayLoadingIndicator = false;
   final RegisterationViewModel _viewModel = instance<RegisterationViewModel>();
-  final AppPreferences _appPrefs = instance<AppPreferences>();
   final _formKey = GlobalKey<FormState>();
 
   _bind() {
@@ -220,18 +219,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               child: CustomDatePickerWidget(
                                 mainColor: ColorManager.lightGrey,
                                 hintText: AppStrings.birthdate.tr(),
-                                initialDate: _viewModel.user.dateOfBirth != null
-                                    ? DateFormat('dd MMM yyyy',
-                                            _appPrefs.getAppLanguage())
-                                        .format(DateFormat("dd/MM/yyyy").parse(
-                                            _viewModel.user.dateOfBirth!))
-                                    : null,
+                                initialDate: _viewModel.user.dateOfBirth,
+                                lastDate: DateTime(2005),
                                 isDateOnly: true,
-                                onSelectDate: (String date, DateTime dateTime) {
-                                  String stringDate =
-                                      DateFormat('dd/MM/yyyy').format(dateTime);
-
-                                  _viewModel.user.dateOfBirth = stringDate;
+                                onSelectDate: (String date) {
+                                  _viewModel.user.dateOfBirth = date;
                                   Future.delayed(const Duration(seconds: 1),
                                       () => checkValidations());
                                 },

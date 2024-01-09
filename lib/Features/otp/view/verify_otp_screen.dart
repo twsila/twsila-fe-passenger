@@ -43,8 +43,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   @override
   void didChangeDependencies() async {
     if (_isInit) {
-      _viewModel.mobileNumber =
-          ModalRoute.of(context)!.settings.arguments as String;
+      _viewModel.start(ModalRoute.of(context)!.settings.arguments as Map);
       appSignature = await SmsAutoFill().getAppSignature;
       BlocProvider.of<OtpBloc>(context).add(GenerateOtpEvent(
         mobileNumber: _viewModel.mobileNumber,
@@ -154,7 +153,10 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                         Navigator.pushNamed(
                           context,
                           Routes.registerRoute,
-                          arguments: {"mobile": _viewModel.mobileNumber},
+                          arguments: {
+                            "mobile": _viewModel.mobileNumber,
+                            "countryCode": _viewModel.countryCode,
+                          },
                         );
                       }
                     },

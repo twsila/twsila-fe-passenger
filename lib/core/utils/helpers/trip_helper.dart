@@ -35,9 +35,9 @@ class TripHelper {
     else if (transportationBaseModel.tripStatus ==
         TripStatusConstants.waitForTakeOff) {
       return AppStrings.tripStatusWAITTAKEOFF.tr() +
-          (transportationBaseModel.date ??
-                  transportationBaseModel.creationDate!)
-              .formatStringToDateString();
+          (transportationBaseModel.launchDate != null
+              ? transportationBaseModel.launchDate!.getTimeStampFromDate()
+              : AppStrings.fastTime.tr());
     }
     //TAKE_OFF
     else if (transportationBaseModel.tripStatus ==
@@ -48,9 +48,9 @@ class TripHelper {
     else if (transportationBaseModel.tripStatus ==
         TripStatusConstants.executed) {
       return AppStrings.tripStatusEXECUTED.tr() +
-          (transportationBaseModel.date ??
-                  transportationBaseModel.creationDate!)
-              .formatStringToDateString();
+          (transportationBaseModel.launchDate != null
+              ? transportationBaseModel.launchDate!.getTimeStampFromDate()
+              : AppStrings.fastTime.tr());
     }
     //CANCELLED BY PASSENGER
     else if (transportationBaseModel.tripStatus ==

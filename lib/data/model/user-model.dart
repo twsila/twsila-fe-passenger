@@ -61,7 +61,11 @@ class UserModel {
     data['mobile'] = mobileNumber;
     data['dateOfBirth'] = dateOfBirth;
     data['gender'] = gender;
-    data['countryCode'] = countryCode;
+    data['countryCode'] = countryCode == '+02'
+        ? 'EG'
+        : countryCode == '+966'
+            ? 'SA'
+            : countryCode;
     if (userDevice != null) data['userDevice'] = userDevice!.toJson();
     return data;
   }

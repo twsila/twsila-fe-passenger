@@ -1,16 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 
-extension DateFormatString on String {
-  String formatStringToDateString() {
+extension TimeStampFromDate on String {
+  String getTimeStampFromDate({pattern = 'dd MMM yyyy/ hh:mm a'}) {
     final AppPreferences _appPrefs = instance<AppPreferences>();
-    try {
-      return DateFormat('dd MMM yyyy/ hh:mm a', _appPrefs.getAppLanguage())
-          .format(DateFormat('dd/MM/yyyy hh:mm:ss a').parse(this));
-    } catch (e) {
-      return DateFormat('dd MMM yyyy/ hh:mm a', _appPrefs.getAppLanguage())
-          .format(DateFormat('dd/MM/yyyy hh:mm:ss').parse(this));
+    int? timestamp = int.tryParse(this);
+
+    if (timestamp == null) {
+      return this;
     }
+    return DateFormat(pattern, _appPrefs.getAppLanguage())
+        .format(DateTime.fromMillisecondsSinceEpoch(timestamp));
+  }
+
+  TimeOfDay getTimeStampFromTimeOfDay({pattern = 'dd MMM yyyy/ hh:mm a'}) {
+    final AppPreferences _appPrefs = instance<AppPreferences>();
+    return TimeOfDay.fromDateTime(
+        DateFormat(pattern, _appPrefs.getAppLanguage()).parse(this));
   }
 }

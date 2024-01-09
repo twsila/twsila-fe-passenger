@@ -203,6 +203,7 @@ class AppStrings {
   static const needHelp = 'need_help';
   static const whenService = "when_service";
   static const fastestTime = "fastest_time";
+  static const fastTime = "fast_time";
   static const scheduledTime = "scheduled_time";
   static const specifiedTime = "specified_time";
   static const determinateLocation = "determinate_location";

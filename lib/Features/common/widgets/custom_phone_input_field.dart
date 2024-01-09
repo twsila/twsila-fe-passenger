@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'dart:ui' as ui;
 import 'package:taxi_for_you/Features/common/widgets/custom_bottom_sheet.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_flag_widget.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_text_input_field.dart';
+import 'package:taxi_for_you/core/utils/helpers/language_helper.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/data/model/country.dart';
 
@@ -15,7 +17,6 @@ import 'custom_country_codes.dart';
 
 class CustomPhoneInputField extends StatefulWidget {
   final TextEditingController fieldController;
-  final validations;
   final Color? fillColor;
   final double? borderRadius;
   final bool autoFocus;
@@ -25,12 +26,12 @@ class CustomPhoneInputField extends StatefulWidget {
   final bool showCountryCodesBottomSheet;
   final String? hintText;
   final bool boxShadow;
+  final String? defaultCountry;
 
   const CustomPhoneInputField(
       {Key? key,
       required this.fieldController,
       this.autoFocus = false,
-      this.validations,
       this.borderColor,
       this.fillColor,
       this.borderRadius,
@@ -38,6 +39,7 @@ class CustomPhoneInputField extends StatefulWidget {
       this.labelText,
       this.showCountryCodesBottomSheet = true,
       this.boxShadow = true,
+      this.defaultCountry,
       this.hintText})
       : super(key: key);
 
@@ -55,12 +57,18 @@ class _CustomPhoneInputFieldState extends State<CustomPhoneInputField> {
   void initState() {
     countries = appPreferences.getCountries();
     autoFocus = widget.autoFocus;
+    if (widget.defaultCountry != null) {
+      _selectedCountry = countries.singleWhere(
+          (element) => element.countryCode == widget.defaultCountry);
+    } else {
+      _selectedCountry = countries[0];
+    }
 
-    _selectedCountry = appPreferences.getUserCountry() != '' &&
-            appPreferences.getUserCountry() != null
-        ? countries.singleWhere(
-            (element) => element.countryCode == appPreferences.getUserCountry())
-        : countries[0];
+    // _selectedCountry = (appPreferences.getUserCountry() != '' &&
+    //             appPreferences.getUserCountry() != null
+    //         ? countries.singleWhere((element) =>
+    //             element.countryCode == appPreferences.getUserCountry())
+    //         : countries[0]);
 
     widget.onCountryChange(_selectedCountry!);
 
@@ -86,21 +94,20 @@ class _CustomPhoneInputFieldState extends State<CustomPhoneInputField> {
               borderRadius: widget.borderRadius,
               fillColor: widget.fillColor ?? Colors.white,
               keyboardType: TextInputType.number,
+              inputFormatter: [ArabicNumbersTextFormatter()],
               isKeyboardDigitsOnly: true,
-              validationMethod: widget.validations ??
-                  (value) {
-                    RegExp regex = RegExp(r'^[0-9]{6,}$');
-                    if (value == null) {
-                      return AppStrings.phoneError.tr();
-                    }
-                    if (value.isEmpty) {
-                      return AppStrings.phoneError.tr();
-                    } else if (!regex.hasMatch(value) || value.contains(' ')) {
-                      return AppStrings.phoneError.tr();
-                    } else {
-                      return null;
-                    }
-                  },
+              validationMethod: (value) {
+                if (value == null) {
+                  return AppStrings.phoneError.tr();
+                }
+                if (value.isEmpty) {
+                  return AppStrings.phoneError.tr();
+                } else if (value.length < 6) {
+                  return AppStrings.phoneError.tr();
+                } else {
+                  return null;
+                }
+              },
             ),
           ),
           const SizedBox(width: 4),

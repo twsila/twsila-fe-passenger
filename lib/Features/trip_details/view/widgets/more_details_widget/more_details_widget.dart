@@ -39,8 +39,9 @@ class _MoreDetailsWidgetState extends State<MoreDetailsWidget> {
         Divider(color: ColorManager.grey1),
         ItemWidget(
           title: AppStrings.tripDate.tr(),
-          text: widget.transportationBaseModel.date != null
-              ? widget.transportationBaseModel.date!.formatStringToDateString()
+          text: widget.transportationBaseModel.launchDate != null
+              ? widget.transportationBaseModel.launchDate!
+                  .getTimeStampFromDate()
               : AppStrings.fastestTime.tr(),
         ),
         if (widget.transportationBaseModel is FurnitureModel)

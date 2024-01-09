@@ -4,7 +4,7 @@ import '../../base/baseviewmodel.dart';
 
 class LoginViewModel extends BaseViewModel {
   TextEditingController phoneController = TextEditingController();
-  late String countryCode;
+  String? countryCode;
   late String country;
 
   // inputs

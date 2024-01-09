@@ -4,7 +4,7 @@ import 'package:taxi_for_you/Features/transportation_requests/model/transportati
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/app/di.dart';
-import 'package:taxi_for_you/core/utils/helpers/date_helper.dart';
+import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
 import 'package:taxi_for_you/core/utils/helpers/trip_helper.dart';
 
 import '../../../../../core/utils/resources/assets_manager.dart';
@@ -36,8 +36,7 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
           children: [
             Expanded(
               child: Text(AppStrings.sendIn.tr() +
-                  DateHelper.formatDateTime(
-                      dateTime: DateTime.tryParse(widget.trip.creationDate!))),
+                  widget.trip.creationDate!.getTimeStampFromDate()),
             ),
             const SizedBox(width: 16),
             Image.asset(TripHelper.getIconName(widget.trip.tripType!)),

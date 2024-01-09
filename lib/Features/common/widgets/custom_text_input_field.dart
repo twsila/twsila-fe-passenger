@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:taxi_for_you/core/utils/helpers/language_helper.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/validations_manager.dart';
@@ -238,11 +239,8 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
           }
           return null;
         },
-        inputFormatters: widget.inputFormatter ??
-            <TextInputFormatter>[
-              if (widget.isKeyboardDigitsOnly)
-                FilteringTextInputFormatter.digitsOnly
-            ],
+        inputFormatters:
+            widget.inputFormatter ?? [ArabicNumbersTextFormatter()],
         // Only numbers
         decoration: InputDecoration(
           fillColor:

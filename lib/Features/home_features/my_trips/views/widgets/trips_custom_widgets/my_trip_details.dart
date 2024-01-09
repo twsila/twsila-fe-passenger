@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
-import 'package:taxi_for_you/core/utils/helpers/date_helper.dart';
+import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
 import 'package:taxi_for_you/core/utils/helpers/trip_helper.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';
@@ -23,8 +23,7 @@ class _MyTripDetailsState extends State<MyTripDetails> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(AppStrings.sendIn.tr() +
-            DateHelper.formatDateTime(
-                dateTime: DateTime.tryParse(widget.trip.creationDate!))),
+            widget.trip.creationDate!.getTimeStampFromDate()),
         Text(
           TripHelper.getTripTitle(widget.trip.tripType!),
           style: getBoldStyle(

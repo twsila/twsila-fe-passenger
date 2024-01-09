@@ -42,7 +42,7 @@ class _MyTripsWidgetState extends State<MyTripsWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              widget.tripModel.date == null
+              widget.tripModel.launchDate == null
                   ? const FastestTimeWidget()
                   : const ScheduledTimeWidget(),
               const SizedBox(width: 8),

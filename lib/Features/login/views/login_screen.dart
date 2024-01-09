@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
+import 'package:taxi_for_you/core/utils/helpers/language_helper.dart';
 import 'dart:ui' as ui;
 
 import '../../../app/di.dart';
@@ -115,6 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fillColor: ColorManager.accentColor,
                               boxShadow: false,
                               fieldController: _viewModel.phoneController,
+                              defaultCountry: _viewModel.countryCode,
                               onCountryChange: (country) {
                                 _viewModel.countryCode = country.countryCode;
                                 _viewModel.country = country.country;
@@ -129,12 +131,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 FocusScope.of(context).unfocus();
                                 if (_formKey.currentState != null &&
                                     _formKey.currentState!.validate()) {
-                                  String mobileNumber = _viewModel.countryCode +
-                                      _viewModel.phoneController.text;
+                                  String mobileNumber =
+                                      _viewModel.countryCode! +
+                                          LanguageHelper().replaceEnglishNumber(
+                                              _viewModel.phoneController.text);
                                   Navigator.pushNamed(
                                     context,
                                     Routes.verifyOtpRoute,
-                                    arguments: mobileNumber,
+                                    arguments: {
+                                      "mobile": mobileNumber,
+                                      "countryCode": _viewModel.countryCode,
+                                    },
                                   );
                                 }
                               },

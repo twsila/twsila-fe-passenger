@@ -13,8 +13,7 @@ class TransportationBaseModel {
   TransportationLocation pickupLocation = TransportationLocation();
   TransportationLocation destinationLocation = TransportationLocation();
   String? creationDate;
-  String? date;
-  String? stringDate;
+  String? launchDate;
   String? notes;
   String? cancelledBy;
   double? paymentValue;
@@ -31,9 +30,8 @@ class TransportationBaseModel {
     tripNumber = json['tripNumber'];
     tripStatus = json['tripStatus'];
     creationDate = json['creationDate'];
-    stringDate = json['stringDate'];
     cancelledBy = json['cancelledByEnum'];
-    date = json['date'];
+    launchDate = json['launchDateTimestamp'];
     notes = json['notes'];
     paymentValue = (json['clientOffer'] != null)
         ? dynamicToDouble(json['clientOffer'])
@@ -62,8 +60,7 @@ class TransportationBaseModel {
     Map<String, dynamic> data = <String, dynamic>{};
     // if (tripId != null) data['id'] = tripId.toString();
     if (creationDate != null) data['creationDate'] = creationDate;
-    if (stringDate != null) data['stringDate'] = stringDate;
-    if (date != null) data['date'] = date;
+    if (launchDate != null) data['launchDateTimestamp'] = launchDate;
     if (notes != null) data['notes'] = notes;
     if (cancelledBy != null) data['cancelledByEnum'] = cancelledBy;
     if (paymentValue != null) data['clientOffer'] = paymentValue.toString();

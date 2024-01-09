@@ -33,6 +33,9 @@ class RegisterationViewModel extends BaseViewModel {
       user.mobileNumber = arguments["mobile"];
       user.gender = genderTypes[0].value;
     }
+    if (arguments["countryCode"] != null) {
+      user.countryCode = arguments["countryCode"];
+    }
     if (arguments["user"] != null) {
       user = arguments["user"];
       notifier = arguments["notifier"];
