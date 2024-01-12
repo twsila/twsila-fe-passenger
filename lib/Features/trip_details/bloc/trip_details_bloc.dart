@@ -14,6 +14,7 @@ class TripDetailsBloc extends Bloc<TripDetailsEvent, TripDetailsStates> {
     on<GetTripDetailsRequest>(_getTripDetails);
     on<AcceptOfferRequest>(_acceptOffer);
     on<CancelTripRequest>(_cancelTrip);
+    on<RateTrip>(_rateTrip);
   }
 
   void _getTripDetails(
@@ -81,6 +82,30 @@ class TripDetailsBloc extends Bloc<TripDetailsEvent, TripDetailsStates> {
       } else {
         var response = BaseResponse(errorMessage: e.toString());
         emit(CancelTripFailed(baseResponse: response));
+      }
+    }
+  }
+
+  void _rateTrip(RateTrip event, Emitter<TripDetailsStates> emit) async {
+    emit(RatingTripIsLoading());
+
+    try {
+      await tripDetailsRepo.rateTrip(
+        event.tripId,
+        event.driverRating,
+        event.tripRating,
+      );
+
+      emit(RatingTripSuccessfully());
+    } catch (e) {
+      if (e is PlatformException) {
+        if (e.message != null) {
+          emit(RatingTripFailed(
+              baseResponse: BaseResponse(errorMessage: e.message)));
+        }
+      } else {
+        var response = BaseResponse(errorMessage: e.toString());
+        emit(RatingTripFailed(baseResponse: response));
       }
     }
   }

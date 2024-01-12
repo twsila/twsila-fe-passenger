@@ -17,6 +17,7 @@ class TransportationBaseModel {
   String? notes;
   String? cancelledBy;
   double? paymentValue;
+  double? passengerRating;
   List<XFile>? images;
   AcceptedOffer? acceptedOffer;
   List<OfferModel>? offers;
@@ -32,6 +33,7 @@ class TransportationBaseModel {
     creationDate = json['creationDate'];
     cancelledBy = json['cancelledByEnum'];
     launchDate = json['launchDateTimestamp'];
+    passengerRating = json['passengerRating'];
     notes = json['notes'];
     paymentValue = (json['clientOffer'] != null)
         ? dynamicToDouble(json['clientOffer'])
@@ -60,7 +62,7 @@ class TransportationBaseModel {
     Map<String, dynamic> data = <String, dynamic>{};
     // if (tripId != null) data['id'] = tripId.toString();
     if (creationDate != null) data['creationDate'] = creationDate;
-    if (launchDate != null) data['launchDateTimestamp'] = launchDate;
+    if (launchDate != null) data['launchDate'] = launchDate;
     if (notes != null) data['notes'] = notes;
     if (cancelledBy != null) data['cancelledByEnum'] = cancelledBy;
     if (paymentValue != null) data['clientOffer'] = paymentValue.toString();

@@ -54,6 +54,16 @@ class _MyTripDetailsState extends State<MyTripDetails> {
               fontSize: 14,
             ),
           ),
+        if (widget.trip.launchDate != null)
+          Text(
+            AppStrings.tripDate.tr() +
+                ': ' +
+                (widget.trip.launchDate!.getTimeStampFromDate()),
+            style: getBoldStyle(
+              color: ColorManager.primaryTextColor,
+              fontSize: 14,
+            ),
+          ),
       ],
     );
   }

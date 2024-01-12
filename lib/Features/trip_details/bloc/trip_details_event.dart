@@ -28,3 +28,15 @@ class CancelTripRequest extends TripDetailsEvent {
     required this.tripId,
   });
 }
+
+class RateTrip extends TripDetailsEvent {
+  final int tripId;
+  final int driverRating;
+  final int tripRating;
+
+  RateTrip({
+    required this.tripId,
+    required this.driverRating,
+    required this.tripRating,
+  });
+}

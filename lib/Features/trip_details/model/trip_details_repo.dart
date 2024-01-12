@@ -72,6 +72,28 @@ class TripDetailsRepo {
     }
   }
 
+  Future<dynamic> rateTrip(int tripId, int driverRating, int tripRating) async {
+    UserModel? userModel = getUserData();
+    try {
+      Map<String, dynamic> body = {
+        'tripId': tripId,
+        'rating': driverRating,
+        'tripRating': tripRating,
+        'userId': userModel!.userid
+      };
+
+      RequestModel requestModel = RequestModel(
+        endPoint: EndPointsConstants.rateTrip,
+        reqBody: body,
+        requestType: NETWORK_REQUEST_TYPE.POST,
+      );
+      dynamic response = await _baseRequest.sendRequest(requestModel);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   UserModel? getUserData() {
     AppPreferences appPreferences = instance<AppPreferences>();
     UserModel? userModel = appPreferences.getUserData();

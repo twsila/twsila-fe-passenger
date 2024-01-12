@@ -60,6 +60,7 @@ class EndPointsConstants {
   static const String userTrips = "passengers/offers/select-trip";
   static const String acceptOffer = "passengers/offers/accept";
   static const String cancelTrip = "passengers/trips/cancel";
+  static const String rateTrip = "passengers/trips/rate";
   static const String sendTripRequest = 'trips/insert';
   static const String changeStatus = "passengers/trips/change-status";
 }

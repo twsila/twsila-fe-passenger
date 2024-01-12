@@ -15,8 +15,8 @@ class AcceptedOffer {
 class OfferModel {
   final int offerId;
   final double driverOffer;
-  final String acceptanceStatus;
-  final String creationDate;
+  final String? acceptanceStatus;
+  final String? creationDate;
   final DriverModel driverModel;
   final bool? woman;
 

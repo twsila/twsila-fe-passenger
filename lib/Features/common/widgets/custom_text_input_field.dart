@@ -365,7 +365,9 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
           alignLabelWithHint: true,
         ),
         onChanged: (val) {
-          if (widget.onChanged != null) widget.onChanged!(val);
+          if (widget.onChanged != null) {
+            widget.onChanged!(LanguageHelper().replaceEnglishNumber(val));
+          }
         },
         onSaved: widget.onSaved,
       ),

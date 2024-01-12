@@ -14,6 +14,8 @@ class TripDetailsIsLoading extends TripDetailsStates {}
 
 class AcceptOfferIsLoading extends TripDetailsStates {}
 
+class RatingTripIsLoading extends TripDetailsStates {}
+
 class TripDetailsSuccessfully extends TripDetailsStates {
   final TripDetailsModel tripDetailsModel;
 
@@ -32,6 +34,8 @@ class TripDetailsFailed extends TripDetailsStates {
 
 class AcceptOfferSuccessfully extends TripDetailsStates {}
 
+class RatingTripSuccessfully extends TripDetailsStates {}
+
 class AcceptOfferFailed extends TripDetailsStates {
   final BaseResponse baseResponse;
 
@@ -46,6 +50,14 @@ class CancelTripFailed extends TripDetailsStates {
   final BaseResponse baseResponse;
 
   CancelTripFailed({required this.baseResponse});
+  @override
+  List<Object> get props => [baseResponse];
+}
+
+class RatingTripFailed extends TripDetailsStates {
+  final BaseResponse baseResponse;
+
+  RatingTripFailed({required this.baseResponse});
   @override
   List<Object> get props => [baseResponse];
 }

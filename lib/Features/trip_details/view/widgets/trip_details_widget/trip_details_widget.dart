@@ -88,16 +88,18 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
                         children: [
                           Image.asset(ImageAssets.tripMarked),
                           const SizedBox(width: 16),
-                          Text(
-                            AppStrings.tripRefunded.tr() +
-                                widget.trip.paymentValue.toString() +
-                                ' ' +
-                                (appPreferences.getCurrentCurrnecy()) +
-                                ' ' +
-                                AppStrings.toYourWallet.tr(),
-                            style: getMediumStyle(
-                              color: ColorManager.green,
-                              fontSize: 18,
+                          Expanded(
+                            child: Text(
+                              AppStrings.tripRefunded.tr() +
+                                  widget.trip.paymentValue.toString() +
+                                  ' ' +
+                                  (appPreferences.getCurrentCurrnecy()) +
+                                  ' ' +
+                                  AppStrings.toYourWallet.tr(),
+                              style: getMediumStyle(
+                                color: ColorManager.green,
+                                fontSize: 18,
+                              ),
                             ),
                           )
                         ],
@@ -106,17 +108,20 @@ class _TripDetailsWidgetState extends State<TripDetailsWidget> {
                     children: [
                       Image.asset(ImageAssets.tripMarked),
                       const SizedBox(width: 16),
-                      Text(
-                        AppStrings.tripPaidConfirmed.tr() +
-                            (widget.trip.acceptedOffer!.offer.driverOffer != 0.0
-                                ? widget.trip.acceptedOffer!.offer.driverOffer
-                                    .toString()
-                                : widget.trip.paymentValue.toString()) +
-                            ' ' +
-                            (appPreferences.getCurrentCurrnecy()),
-                        style: getMediumStyle(
-                          color: ColorManager.green,
-                          fontSize: 18,
+                      Expanded(
+                        child: Text(
+                          AppStrings.tripPaidConfirmed.tr() +
+                              (widget.trip.acceptedOffer!.offer.driverOffer !=
+                                      0.0
+                                  ? widget.trip.acceptedOffer!.offer.driverOffer
+                                      .toString()
+                                  : widget.trip.paymentValue.toString()) +
+                              ' ' +
+                              (appPreferences.getCurrentCurrnecy()),
+                          style: getMediumStyle(
+                            color: ColorManager.green,
+                            fontSize: 18,
+                          ),
                         ),
                       )
                     ],
