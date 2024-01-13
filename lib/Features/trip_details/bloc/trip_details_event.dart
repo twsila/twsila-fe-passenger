@@ -31,8 +31,8 @@ class CancelTripRequest extends TripDetailsEvent {
 
 class RateTrip extends TripDetailsEvent {
   final int tripId;
-  final int driverRating;
-  final int tripRating;
+  final double driverRating;
+  final double tripRating;
 
   RateTrip({
     required this.tripId,

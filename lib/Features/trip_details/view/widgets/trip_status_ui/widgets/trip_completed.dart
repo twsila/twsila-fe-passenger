@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/more_details_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/need_help_button.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/trip_status_ui/widgets/trip_rating.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
@@ -42,11 +43,19 @@ class TripCompleted extends StatelessWidget {
             children: [
               TripDetailsWidget(trip: transportationBaseModel),
               const SizedBox(height: 16),
-              const Divider(color: Colors.grey),
               transportationBaseModel.passengerRating == null ||
                       transportationBaseModel.passengerRating == -1
-                  ? TripRating(tripDetails: transportationBaseModel)
-                  : const SizedBox(),
+                  ? Column(
+                      children: [
+                        const Divider(color: Colors.grey),
+                        TripRating(
+                          tripDetails: transportationBaseModel,
+                        ),
+                      ],
+                    )
+                  : MoreDetailsWidget(
+                      transportationBaseModel: transportationBaseModel,
+                    ),
               NeedHelpButton(tripId: transportationBaseModel.tripId!)
             ],
           ),

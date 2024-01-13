@@ -111,7 +111,6 @@ class AppStrings {
   static const no = "no";
   static const confirmation = "confirmation";
   static const confirm = "confirm";
-  static const sendRate = "send_rate";
   static const tripPaidConfirmed = "trip_paid_confirmed";
   static const tripRefunded = "trip_refunded";
   static const refundAmount = "refund_amount";
@@ -151,6 +150,8 @@ class AppStrings {
   static const search = "search";
   static const saveTrip = "save_trip";
   static const settings = "settings";
+  static const sendRate = "send_rate";
+  static const successRate = "success_rate";
   static const tripRate = 'trip_rate';
   static const driverRate = 'driver_rate';
   static const storeDetails = "store_details";

@@ -26,9 +26,8 @@ class TripRating extends StatefulWidget {
 }
 
 class _TripRatingState extends State<TripRating> {
-  int tripRating = 0;
-
-  int driverRating = 0;
+  double tripRating = 0;
+  double driverRating = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +36,8 @@ class _TripRatingState extends State<TripRating> {
         if (state is RatingTripSuccessfully) {
           BlocProvider.of<TripDetailsBloc>(context)
               .add(GetTripDetailsRequest(tripId: widget.tripDetails.tripId!));
+          ShowDialogHelper.showSuccessMessage(
+              AppStrings.successRate.tr(), context);
         } else if (state is RatingTripFailed) {
           ShowDialogHelper.showErrorMessage(
             state.baseResponse.errorMessage ??
@@ -54,7 +55,7 @@ class _TripRatingState extends State<TripRating> {
                   color: ColorManager.primaryTextColor, fontSize: 16),
             ),
             CustomRatingWidget(
-              intialRating: tripRating,
+              intialRating: widget.tripDetails.passengerRating,
               onSelectRating: (rate) {
                 setState(() {
                   tripRating = rate;
@@ -68,7 +69,7 @@ class _TripRatingState extends State<TripRating> {
                   color: ColorManager.primaryTextColor, fontSize: 16),
             ),
             CustomRatingWidget(
-              intialRating: driverRating,
+              intialRating: widget.tripDetails.driverRating,
               onSelectRating: (rate) {
                 setState(() {
                   driverRating = rate;

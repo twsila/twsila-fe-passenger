@@ -72,12 +72,13 @@ class TripDetailsRepo {
     }
   }
 
-  Future<dynamic> rateTrip(int tripId, int driverRating, int tripRating) async {
+  Future<dynamic> rateTrip(
+      int tripId, double driverRating, double tripRating) async {
     UserModel? userModel = getUserData();
     try {
       Map<String, dynamic> body = {
         'tripId': tripId,
-        'rating': driverRating,
+        'driverRating': driverRating,
         'tripRating': tripRating,
         'userId': userModel!.userid
       };

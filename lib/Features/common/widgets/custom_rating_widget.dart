@@ -7,8 +7,8 @@ import 'dart:ui' as ui;
 
 class CustomRatingWidget extends StatelessWidget {
   final AppPreferences appPreferences = instance();
-  final Function(int) onSelectRating;
-  final int? intialRating;
+  final Function(double) onSelectRating;
+  final double? intialRating;
   final bool ignoreGesture;
   CustomRatingWidget(
       {Key? key,
@@ -35,7 +35,7 @@ class CustomRatingWidget extends StatelessWidget {
         color: Colors.amber,
       ),
       onRatingUpdate: (rating) {
-        onSelectRating(rating.toInt());
+        onSelectRating(rating);
       },
     );
   }

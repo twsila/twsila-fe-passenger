@@ -18,6 +18,7 @@ class TransportationBaseModel {
   String? cancelledBy;
   double? paymentValue;
   double? passengerRating;
+  double? driverRating;
   List<XFile>? images;
   AcceptedOffer? acceptedOffer;
   List<OfferModel>? offers;
@@ -34,6 +35,7 @@ class TransportationBaseModel {
     cancelledBy = json['cancelledByEnum'];
     launchDate = json['launchDateTimestamp'];
     passengerRating = json['passengerRating'];
+    passengerRating = json['driverRating'];
     notes = json['notes'];
     paymentValue = (json['clientOffer'] != null)
         ? dynamicToDouble(json['clientOffer'])
