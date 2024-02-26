@@ -56,7 +56,7 @@ class DriverModel {
         mobile: json['mobile'],
         email: json['email'],
         gender: json['gender'],
-        dateOfBirth: json['dateOfBirth'],
+        dateOfBirth: json['dateOfBirth']??"" ,
         driverServiceType: json['driverServiceType'],
         plateNumber: json['plateNumber'],
         rating: json['rating'],
