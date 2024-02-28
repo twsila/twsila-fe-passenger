@@ -51,6 +51,7 @@ class _SecondViewLocationState extends State<SecondViewLocation> {
         DestinationPointWidget(
           onSelectDestinPlace: widget.onSelectDestinPlace,
           destinLocationString: widget.destinLocationString,
+          hasSourceLocation: widget.hasSourceLocation,
         ),
       ],
     );

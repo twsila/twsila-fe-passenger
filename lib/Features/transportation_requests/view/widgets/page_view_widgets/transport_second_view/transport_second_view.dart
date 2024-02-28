@@ -2,9 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_second_view/widgets/second_view_location/second_view_location.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/page_view_widgets/transport_second_view/widgets/second_view_time/second_view_time.dart';
-import 'package:taxi_for_you/app/app_prefs.dart';
-import 'package:taxi_for_you/app/di.dart';
-import 'package:taxi_for_you/core/utils/ext/date_ext.dart';
 import 'package:taxi_for_you/core/utils/location/user_current_location.dart';
 
 import '../../../../../../core/utils/resources/color_manager.dart';

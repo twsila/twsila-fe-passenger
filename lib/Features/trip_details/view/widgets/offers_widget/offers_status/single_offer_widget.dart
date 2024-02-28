@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_bottom_sheet.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_circular_indicator.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_text_outlined_button.dart';
@@ -179,8 +180,24 @@ class _SingleOfferWidgetState extends State<SingleOfferWidget> {
                     ],
                   ),
                 )
-              : BlocBuilder<TripDetailsBloc, TripDetailsStates>(
-                  builder: (context, state) {
+              : BlocConsumer<TripDetailsBloc, TripDetailsStates>(
+                  listener: (context, state) {
+                  if (state is AcceptOfferSuccessfully) {
+                    if (widget.tripDetails.acceptedOffer != null &&
+                        widget.tripDetails.acceptedOffer!.offer.offerId ==
+                            widget.offer.offerId) {
+                      CustomBottomSheet.displayModalBottomSheetList(
+                        context: context,
+                        showCloseButton: false,
+                        initialChildSize: 0.9,
+                        customWidget: PaymentScreen(
+                          tripDetails: widget.tripDetails,
+                          offer: widget.offer,
+                        ),
+                      );
+                    }
+                  }
+                }, builder: (context, state) {
                   if (state is AcceptOfferIsLoading) {
                     return const CustomCircularProgressIndicator();
                   }
@@ -189,10 +206,16 @@ class _SingleOfferWidgetState extends State<SingleOfferWidget> {
                     child: CustomTextButton(
                       text: AppStrings.chooseOffer.tr(),
                       imageData: ImageAssets.payment,
-                      onPressed: () {
-                        BlocProvider.of<TripDetailsBloc>(context).add(
-                            AcceptOfferRequest(offerId: widget.offer.offerId));
-                      },
+                      onPressed: widget.tripDetails.acceptedOffer == null
+                          ? () {
+                              BlocProvider.of<TripDetailsBloc>(context).add(
+                                  AcceptOfferRequest(
+                                      offerId: widget.offer.offerId));
+                            }
+                          : () {
+                              ShowDialogHelper.showErrorMessage(
+                                  AppStrings.existOffer.tr(), context);
+                            },
                       showIcon: false,
                     ),
                   );

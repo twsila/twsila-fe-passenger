@@ -9,6 +9,7 @@ class AppStrings {
   static const appTitle = 'app_title';
   static const sendIn = "send_in";
   static const codesent = "code_sent";
+  static const existOffer = "exist_offer";
   static const past = 'past';
   static const noPast = 'no_past';
   static const upcoming = 'upcoming';

@@ -5,10 +5,14 @@ class Constants {
       "twsila-dev-service-f33wiujt7a-lm.a.run.app";
   static const int apiTimeOut = 30;
   static const int otpCountTime = 60;
+  // static const String GOOGLE_API_KEY_ANDROID =
+  //     "AIzaSyAemSFn6fVufROQDewj0BjzuOKVw_Bxi8M";
+  // static const String GOOGLE_API_KEY_IOS =
+  //     "AIzaSyDB2c1bJWwqm-XSTIopQZovNnRPfXnyd8s";
   static const String GOOGLE_API_KEY_ANDROID =
-      "AIzaSyAemSFn6fVufROQDewj0BjzuOKVw_Bxi8M";
+      "AIzaSyDudVHh73YAVrXD1CgiJPtIbFbquCmavlA";
   static const String GOOGLE_API_KEY_IOS =
-      "AIzaSyDB2c1bJWwqm-XSTIopQZovNnRPfXnyd8s";
+      "AIzaSyD8KjkW8eLaDD3qeZIiPPDxqfdK8olftWs";
   static const String constAuth =
       "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMTAwMTA4MTMyNyIsImlhdCI6MTY4MzI4OTc5MywiZXhwIjoxNjgzMzMyOTkzfQ.pI_WhlesCN77xhJjyE5t6UNNNNL4wFIOk6xkpA-DNnNFZ4cgS_MvbCoizZX4Xwo9FWHm2v2dIT1t4CqrKykV2w";
 

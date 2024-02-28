@@ -5,7 +5,7 @@ class DriverModel {
   final String mobile;
   final String email;
   final String gender;
-  final String dateOfBirth;
+  final String? dateOfBirth;
   final String? driverServiceType;
   final String plateNumber;
   final double rating;

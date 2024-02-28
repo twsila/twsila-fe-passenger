@@ -12,11 +12,13 @@ class DestinationPointWidget extends StatefulWidget {
   final Function(String lat, String long, String locationName)
       onSelectDestinPlace;
   final String? destinLocationString;
+  final bool hasSourceLocation;
 
   const DestinationPointWidget({
     Key? key,
     required this.onSelectDestinPlace,
     this.destinLocationString,
+    required this.hasSourceLocation,
   }) : super(key: key);
   @override
   _DestinationPointWidgetState createState() => _DestinationPointWidgetState();
@@ -34,6 +36,7 @@ class _DestinationPointWidgetState extends State<DestinationPointWidget> {
           customWidget: CustomSearchBottomsheet(
             title: AppStrings.selectDeliveryPoint.tr(),
             onSelectPlace: widget.onSelectDestinPlace,
+            showCurrentLocation: !widget.hasSourceLocation,
           ),
         );
       },
