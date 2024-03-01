@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_event.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_state.dart';
+import 'package:taxi_for_you/Features/trip_details/model/offer_model.dart';
 import 'package:taxi_for_you/Features/trip_details/model/trip_details_model.dart';
 import 'package:taxi_for_you/Features/trip_details/model/trip_details_repo.dart';
 
@@ -49,9 +50,12 @@ class TripDetailsBloc extends Bloc<TripDetailsEvent, TripDetailsStates> {
     emit(AcceptOfferIsLoading());
 
     try {
-      await tripDetailsRepo.acceptOfferRequest(event.offerId);
+      BaseResponse baseResponse =
+          await tripDetailsRepo.acceptOfferRequest(event.offerId);
 
-      emit(AcceptOfferSuccessfully());
+      OfferModel accpetedOffer = OfferModel.fromJson(baseResponse.result);
+
+      emit(AcceptOfferSuccessfully(acceptedOffer: accpetedOffer));
     } catch (e) {
       if (e is PlatformException) {
         if (e.message != null) {

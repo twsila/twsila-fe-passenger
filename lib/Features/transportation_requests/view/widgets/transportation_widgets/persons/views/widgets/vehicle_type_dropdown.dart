@@ -46,8 +46,11 @@ class _PersonsVehicleTypeDropdownState
               child: Container(
                 margin: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: widget.personsViewModel.vehicleTypes[index] ==
-                          widget.personsViewModel.personsModel.vehicleType
+                  color: widget.personsViewModel.personsModel.vehicleType !=
+                              null &&
+                          widget.personsViewModel.vehicleTypes[index].id ==
+                              widget
+                                  .personsViewModel.personsModel.vehicleType!.id
                       ? ColorManager.secondaryLightColor
                       : Colors.transparent,
                   border: Border.all(

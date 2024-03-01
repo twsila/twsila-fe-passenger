@@ -183,9 +183,7 @@ class _SingleOfferWidgetState extends State<SingleOfferWidget> {
               : BlocConsumer<TripDetailsBloc, TripDetailsStates>(
                   listener: (context, state) {
                   if (state is AcceptOfferSuccessfully) {
-                    if (widget.tripDetails.acceptedOffer != null &&
-                        widget.tripDetails.acceptedOffer!.offer.offerId ==
-                            widget.offer.offerId) {
+                    if (state.acceptedOffer.offerId == widget.offer.offerId) {
                       CustomBottomSheet.displayModalBottomSheetList(
                         context: context,
                         showCloseButton: false,

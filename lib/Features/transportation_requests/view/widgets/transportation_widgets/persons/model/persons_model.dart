@@ -20,7 +20,9 @@ class PersonsModel extends TransportationBaseModel {
       vehicleType = VehicleType.fromJson(json['vehicleType']);
     }
     if (json['numberOfPassengers'] != null) {
-      numberOfPassengersId = json['numberOfPassengers']['numberOfPassengers'];
+      numberOfPassengersId =
+          int.tryParse(json['numberOfPassengers']['id'].toString()) ??
+              json['numberOfPassengers']['id'];
     }
   }
 
@@ -37,8 +39,21 @@ class PersonsModel extends TransportationBaseModel {
     return data;
   }
 
+  Map<String, dynamic> toPersonCopyJson() {
+    Map<String, dynamic> data = <String, dynamic>{};
+    data = toJSON();
+    if (vehicleType != null) {
+      data['vehicleType'] = vehicleType!.toJson();
+    }
+    if (numberOfPassengersId != null) {
+      data['numberOfPassengers'] = {'id': numberOfPassengersId.toString()};
+    }
+    data['isWoman'] = isWoman.toString();
+    return data;
+  }
+
   PersonsModel copyWith(PersonsModel personsModel) {
-    return PersonsModel.fromJson(personsModel.toPersonsJson());
+    return PersonsModel.fromJson(personsModel.toPersonCopyJson());
   }
 }
 

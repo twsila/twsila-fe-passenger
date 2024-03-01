@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:taxi_for_you/Features/trip_details/model/offer_model.dart';
 import 'package:taxi_for_you/Features/trip_details/model/trip_details_model.dart';
 
 import '../../../../core/network/base_response.dart';
@@ -32,7 +33,10 @@ class TripDetailsFailed extends TripDetailsStates {
   List<Object> get props => [baseResponse];
 }
 
-class AcceptOfferSuccessfully extends TripDetailsStates {}
+class AcceptOfferSuccessfully extends TripDetailsStates {
+  final OfferModel acceptedOffer;
+  AcceptOfferSuccessfully({required this.acceptedOffer});
+}
 
 class RatingTripSuccessfully extends TripDetailsStates {}
 

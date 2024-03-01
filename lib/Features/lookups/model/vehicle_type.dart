@@ -26,6 +26,23 @@ class VehicleType {
               .toList(),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final AppPreferences appPreferences = instance();
+    Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (appPreferences.isEnglish()) {
+      data["vehicleType"] = vehicleType;
+    } else {
+      data["vehicleTypeAr"] = vehicleType;
+    }
+    Map<String, dynamic> map = {};
+    noOfPassengers.forEach((element) {
+      map.addAll(element.toJson());
+    });
+    data["numberOfPassengers"] = [map];
+    return data;
+  }
 }
 
 class NoOfPassengers {
@@ -42,5 +59,11 @@ class NoOfPassengers {
       id: json["id"],
       noOfPassengers: json["numberOfPassengers"],
     );
+  }
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['numberOfPassengers'] = noOfPassengers;
+    return data;
   }
 }

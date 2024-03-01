@@ -22,7 +22,8 @@ class _PersonDropdownViewState extends State<PersonDropdownView> {
     if (widget.personsViewModel.personsModel.vehicleType != null) {
       widget.personsViewModel.selectedVehicleType =
           widget.personsViewModel.vehicleTypes.singleWhere((element) =>
-              element == widget.personsViewModel.personsModel.vehicleType);
+              element.id ==
+              widget.personsViewModel.personsModel.vehicleType!.id);
     }
     super.initState();
   }

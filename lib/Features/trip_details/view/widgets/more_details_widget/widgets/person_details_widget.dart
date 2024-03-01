@@ -1,14 +1,35 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/Features/lookups/model/vehicle_type.dart';
 import 'package:taxi_for_you/Features/transportation_requests/view/widgets/transportation_widgets/persons/model/persons_model.dart';
+import 'package:taxi_for_you/app/app_prefs.dart';
+import 'package:taxi_for_you/app/di.dart';
 
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../item_widget.dart';
 
-class PersonDetailsWidget extends StatelessWidget {
+class PersonDetailsWidget extends StatefulWidget {
   final PersonsModel personsModel;
+
   const PersonDetailsWidget({Key? key, required this.personsModel})
       : super(key: key);
+
+  @override
+  State<PersonDetailsWidget> createState() => _PersonDetailsWidgetState();
+}
+
+class _PersonDetailsWidgetState extends State<PersonDetailsWidget> {
+  final appPreferences = instance<AppPreferences>();
+  VehicleType? vehicleType;
+
+  @override
+  void initState() {
+    vehicleType = widget.personsModel.vehicleType != null
+        ? appPreferences.getLookupsInstance().vehicleTypes.singleWhere(
+            (element) => element.id == widget.personsModel.vehicleType!.id)
+        : null;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +43,20 @@ class PersonDetailsWidget extends StatelessWidget {
             Expanded(
               child: ItemWidget(
                 title: AppStrings.vehicleType.tr(),
-                text: personsModel.vehicleType!.vehicleType,
+                text: widget.personsModel.vehicleType!.vehicleType,
               ),
             ),
             Expanded(
               child: ItemWidget(
                 title: AppStrings.numOfPassengers.tr(),
-                text: (personsModel.numberOfPassengersId ??
-                        AppStrings.unknown.tr())
-                    .toString(),
+                text: vehicleType != null
+                    ? (vehicleType!.noOfPassengers
+                            .singleWhere((element) =>
+                                element.id ==
+                                widget.personsModel.numberOfPassengersId)
+                            .noOfPassengers)
+                        .toString()
+                    : AppStrings.unknown.tr(),
               ),
             ),
           ],
