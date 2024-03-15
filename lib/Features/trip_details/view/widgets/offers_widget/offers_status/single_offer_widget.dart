@@ -119,7 +119,9 @@ class _SingleOfferWidgetState extends State<SingleOfferWidget> {
                     Row(
                       children: [
                         Text(
-                          widget.offer.driverOffer.toString(),
+                          widget.offer.driverOffer != 0.0
+                              ? widget.offer.driverOffer.toString()
+                              : widget.tripDetails.paymentValue.toString(),
                           style: getBoldStyle(
                             color: ColorManager.primaryTextColor,
                             fontSize: 16,

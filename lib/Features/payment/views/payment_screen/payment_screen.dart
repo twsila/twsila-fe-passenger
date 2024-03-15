@@ -38,7 +38,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   void initState() {
-    paymentConfig.amount = widget.offer.driverOffer.toInt() * 100;
+    paymentConfig.amount = widget.offer.driverOffer != 0.0
+        ? widget.offer.driverOffer.toInt() * 100
+        : widget.tripDetails.paymentValue!.toInt() * 100;
     super.initState();
   }
 
@@ -59,7 +61,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
           break;
         case PaymentStatus.failed:
           ShowDialogHelper.showErrorMessage(
-            AppStrings.paymentFailed.tr(),
+            AppStrings.paymentFailed.tr() +
+                result.source.message.toString().tr(),
             context,
           );
           break;
