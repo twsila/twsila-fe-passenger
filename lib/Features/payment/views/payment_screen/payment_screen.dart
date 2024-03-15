@@ -41,6 +41,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
     paymentConfig.amount = widget.offer.driverOffer != 0.0
         ? widget.offer.driverOffer.toInt() * 100
         : widget.tripDetails.paymentValue!.toInt() * 100;
+    paymentConfig.currency =
+        appPreferences.getUserCountry() == "SA" ? 'SAR' : 'EGP';
+    paymentConfig.creditCard = CreditCardConfig(saveCard: true, manual: false);
     super.initState();
   }
 
