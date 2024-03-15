@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:taxi_for_you/Features/transportation_requests/model/transportation_base_model.dart';
-import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_status/single_offer_widget.dart';
 import 'package:taxi_for_you/app/constants.dart';
-import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../core/utils/resources/assets_manager.dart';

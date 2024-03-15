@@ -9,18 +9,11 @@ import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_bloc.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_event.dart';
 import 'package:taxi_for_you/Features/trip_details/bloc/trip_details_state.dart';
 import 'package:taxi_for_you/Features/trip_details/view/trip_details_viewmodel.dart';
-import 'package:taxi_for_you/Features/trip_details/view/widgets/more_details_widget/more_details_widget.dart';
-import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/cancel_trip_button.dart';
-import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/need_help_button.dart';
-import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_widget/offers_widget.dart';
-import 'package:taxi_for_you/Features/trip_details/view/widgets/trip_details_widget/trip_details_widget.dart';
 import 'package:taxi_for_you/Features/trip_details/view/widgets/trip_status_ui/trip_status_widget.dart';
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/utils/ext/screen_size_ext.dart';
-import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 
-import '../../common/widgets/custom_text_button.dart';
 import '../../home_features/my_trips/bloc/my_trips_bloc.dart';
 import '../../home_features/my_trips/bloc/my_trips_event.dart';
 

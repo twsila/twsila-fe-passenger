@@ -183,6 +183,8 @@ class AppStrings {
   static const iWantToPay = "i_want_to_pay";
   static const pay = "pay";
   static const goPay = "go_pay";
+  static const paymentSuccess = "payment_success";
+  static const paymentFailed = "payment_failed";
   static const paymentNote = "payment_note";
   static const paymentValue = "payment_value";
   static const enterAmount = "enter_amount";

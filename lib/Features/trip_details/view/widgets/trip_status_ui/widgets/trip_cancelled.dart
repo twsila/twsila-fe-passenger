@@ -11,7 +11,6 @@ import 'package:taxi_for_you/Features/trip_details/view/widgets/offers_buttons/s
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:taxi_for_you/core/utils/helpers/trip_helper.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
-import '../../../../../../core/utils/resources/color_manager.dart';
 import '../../../../../../core/utils/resources/styles_manager.dart';
 import '../../../../../home_features/my_trips/bloc/my_trips_bloc.dart';
 import '../../../../../home_features/my_trips/bloc/my_trips_event.dart';

@@ -1,12 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/common/widgets/custom_bottom_sheet.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_scaffold.dart';
 import 'package:taxi_for_you/Features/common/widgets/page_builder.dart';
 import 'package:taxi_for_you/Features/home_features/menu/views/menu_viewmodel.dart';
 import 'package:taxi_for_you/Features/home_features/menu/views/widgets/menu_widget.dart';
 import 'package:taxi_for_you/Features/home_features/menu/views/widgets/profile_widget.dart';
-import 'package:taxi_for_you/Features/payment/views/payment_screen/payment_screen.dart';
 import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 
 import '../../../../core/utils/resources/color_manager.dart';
@@ -59,7 +57,24 @@ class _MenuScreenState extends State<MenuScreen> {
               MenuWidget(
                 menuImage: ImageAssets.payment,
                 menuLabel: AppStrings.walletAndPayments.tr(),
-                onPressed: () {},
+                onPressed: () {
+                  // showModalBottomSheet(
+                  //   shape: const RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.only(
+                  //         topLeft: Radius.circular(25),
+                  //         topRight: Radius.circular(25)),
+                  //   ),
+                  //   elevation: 10,
+                  //   context: context,
+                  //   isScrollControlled: true,
+                  //   backgroundColor: Colors.white,
+                  //   builder: (ctx) => Container(
+                  //     margin: const EdgeInsets.all(16),
+                  //     height: MediaQuery.of(context).size.height / 1.2,
+                  //     child: PaymentMethods(),
+                  //   ),
+                  // );
+                },
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 16),

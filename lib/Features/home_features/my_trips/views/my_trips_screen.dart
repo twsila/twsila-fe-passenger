@@ -86,20 +86,18 @@ class _MyTripsScreenState extends State<MyTripsScreen> {
               },
               builder: (context, state) {
                 if (state is MyTripsSuccessfully) {
-                  return state.trips.isEmpty
-                      ? Expanded(
-                          child: Center(
-                            child: Text(
-                              _viewModel.selectedIndex == 0
-                                  ? AppStrings.noUpcoming.tr()
-                                  : AppStrings.noPast.tr(),
-                            ),
-                          ),
-                        )
-                      : Expanded(
-                          child: RefreshIndicator(
-                            onRefresh: refresh,
-                            child: ListView.builder(
+                  return Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: refresh,
+                      child: state.trips.isEmpty
+                          ? Center(
+                              child: Text(
+                                _viewModel.selectedIndex == 0
+                                    ? AppStrings.noUpcoming.tr()
+                                    : AppStrings.noPast.tr(),
+                              ),
+                            )
+                          : ListView.builder(
                               shrinkWrap: true,
                               itemCount: state.trips.length,
                               itemBuilder: (context, index) {
@@ -121,8 +119,8 @@ class _MyTripsScreenState extends State<MyTripsScreen> {
                                 );
                               },
                             ),
-                          ),
-                        );
+                    ),
+                  );
                 } else if (state is MyTripsFailed) {
                   return Padding(
                     padding: EdgeInsets.only(top: context.getHeight() / 5),

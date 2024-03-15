@@ -9,7 +9,6 @@ import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 
 import '../../../../../transportation_requests/model/transportation_base_model.dart';
-import '../../offers_widget/offers_widget.dart';
 import '../../trip_details_widget/trip_details_widget.dart';
 
 class TripCompleted extends StatelessWidget {

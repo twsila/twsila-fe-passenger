@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxi_for_you/Features/common/state_renderer/dialogs.dart';
-import 'package:taxi_for_you/Features/common/widgets/custom_bottom_sheet.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_circular_indicator.dart';
 import 'package:taxi_for_you/Features/common/widgets/custom_text_outlined_button.dart';
 import 'package:taxi_for_you/Features/payment/views/payment_screen/payment_screen.dart';
@@ -164,13 +163,24 @@ class _SingleOfferWidgetState extends State<SingleOfferWidget> {
                           text: AppStrings.goPay.tr(),
                           imageData: ImageAssets.payment,
                           onPressed: () {
-                            CustomBottomSheet.displayModalBottomSheetList(
+                            showModalBottomSheet(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(25),
+                                    topRight: Radius.circular(25)),
+                              ),
+                              elevation: 10,
                               context: context,
-                              showCloseButton: false,
-                              initialChildSize: 0.9,
-                              customWidget: PaymentScreen(
-                                tripDetails: widget.tripDetails,
-                                offer: widget.offer,
+                              isScrollControlled: true,
+                              backgroundColor: Colors.white,
+                              builder: (ctx) => Container(
+                                margin: const EdgeInsets.all(16),
+                                height:
+                                    MediaQuery.of(context).size.height / 1.2,
+                                child: PaymentScreen(
+                                  tripDetails: widget.tripDetails,
+                                  offer: widget.offer,
+                                ),
                               ),
                             );
                           },
@@ -184,13 +194,23 @@ class _SingleOfferWidgetState extends State<SingleOfferWidget> {
                   listener: (context, state) {
                   if (state is AcceptOfferSuccessfully) {
                     if (state.acceptedOffer.offerId == widget.offer.offerId) {
-                      CustomBottomSheet.displayModalBottomSheetList(
+                      showModalBottomSheet(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(25)),
+                        ),
+                        elevation: 10,
                         context: context,
-                        showCloseButton: false,
-                        initialChildSize: 0.9,
-                        customWidget: PaymentScreen(
-                          tripDetails: widget.tripDetails,
-                          offer: widget.offer,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.white,
+                        builder: (ctx) => Container(
+                          margin: const EdgeInsets.all(16),
+                          height: MediaQuery.of(context).size.height / 1.2,
+                          child: PaymentScreen(
+                            tripDetails: widget.tripDetails,
+                            offer: widget.offer,
+                          ),
                         ),
                       );
                     }

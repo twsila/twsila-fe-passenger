@@ -35,6 +35,5 @@ class ItemWidget extends StatelessWidget {
         ),
       ],
     );
-    ;
   }
 }

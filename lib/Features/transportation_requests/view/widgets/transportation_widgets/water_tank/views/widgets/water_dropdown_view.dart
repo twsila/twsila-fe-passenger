@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:taxi_for_you/Features/lookups/model/lookups_model.dart';
 
 import '../../../../../../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../../common/widgets/custom_dropdown.dart';

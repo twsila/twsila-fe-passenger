@@ -23,6 +23,17 @@ class Constants {
   };
 }
 
+class PaymentConstants {
+  //Live
+  // static const String primaryKey = 'pk_live_RuHxasmVaWMNdCFTV7ZUyp4FA8DVyeoXi72ueBQV';
+  // static const String secondaryKey = 'sk_live_Ecy2VbCxLsULrzGjD1roctVCHKeW4d91mDwTzFSP';
+  //Test
+  static const String primaryKey =
+      'pk_test_VzZuYND1H3pFgVYv9TLFwrK1mFuLGtELzAEjCQe3';
+  static const String secondaryKey =
+      'sk_test_uWdpwhDLLSTQAybq4Q32yGsDRdzpkFLExUNevqwS';
+}
+
 class TripTypeConstants {
   static const String carAidType = "CAR_AID";
   static const String drinkWaterType = "DRINK_WATER_TANK";
