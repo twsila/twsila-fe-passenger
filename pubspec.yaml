@@ -72,7 +72,7 @@ dependencies:
   provider: ^6.0.5
   equatable: ^2.0.5
   keyboard_actions: ^4.2.0
-  moyasar: ^2.0.2
+  moyasar: ^2.0.10
   
 
 dev_dependencies:
