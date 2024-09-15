@@ -49,9 +49,9 @@ class TripStatusConstants {
   static const String submitted = "TRIP_SUBMITTED";
   static const String evaluation = "TRIP_IN_NEGOTIATION";
   static const String payment = "WAITING_FOR_PAYMENT";
-  static const String waitForTakeOff = "READY_FOR_TAKEOFF";
-  static const String takeOff = "HEADING_TO_PICKUP_POINT";
-  static const String executed = "ARRIVED_TO_PICKUP_POINT";
+  static const String readyForTakeoff = "READY_FOR_TAKEOFF";
+  static const String headingToPickupPoint = "HEADING_TO_PICKUP_POINT";
+  static const String arrivedToPickupPoint = "ARRIVED_TO_PICKUP_POINT";
   static const String headingToDestination = "HEADING_TO_DESTINATION";
   static const String completed = "TRIP_COMPLETED";
   static const String cancelled = "TRIP_CANCELLED";

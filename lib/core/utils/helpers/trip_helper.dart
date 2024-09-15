@@ -31,23 +31,30 @@ class TripHelper {
                   : transportationBaseModel.paymentValue.toString()
               : transportationBaseModel.paymentValue.toString());
     }
-    //WAIT_TAKE_OFF
+    //readyForTakeoff
     else if (transportationBaseModel.tripStatus ==
-        TripStatusConstants.waitForTakeOff) {
+        TripStatusConstants.readyForTakeoff) {
       return AppStrings.tripStatusWAITTAKEOFF.tr() +
           (transportationBaseModel.launchDate != null
               ? transportationBaseModel.launchDate!.getTimeStampFromDate()
               : AppStrings.fastTime.tr());
     }
-    //TAKE_OFF
+    //headingToPickupPoint
     else if (transportationBaseModel.tripStatus ==
-        TripStatusConstants.takeOff) {
+        TripStatusConstants.headingToPickupPoint) {
       return AppStrings.tripStatusTAKEOFF.tr();
     }
-    //EXECUTED
+    //arrivedToPickupPoint
     else if (transportationBaseModel.tripStatus ==
-        TripStatusConstants.executed) {
+        TripStatusConstants.arrivedToPickupPoint) {
       return AppStrings.tripStatusEXECUTED.tr() +
+          (transportationBaseModel.launchDate != null
+              ? transportationBaseModel.launchDate!.getTimeStampFromDate()
+              : AppStrings.fastTime.tr());
+    }//arrivedToPickupPoint
+    else if (transportationBaseModel.tripStatus ==
+        TripStatusConstants.headingToDestination) {
+      return AppStrings.headingToDestination.tr() +
           (transportationBaseModel.launchDate != null
               ? transportationBaseModel.launchDate!.getTimeStampFromDate()
               : AppStrings.fastTime.tr());
@@ -60,7 +67,7 @@ class TripHelper {
               TripStatusConstants.cancelledByDriver) {
         return AppStrings.tripCancelledByDriver.tr();
       }
-      return AppStrings.tripCancelledByPassneger.tr();
+      return AppStrings.tripCancelledByPassenger.tr();
     }
     //COMPLETED
     else if (transportationBaseModel.tripStatus ==

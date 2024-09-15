@@ -12,7 +12,7 @@ class PaymentRepo {
   Future<dynamic> paymentRequest(String tripId) async {
     var body = {
       "tripId": tripId,
-      "tripStatus": TripStatusConstants.waitForTakeOff,
+      "tripStatus": TripStatusConstants.readyForTakeoff,
     };
     RequestModel requestModel = RequestModel(
       endPoint: EndPointsConstants.changeStatus,

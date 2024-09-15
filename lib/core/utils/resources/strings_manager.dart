@@ -252,7 +252,8 @@ class AppStrings {
   static const tripStatusEXECUTED = "trip_status_executed";
   static const tripStatusCOMLETED = "trip_status_completed";
   static const tripCancelledByDriver = 'trip_status_driver_cancelled';
-  static const tripCancelledByPassneger = 'trip_status_passenger_cancelled';
+  static const tripCancelledByPassenger = 'trip_status_passenger_cancelled';
+  static const headingToDestination = 'headingToDestination';
 
   //Freezers strings
   static const cartons = "cartons";

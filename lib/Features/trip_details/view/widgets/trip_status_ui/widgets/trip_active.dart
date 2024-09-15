@@ -53,7 +53,7 @@ class TripActive extends StatelessWidget {
               ),
               NeedHelpButton(tripId: transportationBaseModel.tripId!),
               if (transportationBaseModel.tripStatus ==
-                  TripStatusConstants.waitForTakeOff)
+                  TripStatusConstants.readyForTakeoff)
                 CancelTripButton(tripId: transportationBaseModel.tripId!),
             ],
           ),
