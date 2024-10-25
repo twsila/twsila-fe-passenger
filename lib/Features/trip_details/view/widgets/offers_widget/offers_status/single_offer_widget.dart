@@ -17,12 +17,14 @@ import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/styles_manager.dart';
 
+import '../../../../../../core/utils/resources/langauge_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
 
 class SingleOfferWidget extends StatefulWidget {
   final TransportationBaseModel tripDetails;
   final OfferModel offer;
+
   const SingleOfferWidget({
     Key? key,
     required this.tripDetails,
@@ -87,8 +89,7 @@ class _SingleOfferWidgetState extends State<SingleOfferWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.offer.driverModel.carModel.carManufacturerId
-                          .carManufacturer,
+                      " ${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.offer.driverModel.carModel.carManufacturer.carManufacturerAr : widget.offer.driverModel.carModel.carManufacturer.carManufacturer} / ${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.offer.driverModel.carModel.modelNameAr : widget.offer.driverModel.carModel.modelName}",
                       style: getBoldStyle(
                           color: ColorManager.primaryTextColor, fontSize: 18),
                     ),

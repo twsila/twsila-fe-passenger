@@ -11,7 +11,7 @@ class DriverModel {
   final double rating;
   final DriverVehicleType? vehicleType;
   final CarModel carModel;
-  final CarManufacturerType carManufacturerType;
+  final CarManufacturerModel carManufacturerType;
   final bool canTransportFurniture;
   final bool canTransportGoods;
   final bool canTransportFrozen;
@@ -65,7 +65,7 @@ class DriverModel {
             : DriverVehicleType.fromJson(json['vehicleType']),
         carModel: CarModel.fromJson(json['carModel']),
         carManufacturerType:
-            CarManufacturerType.fromJson(json['carManufacturerType']),
+            CarManufacturerModel.fromJson(json['carManufacturerType']),
         canTransportFurniture: json['canTransportFurniture'],
         canTransportGoods: json['canTransportGoods'],
         canTransportFrozen: json['canTransportFrozen'],
@@ -98,36 +98,61 @@ class DriverVehicleType {
       );
 }
 
-class CarManufacturerType {
-  final int id;
-  final String carManufacturer;
+class CarManufacturerModel {
+  int id;
+  bool showInTwsila;
+  String carManufacturer;
+  String carManufacturerAr;
 
-  CarManufacturerType({required this.id, required this.carManufacturer});
+  CarManufacturerModel({
+    required this.id,
+    required this.showInTwsila,
+    required this.carManufacturer,
+    required this.carManufacturerAr,
+  });
 
-  factory CarManufacturerType.fromJson(Map<String, dynamic> json) =>
-      CarManufacturerType(
-        id: json['id'],
-        carManufacturer: json['carManufacturer'],
+  factory CarManufacturerModel.fromJson(Map<String, dynamic> json) =>
+      CarManufacturerModel(
+        id: json["id"],
+        showInTwsila: json["showInTwsila"],
+        carManufacturer: json["carManufacturer"],
+        carManufacturerAr: json["carManufacturerAr"],
       );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "showInTwsila": showInTwsila,
+    "carManufacturer": carManufacturer,
+    "carManufacturerAr": carManufacturerAr,
+  };
 }
 
 class CarModel {
-  final int id;
-  final CarManufacturerType carManufacturerId;
-  final String modelName;
+  int id;
+  CarManufacturerModel carManufacturer;
+  String modelName;
+  String modelNameAr;
 
   CarModel({
     required this.id,
-    required this.carManufacturerId,
+    required this.carManufacturer,
     required this.modelName,
+    required this.modelNameAr,
   });
 
   factory CarModel.fromJson(Map<String, dynamic> json) => CarModel(
-        id: json['id'],
-        carManufacturerId:
-            CarManufacturerType.fromJson(json['carManufacturerId']),
-        modelName: json['modelName'],
-      );
+    id: json["id"],
+    carManufacturer: CarManufacturerModel.fromJson(json["carManufacturer"]),
+    modelName: json["modelName"],
+    modelNameAr: json["modelNameAr"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "carManufacturer": carManufacturer.toJson(),
+    "modelName": modelName,
+    "modelNameAr": modelNameAr,
+  };
 }
 
 class DriverImages {

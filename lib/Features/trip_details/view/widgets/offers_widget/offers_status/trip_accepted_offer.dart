@@ -4,14 +4,18 @@ import 'package:taxi_for_you/Features/transportation_requests/model/transportati
 import 'package:taxi_for_you/app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../../app/app_prefs.dart';
+import '../../../../../../app/di.dart';
 import '../../../../../../core/utils/resources/assets_manager.dart';
 import '../../../../../../core/utils/resources/color_manager.dart';
+import '../../../../../../core/utils/resources/langauge_manager.dart';
 import '../../../../../../core/utils/resources/strings_manager.dart';
 import '../../../../../../core/utils/resources/styles_manager.dart';
 import '../../../../../common/widgets/custom_text_button.dart';
 
 class TripAcceptedOffer extends StatefulWidget {
   final TransportationBaseModel transportationBaseModel;
+
   const TripAcceptedOffer({
     Key? key,
     required this.transportationBaseModel,
@@ -22,6 +26,8 @@ class TripAcceptedOffer extends StatefulWidget {
 }
 
 class _TripAcceptedOfferState extends State<TripAcceptedOffer> {
+  final AppPreferences _appPrefs = instance();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -87,14 +93,7 @@ class _TripAcceptedOfferState extends State<TripAcceptedOffer> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget
-                              .transportationBaseModel
-                              .acceptedOffer!
-                              .offer
-                              .driverModel
-                              .carModel
-                              .carManufacturerId
-                              .carManufacturer,
+                          "${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel.carManufacturer.carManufacturerAr : widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel.carManufacturer.carManufacturer} / ${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel.modelNameAr : widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel.modelName} ",
                           style: getBoldStyle(
                               color: ColorManager.primaryTextColor,
                               fontSize: 18),

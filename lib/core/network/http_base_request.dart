@@ -241,7 +241,7 @@ class HttpBaseRequest extends BaseRequestInterface {
 
   printFunction(RequestModel requestModel, Map<String, String> headers) {
     var requestEncoded = json.encode(requestModel.reqBody);
-    print("""
+    log("""
     uri: ${Constants.baseUrl + requestModel.endPoint}
     body: $requestEncoded
     headers: $headers
