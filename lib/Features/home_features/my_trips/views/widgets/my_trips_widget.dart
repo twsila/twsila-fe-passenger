@@ -47,7 +47,7 @@ class _MyTripsWidgetState extends State<MyTripsWidget> {
                   : const ScheduledTimeWidget(),
               const SizedBox(width: 8),
               if (widget.tripModel.tripNumber != null)
-                TripNumberWidget(tripNumber: widget.tripModel.tripNumber!)
+                Expanded(child: TripNumberWidget(tripNumber: widget.tripModel.tripNumber!))
             ],
           ),
           const SizedBox(height: 8),
