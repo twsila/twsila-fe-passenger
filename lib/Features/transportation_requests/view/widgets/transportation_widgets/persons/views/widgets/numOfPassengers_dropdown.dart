@@ -10,6 +10,7 @@ import '../../../../../../../../core/utils/resources/styles_manager.dart';
 class PersonsNumberOfPassengersDropdown extends StatefulWidget {
   final PersonsViewModel personsViewModel;
   final VehicleType vehicleType;
+
   const PersonsNumberOfPassengersDropdown({
     Key? key,
     required this.personsViewModel,
@@ -23,6 +24,13 @@ class PersonsNumberOfPassengersDropdown extends StatefulWidget {
 
 class _PersonsNumberOfPassengersDropdownState
     extends State<PersonsNumberOfPassengersDropdown> {
+  @override
+  void initState() {
+    widget.vehicleType.noOfPassengers
+        .sort((a, b) => a.noOfPassengers.compareTo(b.noOfPassengers));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(

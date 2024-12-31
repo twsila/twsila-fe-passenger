@@ -10,6 +10,7 @@ import '../persons_viewmodel.dart';
 class PersonsVehicleTypeDropdown extends StatefulWidget {
   final PersonsViewModel personsViewModel;
   final Function(VehicleType) setVehicleType;
+
   const PersonsVehicleTypeDropdown({
     Key? key,
     required this.personsViewModel,
@@ -40,6 +41,9 @@ class _PersonsVehicleTypeDropdownState
               onTap: () {
                 widget.setVehicleType(
                     widget.personsViewModel.vehicleTypes[index]);
+
+                widget.personsViewModel.vehicleTypes[index].noOfPassengers.sort(
+                    (a, b) => a.noOfPassengers.compareTo(b.noOfPassengers));
 
                 widget.personsViewModel.validateFirstScreen();
               },

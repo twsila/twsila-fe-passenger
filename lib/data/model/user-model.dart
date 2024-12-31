@@ -61,7 +61,7 @@ class UserModel {
     data['mobile'] = mobileNumber;
     data['dateOfBirth'] = dateOfBirth;
     data['gender'] = gender;
-    data['countryCode'] = countryCode == '+02'
+    data['countryCode'] = countryCode == '+20'
         ? 'EG'
         : countryCode == '+966'
             ? 'SA'
