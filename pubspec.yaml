@@ -73,7 +73,8 @@ dependencies:
   equatable: ^2.0.5
   keyboard_actions: ^4.2.0
   moyasar: ^2.0.10
-  
+  flutter_local_notifications: ^16.0.1
+
 
 dev_dependencies:
   flutter_test:
@@ -119,7 +120,7 @@ flutter:
         - asset: assets/fonts/english/Lato-Regular.ttf
     - family: HomeIcons
       fonts:
-        - asset: assets/fonts/home-icons/HomeIcons.ttf  
+        - asset: assets/fonts/home-icons/HomeIcons.ttf
     - family: Cairo
       fonts:
         - asset: assets/fonts/cairo-font/Cairo-Black.ttf

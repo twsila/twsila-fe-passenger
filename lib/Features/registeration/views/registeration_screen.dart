@@ -24,6 +24,7 @@ import '../../login/bloc/login_state.dart';
 
 class RegistrationScreen extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   RegistrationScreen({Key? key}) : super(key: key);
 
   @override
@@ -61,6 +62,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       pageBuilder: PageBuilder(
+        resizeToAvoidBottomInsets: true,
         scaffoldKey: widget.scaffoldKey,
         displayLoadingIndicator: displayLoadingIndicator,
         context: context,
@@ -107,187 +109,164 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         }
       },
       builder: (context, state) {
-        return Stack(
-          children: [
-            SafeArea(
-              child: SingleChildScrollView(
-                child: Container(
-                  margin: const EdgeInsets.all(28),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        return SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            AppStrings.welcomeTo.tr() + ' ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(color: ColorManager.black),
-                          ),
-                          Text(
-                            AppStrings.appTitle.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(color: ColorManager.primary),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
                       Text(
-                        _viewModel.isEdit
-                            ? AppStrings.editProfile.tr()
-                            : AppStrings.continueRegistration.tr(),
+                        AppStrings.welcomeTo.tr() + ' ',
                         style: Theme.of(context)
                             .textTheme
-                            .titleMedium!
-                            .copyWith(
-                                color: ColorManager.black,
-                                fontWeight: FontWeight.w900),
+                            .bodySmall!
+                            .copyWith(color: ColorManager.black),
                       ),
-                      const SizedBox(height: 24),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                              child: CustomTextInputField(
-                                controller: _viewModel.firstNameController,
-                                hintText: AppStrings.firstNameHint.tr(),
-                                labelText: AppStrings.firstName.tr(),
-                                errorLabel: AppStrings.firstNameError.tr(),
-                                isRequired: true,
-                                showLabelText: true,
-                                validateEmptyString: true,
-                                onChanged: (value) {
-                                  _viewModel.user.firstName = value;
-                                  checkValidations();
-                                },
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                              child: CustomTextInputField(
-                                controller: _viewModel.lastNameController,
-                                hintText: AppStrings.lastNameHint.tr(),
-                                labelText: AppStrings.lastName.tr(),
-                                errorLabel: AppStrings.lastNameError.tr(),
-                                isRequired: true,
-                                showLabelText: true,
-                                validateEmptyString: true,
-                                onChanged: (value) {
-                                  _viewModel.user.lastName = value;
-                                  checkValidations();
-                                },
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                              child: CustomTextInputField(
-                                controller: _viewModel.mobileNumberController,
-                                hintText: AppStrings.enterPhoneNumber.tr(),
-                                labelText: AppStrings.phoneTitle.tr(),
-                                errorLabel: AppStrings.mobileNumberInvalid.tr(),
-                                enabled: false,
-                                isRequired: true,
-                                showLabelText: true,
-                                validateEmptyString: true,
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                              child: CustomTextInputField(
-                                controller: _viewModel.emailController,
-                                hintText: AppStrings.emailHint.tr(),
-                                labelText: AppStrings.emailTitle.tr(),
-                                errorLabel: AppStrings.invalidEmail.tr(),
-                                isRequired: true,
-                                showLabelText: true,
-                                validateEmail: true,
-                                validateEmptyString: true,
-                                keyboardType: TextInputType.emailAddress,
-                                onChanged: (value) {
-                                  _viewModel.user.email = value;
-                                  checkValidations();
-                                },
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                              child: CustomDatePickerWidget(
-                                mainColor: ColorManager.lightGrey,
-                                hintText: AppStrings.birthdate.tr(),
-                                initialDate: _viewModel.user.dateOfBirth,
-                                lastDate: DateTime(2005),
-                                isDateOnly: true,
-                                onSelectDate: (String date) {
-                                  _viewModel.user.dateOfBirth = date;
-                                  Future.delayed(const Duration(seconds: 1),
-                                      () => checkValidations());
-                                },
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                              child: GenderWidget(
-                                initialGender: _viewModel.user.gender,
-                                onSelectGender: (gender) {
-                                  _viewModel.user.gender = gender.value;
-                                  checkValidations();
-                                },
-                              ),
-                            ),
-                            const SizedBox(height: 100),
-                          ],
-                        ),
+                      Text(
+                        AppStrings.appTitle.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: ColorManager.primary),
                       ),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 4),
+                  Text(
+                    _viewModel.isEdit
+                        ? AppStrings.editProfile.tr()
+                        : AppStrings.continueRegistration.tr(),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: ColorManager.black, fontWeight: FontWeight.w900),
+                  ),
+                  const SizedBox(height: 24),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: CustomTextInputField(
+                      controller: _viewModel.firstNameController,
+                      hintText: AppStrings.firstNameHint.tr(),
+                      labelText: AppStrings.firstName.tr(),
+                      errorLabel: AppStrings.firstNameError.tr(),
+                      isRequired: true,
+                      showLabelText: true,
+                      validateEmptyString: true,
+                      onChanged: (value) {
+                        _viewModel.user.firstName = value;
+                        checkValidations();
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: CustomTextInputField(
+                      controller: _viewModel.lastNameController,
+                      hintText: AppStrings.lastNameHint.tr(),
+                      labelText: AppStrings.lastName.tr(),
+                      errorLabel: AppStrings.lastNameError.tr(),
+                      isRequired: true,
+                      showLabelText: true,
+                      validateEmptyString: true,
+                      onChanged: (value) {
+                        _viewModel.user.lastName = value;
+                        checkValidations();
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: CustomTextInputField(
+                      controller: _viewModel.mobileNumberController,
+                      hintText: AppStrings.enterPhoneNumber.tr(),
+                      labelText: AppStrings.phoneTitle.tr(),
+                      errorLabel: AppStrings.mobileNumberInvalid.tr(),
+                      enabled: false,
+                      isRequired: true,
+                      showLabelText: true,
+                      validateEmptyString: true,
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: CustomTextInputField(
+                      controller: _viewModel.emailController,
+                      hintText: AppStrings.emailHint.tr(),
+                      labelText: AppStrings.emailTitle.tr(),
+                      errorLabel: AppStrings.invalidEmail.tr(),
+                      isRequired: true,
+                      showLabelText: true,
+                      validateEmail: true,
+                      validateEmptyString: true,
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) {
+                        _viewModel.user.email = value;
+                        checkValidations();
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: CustomDatePickerWidget(
+                      mainColor: ColorManager.lightGrey,
+                      hintText: AppStrings.birthdate.tr(),
+                      initialDate: _viewModel.user.dateOfBirth,
+                      lastDate: DateTime(2005),
+                      isDateOnly: true,
+                      onSelectDate: (String date) {
+                        _viewModel.user.dateOfBirth = date;
+                        Future.delayed(const Duration(seconds: 1),
+                            () => checkValidations());
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: GenderWidget(
+                      initialGender: _viewModel.user.gender,
+                      onSelectGender: (gender) {
+                        _viewModel.user.gender = gender.value;
+                        checkValidations();
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  CustomTextButton(
+                    showIcon: false,
+                    text: _viewModel.isEdit
+                        ? AppStrings.edit.tr()
+                        : AppStrings.save.tr(),
+                    onPressed: _viewModel.isValid
+                        ? () {
+                            FocusScope.of(context).unfocus();
+                            _viewModel.isEdit
+                                ? BlocProvider.of<RegistrationBloc>(context)
+                                    .add(EditUser(userModel: _viewModel.user))
+                                : BlocProvider.of<RegistrationBloc>(context)
+                                    .add(RegistrationUser(
+                                        userModel: _viewModel.user));
+                          }
+                        : null,
+                  ),
+                  BlocListener<LoginBloc, LoginStates>(
+                    listener: (context, state) {
+                      if (state is LoginSuccessfully) {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.homeRoute,
+                        );
+                      } else if (state is LoginFailed) {
+                        ShowDialogHelper.showErrorMessage(
+                            AppStrings.defaultError.tr(), context);
+                      }
+                    },
+                    child: const SizedBox(),
+                  ),
+                ],
               ),
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                color: Colors.white,
-                child: CustomTextButton(
-                  showIcon: false,
-                  text: _viewModel.isEdit
-                      ? AppStrings.edit.tr()
-                      : AppStrings.save.tr(),
-                  onPressed: _viewModel.isValid
-                      ? () {
-                          FocusScope.of(context).unfocus();
-                          _viewModel.isEdit
-                              ? BlocProvider.of<RegistrationBloc>(context)
-                                  .add(EditUser(userModel: _viewModel.user))
-                              : BlocProvider.of<RegistrationBloc>(context).add(
-                                  RegistrationUser(userModel: _viewModel.user));
-                        }
-                      : null,
-                ),
-              ),
-            ),
-            BlocListener<LoginBloc, LoginStates>(
-              listener: (context, state) {
-                if (state is LoginSuccessfully) {
-                  Navigator.pushNamed(
-                    context,
-                    Routes.homeRoute,
-                  );
-                } else if (state is LoginFailed) {
-                  ShowDialogHelper.showErrorMessage(
-                      AppStrings.defaultError.tr(), context);
-                }
-              },
-              child: const SizedBox(),
-            ),
-          ],
+          ),
         );
       },
     );

@@ -7,12 +7,12 @@ import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 
 import '../helpers/global_key.dart';
+import '../local_notification/local_notification_helper.dart';
 import '../resources/strings_manager.dart';
 
 class FirebaseMessagingHelper extends ChangeNotifier {
   static final _fbm = FirebaseMessaging.instance;
   static final AppPreferences appPreferences = instance<AppPreferences>();
-
 
   // set up the buttons
   Widget cancelButton = TextButton(
@@ -27,7 +27,6 @@ class FirebaseMessagingHelper extends ChangeNotifier {
       Navigator.pop(NavigationService.navigatorKey.currentState!.context);
     },
   );
-
 
   Future<void> configure() async {
     _fbm.requestPermission(
@@ -57,26 +56,34 @@ class FirebaseMessagingHelper extends ChangeNotifier {
       }
     });
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (message.notification != null) {
-        showDialog(
-            context: NavigationService.navigatorKey.currentState!.context,
-            builder: (_) =>
-                AlertDialog(
-                  title: Text(message.notification!.title ?? ""),
-                  content: Text(message.notification!.body ?? ""),
-                  actions: [continueButton],
-                ));
-      } else if (message.data["title"] != null && message.data["title"] != "") {
-        showDialog(
-            context: NavigationService.navigatorKey.currentState!.context,
-            builder: (_) =>
-                AlertDialog(
-                  title: Text(message.data["title"] ?? ""),
-                  content: Text(message.data["body"] ?? ""),
-                  actions: [continueButton],
-                ));
-      }
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      // if (message.notification != null &&
+      //     NavigationService.navigatorKey.currentContext != null) {
+      //   showDialog(
+      //       context: NavigationService.navigatorKey.currentState!.context,
+      //       builder: (_) => AlertDialog(
+      //             title: Text(message.notification!.title ?? ""),
+      //             content: Text(message.notification!.body ?? ""),
+      //             actions: [continueButton],
+      //           ));
+      // } else if (message.data["title"] != null &&
+      //     message.data["title"] != "" &&
+      //     NavigationService.navigatorKey.currentContext != null) {
+      //   showDialog(
+      //       context: NavigationService.navigatorKey.currentState!.context,
+      //       builder: (_) => AlertDialog(
+      //             title: Text(message.data["title"] ?? ""),
+      //             content: Text(message.data["body"] ?? ""),
+      //             actions: [continueButton],
+      //           ));
+      // }
+
+      // Fire a local notification
+      await NotificationHelper.showNotification(
+        id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+        title: message.data["title"] ?? 'Tawsila Notification',
+        body: message.data["body"] ?? 'New Update',
+      );
       return;
     });
 

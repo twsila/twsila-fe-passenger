@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/app/bloc_providers.dart';
 import 'package:taxi_for_you/app/global_variables.dart';
+import '../core/utils/helpers/global_key.dart';
 import '../core/utils/resources/routes_manager.dart';
 import '../core/utils/resources/theme_manager.dart';
 import 'app_prefs.dart';
@@ -43,7 +44,7 @@ class _MyAppState extends State<MyApp> {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         navigatorObservers: [GlobalVariable.routeObserver],
-        navigatorKey: GlobalVariable.navigatorKey,
+        navigatorKey: NavigationService.navigatorKey,
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.splashRoute,
         theme: getApplicationTheme(),

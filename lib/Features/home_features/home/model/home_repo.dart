@@ -5,6 +5,7 @@ import '../../../../../core/network/base_request_interface.dart';
 import '../../../../../core/network/http_base_request.dart';
 import '../../../../../data/model/request-model.dart';
 import '../../../../../data/model/user-model.dart';
+import '../../../../data/model/auth.dart';
 
 class HomeRepo {
   final BaseRequestInterface _baseRequest;
@@ -13,10 +14,9 @@ class HomeRepo {
   HomeRepo(this._baseRequest, this.appPreferences);
 
   Future<dynamic> logoutUser() async {
-    UserModel? userModel = appPreferences.getUserData();
-    String token = await appPreferences.getFCMToken() ?? '';
+    AuthModel? authModel = appPreferences.getAuthModel();
 
-    var body = {'userId': userModel!.userid, "registrationId": token};
+    var body = {'refreshToken': authModel?.refreshToken ?? ""};
     RequestModel requestModel = RequestModel(
       endPoint: EndPointsConstants.logout,
       reqBody: body,
