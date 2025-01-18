@@ -93,7 +93,7 @@ class _TripAcceptedOfferState extends State<TripAcceptedOffer> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel.carManufacturer.carManufacturerAr : widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel.carManufacturer.carManufacturerEn} / ${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel.modelNameAr : widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel.modelName} ",
+                          "${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel?.carManufacturer.carManufacturerAr ?? "" : widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel?.carManufacturer.carManufacturerEn ?? ""} / ${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel?.modelNameAr ?? "" : widget.transportationBaseModel.acceptedOffer!.offer.driverModel.carModel?.modelName ?? ""} ",
                           style: getBoldStyle(
                               color: ColorManager.primaryTextColor,
                               fontSize: 18),

@@ -89,7 +89,7 @@ class _SingleOfferWidgetState extends State<SingleOfferWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      " ${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.offer.driverModel.carModel.carManufacturer.carManufacturerAr : widget.offer.driverModel.carModel.carManufacturer.carManufacturerEn} / ${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.offer.driverModel.carModel.modelNameAr : widget.offer.driverModel.carModel.modelName}",
+                      " ${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.offer.driverModel.carModel?.carManufacturer.carManufacturerAr ?? "" : widget.offer.driverModel.carModel?.carManufacturer.carManufacturerEn ?? ""}${widget.offer.driverModel.carModel != null ? " / " : ""}${_appPrefs.getAppLanguage() == LanguageType.ARABIC.getValue() ? widget.offer.driverModel.carModel?.modelNameAr ?? "" : widget.offer.driverModel.carModel?.modelName ?? ""}",
                       style: getBoldStyle(
                           color: ColorManager.primaryTextColor, fontSize: 18),
                     ),

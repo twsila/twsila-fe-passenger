@@ -10,8 +10,8 @@ class DriverModel {
   final String plateNumber;
   final double rating;
   final DriverVehicleType? vehicleType;
-  final CarModel carModel;
-  final CarManufacturerModel carManufacturerType;
+  CarModel? carModel;
+  CarManufacturerModel? carManufacturerType;
   final bool canTransportFurniture;
   final bool canTransportGoods;
   final bool canTransportFrozen;
@@ -35,8 +35,8 @@ class DriverModel {
     required this.plateNumber,
     required this.rating,
     required this.vehicleType,
-    required this.carModel,
-    required this.carManufacturerType,
+    this.carModel,
+    this.carManufacturerType,
     required this.canTransportFurniture,
     required this.canTransportGoods,
     required this.canTransportFrozen,
@@ -56,16 +56,19 @@ class DriverModel {
         mobile: json['mobile'],
         email: json['email'],
         gender: json['gender'],
-        dateOfBirth: json['dateOfBirth']??"" ,
+        dateOfBirth: json['dateOfBirth'] ?? "",
         driverServiceType: json['driverServiceType'],
         plateNumber: json['plateNumber'],
         rating: json['rating'],
         vehicleType: json['vehicleType'] == null
             ? null
             : DriverVehicleType.fromJson(json['vehicleType']),
-        carModel: CarModel.fromJson(json['carModel']),
-        carManufacturerType:
-            CarManufacturerModel.fromJson(json['carManufacturer']),
+        carModel: json['carModel'] != null
+            ? CarModel.fromJson(json['carModel'])
+            : null,
+        carManufacturerType: json['carManufacturer'] != null
+            ? CarManufacturerModel.fromJson(json['carManufacturer'])
+            : null,
         canTransportFurniture: json['canTransportFurniture'],
         canTransportGoods: json['canTransportGoods'],
         canTransportFrozen: json['canTransportFrozen'],
@@ -120,11 +123,11 @@ class CarManufacturerModel {
       );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "showInTwsila": showInTwsila,
-    "carManufacturerEn": carManufacturerEn,
-    "carManufacturerAr": carManufacturerAr,
-  };
+        "id": id,
+        "showInTwsila": showInTwsila,
+        "carManufacturerEn": carManufacturerEn,
+        "carManufacturerAr": carManufacturerAr,
+      };
 }
 
 class CarModel {
@@ -141,18 +144,18 @@ class CarModel {
   });
 
   factory CarModel.fromJson(Map<String, dynamic> json) => CarModel(
-    id: json["id"],
-    carManufacturer: CarManufacturerModel.fromJson(json["carManufacturer"]),
-    modelName: json["modelName"],
-    modelNameAr: json["modelNameAr"],
-  );
+        id: json["id"],
+        carManufacturer: CarManufacturerModel.fromJson(json["carManufacturer"]),
+        modelName: json["modelName"],
+        modelNameAr: json["modelNameAr"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "carManufacturer": carManufacturer.toJson(),
-    "modelName": modelName,
-    "modelNameAr": modelNameAr,
-  };
+        "id": id,
+        "carManufacturer": carManufacturer.toJson(),
+        "modelName": modelName,
+        "modelNameAr": modelNameAr,
+      };
 }
 
 class DriverImages {
