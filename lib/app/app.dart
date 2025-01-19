@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_for_you/app/bloc_providers.dart';
 import 'package:taxi_for_you/app/global_variables.dart';
@@ -38,7 +39,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: blocProviders(context),
-      child: MaterialApp(
+      child: GetMaterialApp(
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

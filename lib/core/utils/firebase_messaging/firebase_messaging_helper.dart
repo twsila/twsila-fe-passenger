@@ -6,27 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:taxi_for_you/app/app_prefs.dart';
 import 'package:taxi_for_you/app/di.dart';
 
+import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 import '../helpers/global_key.dart';
-import '../local_notification/local_notification_helper.dart';
 import '../resources/strings_manager.dart';
+import 'notification_popup.dart';
 
 class FirebaseMessagingHelper extends ChangeNotifier {
   static final _fbm = FirebaseMessaging.instance;
   static final AppPreferences appPreferences = instance<AppPreferences>();
 
-  // set up the buttons
-  Widget cancelButton = TextButton(
-    child: Text(AppStrings.cancel.tr()),
-    onPressed: () {
-      Navigator.pop(NavigationService.navigatorKey.currentState!.context);
-    },
-  );
-  Widget continueButton = TextButton(
-    child: Text(AppStrings.ok.tr()),
-    onPressed: () {
-      Navigator.pop(NavigationService.navigatorKey.currentState!.context);
-    },
-  );
+  final player = AudioPlayer();
 
   Future<void> configure() async {
     _fbm.requestPermission(
@@ -57,37 +47,21 @@ class FirebaseMessagingHelper extends ChangeNotifier {
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      // if (message.notification != null &&
-      //     NavigationService.navigatorKey.currentContext != null) {
-      //   showDialog(
-      //       context: NavigationService.navigatorKey.currentState!.context,
-      //       builder: (_) => AlertDialog(
-      //             title: Text(message.notification!.title ?? ""),
-      //             content: Text(message.notification!.body ?? ""),
-      //             actions: [continueButton],
-      //           ));
-      // } else if (message.data["title"] != null &&
-      //     message.data["title"] != "" &&
-      //     NavigationService.navigatorKey.currentContext != null) {
-      //   showDialog(
-      //       context: NavigationService.navigatorKey.currentState!.context,
-      //       builder: (_) => AlertDialog(
-      //             title: Text(message.data["title"] ?? ""),
-      //             content: Text(message.data["body"] ?? ""),
-      //             actions: [continueButton],
-      //           ));
-      // }
+      if (Get.context == null) return;
 
-      // Fire a local notification
-      await NotificationHelper.showNotification(
-        id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-        title: message.data["title"] ?? 'Tawsila Notification',
-        body: message.data["body"] ?? 'New Update',
-      );
+      final duration = await player.setAsset(
+          'assets/sound/notification-sound.mp3'); // Schemes: (https: | file: | asset: )
+      player.play();
+
+      DialogUtils.showNotificationPopup(
+          Get.context!,
+          message.data["title"] ?? "Twsila Notification",
+          message.data["body"] ?? "there's a new update!");
       return;
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {});
+
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await setFcmToken();
   }

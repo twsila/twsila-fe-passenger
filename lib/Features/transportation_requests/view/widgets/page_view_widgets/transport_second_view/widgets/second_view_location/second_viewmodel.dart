@@ -20,16 +20,18 @@ class SecondViewModel {
       PolylinePoints polylinePoints = PolylinePoints();
       List<LatLng> polylineCoordinates = [];
       PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        Platform.isIOS
+        googleApiKey: Platform.isIOS
             ? Constants.GOOGLE_API_KEY_IOS
             : Constants.GOOGLE_API_KEY_ANDROID,
-        PointLatLng(
-          furnitureModel.pickupLocation.latitude!,
-          furnitureModel.pickupLocation.longitude!,
+        request: PolylineRequest(
+          origin: PointLatLng(
+            furnitureModel.pickupLocation.latitude!,
+            furnitureModel.pickupLocation.longitude!,
+          ),
+          destination: PointLatLng(furnitureModel.destinationLocation.latitude!,
+              furnitureModel.destinationLocation.longitude!),
+          mode: TravelMode.driving,
         ),
-        PointLatLng(furnitureModel.destinationLocation.latitude!,
-            furnitureModel.destinationLocation.longitude!),
-        travelMode: TravelMode.driving,
       );
       if (result.points.isNotEmpty) {
         result.points.forEach((PointLatLng point) {

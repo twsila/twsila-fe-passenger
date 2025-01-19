@@ -73,7 +73,8 @@ dependencies:
   equatable: ^2.0.5
   keyboard_actions: ^4.2.0
   moyasar: ^2.0.10
-  flutter_local_notifications: ^16.0.1
+  get: ^4.6.6
+  just_audio: ^0.9.43
 
 
 dev_dependencies:
@@ -104,6 +105,7 @@ flutter:
     - assets/fonts/arabic/
     - assets/fonts/english/
     - assets/images/
+    - assets/sound/
 
   fonts:
     - family: almarai

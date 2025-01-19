@@ -49,6 +49,8 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
         mobileNumber: _viewModel.mobileNumber,
         appSignature: appSignature,
       ));
+      // BlocProvider.of<LoginBloc>(context)
+      //     .add(LoginUser(mobileNumber: _viewModel.mobileNumber));
       _isInit = false;
     }
     super.didChangeDependencies();
