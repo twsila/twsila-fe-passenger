@@ -35,6 +35,7 @@ class ImageAssets {
   static const String gift = "$imagePath/gift.png";
   static const String getHelp = "$imagePath/get-help.png";
   static const String userProfile = "$imagePath/user-pp.png";
+  static const String womenUserProfile = "$imagePath/woman.png";
   static const String verifyOtpGraphic = "$imagePath/verify_otp_grp.png";
   static const String carAid = "$imagePath/car-aid.png";
   static const String carCisterns = "$imagePath/car-cisterns.png";

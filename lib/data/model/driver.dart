@@ -172,6 +172,6 @@ class DriverImages {
   factory DriverImages.fromJson(Map<String, dynamic> json) => DriverImages(
         id: json['id'],
         imageName: json['imageName'],
-        imageURL: json['imageURL'],
+        imageURL: json['url'],
       );
 }

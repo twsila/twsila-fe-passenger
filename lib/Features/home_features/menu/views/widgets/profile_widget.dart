@@ -16,12 +16,14 @@ class CustomProfileWidget extends StatefulWidget {
 
   const CustomProfileWidget({Key? key, required this.userModel})
       : super(key: key);
+
   @override
   _CustomProfileWidgetState createState() => _CustomProfileWidgetState();
 }
 
 class _CustomProfileWidgetState extends State<CustomProfileWidget> {
   ValueNotifier notifier = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +36,10 @@ class _CustomProfileWidgetState extends State<CustomProfileWidget> {
             decoration: BoxDecoration(
                 color: ColorManager.bottomNavUnselected,
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
-            child: Image.asset(ImageAssets.userProfile),
+            child: Image.asset(widget.userModel.gender != null &&
+                    widget.userModel.gender == 'F'
+                ? ImageAssets.womenUserProfile
+                : ImageAssets.userProfile),
           ),
           const SizedBox(width: 16),
           Column(

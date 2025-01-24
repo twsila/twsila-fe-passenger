@@ -32,7 +32,7 @@ class FreezersModel extends TransportationBaseModel {
     containsPacking = json['containsPacking'] is String
         ? json['containsPacking'] == "true"
         : json['containsPacking'];
-    containsPacking = json['containsLift'] is String
+    containsLift = json['containsLift'] is String
         ? json['containsLift'] == "true"
         : json['containsLift'];
   }
