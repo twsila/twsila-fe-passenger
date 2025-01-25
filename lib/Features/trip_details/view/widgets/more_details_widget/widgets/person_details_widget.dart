@@ -21,14 +21,28 @@ class PersonDetailsWidget extends StatefulWidget {
 class _PersonDetailsWidgetState extends State<PersonDetailsWidget> {
   final appPreferences = instance<AppPreferences>();
   VehicleType? vehicleType;
+  int? numberOfPassengers;
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _asyncMethod();
+    });
+
+    super.initState();
+  }
+
+  _asyncMethod() async {
     vehicleType = widget.personsModel.vehicleType != null
         ? appPreferences.getLookupsInstance().vehicleTypes.singleWhere(
             (element) => element.id == widget.personsModel.vehicleType!.id)
         : null;
-    super.initState();
+    if (vehicleType != null) {
+      numberOfPassengers = vehicleType!.noOfPassengers
+          .singleWhere((element) =>
+              element.id == widget.personsModel.numberOfPassengersId)
+          .noOfPassengers;
+    }
   }
 
   @override
@@ -49,13 +63,8 @@ class _PersonDetailsWidgetState extends State<PersonDetailsWidget> {
             Expanded(
               child: ItemWidget(
                 title: AppStrings.numOfPassengers.tr(),
-                text: vehicleType != null
-                    ? (vehicleType!.noOfPassengers
-                            .singleWhere((element) =>
-                                element.id ==
-                                widget.personsModel.numberOfPassengersId)
-                            .noOfPassengers)
-                        .toString()
+                text: numberOfPassengers != null
+                    ? numberOfPassengers.toString()
                     : AppStrings.unknown.tr(),
               ),
             ),
