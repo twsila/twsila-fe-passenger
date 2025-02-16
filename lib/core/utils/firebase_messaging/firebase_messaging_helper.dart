@@ -47,14 +47,14 @@ class FirebaseMessagingHelper extends ChangeNotifier {
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      if (Get.context == null) return;
+      // if (Get.context == null) return;
 
       final duration = await player.setAsset(
           'assets/sound/notification-sound.mp3'); // Schemes: (https: | file: | asset: )
       player.play();
 
       DialogUtils.showNotificationPopup(
-          Get.context!,
+          NavigationService.navigatorKey.currentState!.context,
           message.data["title"] ?? "Twsila Notification",
           message.data["body"] ?? "there's a new update!");
       return;

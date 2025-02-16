@@ -32,6 +32,7 @@ const String PERSON_TRIP = "PERSON_TRIP";
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
   List<CountryModel> _countries = [];
+
   AppPreferences(this._sharedPreferences);
 
   String getAppLanguage() {
@@ -40,7 +41,7 @@ class AppPreferences {
       return language;
     } else {
       // return default lang
-      return LanguageType.ENGLISH.getValue();
+      return LanguageType.ARABIC.getValue();
     }
   }
 
