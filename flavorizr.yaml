@@ -1,0 +1,33 @@
+flavors:
+  development:
+    app:
+      name: "D-Twsila"
+    android:
+      applicationId: "com.Tawsila.passenger"
+      firebase:
+        config: ".firebase/development/google-services.json"
+      icon: "assets/images/logo.jpeg"
+#    ios:
+#      bundleId: "com.Tawsila.passenger"
+
+  staging:
+    app:
+      name: "S-Twsila"
+    android:
+      applicationId: "com.Tawsila.passenger"
+      firebase:
+        config: ".firebase/staging/google-services.json"
+      icon: "assets/images/logo.jpeg"
+#    ios:
+#      bundleId: "com.Tawsila.passenger"
+
+  production:
+    app:
+      name: "Twsila"
+    android:
+      applicationId: "com.Tawsila.passenger"
+      firebase:
+        config: ".firebase/production/google-services.json"
+      icon: "assets/images/logo.jpeg"
+#    ios:
+#      bundleId: "com.Tawsila.passenger"

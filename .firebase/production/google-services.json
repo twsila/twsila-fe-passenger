@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "674972025249",
+    "project_id": "tawsila-passenger-46c97",
+    "storage_bucket": "tawsila-passenger-46c97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674972025249:android:695bd590e648792a70cbe0",
+        "android_client_info": {
+          "package_name": "com.Tawsila.passenger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjc_xgIwl32sWWvlxlCZOYO3Eo6XssGUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

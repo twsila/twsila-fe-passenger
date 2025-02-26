@@ -17,6 +17,7 @@ import 'package:taxi_for_you/data/model/request-model.dart';
 import 'package:taxi_for_you/data/model/user-model.dart';
 
 import '../../app/di.dart';
+import '../../flavors.dart';
 import 'app_exceptions.dart';
 import 'base_response.dart';
 
@@ -33,7 +34,7 @@ class HttpBaseRequest extends BaseRequestInterface {
       {String param = '', int retryNumber = 2}) async {
     http.Response response;
 
-    Uri uri = Uri.parse(Constants.baseUrl + requestModel.endPoint);
+    Uri uri = Uri.parse(F.baseUrl + requestModel.endPoint);
 
     var headers = requestModel.headers ?? checkHeaders();
 
@@ -90,8 +91,8 @@ class HttpBaseRequest extends BaseRequestInterface {
   Future<dynamic> sendMultiPartRequest(RequestModel requestModel,
       List<XFile>? files, Map<String, dynamic> fields,
       {int retryNumber = 2}) async {
-    // Uri uri = Uri.parse(Constants.baseUrl + requestModel.endPoint);
-    Uri uri = Uri.https(Constants.baseUrlMultiPart, requestModel.endPoint);
+    Uri uri = Uri.parse(F.baseUrl + requestModel.endPoint);
+    // Uri uri = Uri.https(Constants.baseUrlMultiPart, requestModel.endPoint);
     var request = http.MultipartRequest('POST', uri);
 
     var headers = checkHeaders(isMultiPart: true);
@@ -242,7 +243,7 @@ class HttpBaseRequest extends BaseRequestInterface {
   printFunction(RequestModel requestModel, Map<String, String> headers) {
     var requestEncoded = json.encode(requestModel.reqBody);
     log("""
-    uri: ${Constants.baseUrl + requestModel.endPoint}
+    uri: ${F.baseUrl + requestModel.endPoint}
     body: $requestEncoded
     headers: $headers
     method: ${requestModel.requestType}""");
