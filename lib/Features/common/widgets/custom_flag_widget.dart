@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_for_you/core/utils/resources/assets_manager.dart';
 import 'package:taxi_for_you/core/utils/resources/color_manager.dart';
 
 import 'custom_circular_indicator.dart';
@@ -35,7 +36,7 @@ class CustomNetworkImage extends StatelessWidget {
               ),
             ),
           ),
-          errorWidget: (context, url, error) => Image.asset(imageUrl),
+          errorWidget: (context, url, error) => Image.asset(ImageAssets.logoImg),
         ),
       ),
     );

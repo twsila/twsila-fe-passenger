@@ -14,8 +14,6 @@ import 'package:taxi_for_you/core/network/base_request_interface.dart';
 import 'package:taxi_for_you/core/utils/resources/strings_manager.dart';
 import 'package:taxi_for_you/data/model/auth.dart';
 import 'package:taxi_for_you/data/model/request-model.dart';
-import 'package:taxi_for_you/data/model/user-model.dart';
-
 import '../../app/di.dart';
 import '../../flavors.dart';
 import 'app_exceptions.dart';

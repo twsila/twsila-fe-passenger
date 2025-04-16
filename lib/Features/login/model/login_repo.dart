@@ -15,6 +15,7 @@ import '../../../data/model/user-model.dart';
 class LoginRepo {
   final BaseRequestInterface _baseRequest;
   final AppPreferences appPreferences;
+
   LoginRepo(
     this._baseRequest,
     this.appPreferences,
@@ -56,6 +57,9 @@ class LoginRepo {
 
     try {
       dynamic response = await _baseRequest.sendRequest(requestModel);
+      if (response.result['success'] == false) {
+        throw 'Something went wrong';
+      }
       AuthModel auth = AuthModel(
           accesstoken: response.result['accessToken'],
           refreshToken: authModel.refreshToken);

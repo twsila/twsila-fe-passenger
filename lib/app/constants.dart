@@ -3,7 +3,7 @@ class Constants {
       "https://twsila-dev-service-f33wiujt7a-lm.a.run.app/";
   static const String baseUrlMultiPart =
       "twsila-dev-service-f33wiujt7a-lm.a.run.app";
-  static const int apiTimeOut = 30;
+  static const int apiTimeOut = 60;
   static const int otpCountTime = 60;
   // static const String GOOGLE_API_KEY_ANDROID =
   //     "AIzaSyAemSFn6fVufROQDewj0BjzuOKVw_Bxi8M";
@@ -65,8 +65,8 @@ class EndPointsConstants {
   static const String lookupsByKey = 'lookups/by-key';
   static const String lookupCountries = 'lookups/country';
   static const String login = "api/v1/auth/login";
-  static const String refreshToken = "/api/v1/auth/refresh-token";
-  static const String logout = "/api/v1/auth/logout";
+  static const String refreshToken = "api/v1/auth/refresh-token";
+  static const String logout = "api/v1/auth/logout";
   static const String register = "passengers/register";
   static const String editProfile = "passengers/update-my-profile";
   static const String generateOtp = "otp/generate";

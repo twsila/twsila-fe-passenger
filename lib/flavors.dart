@@ -9,11 +9,6 @@ class F {
 
   static String get name => appFlavor?.name ?? '';
 
-  static const String awsDevBaseUrl =
-      'http://ec2-54-90-154-31.compute-1.amazonaws.com:8080/';
-  static const String awsStagingBaseUrl =
-      'http://ec2-54-224-0-122.compute-1.amazonaws.com:8080/';
-
   static String get title {
     switch (appFlavor) {
       case Flavor.development:
@@ -30,13 +25,13 @@ class F {
   static String get baseUrl {
     switch (appFlavor) {
       case Flavor.development:
-        return awsDevBaseUrl;
+        return 'http://ec2-3-208-18-171.compute-1.amazonaws.com:8080/';
       case Flavor.staging:
-        return awsStagingBaseUrl;
+        return 'http://ec2-184-72-167-224.compute-1.amazonaws.com:8080/';
       case Flavor.production:
-        return awsStagingBaseUrl;
+        return 'http://ec2-184-72-167-224.compute-1.amazonaws.com:8080/';
       default:
-        return awsStagingBaseUrl;
+        throw Exception('App flavor is not set');
     }
   }
 }

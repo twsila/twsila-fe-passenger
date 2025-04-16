@@ -22,7 +22,7 @@ FutureOr<void> main() async {
   );
   SystemChrome.setSystemUIOverlayStyle(systemBarColors);
   runApp(EasyLocalization(
-      child: Phoenix(child: MyApp()),
       supportedLocales: const [ARABIC_LOCAL, ENGLISH_LOCAL],
-      path: ASSET_PATH_LOCALISATIONS));
+      path: ASSET_PATH_LOCALISATIONS,
+      child: Phoenix(child: MyApp())));
 }

@@ -14,6 +14,7 @@ import '../../../common/widgets/custom_language_widget.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
+
   @override
   _MenuScreenState createState() => _MenuScreenState();
 }
@@ -37,82 +38,90 @@ class _MenuScreenState extends State<MenuScreen> {
         context: context,
         body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    AppStrings.profile.tr(),
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: ColorManager.black, fontWeight: FontWeight.w900),
-                  ),
-                  const LanguageWidget(),
-                ],
-              ),
-              const SizedBox(height: 16),
-              CustomProfileWidget(userModel: _viewModel.userModel),
-              const SizedBox(height: 32),
-              MenuWidget(
-                menuImage: ImageAssets.payment,
-                menuLabel: AppStrings.walletAndPayments.tr(),
-                onPressed: () {
-                  // showModalBottomSheet(
-                  //   shape: const RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.only(
-                  //         topLeft: Radius.circular(25),
-                  //         topRight: Radius.circular(25)),
-                  //   ),
-                  //   elevation: 10,
-                  //   context: context,
-                  //   isScrollControlled: true,
-                  //   backgroundColor: Colors.white,
-                  //   builder: (ctx) => Container(
-                  //     margin: const EdgeInsets.all(16),
-                  //     height: MediaQuery.of(context).size.height / 1.2,
-                  //     child: PaymentMethods(),
-                  //   ),
-                  // );
-                },
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 16),
-                child: const Divider(),
-              ),
-              MenuWidget(
-                menuImage: ImageAssets.gift,
-                menuLabel: AppStrings.inviteAndWin.tr(),
-                onPressed: () {},
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 16),
-                child: const Divider(),
-              ),
-              MenuWidget(
-                menuImage: ImageAssets.callCenter,
-                menuLabel: AppStrings.getHelp.tr(),
-                onPressed: () {},
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 16),
-                child: const Divider(),
-              ),
-              MenuWidget(
-                menuImage: ImageAssets.logout,
-                menuLabel: AppStrings.logout.tr(),
-                onPressed: () => ShowDialogHelper.showDialogPopupWithCancel(
-                  AppStrings.confirmation.tr(),
-                  AppStrings.logoutConfirmation.tr(),
-                  context,
-                  () => Navigator.pop(context),
-                  () {
-                    Navigator.pop(context);
-                    _viewModel.appPreferences.logout(context);
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppStrings.profile.tr(),
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: ColorManager.black,
+                          fontWeight: FontWeight.w900),
+                    ),
+                    const LanguageWidget(),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                CustomProfileWidget(userModel: _viewModel.userModel),
+                const SizedBox(height: 32),
+                MenuWidget(
+                  menuImage: ImageAssets.payment,
+                  menuLabel: AppStrings.walletAndPayments.tr(),
+                  onPressed: () {
+                    // showModalBottomSheet(
+                    //   shape: const RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.only(
+                    //         topLeft: Radius.circular(25),
+                    //         topRight: Radius.circular(25)),
+                    //   ),
+                    //   elevation: 10,
+                    //   context: context,
+                    //   isScrollControlled: true,
+                    //   backgroundColor: Colors.white,
+                    //   builder: (ctx) => Container(
+                    //     margin: const EdgeInsets.all(16),
+                    //     height: MediaQuery.of(context).size.height / 1.2,
+                    //     child: PaymentMethods(),
+                    //   ),
+                    // );
                   },
                 ),
-              ),
-            ],
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 16),
+                  child: const Divider(),
+                ),
+                MenuWidget(
+                  menuImage: ImageAssets.gift,
+                  menuLabel: AppStrings.inviteAndWin.tr(),
+                  onPressed: () {},
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 16),
+                  child: const Divider(),
+                ),
+                MenuWidget(
+                  menuImage: ImageAssets.callCenter,
+                  menuLabel: AppStrings.getHelp.tr(),
+                  onPressed: () {},
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 16),
+                  child: const Divider(),
+                ),
+                MenuWidget(
+                  menuImage: ImageAssets.logout,
+                  menuLabel: AppStrings.logout.tr(),
+                  onPressed: () => ShowDialogHelper.showDialogPopupWithCancel(
+                    AppStrings.confirmation.tr(),
+                    AppStrings.logoutConfirmation.tr(),
+                    context,
+                    () => Navigator.pop(context),
+                    () {
+                      Navigator.pop(context);
+                      _viewModel.appPreferences.logout(context);
+                    },
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 16),
+                  height: 20,
+                  child: const Divider(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
