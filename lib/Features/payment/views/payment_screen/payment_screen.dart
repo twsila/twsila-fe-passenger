@@ -33,7 +33,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   final AppPreferences appPreferences = instance();
 
   PaymentConfig paymentConfig = PaymentConfig(
-    publishableApiKey: PaymentConstants.testingKey,
+    publishableApiKey: PaymentConstants.liveKey,
     amount: 3,
     description: 'order #1324',
     metadata: {'size': '250g'},

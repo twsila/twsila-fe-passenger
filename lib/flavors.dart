@@ -25,11 +25,11 @@ class F {
   static String get baseUrl {
     switch (appFlavor) {
       case Flavor.development:
-        return 'http://ec2-3-208-18-171.compute-1.amazonaws.com:8080/';
+        return 'http://54.89.92.148:8080/';
       case Flavor.staging:
-        return 'http://ec2-184-72-167-224.compute-1.amazonaws.com:8080/';
+        return 'http://54.89.92.148:8080/';
       case Flavor.production:
-        return 'http://ec2-184-72-167-224.compute-1.amazonaws.com:8080/';
+        return 'http://54.89.92.148:8080/';
       default:
         throw Exception('App flavor is not set');
     }
