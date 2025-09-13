@@ -25,11 +25,11 @@ class F {
   static String get baseUrl {
     switch (appFlavor) {
       case Flavor.development:
-        return 'http://54.89.92.148:8080/';
+        return 'http://twsila-dev-lb-944400879.us-east-1.elb.amazonaws.com:8080/';
       case Flavor.staging:
-        return 'http://54.89.92.148:8080/';
+        return 'http://twsila-dev-lb-944400879.us-east-1.elb.amazonaws.com:8080/';
       case Flavor.production:
-        return 'http://54.89.92.148:8080/';
+        return 'http://twsila-dev-lb-944400879.us-east-1.elb.amazonaws.com:8080/';
       default:
         throw Exception('App flavor is not set');
     }
